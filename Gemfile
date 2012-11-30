@@ -22,6 +22,32 @@ end
 
 gem 'jquery-rails'
 
+gem 'haml'
+# gem 'devise'
+# gem "cancan"
+# gem 'stripe'
+# gem 'launchy'
+# gem 'carrierwave'
+# gem 'rmagick'
+
+gem 'rspec-rails'
+
+group :test do
+  gem "factory_girl_rails"
+  gem "capybara"
+  gem "capybara-webkit"
+  gem "guard-rspec"
+  gem 'growl'
+  gem "ruby_gntp"
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'shoulda-context'
+end
+
+group :production do
+  gem 'pg'
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
