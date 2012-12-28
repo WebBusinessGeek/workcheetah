@@ -1,5 +1,6 @@
 CareerLoop::Application.routes.draw do
 
+  resources :jobs
   devise_for :users
 
   root :to => 'dashboards#home'

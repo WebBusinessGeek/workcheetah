@@ -1,0 +1,15 @@
+%h1 Jobs
+
+%table.table
+  %tr
+    %th Position
+    %th Company
+  - @jobs.each do |job|
+    %tr
+      %td
+        = link_to job.title, job
+      %td
+        = job.about_company.truncate(100)
+
+%br/
+

@@ -1,0 +1,8 @@
+= simple_form_for(@job, html: { class: "form-vertical"}) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :title, input_html: { style: "width: 98%; font-size: 24px; padding: 10px;"}
+    = f.input :description, input_html: { rows: 15, style: "width: 98%;" }
+    = f.input :about_company, input_html: { rows: 15, style: "width: 98%;" }
+  .form-actions
+    = f.button :submit, class: "btn btn-large btn-success"

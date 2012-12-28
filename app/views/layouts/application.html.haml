@@ -6,12 +6,24 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    %p.notice= notice
-    %p.alert= alert
-    .session
-      - if user_signed_in?
-        = link_to "Sign Out", destroy_user_session_path, method: :delete
-      - else
-        = link_to "Sign In", new_user_session_path
-        = link_to "Sign Up", new_user_registration_path
-    = yield
+    .container
+      .header.row{ style: "border-bottom: 1px solid #ddd"}
+        .logo.span10
+          %h1= link_to "The Career Loop", root_path
+        .session.span2
+          .btn-group{ style: "margin-top: 15px;"}
+            - if user_signed_in?
+              .btn= link_to "Sign Out", destroy_user_session_path, method: :delete
+            - else
+              .btn= link_to "Sign In", new_user_session_path
+      - if flash.any?
+        .flash.row
+          .span12
+            - flash.each do |name, msg|
+              %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
+                %a.close{"data-dismiss" => "alert"} ×
+                = msg
+      = yield
+      .footer.row{ style: "margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px;"}
+        .span12
+          Copyright 2013
