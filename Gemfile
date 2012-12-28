@@ -23,7 +23,7 @@ end
 gem 'jquery-rails'
 
 gem 'haml'
-# gem 'devise'
+gem 'devise'
 # gem "cancan"
 # gem 'stripe'
 # gem 'launchy'
@@ -38,10 +38,11 @@ group :test do
   gem "capybara-webkit"
   gem "guard-rspec"
   gem 'growl'
-  gem "ruby_gntp"
+  # gem "ruby_gntp"
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'shoulda-context'
+  gem 'rb-fsevent', '~> 0.9.1'
 end
 
 group :production do

@@ -10,7 +10,7 @@ Capybara.javascript_driver = :webkit
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
-  config.include Factory::Syntax::Methods
+  config.include FactoryGirl::Syntax::Methods
   config.mock_with :rspec
   config.infer_base_class_for_anonymous_controllers = false
   config.use_transactional_fixtures = false
