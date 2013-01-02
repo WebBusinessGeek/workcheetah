@@ -42,9 +42,9 @@ group :test do
   gem 'rb-fsevent', '~> 0.9.1'
 end
 
-group :production do
+# group :production do
   gem 'pg'
-end
+# end
 
 group :development do
   gem 'sqlite3'
