@@ -1,21 +1,22 @@
-.row
-  .span6
-    %h2 Job Seekers
-    %p
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat.
-    = link_to jobs_path, class: "btn btn-primary" do
-      %i{ class: "icon-search"}
-      Search Jobs
-  .span6
-    %h2 Employers
-    %p
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat.
-    = link_to new_job_path, class: "btn btn-primary" do
-      %i{ class: "icon-plus-sign"}
-      Post Job
+.dashboard{ style: "padding: 20px 0;"}
+  .row
+    .span6
+      %h2 Job Seekers
+      %p
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat.
+      = link_to jobs_path, class: "btn btn-primary" do
+        %i{ class: "icon-search"}
+        Search Jobs
+    .span6
+      %h2 Employers
+      %p
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat.
+      = link_to new_job_path, class: "btn btn-primary" do
+        %i{ class: "icon-plus-sign"}
+        Post Job

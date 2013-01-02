@@ -1,15 +1,19 @@
-%h1 Jobs
+.jobs_index{ style: "padding: 20px 0;"}
 
-%table.table
-  %tr
-    %th Position
-    %th Company
-  - @jobs.each do |job|
+  %h1 Jobs
+
+  = render "search_form"
+
+  %table.table
     %tr
-      %td
-        = link_to job.title, job
-      %td
-        = job.about_company.truncate(100)
+      %th Position
+      %th Company
+    - @jobs.each do |job|
+      %tr
+        %td
+          = link_to job.title, job
+        %td
+          = job.about_company.truncate(100)
 
-%br/
+  %br/
 

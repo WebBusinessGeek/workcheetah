@@ -2,7 +2,12 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
-    @jobs = Job.all
+    @query = params[:search]
+    @jobs = Job.scoped
+
+    if @query.present?
+      @jobs = @jobs.text_search(@query)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

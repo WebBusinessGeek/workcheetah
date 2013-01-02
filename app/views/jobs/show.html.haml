@@ -1,8 +1,9 @@
-%h2= @job.title
+.jobs_show{ style: "padding: 20px 0;"}
+  %h2= @job.title
 
-%h3 Job Description
-%p= @job.description
-%h3 About Company
-%p= @job.about_company
-= link_to 'Edit', edit_job_path(@job)
-= link_to 'Back', jobs_path
+  %h3 Job Description
+  %p= @job.description
+  %h3 About Company
+  %p= @job.about_company
+  = link_to 'Edit', edit_job_path(@job)
+  = link_to 'Back', jobs_path

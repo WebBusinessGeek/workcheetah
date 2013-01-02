@@ -1,0 +1,5 @@
+= form_tag jobs_path, method: :get do |f|
+  .control-group
+    .control
+      = text_field_tag :search, nil, class: "input-medium search-query"
+      = submit_tag "Search", class: "btn"
