@@ -5,9 +5,10 @@ class Job < ActiveRecord::Base
     if query.present?
       rank = <<-RANK
         ts_rank(to_tsvector(title), plainto_tsquery(#{sanitize(query)})) +
-        ts_rank(to_tsvector(description), plainto_tsquery(#{sanitize(query)}))
+        ts_rank(to_tsvector(description), plainto_tsquery(#{sanitize(query)})) +
+        ts_rank(to_tsvector(about_company), plainto_tsquery(#{sanitize(query)}))
       RANK
-      where("to_tsvector('english', title) @@ :q or to_tsvector('english', description) @@ :q", q: query).order("#{rank} desc")
+      where("to_tsvector('english', title) @@ :q or to_tsvector('english', description) @@ :q or to_tsvector('english', about_company) @@ :q", q: query).order("#{rank} desc")
     else
       scoped
     end
