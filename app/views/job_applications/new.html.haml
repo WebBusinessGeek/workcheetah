@@ -1,0 +1,22 @@
+.job_job_application_new
+  .row
+    .span12
+      - if user_signed_in?
+        %h1 Apply Today
+      - else
+        %h1 Looks like you're new here
+        %p Before you can apply, you'll need to add your resume details. Please start by select your login settings:
+        %h2 Sign up
+        = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+          = devise_error_messages!
+          .control-group
+            = f.label :email
+            .control= f.email_field :email
+          .control-group
+            = f.label :password
+            .control= f.password_field :password
+          .control-group
+            = f.label :password_confirmation
+            .control= f.password_field :password_confirmation
+          .control-group
+            = f.submit "Sign up", class: "btn btn-primary"

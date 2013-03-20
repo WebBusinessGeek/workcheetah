@@ -1,0 +1,9 @@
+.row
+  .span12
+    %h1 Select a Credit Package
+    - @credit_packages.each do |credit_package|
+      %li
+        = link_to credit_package do
+          = credit_package.name
+          = number_to_currency(credit_package.cost)
+          = "Quantity: " + credit_package.quantity.to_s

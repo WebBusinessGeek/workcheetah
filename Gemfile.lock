@@ -31,7 +31,14 @@ GEM
     addressable (2.3.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+    better_errors (0.3.2)
+      coderay (>= 1.0.0)
+      erubis (>= 2.7.0)
+    binding_of_caller (0.6.8)
+    bootstrap-sass (2.2.2.0)
+      sass (~> 3.2)
     builder (3.0.4)
+    cancan (1.6.8)
     capybara (1.1.3)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -52,7 +59,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
-    commonjs (0.2.6)
+    daemons (1.1.9)
     database_cleaner (0.7.2)
     devise (2.1.0)
       bcrypt-ruby (~> 3.0)
@@ -61,6 +68,7 @@ GEM
       warden (~> 1.1.1)
     diff-lcs (1.1.3)
     erubis (2.7.0)
+    eventmachine (1.0.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.1.0)
@@ -78,19 +86,20 @@ GEM
     guard-rspec (2.1.1)
       guard (>= 1.1)
       rspec (~> 2.11)
-    haml (3.1.6)
+    haml (3.2.0.rc.2)
+      tilt
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (3.0.0)
+      jquery-rails
+      railties (>= 3.1.0)
     json (1.7.5)
-    less (2.2.2)
-      commonjs (~> 0.2.6)
-    less-rails (2.2.6)
-      actionpack (>= 3.1)
-      less (~> 2.2.0)
+    launchy (2.1.2)
+      addressable (~> 2.3)
     libwebsocket (0.1.3)
       addressable
     listen (0.5.3)
@@ -99,6 +108,9 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    meta_request (0.2.0)
+      rack-contrib
+      rails
     method_source (0.8.1)
     mime-types (1.19)
     multi_json (1.4.0)
@@ -113,6 +125,8 @@ GEM
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-contrib (1.1.0)
+      rack (>= 0.9.1)
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.2)
@@ -137,6 +151,8 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     ref (1.0.2)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -165,26 +181,33 @@ GEM
     shoulda-context (1.0.0)
     shoulda-matchers (1.1.0)
       activesupport (>= 3.0.0)
-    simple_form (2.0.4)
-      actionpack (~> 3.0)
-      activemodel (~> 3.0)
     slop (3.3.3)
     sprockets (2.1.3)
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.6)
+    state_select (0.1.0)
+    stripe (1.7.8)
+      multi_json (>= 1.0.4, < 2)
+      rest-client (~> 1.4)
+    strong_parameters (0.1.6)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
+      railties (~> 3.0)
     therubyracer (0.11.0)
       ref
+    thin (1.5.0)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     thor (0.16.0)
     tilt (1.3.3)
+    tinymce-rails (3.5.8)
+      railties (>= 3.1.1)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    twitter-bootstrap-rails (2.1.9)
-      actionpack (>= 3.1)
-      execjs
-      railties (>= 3.1)
     tzinfo (0.3.35)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
@@ -198,6 +221,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  better_errors
+  binding_of_caller
+  bootstrap-sass
+  cancan
   capybara
   capybara-webkit
   coffee-rails (~> 3.2.1)
@@ -206,9 +233,11 @@ DEPENDENCIES
   factory_girl_rails
   growl
   guard-rspec
-  haml
+  haml (~> 3.2.0.beta.1)
   jquery-rails
-  less-rails
+  jquery-ui-rails
+  launchy
+  meta_request
   pg
   rails (= 3.2.8)
   rb-fsevent (~> 0.9.1)
@@ -216,8 +245,11 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   shoulda-context
   shoulda-matchers
-  simple_form
   sqlite3
+  state_select
+  stripe
+  strong_parameters
   therubyracer
-  twitter-bootstrap-rails
+  thin
+  tinymce-rails
   uglifier (>= 1.0.3)

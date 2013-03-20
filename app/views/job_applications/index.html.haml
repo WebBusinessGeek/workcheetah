@@ -1,0 +1,15 @@
+.row
+  .span12
+    %h1 Job Applicants
+    %table.table
+      %tr
+        %th Applicant
+        %th Apply
+      - @job_applications.each do |job_application|
+        %tr
+          %td
+            Preview:
+            = job_application.user.email.truncate(10)
+
+          %td
+            = link_to "Buy", [:buy, @job, job_application], method: :post

@@ -1,0 +1,20 @@
+#stripe_error &nbsp;
+.credit_card_fields
+  %h4 Billing Information
+  .columns_2
+    .column.column_1
+      .field
+        = label_tag :card_name, "Name on Card"
+        .input= text_field_tag :card_name, nil, name: nil
+    .column
+      .field
+        = label_tag :card_number, "Credit Card Number"
+        .input= text_field_tag :card_number, nil, name: nil
+  .field
+    = label_tag :card_month, "Card Expiration"
+    .input
+      = select_month nil, {add_month_numbers: true, :use_short_month => true}, {name: nil, id: "card_month"}
+      = select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"}
+  .field
+    = label_tag :card_code, "Security Code on Card (CVV)"
+    .input= text_field_tag :card_code, nil, name: nil

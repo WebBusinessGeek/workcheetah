@@ -1,9 +1,20 @@
-.jobs_show{ style: "padding: 20px 0;"}
-  %h2= @job.title
+.jobs_show
+  .white_box
+    .row
+      .span9
+        %h2= @job.title
 
-  %h3 Job Description
-  %p= @job.description
-  %h3 About Company
-  %p= @job.about_company
-  = link_to 'Edit', edit_job_path(@job)
-  = link_to 'Back', jobs_path
+        %h3 Job Description
+        - if @job.description
+          %p= @job.description.html_safe
+        %h3 About Company
+        - if @job.about_company
+          %p= @job.about_company.html_safe
+        - if can? :manage, @job
+          = link_to 'Edit', edit_job_path(@job)
+          = link_to 'Back', jobs_path
+      .span2
+        - if current_user && current_user.has_applied_to?(@job)
+          .applied You've already applied.
+        - else
+          = link_to "Apply", new_job_job_application_path(@job), class: "btn btn-primary btn-large"

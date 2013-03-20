@@ -1,0 +1,18 @@
+.experience.fields_for_set
+  %fieldset{ style: "border: 1px solid #ddd; padding: 20px;"}
+    = f.label :company_name
+    = f.text_field :company_name
+    = f.label :job_title
+    = f.text_field :job_title
+    .row
+      .span3
+        = f.label :from
+        = f.text_field :from, type: "date"
+      .span3
+        = f.label :till
+        = f.text_field :till, type: "date"
+    = f.label :highlights
+    = f.text_area :highlights, rows: "15", class: "tinymce"
+    = f.hidden_field :_destroy
+    .remove
+      = link_to "Remove Experience", '#', class: "remove_fields", class: "btn btn-mini btn-danger"

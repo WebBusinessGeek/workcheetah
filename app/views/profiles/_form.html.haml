@@ -1,0 +1,101 @@
+= form_for @profile do |f|
+  = tinymce
+  %h2 Contact Details
+  .row
+    .span5
+      = f.label :name
+      = f.text_field :name
+      = f.label :phone
+      = f.text_field :phone
+      = f.label :email
+      = f.email_field :email
+      = f.label :website
+      = f.text_field :website
+      = f.label :twitter
+      = f.text_field :twitter
+      = f.label :status, "Current Employment Status"
+      = f.select :status, options_for_select([ "Employed", "Unemployed", "Expecting Layoff" ]), { include_blank: true }
+    .span6
+      = f.fields_for :addresses do |af|
+        = render "address_fields", f: af
+
+  .hidden
+    %h2 What's Important To You?
+    .question
+      = f.label :growth_importance, "Growth potential: ", class: "radio inline", style: "width: 150px;"
+      = f.label :growth_importance_0, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :growth_importance, "0"
+        Not Important
+
+
+      = f.label :growth_importance_5, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :growth_importance, "5"
+        Important
+
+      = f.label :growth_importance_10, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :growth_importance, "10"
+        Very Important
+
+    .question
+      = f.label :distance_importance, "Close to home: ", class: "radio inline", style: "width: 150px;"
+      = f.label :distance_importance_0, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :distance_importance, "0"
+        Not Important
+
+
+      = f.label :distance_importance_5, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :distance_importance, "5"
+        Important
+
+      = f.label :distance_importance_10, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :distance_importance, "10"
+        Very Important
+
+    .question
+      = f.label :freedom_importance, "Freedom: ", class: "radio inline", style: "width: 150px;"
+      = f.label :freedom_importance_0, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :freedom_importance, "0"
+        Not Important
+
+
+      = f.label :freedom_importance_5, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :freedom_importance, "5"
+        Important
+
+      = f.label :freedom_importance_10, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :freedom_importance, "10"
+        Very Important
+
+    .question
+      = f.label :pay_importance, "Pay structure: ", class: "radio inline", style: "width: 150px;"
+      = f.label :pay_importance_0, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :pay_importance, "0"
+        Not Important
+
+
+      = f.label :pay_importance_5, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :pay_importance, "5"
+        Important
+
+      = f.label :pay_importance_10, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :pay_importance, "10"
+        Very Important
+
+  .experiences
+    %h2 Experience
+    = f.fields_for :experiences do |pf|
+      = render "experience_fields", f: pf
+    = link_to_add_fields "Add Experience", f, :experiences
+
+  .schools
+    %h2 School
+    = f.fields_for :schools do |sf|
+      = render "school_fields", f: sf
+    = link_to_add_fields "Add School", f, :schools
+
+  .references
+    %h2 References
+    = f.fields_for :references do |rf|
+      = render "reference_fields", f: rf
+    = link_to_add_fields "Add Reference", f, :references
+  = f.submit((f.object.new_record? ? "Create Resume" : "Edit Resume" ), class: "btn btn-success")

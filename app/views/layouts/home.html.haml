@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %title CareerLoop
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = javascript_include_tag "https://js.stripe.com/v1/"
+    = tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY
+    = csrf_meta_tags
+  %body.home
+    .header_box
+      = render "shared/header_nav"
+    .container
+      - if flash.any?
+        .flash.row
+          .span12
+            - flash.each do |name, msg|
+              %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
+                %a.close{"data-dismiss" => "alert"} ×
+                = msg
+    = yield

@@ -1,0 +1,12 @@
+Job
+  title
+  Location
+    city
+    state
+    country
+  description:text
+  about_company:text
+
+Company
+Profile
+User

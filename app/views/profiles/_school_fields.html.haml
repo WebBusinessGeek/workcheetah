@@ -1,0 +1,17 @@
+.school.fields_for_set
+  %fieldset{ style: "border: 1px solid #ddd; padding: 20px;"}
+    = f.label :name, "School name"
+    = f.text_field :name
+    = f.label :degree_type
+    = f.select :degree_type, options_for_select(["Associates", "Bachelors", "Masters", "Ph. D"])
+    = f.label :degree_name
+    = f.text_field :degree_name
+    = f.label :from
+    = f.text_field :from, type: "date"
+    = f.label :till
+    = f.text_field :till, type: "date"
+    = f.label :highlights
+    = f.text_area :highlights, rows: "15", class: "tinymce"
+    = f.hidden_field :_destroy
+    .remove
+      = link_to "Remove School", '#', class: "remove_fields btn btn-mini btn-danger"

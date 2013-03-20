@@ -1,0 +1,8 @@
+= form_for @credit_transaction do |f|
+  = "Package: #{ @credit_transaction.credit_package.name }"
+  = "Cost: #{ number_to_currency(@credit_transaction.credit_package.cost) }"
+  = "Credits: #{ @credit_transaction.credit_package.quantity }"
+  = f.hidden_field :credit_package_id
+  = f.hidden_field :stripe_card_token
+  = render "shared/credit_card_fields"
+  = f.submit "Buy Now", class: "btn btn-success"

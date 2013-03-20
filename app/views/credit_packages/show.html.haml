@@ -1,0 +1,17 @@
+- if current_user.account.has_payment_profile?
+  .confirmation_screen
+    %h1 Congrats. You just bought
+    %p
+      You are about to purchase the
+      = @credit_package.name
+      package for
+      = number_to_currency(@credit_package.cost)
+      which will grant you
+      = "#{@credit_package.quantity} credits."
+      / = link_to "Buy Now", purchase_credit_package_path(@credit_package), class: "btn btn-success", method: :post
+
+- else
+  .add_payment_method
+    %h1 Purchase Credit Package
+    = render 'credit_transactions/form'
+= link_to "Back to all packages", credit_packages_path

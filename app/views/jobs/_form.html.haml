@@ -1,8 +1,46 @@
-= simple_form_for(@job, html: { class: "form-vertical"}) do |f|
-  = f.error_notification
+= form_for(@job, html: { class: "form-vertical"}) do |f|
+  = tinymce :theme => "simple", :plugins => ["inlinepopups", "paste"]
+  - if @job.errors.any?
+    .errors
+      = @job.errors.full_messages.each do |msg|
+        %li= msg
   .form-inputs
-    = f.input :title, input_html: { style: "width: 98%; font-size: 24px; padding: 10px;"}
-    = f.input :description, input_html: { rows: 15, style: "width: 98%;" }
-    = f.input :about_company, input_html: { rows: 15, style: "width: 98%;" }
+    .control-group
+      = f.label :title, "Job title"
+      .control= f.text_field :title, style: "width: 98%; font-size: 24px; padding: 10px;"
+    .control-group
+      = f.label :description, "Job description"
+      .control= f.text_area :description, style: "height: 200px; width: 100%; font-size: 16px;", class: "tinymce"
+    .control-group
+      = f.label :about_company
+      .control= f.text_area :about_company, style: "height: 200px; width: 100%; font-size: 16px;", class: "tinymce"
+
+    - unless user_signed_in?
+      = f.fields_for :account do |af|
+        %h2 Account Info
+        .control-group
+          = af.label :name, "Company name"
+          .control= af.text_field :name
+        .control-group
+          = af.label :website, "Company website"
+          .control= af.text_field :website
+        .control-group
+          = af.label :phone, "Company phone"
+          .control= af.text_field :phone
+        %h2 Admin User Settings
+        %p Let's start by creating the first user on your account. You can add additional users later.
+        = af.fields_for :users do |uf|
+          .control-group
+            = uf.label :email, "Your email"
+            .control= uf.email_field :email
+          .control-group
+            = uf.label :password
+            .control= uf.password_field :password
+          .control-group
+            = uf.label :password_confirmation
+            .control= uf.password_field :password_confirmation
+        .checkbox
+          = check_box_tag :terms_conditions_agreement
+          = label_tag :terms_conditions_agreement, "I agree to the terms & conditions"
   .form-actions
-    = f.button :submit, class: "btn btn-large btn-success"
+    = f.submit (f.object.new_record? ? "Create Account & Save Job Listing" : "Update Job Listing"), class: "btn btn-large btn-success"

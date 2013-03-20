@@ -1,0 +1,19 @@
+.reference.fields_for_set
+  %fieldset{ style: "border: 1px solid #ddd; padding: 20px;"}
+    = f.label :name
+    = f.text_field :name
+    = f.label :job_title
+    = f.text_field :job_title
+    = f.label :company, "Company name"
+    = f.text_field :company
+    = f.label :phone, "Phone number"
+    = f.text_field :phone
+    = f.label :email
+    = f.text_field :email
+    = f.label :notes
+    = f.text_area :notes, rows: "10", class: "tinymce"
+    = f.label :reference_type, "Reference type"
+    = f.select :reference_type, options_for_select([ "Professional", "Personal", "Both" ], "Professional")
+    = f.hidden_field :_destroy
+    .remove
+      = link_to "Remove Reference", '#', class: "remove_fields btn btn-mini btn-danger"

@@ -1,22 +1,19 @@
-.dashboard{ style: "padding: 20px 0;"}
-  .row
-    .span6
-      %h2 Job Seekers
-      %p
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat.
-      = link_to jobs_path, class: "btn btn-primary" do
-        %i{ class: "icon-search"}
-        Search Jobs
-    .span6
-      %h2 Employers
-      %p
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat.
-      = link_to new_job_path, class: "btn btn-primary" do
-        %i{ class: "icon-plus-sign"}
-        Post Job
+.home
+  .search_content
+    .logo= image_tag "logo-large.png"
+    .search_box.span8= render "jobs/search_form"
+  .employers_box
+    .container
+      .employers
+        %h2
+          Employers:
+          = link_to "Post your job for free", [:new, :job]
+        %ul
+          %li Free to post your job.
+          %li Free to preview job applicant resumes.
+          %li Pay $0.99 to see full job applicant resume.
+        = link_to new_job_path, class: "btn" do
+          %i{ class: "icon-plus-sign"}
+          Post a Job
+      .footer
+        = render "shared/footer"

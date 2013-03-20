@@ -11,9 +11,11 @@
     - @jobs.each do |job|
       %tr
         %td
-          = link_to job.title, job
+          - if job.title.present?
+            = link_to job.title, job
         %td
-          = job.about_company.truncate(100)
+          - if job.account && job.account.name
+            = link_to job.account.name, job.account
 
   %br/
 
