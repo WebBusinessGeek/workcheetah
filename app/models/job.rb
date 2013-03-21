@@ -20,4 +20,8 @@ class Job < ActiveRecord::Base
       scoped
     end
   end
+
+  def to_param
+    "#{self.id}-#{self.title.parameterize}"
+  end
 end

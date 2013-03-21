@@ -1,21 +1,22 @@
-.jobs_index{ style: "padding: 20px 0;"}
+.jobs_index
+  .white_box
+    %h1 Jobs
 
-  %h1 Jobs
+    = render "search_form"
 
-  = render "search_form"
-
-  %table.table
-    %tr
-      %th Position
-      %th Company
-    - @jobs.each do |job|
+    %table.table
       %tr
-        %td
-          - if job.title.present?
-            = link_to job.title, job
-        %td
-          - if job.account && job.account.name
-            = link_to job.account.name, job.account
-
-  %br/
+        %th Position
+        %th Company
+        %th Posted
+      - @jobs.each do |job|
+        %tr
+          %td
+            - if job.title.present?
+              = link_to job.title, job
+          %td
+            - if job.account && job.account.name
+              = link_to job.account.name, job.account
+          %td= job.created_at.strftime("%m/%d/%Y")
+    %br/
 

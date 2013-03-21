@@ -17,4 +17,4 @@
         - if current_user && current_user.has_applied_to?(@job)
           .applied You've already applied.
         - else
-          = link_to "Apply", new_job_job_application_path(@job), class: "btn btn-primary btn-large"
+          = link_to "Apply", new_job_job_application_path(@job), class: "btn btn-primary btn-large", style: "width: 95%"
