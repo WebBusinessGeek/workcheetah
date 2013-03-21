@@ -1,5 +1,7 @@
 CareerLoop::Application.routes.draw do
   resources :profiles
+  resources :articles
+
   resources :experiences
   resources :jobs do
     collection do
@@ -22,6 +24,7 @@ CareerLoop::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => "users/registrations", :passwords => "users/passwords"}
 
   root :to => 'dashboards#home'
+  match ':slug' => 'page#show'
 
 
   # The priority is based upon order of creation:
