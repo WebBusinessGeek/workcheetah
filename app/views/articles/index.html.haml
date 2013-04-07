@@ -1,6 +1,6 @@
 .articles_index
   .white_box
-    - if current_user.admin?
+    - if user_signed_in? && user.admin?
       .pull-right
         = link_to "Add Article", [:new, :article], class: "btn"
     %h1 Resource Center

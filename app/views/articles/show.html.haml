@@ -4,6 +4,7 @@
       = link_to "All Articles", articles_path
 
     .pull-right
-      = link_to "Edit Article", [:edit, @article], class: "btn"
+      - if user_signed_in? && user.admin?
+        = link_to "Edit Article", [:edit, @article], class: "btn"
     %h1= @article.title
     = @article.body.html_safe
