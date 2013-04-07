@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130130044741) do
+ActiveRecord::Schema.define(:version => 20130407211522) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20130130044741) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "credits"
+    t.string   "logo"
+    t.string   "slug"
   end
 
   create_table "addresses", :force => true do |t|
@@ -47,6 +49,14 @@ ActiveRecord::Schema.define(:version => 20130130044741) do
   add_index "applicant_accesses", ["account_id"], :name => "index_applicant_accesses_on_account_id"
   add_index "applicant_accesses", ["job_application_id"], :name => "index_applicant_accesses_on_job_application_id"
 
+  create_table "articles", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "slug"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "credit_packages", :force => true do |t|
     t.string   "name"
     t.decimal  "cost",       :precision => 6, :scale => 2
@@ -70,13 +80,21 @@ ActiveRecord::Schema.define(:version => 20130130044741) do
   add_index "credit_transactions", ["credit_package_id"], :name => "index_credit_transactions_on_credit_package_id"
   add_index "credit_transactions", ["payment_method_id"], :name => "index_credit_transactions_on_payment_method_id"
 
+  create_table "email_subscriptions", :force => true do |t|
+    t.string   "query"
+    t.string   "location"
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "experiences", :force => true do |t|
     t.string   "company_name"
     t.string   "job_title"
     t.date     "from"
     t.date     "till"
     t.text     "highlights"
-    t.integer  "profile_id"
+    t.integer  "resume_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.boolean  "current_employer"
@@ -100,6 +118,9 @@ ActiveRecord::Schema.define(:version => 20130130044741) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "account_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "address"
   end
 
   create_table "payment_profiles", :force => true do |t|
@@ -115,7 +136,20 @@ ActiveRecord::Schema.define(:version => 20130130044741) do
 
   add_index "payment_profiles", ["account_id"], :name => "index_payment_profiles_on_account_id"
 
-  create_table "profiles", :force => true do |t|
+  create_table "references", :force => true do |t|
+    t.string   "name"
+    t.string   "job_title"
+    t.string   "company"
+    t.string   "phone"
+    t.string   "email"
+    t.text     "notes"
+    t.string   "reference_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "resume_id"
+  end
+
+  create_table "resumes", :force => true do |t|
     t.string   "name"
     t.string   "phone"
     t.string   "email"
@@ -128,19 +162,9 @@ ActiveRecord::Schema.define(:version => 20130130044741) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.string   "twitter"
-  end
-
-  create_table "references", :force => true do |t|
-    t.string   "name"
-    t.string   "job_title"
-    t.string   "company"
-    t.string   "phone"
-    t.string   "email"
-    t.text     "notes"
-    t.string   "reference_type"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.integer  "profile_id"
+    t.integer  "user_id"
+    t.string   "web_video"
+    t.string   "video"
   end
 
   create_table "schools", :force => true do |t|
@@ -151,7 +175,7 @@ ActiveRecord::Schema.define(:version => 20130130044741) do
     t.date     "till"
     t.boolean  "currently_attending"
     t.text     "highlights"
-    t.integer  "profile_id"
+    t.integer  "resume_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
@@ -170,6 +194,7 @@ ActiveRecord::Schema.define(:version => 20130130044741) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.integer  "account_id"
+    t.boolean  "admin"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

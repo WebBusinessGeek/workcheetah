@@ -3,6 +3,6 @@ class JobApplication < ActiveRecord::Base
 
   belongs_to :job
   belongs_to :user
-  has_many :applicant_accesses
+  has_one :applicant_access
   # attr_accessible :status
 end

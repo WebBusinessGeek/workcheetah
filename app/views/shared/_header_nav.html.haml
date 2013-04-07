@@ -1,16 +1,24 @@
 .navbar.navbar-static-top
-  .navbar-inner
+  .navbar-inner{ style: @portal ? "background: #222" : "" }
     .container
       .navbar-form.pull-right
         - if user_signed_in?
           = link_to "Sign Out", destroy_user_session_path, method: :delete
-          = link_to "My Jobs", my_jobs_path
         - else
           = form_for("user", :url => user_session_path, html: { class: "navbar-form" }) do |f|
             = f.email_field :email, placeholder: "Email", class: "input-medium"
             = f.password_field :password, placeholder: "Password", class: "input-medium"
             = f.submit "Sign in", class: "btn"
       .links-top-right
-        = link_to "Search Jobs", root_path, class: (root_path == request.path ? "current" : "" )
-        = link_to "Post a Job", [:new, :job], class: (new_job_path == request.path ? "current" : "" )
-        = link_to "Post Your Resume", [:new, :profile], class: (new_profile_path == request.path ? "current" : "" )
+        - unless @portal
+          - if user_signed_in? && current_user.account.present?
+            = link_to "My Account", account_path
+            = link_to "My Jobs", my_jobs_path
+          - if user_signed_in? && current_user.job_applications.any?
+            = link_to "My Job Applications", job_applications_path
+          = link_to "Search Jobs", root_path, class: (root_path == request.path ? "current" : "" )
+          = link_to "Post a Job", [:new, :job], class: (new_job_path == request.path ? "current" : "" )
+        - if user_signed_in? && current_user.resume.present?
+          = link_to "Your Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
+        - else
+          = link_to "Post Your Resume", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )

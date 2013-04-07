@@ -1,0 +1,12 @@
+.articles_index
+  .white_box
+    - if current_user.admin?
+      .pull-right
+        = link_to "Add Article", [:new, :article], class: "btn"
+    %h1 Resource Center
+    - if @articles.any?
+      - @articles.each do |article|
+        %h3.title= link_to article.title, article
+        .teaser= ActionView::Base.full_sanitizer.sanitize(article.body).truncate(200)
+    - else
+      %p No articles added yet.

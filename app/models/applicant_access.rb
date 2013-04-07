@@ -3,5 +3,7 @@ class ApplicantAccess < ActiveRecord::Base
 
   belongs_to :job_application
   belongs_to :account
+
+  PRICE_PER_APPLICANT = 99
   # attr_accessible :title, :body
 end

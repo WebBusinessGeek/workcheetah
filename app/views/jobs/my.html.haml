@@ -1,16 +1,17 @@
 .jobs_index
-  %h1 My Jobs
-  %table.table
-    %tr
-      %th Position
-      %th Applicants
-    - @jobs.each do |job|
+  .white_box
+    %h1 My Jobs
+    %table.table
       %tr
-        %td
-          - if job.title.present?
-            = link_to job.title, job
-        %td
-          = link_to pluralize(job.job_applications.count, "Applicant"), [job, :job_applications]
+        %th Position
+        %th Applicants
+      - @jobs.each do |job|
+        %tr
+          %td
+            - if job.title.present?
+              = link_to job.title, job
+          %td
+            = link_to pluralize(job.job_applications.count, "Applicant"), [job, :job_applications]
 
-  %br/
+    %br/
 

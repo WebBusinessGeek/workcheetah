@@ -1,15 +1,36 @@
-.row
-  .span12
+.job_applicants_index
+  .white_box
     %h1 Job Applicants
-    %table.table
-      %tr
-        %th Applicant
-        %th Apply
-      - @job_applications.each do |job_application|
+    - if @job
+      %table.table
         %tr
-          %td
-            Preview:
-            = job_application.user.email.truncate(10)
+          %th Applicant
+          %th
+        - @job_applications.each do |job_application|
+          - if job_application.user.resume.present?
+            %tr
+              - if can? :read, job_application
+                %td= job_application.user.resume.name
+                %td= link_to "View", [@job, job_application], class: "btn"
+              - else
+                %td
+                  Preview:
+                  = job_application.user.email.truncate(10)
 
-          %td
-            = link_to "Buy", [:buy, @job, job_application], method: :post
+                %td
+
+                  = link_to "Buy", [:buy, @job, job_application], method: :post, class: "btn"
+                  = link_to "Preview", [@job, job_application], class: "btn"
+    - else
+      %table.table
+        %tr
+          %th Job
+          %th Company
+          %th Applied Date
+          %th Status
+        - @job_applications.each do |job_application|
+          %tr
+            %td= link_to job_application.job.title, job_application.job
+            %td= job_application.job.account.name
+            %td= job_application.created_at.strftime("%m/%d/%Y")
+            %td= job_application.status

@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
 gem 'thin'
+gem 'rmagick'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -29,8 +30,11 @@ gem "cancan"
 gem 'stripe'
 gem "state_select"
 gem 'launchy'
-# gem 'carrierwave'
+gem 'carrierwave'
+gem 'carrierwave_direct'
+gem 'aws-sdk'
 # gem 'rmagick'
+gem "geocoder"
 
 
 group :test do

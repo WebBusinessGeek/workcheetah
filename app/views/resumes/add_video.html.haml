@@ -1,0 +1,7 @@
+.resumes_add_video
+  .white_box
+    %h1 Upload your video below:
+    = direct_upload_form_for @uploader do |f|
+      %p= f.label :video, "Video file (maximum file size: 100MB)"
+      %p= f.file_field :video
+      %p= f.submit "Upload Video"

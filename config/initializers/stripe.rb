@@ -1,6 +1,6 @@
 if Rails.env.development? || Rails.env.test?
-  Stripe.api_key = "LL7PGWzGIBa1v61qk1LprEZXqwo9GYtE"
-  STRIPE_PUBLIC_KEY = "pk_HsYtVBbmyTRHjE3haYtTQLM4Lje4v"
+  Stripe.api_key = "sk_test_wPMSw7QQnYZkjWBKvq0hUxFn"
+  STRIPE_PUBLIC_KEY = "pk_test_h80n7D2FsGImlQj8pt8ddBHB"
 end
 
 if Rails.env.production?

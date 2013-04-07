@@ -1,0 +1,30 @@
+.getting_faster
+  .white_box{ style: "text-align: center;"}
+    - if params[:subscribed] == "true"
+      %h1 You'll be receiving an email soon.
+      %p
+        Check your email later today for the list of 35
+        = @query
+        positions
+        - if @location.present?
+          in
+          = @location
+    - else
+      %h1 We're Working On Getting Faster
+      %p
+        Dont let us slow you down. Get a list of 35
+        = @query
+        positions
+        - if @location.present?
+          in
+          = @location
+      .row
+        .span4{ style: "margin: auto; float: none;"}
+          = form_for @email_subscription, class: "form-vertical" do |f|
+            %div
+              = f.label :email
+              = f.text_field :email, placeholder: "Ex. your.email@gmail.com"
+            = f.hidden_field :query, value: @query
+            = f.hidden_field :location, value: @location
+            = f.hidden_field :return_url, value: request.url
+            %div= f.submit "Send Me The List", class: "btn btn-success btn-large"

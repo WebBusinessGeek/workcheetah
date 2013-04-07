@@ -14,4 +14,6 @@
 //= require tinymce-jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require bootstrap_setup
+//= require resume_builder
 //= require_tree .

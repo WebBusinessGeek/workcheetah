@@ -6,18 +6,20 @@ class Job < ActiveRecord::Base
   has_many :job_applications
 
   accepts_nested_attributes_for :account
+  geocoded_by :address
+  after_validation :geocode, :if => :address_changed?
 
 
-  def self.text_search(query)
+  def self.text_search(query, location)
     if query.present?
       # where("title @@ :q or description @@ :q or about_company @@ :q", q: query)
       rank = <<-RANK
         ts_rank(to_tsvector(title), plainto_tsquery(#{sanitize(query)})) +
         ts_rank(to_tsvector(description), plainto_tsquery(#{sanitize(query)}))
       RANK
-      where("title @@ :q or description @@ :q", q: query).order("#{rank} desc")
+      where("title @@ :q or description @@ :q", q: query).order("#{rank} desc").near(location)
     else
-      scoped
+      scoped.near(location)
     end
   end
 

@@ -1,0 +1,48 @@
+.job_applicants_show
+  .white_box
+    - if @resume.present?
+      .pull-right{ style: "text-align: center;" }
+        = link_to "Buy Now - $0.99", [:buy, @job, @job_application], class: "btn btn-large btn-success", method: :post
+        %br/
+        or
+        %br/
+        = link_to "Not Interested", [:reject, @job, @job_application], class: "btn btn-danger", method: :post
+      %h1 Applicant Name
+
+      .contact_details
+        %span (XXX) XXX-XXXX
+        %span xxxx@xxxxxxxxx.xxx
+        - if @resume.website.present?
+          %span http://xxx.xxxxxxxxxxx.xxx
+        - if @resume.twitter.present?
+          %span @xxxxxxxxx
+
+      .experiences
+        - if @resume.experiences.any?
+          %h3 Experience
+          - @resume.experiences.each do |experience|
+            .experience
+              %h4.company
+                XXXXXXXXXXXXX
+                %span.title{ style: "font-weight: normal; margin-left: 10px;" }= experience.job_title
+                %span.range{ style: "font-weight: normal; margin-left: 10px; font-size: 14px;" }
+                  = [experience.from, experience.till].map{ |x| x unless x.blank? }.join(" - ")
+              %em{ style: "color: #999;" } Details available once you buy access to this job applicant.
+      .schools
+        %h3 Schools
+        - @resume.schools.each do |school|
+          .school
+            %h4.school_name= school.name
+      .references
+        %h3 References
+        - @resume.references.each do |reference|
+          .reference
+            %h4.name{ style: "margin-bottom: 0"} Reference Name
+            %em.job Job Title
+            .company Company
+            .phone (XXX) XXX-XXXX
+            .email xxxxxx@xxxxxxxxxxxx.xxx
+            - if reference.notes.present?
+              .notes Additional notes available when you've purchased this job applicant.
+    - else
+      %p This application doesn't have a resume

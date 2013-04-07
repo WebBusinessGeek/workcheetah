@@ -2,7 +2,8 @@
   .white_box
     %h1 Jobs
 
-    = render "search_form"
+    - unless @portal
+      = render "jobs/search_form"
 
     %table.table
       %tr
@@ -16,7 +17,7 @@
               = link_to job.title, job
           %td
             - if job.account && job.account.name
-              = link_to job.account.name, job.account
+              = job.account.name
           %td= job.created_at.strftime("%m/%d/%Y")
     %br/
 

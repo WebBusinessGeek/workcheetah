@@ -1,6 +1,6 @@
 .home
   .search_content
-    .logo= image_tag "logo-large.png"
+    .logo= image_tag "logo-large3.png"
     .search_box.span8= render "jobs/search_form"
   .employers_box
     .container
@@ -15,5 +15,8 @@
         = link_to new_job_path, class: "btn" do
           %i{ class: "icon-plus-sign"}
           Post a Job
+        or visit the
+        = link_to "Employers", "#"
+        page to learn more.
       .footer
         = render "shared/footer"

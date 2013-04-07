@@ -1,0 +1,51 @@
+.resumes_show
+  .white_box
+    - if @resume.present?
+      .pull-right
+        = link_to "Add Video Resume", [:add_video, current_user.resume], class: "btn"
+        = link_to "Edit Resume", [:edit, current_user.resume], class: "btn"
+      %h1
+        = @resume.name
+        - if can? :update, @resume
+          = link_to "Edit", [:edit, @resume]
+      .contact_details
+        %span= @resume.phone
+        %span= @resume.email
+        %span= link_to @resume.website, @resume.website
+        %span= link_to "@#{@resume.twitter}", "http://www.twitter/#{@resume.twitter}"
+
+        / - @resume.addresses.each do |address|
+        /   .address
+        /     = address.city
+        /     = address.state
+
+      - if @resume.experiences.any?
+        %h3 Experience
+        - @resume.experiences.each do |experience|
+          .experience
+            %h4.company
+              = experience.company_name
+              %span.title{ style: "font-weight: normal; margin-left: 10px;" }= experience.job_title
+              %span.range{ style: "font-weight: normal; margin-left: 10px; font-size: 14px;" }
+                = experience.from
+                = " - "
+                = experience.till
+            %span= experience.highlights.html_safe
+      .schools
+        %h3 Schools
+        - @resume.schools.each do |school|
+          .school
+            %h4.school_name= school.name
+      .references
+        %h3 References
+        - @resume.references.each do |reference|
+          .reference
+            %h4.name{ style: "margin-bottom: 0"}= reference.name
+            %em.job= reference.job_title
+            .company= reference.company
+            .phone= reference.phone
+            .email= reference.email
+            .notes= reference.notes
+
+    - else
+      %p This application doesn't have a resume

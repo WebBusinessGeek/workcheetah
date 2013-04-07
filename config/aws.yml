@@ -1,0 +1,12 @@
+base: &base
+  access_key_id: "AKIAJMAFP7FPMMGMEOVA"
+  secret_access_key: "mFSQ+peQKVPxR+UmekwOhm6Vo4Ma7JVhCWP3bQ6s"
+  # region: your_region
+
+development:
+  <<: *base
+  bucket_name: ladderdev
+
+production:
+  <<: *base
+  bucket_name: ladderpro

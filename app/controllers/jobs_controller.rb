@@ -3,10 +3,18 @@ class JobsController < ApplicationController
   # GET /jobs.json
   def index
     @query = params[:search]
-    @jobs = Job.text_search(@query)
+    @location = params[:location]
+    @jobs = Job.text_search(@query, @location)
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html do
+        if @jobs.any?
+          render "index"
+        else
+          @email_subscription = EmailSubscription.new
+          render "getting_faster"
+        end
+      end
       format.json { render json: @jobs }
     end
   end
@@ -56,6 +64,7 @@ class JobsController < ApplicationController
   # POST /jobs.json
   def create
     @job = Job.new(job_params)
+    @job.account = current_user.account if user_signed_in?
 
     respond_to do |format|
       if @job.save
@@ -100,6 +109,6 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:title, :description, :about_company, account_attributes: [ :name, :website, :phone, users_attributes: [ :email, :password, :password_confirmation ] ])
+    params.require(:job).permit(:title, :description, :about_company, :address, account_attributes: [ :name, :website, :phone, users_attributes: [ :email, :password, :password_confirmation ] ])
   end
 end

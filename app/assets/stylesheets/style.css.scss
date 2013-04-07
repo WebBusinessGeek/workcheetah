@@ -44,17 +44,18 @@ body{
   background: white;
 
   .logo{
-    margin: 20px 0;
+    margin: 30px 0;
   }
 
   .navbar{
     .navbar-inner{
-      background-color: #1a68a7; /* layer fill content */
+      background-color: #a0d3ed; /* layer fill content */
+      background-image: -moz-linear-gradient(bottom, #00a7e2 0%, #005891 100%); /* gradient overlay */
+      background-image: -o-linear-gradient(bottom, #00a7e2 0%, #005891 100%); /* gradient overlay */
+      background-image: -webkit-linear-gradient(bottom, #00a7e2 0%, #005891 100%); /* gradient overlay */
+      background-image: linear-gradient(bottom, #00a7e2 0%, #005891 100%); /* gradient overlay */
 
-      background-image: -moz-linear-gradient(bottom, #1a68a7 0%, #3d94c6 100%); /* gradient overlay */
-      background-image: -o-linear-gradient(bottom, #1a68a7 0%, #3d94c6 100%); /* gradient overlay */
-      background-image: -webkit-linear-gradient(bottom, #1a68a7 0%, #3d94c6 100%); /* gradient overlay */
-      background-image: linear-gradient(bottom, #1a68a7 0%, #3d94c6 100%); /* gradient overlay */
+
       color: white;
       border: 0;
 
@@ -88,8 +89,12 @@ body.home{
 
   .search_content{
     .logo{
-      width: 452px;
+      width: 557px;
       margin: 50px auto;
+
+      @include respond-to(handhelds){
+        width: 200px;
+      }
 
       @include respond-to(tallest){
         margin-top: 100px;

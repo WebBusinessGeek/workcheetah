@@ -1,18 +1,31 @@
-= form_for @profile do |f|
+= form_for @resume do |f|
   = tinymce
-  %h2 Contact Details
+
+  - unless user_signed_in?
+    %h3 Account Details
+    = f.fields_for :user do |uf|
+      .control-group
+        = uf.label :email, "Your email (used to login)"
+        .control= uf.email_field :email
+      .control-group
+        = uf.label :password
+        .control= uf.password_field :password
+      .control-group
+        = uf.label :password_confirmation
+        .control= uf.password_field :password_confirmation
+  %h3 Contact Details
   .row
     .span5
       = f.label :name
-      = f.text_field :name
+      = f.text_field :name, style: "width: 100%"
       = f.label :phone
-      = f.text_field :phone
-      = f.label :email
-      = f.email_field :email
+      = f.text_field :phone, style: "width: 100%"
+      = f.label :email, "Email (your professional email)"
+      = f.email_field :email, style: "width: 100%"
       = f.label :website
-      = f.text_field :website
+      = f.text_field :website, style: "width: 100%"
       = f.label :twitter
-      = f.text_field :twitter
+      = f.text_field :twitter, style: "width: 100%"
       = f.label :status, "Current Employment Status"
       = f.select :status, options_for_select([ "Employed", "Unemployed", "Expecting Layoff" ]), { include_blank: true }
     .span6

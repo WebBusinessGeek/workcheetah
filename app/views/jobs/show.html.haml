@@ -2,13 +2,15 @@
   .white_box
     .row
       .span9
+        - if @job.account.logo.present?
+          = image_tag @job.account.logo.medium.url
         %h2= @job.title
 
         %h3 Job Description
         - if @job.description
           %p= @job.description.html_safe
-        %h3 About Company
-        - if @job.about_company
+        - if @job.about_company.present?
+          %h3 About Company
           %p= @job.about_company.html_safe
         - if can? :manage, @job
           = link_to 'Edit', edit_job_path(@job)

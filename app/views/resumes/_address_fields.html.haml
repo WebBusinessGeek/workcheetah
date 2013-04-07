@@ -1,0 +1,11 @@
+
+= f.label :address_1, "Home Address"
+= f.text_field :address_1, placeholder: "Ex. 555 Some St"
+%br/
+= f.text_field :address_2, placeholder: "Ex. Suite #12 (optional)", style: "width: 100%"
+= f.label :city
+= f.text_field :city, placeholder: "Ex. New York", style: "width: 100%"
+= f.label :state
+= f.select :state, us_states, style: "width: 100%"
+= f.label :zip
+= f.text_field :zip, placeholder: "Ex. 55555", style: "width: 100%"

@@ -6,7 +6,7 @@ describe "ProfilesController" do
       create(:user, email: "mr@example.com", password: "password123")
       visit root_path
       login_user "mr@example.com", "password123"
-      visit new_profile_path
+      visit new_resume_path
     end
     it "should allow you to create a new profile" do
       fill_in_profile_contact_details
