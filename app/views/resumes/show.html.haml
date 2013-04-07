@@ -8,6 +8,9 @@
         = @resume.name
         - if can? :update, @resume
           = link_to "Edit", [:edit, @resume]
+
+      = @resume.video
+
       .contact_details
         %span= @resume.phone
         %span= @resume.email

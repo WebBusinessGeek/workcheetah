@@ -1,4 +1,6 @@
 base: &base
+  # access_key_id: "AKIAJ4ACPVIN55ZS5BCQ"
+  # secret_access_key: "OL2tcpQjzFywVvHejq/7Dez85aKDhUU6sEpo9+77"
   access_key_id: "AKIAJMAFP7FPMMGMEOVA"
   secret_access_key: "mFSQ+peQKVPxR+UmekwOhm6Vo4Ma7JVhCWP3bQ6s"
   # region: your_region
@@ -6,7 +8,9 @@ base: &base
 development:
   <<: *base
   bucket_name: ladderdev
+  # bucket_name: hammer-example
 
 production:
   <<: *base
   bucket_name: ladderpro
+  # bucket_name: hammer-example

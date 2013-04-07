@@ -264,6 +264,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_girl_rails
+  fog
   geocoder
   growl
   guard-rspec

@@ -30,6 +30,7 @@ gem "cancan"
 gem 'stripe'
 gem "state_select"
 gem 'launchy'
+gem 'fog'
 gem 'carrierwave'
 gem 'carrierwave_direct'
 gem 'aws-sdk'
