@@ -2,9 +2,7 @@
   .white_box
     - if @resume.present?
       .pull-right
-        = link_to "Add Video Resume", "#", class: "btn"
-
-        /= link_to "Add Video Resume", "[:add_video, current_user.resume]", class: "btn"
+        = link_to "Add Video Resume", [:add_video, current_user.resume], class: "btn"
         = link_to "Edit Resume", [:edit, current_user.resume], class: "btn"
       %h1
         = @resume.name
