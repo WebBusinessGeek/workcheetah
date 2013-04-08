@@ -1,13 +1,13 @@
 .resumes_show
   .white_box
-    - if @resume.present? && @resume.user == current_user
-      .pull-right
-        = link_to "Add Video Resume", [:add_video, current_user.resume], class: "btn"
-        = link_to "Edit Resume", [:edit, current_user.resume], class: "btn"
+    - if @resume.present?
+      - if can? :update, @resume
+        .pull-right
+          = link_to "Add Video Resume", [:add_video, @resume], class: "btn"
+          = link_to "Edit Resume", [:edit, @resume], class: "btn"
       %h1
         = @resume.name
-        - if can? :update, @resume
-          = link_to "Edit", [:edit, @resume]
+
 
       - if @resume.web_video.present?
         :erb
