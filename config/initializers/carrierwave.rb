@@ -1,5 +1,7 @@
 if Rails.env.production?
 
+  PIPELINE_ID = '1365380955979-de7855'
+
   CarrierWave.configure do |config|
     config.fog_credentials = {
       :provider               => 'AWS',                        # required
@@ -32,6 +34,8 @@ if Rails.env.production?
   # end
 
 elsif Rails.env.development?
+
+  PIPELINE_ID = '1365374876412-009ad6'
 
   CarrierWave.configure do |config|
     config.fog_credentials = {

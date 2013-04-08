@@ -43,8 +43,7 @@ class VideoWorker
 
     transcoder = AWS::ElasticTranscoder::Client.new
     transcoder.create_job(
-      pipeline_id: '1365374876412-009ad6',
-      # pipeline_id: '1360264489252-96cb05',
+      pipeline_id: PIPELINE_ID,
       input: {
         key: resume.video.path,
         frame_rate: 'auto',
