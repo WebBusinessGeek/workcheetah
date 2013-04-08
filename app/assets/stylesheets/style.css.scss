@@ -49,11 +49,11 @@ body{
 
   .navbar{
     .navbar-inner{
-      background-color: #a0d3ed; /* layer fill content */
-      background-image: -moz-linear-gradient(bottom, #00a7e2 0%, #005891 100%); /* gradient overlay */
-      background-image: -o-linear-gradient(bottom, #00a7e2 0%, #005891 100%); /* gradient overlay */
-      background-image: -webkit-linear-gradient(bottom, #00a7e2 0%, #005891 100%); /* gradient overlay */
-      background-image: linear-gradient(bottom, #00a7e2 0%, #005891 100%); /* gradient overlay */
+      background-color: #0e0e0d; /* layer fill content */
+      background-image: -moz-linear-gradient(bottom, #0e0e0d 0%, #2d2d2b 100%); /* gradient overlay */
+      background-image: -o-linear-gradient(bottom, #0e0e0d 0%, #2d2d2b 100%); /* gradient overlay */
+      background-image: -webkit-linear-gradient(bottom, #0e0e0d 0%, #2d2d2b 100%); /* gradient overlay */
+      background-image: linear-gradient(bottom, #0e0e0d 0%, #2d2d2b 100%); /* gradient overlay */
 
 
       color: white;
@@ -89,8 +89,8 @@ body.home{
 
   .search_content{
     .logo{
-      width: 557px;
-      margin: 50px auto;
+      width: 427px;
+      margin: 20px auto;
 
       @include respond-to(handhelds){
         width: 200px;
