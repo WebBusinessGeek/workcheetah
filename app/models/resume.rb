@@ -54,10 +54,11 @@ class VideoWorker
       },
       output: {
         key: resume.web_video,
-        preset_id: '1351620000000-100070',
+        preset_id: WEB_MP4_PRESET_ID,
         thumbnail_pattern: "",
         rotate: '0'
       }
     )
+    resume.update_column 'web_video', File.basename(resume.video.path)
   end
 end
