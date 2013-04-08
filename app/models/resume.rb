@@ -47,7 +47,7 @@ class VideoWorker
       input: {
         key: resume.video.path,
         frame_rate: 'auto',
-        resolution: 'auto',
+        resolution: '640x360',
         aspect_ratio: 'auto',
         interlaced: 'auto',
         container: 'auto'
@@ -59,6 +59,6 @@ class VideoWorker
         rotate: '0'
       }
     )
-    resume.update_column 'web_video', File.basename(resume.video.path)
+
   end
 end

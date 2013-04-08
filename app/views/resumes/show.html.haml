@@ -1,6 +1,6 @@
 .resumes_show
   .white_box
-    - if @resume.present?
+    - if @resume.present? && @resume.user == current_user
       .pull-right
         = link_to "Add Video Resume", [:add_video, current_user.resume], class: "btn"
         = link_to "Edit Resume", [:edit, current_user.resume], class: "btn"
@@ -8,6 +8,14 @@
         = @resume.name
         - if can? :update, @resume
           = link_to "Edit", [:edit, @resume]
+
+      - if @resume.web_video.present?
+        :erb
+          <video id="my_video_1" class="video-js vjs-default-skin" controls
+            preload="auto" width="640" height="360"
+            data-setup="{}">
+            <source src="<%= @resume.web_video %>" type='video/mp4'>
+          </video>
 
       = @resume.video
 
