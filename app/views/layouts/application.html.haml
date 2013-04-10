@@ -9,6 +9,9 @@
     :erb
       <link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
       <script src="http://vjs.zencdn.net/c/video.js"></script>
+      <script type="text/javascript" src="//use.typekit.net/prn5mzt.js"></script>
+      <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+      <link rel="shortcut icon" href="<%= asset_path("favicon-claw1.ico") %>">
       <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -21,12 +24,14 @@
       </script>
     = csrf_meta_tags
   %body
-    .header_box
-      = render "shared/header_nav"
-      .container
-        .header
-          .logo= link_to image_tag("logo3.png"), root_path
     .container
+      .header_box
+        = render "shared/header_nav"
+        .container
+          .header
+            .as-seen-on= image_tag("as-seen-on.png")
+            .logo= link_to image_tag("logo-large5.png"), root_path
+
       - if flash.any?
         .flash.row
           .span12

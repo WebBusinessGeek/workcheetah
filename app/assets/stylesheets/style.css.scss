@@ -48,6 +48,15 @@ body{
 }
 
 .header_box{
+
+  @include respond-to(medium){
+    .field input{ width: 100px; }
+  }
+
+  @include respond-to(handheld){
+    .home{ display: none; }
+  }
+
   .navbar{
     .navbar-inner{
       color: white;
@@ -58,7 +67,6 @@ body{
         padding: 10px 0;
         display: inline-block;
         color: white;
-
       }
     }
   }
@@ -236,4 +244,40 @@ body.home{
     color: white;
     margin-right: 10px;
   }
+}
+
+.header{
+  background: url("header.png") repeat-x top #2e2a23;
+
+  .logo img{
+    padding: 20px;
+    width: 440px;
+  }
+
+  .as-seen-on{
+    float: right;
+    width: 400px;
+    margin: 25px 30px;
+
+    @include respond-to(medium){
+      display: none;
+    }
+
+    @include respond-to(wide){
+      width: auto;
+    }
+  }
+}
+
+.content{
+  background: #e2ebf0;
+  padding: 20px;
+
+  .white_box{
+    background: white;
+    @include border-radius(10px);
+    @include box-shadow(0 0 10px #bbb);
+    padding: 20px;
+  }
+
 }
