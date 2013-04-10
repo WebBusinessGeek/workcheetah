@@ -3,19 +3,18 @@
     - if @resume.present?
       - if @resume.user == current_user
         .pull-right
-          = link_to "Add Video Resume", [:add_video, @resume], class: "btn"
+          /= link_to "Add Video Resume", [:add_video, @resume], class: "btn"
           = link_to "Edit Resume", [:edit, @resume], class: "btn"
-      %h1
-        = @resume.name
+      %h1= @resume.name
 
 
-      - if @resume.web_video.present?
-        :erb
-          <video id="my_video_1" class="video-js vjs-default-skin" controls
-            preload="auto" width="640" height="360"
-            data-setup="{}">
-            <source src="<%= @resume.web_video.url %>" type='video/mp4'>
-          </video>
+      /- if @resume.web_video.present?
+      /  :erb
+      /    <video id="my_video_1" class="video-js vjs-default-skin" controls
+      /      preload="auto" width="640" height="360"
+      /      data-setup="{}">
+      /      <source src="<%= @resume.web_video.url %>" type='video/mp4'>
+      /    </video>
 
       / = @resume.video
 
