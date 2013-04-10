@@ -1,7 +1,7 @@
 class DashboardsController < ApplicationController
   layout "home"
   def home
-    # raise
+    @articles = Article.order('created_at desc').limit(10)
     @visitors_ip = Rails.env.development? ? "71.197.119.115" : request.remote_ip
 
     @current_location = Geocoder.search(@visitors_ip).first

@@ -1,17 +1,21 @@
 $break-small: 320px;
-$break-large: 980px;
+$break-medium: 980px;
+$break-large: 1200px;
 $break-short: 480px;
 $break-tall: 673px;
 $break-tallest: 805px;
 
 
 @mixin respond-to($media) {
-  @if $media == handhelds {
+  @if $media == handheld {
     @media only screen and (max-width: $break-small) { @content; }
   }
   @else if $media == medium {
-    @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) { @content; }
+    @media only screen and (min-width: $break-small + 1) and (max-width: $break-medium - 1) { @content; }
   }
+  // @else if $media == wide {
+  //   @media only screen and (min-width: $break-medium) and (max-width: $break-large - 1) { @content; }
+  // }
   @else if $media == wide {
     @media only screen and (min-width: $break-large) { @content; }
   }
@@ -27,182 +31,209 @@ $break-tallest: 805px;
   @else if $media == tallest {
     @media only screen and (min-height: $break-tallest) { @content; }
   }
-
 }
 
 body{
-  background: #f7f7f7;
+  background: url("background.jpg");
+  font-family: "myriad-pro";
+
+  @include respond-to(handheld){
+    padding-top: 0;
+  }
 
   @include respond-to(medium){
     padding-top: 0;
   }
+
 }
 
 .header_box{
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 20px;
-  background: white;
-
-  .logo{
-    margin: 30px 0;
-  }
-
   .navbar{
     .navbar-inner{
-      background-color: #0e0e0d; /* layer fill content */
-      background-image: -moz-linear-gradient(bottom, #0e0e0d 0%, #2d2d2b 100%); /* gradient overlay */
-      background-image: -o-linear-gradient(bottom, #0e0e0d 0%, #2d2d2b 100%); /* gradient overlay */
-      background-image: -webkit-linear-gradient(bottom, #0e0e0d 0%, #2d2d2b 100%); /* gradient overlay */
-      background-image: linear-gradient(bottom, #0e0e0d 0%, #2d2d2b 100%); /* gradient overlay */
-
-
       color: white;
-      border: 0;
 
       a{
         margin-right: 10px;
+        margin-left: 10px;
         padding: 10px 0;
         display: inline-block;
         color: white;
 
-        &.current{
-          background: url("nav-hover.png") no-repeat center 35px;
-        }
-
-        @include respond-to(wide){
-          margin-right: 20px;
-        }
       }
     }
   }
-}
-
-.white_box{
-  background: white;
-  @include border-radius(10px);
-  @include box-shadow(0 0 10px #bbb);
-  padding: 20px;
 }
 
 body.home{
-  background: white;
+  .search_box{
+    background: url("billboard.jpg") no-repeat bottom right;
+    height: 550px;
 
-  .search_content{
-    .logo{
-      width: 427px;
-      margin: 20px auto;
+    @include respond-to(medium){
+      height: 475px;
+    }
 
-      @include respond-to(handhelds){
-        width: 200px;
+    .logo img{
+      width: 500px;
+      margin: 60px auto 60px 40px;
+
+      @include respond-to(medium){
+        width: 400px;
+        margin: 40px auto 40px 20px;
       }
 
-      @include respond-to(tallest){
-        margin-top: 100px;
-      }
-
-      @include respond-to(short){
-        margin: 40px auto;
+      @include respond-to(xwide){
+        width: auto;
+        margin: 60px auto 60px 40px;
       }
     }
 
-    .search_box{
-      margin: auto;
-      float: none;
-      clear: both;
+    .search_form{
+      margin-left: 60px;
+      color: white;
 
-      @include respond-to(tallest){
-        input[type=text]{
+      a{
+        color: white;
+        text-decoration: underline;
+      }
+
+      .field{
+        margin-bottom: 10px;
+
+        label{
           font-size: 18px;
-          padding: 10px;
+          margin-bottom: 7px;
+          width: 400px;
+
+          @include respond-to(medium){
+            font-size: 16px;
+            width: 300px;
+          }
+        }
+
+        input{
+          font-size: 18px;
+          padding: 7px;
+          width: 400px;
+
+          @include respond-to(medium){
+            width: 300px;
+            font-size: 14px;
+            padding: 5px;
+          }
+
+          &.location{
+            width: auto;
+          }
         }
       }
 
-      label{
-        font-weight: bold;
-      }
-
-      .tour_link{
+      span.tour_link{
         margin-left: 5px;
-      }
 
-      .btn{
-        padding: 5px 20px;
-        font-size: 16px;
-      }
+        a{
+          margin-left: 5px;
 
-      .job-search .search-field{
-        width: 95% !important;
+          @include respond-to(medium){
+            background: rgba(0,0,0,0.5);
+            padding: 5px 10px;
+            @include border-radius(5px);
+          }
+        }
       }
     }
   }
 
-  .employers_box{
-    background: #f2f2f2 url("home-employers-background.png") repeat-x;
-    margin-top: 100px;
-    padding-bottom: 500px;
+  .content{
+    background: #e2ebf0;
+    padding: 40px 60px;
 
-    @include respond-to(tallest){
-      margin-top: 150px;
+    hr.divider{
+      height: 1px;
+      border-bottom: 1px #ccc solid;
     }
 
-    @include respond-to(short){
-      margin-top: 75px;
+    h2{
+      text-align: center;
+      padding: 0;
+      margin: 0;
+      margin-bottom: 20px;
+
+      @include respond-to(medium){
+        font-size: 28px;
+      }
     }
 
-    .employers{
-      padding: 30px 0;
-      width: 400px;
-      margin: auto;
+    .c1 .difference{ padding-right: 20px; }
+    .c2 .difference{ padding-left: 20px; }
 
-      @include respond-to(tallest){
-        padding: 40px 0;
-      }
+    .difference{
+      margin-bottom: 20px;
 
-      @include respond-to(short){
-        padding: 20px 0;
-      }
-
-
-
-      h2{
-        margin: 0;
+      h3{
+        font-weight: normal;
         font-size: 20px;
+        line-height: 1;
+
+        @include respond-to(medium){
+          font-size: 18px;
+          font-weight: bold;
+        }
+      }
+
+      p{
+        @include respond-to(wide){
+          font-size: 15px;
+        }
+      }
+    }
+
+    .articles{
+      .article_box{
+        width: 50%;
+
+        .article{
+          h3{
+            font-size: 18px;
+            line-height: 1;
+          }
+          p{
+            font-size: 16px;
+          }
+        }
+        .left{ padding-right: 20px; }
+        .article.right{ padding-left: 20px; }
       }
     }
   }
+}
 
-  .footer{
-    a{
-      color: black;
-      margin-right: 10px;
-    }
+.columns{
+  .column{
+    display: inline-block;
+    float: left;
+  }
+
+  &:before, &:after {
+    display: table;
+    content: "";
+    line-height: 0;
+    clear: both;
   }
 }
 
-.profiles_new, .profiles_edit{
-  h2{
-    font-size: 18px;
-    text-transform: uppercase;
-    color: #2879ae;
-  }
-
-  input[type=text],input[type=email], textarea{
-    width: 98%;
-  }
-
-  .experience, .school, .reference, .experiences, .schools, .references{
-    margin-bottom: 10px;
+.columns_two{
+  .column{
+    width: 50%;
   }
 }
 
-.profile_show{
-  .contact_details{
-    border: 1px #eee solid;
-    border-width: 1px 0;
-    padding: 5px 0;
-    margin-bottom: 10px;
-    span{
-      margin-right: 15px;
-    }
+.footer{
+  padding: 10px;
+  color: white;
+
+  a{
+    color: white;
+    margin-right: 10px;
   }
 }

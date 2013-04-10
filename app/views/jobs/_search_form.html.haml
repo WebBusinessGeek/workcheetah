@@ -1,12 +1,12 @@
 = form_tag jobs_path, method: :get, class: "job-search"  do |f|
-  .row
-    .job_title.span5
-      = label_tag :search, "What type of job are you looking for?"
-      = text_field_tag :search, @query || nil, tabindex: "1", placeholder: "Ex. Sales Manager", class: "search-field", autofocus: true
-    .location.span3
-      = label_tag :location, "Where?"
-      = text_field_tag :location, @location || @current_location_clean, placeholder: "Ex. New York, NY", class: "span3"
-  = submit_tag "Search", class: "btn btn-success"
-  %span.tour_link
-    or
-    = link_to("see how we're different & better", "/tour", style: "text-decoration: underline") + "."
+  .field
+    = label_tag :search, "What type of job are you looking for?"
+    = text_field_tag :search, @query || nil, tabindex: "1", placeholder: "Ex. Sales Manager", class: "search-field", autofocus: true
+  .field
+    = label_tag :location, "Where?"
+    = text_field_tag :location, @location || @current_location_clean, placeholder: "Ex. New York, NY", class: "location"
+  .action
+    = submit_tag "Search", class: "btn btn-success btn-large"
+    %span.tour_link
+      or
+      = link_to("build your resume first", new_resume_path) + "."

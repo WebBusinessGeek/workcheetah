@@ -1,22 +1,53 @@
 .home
-  .search_content
-    .logo= image_tag "logo-large4.png"
-    .search_box.span8= render "jobs/search_form"
-  .employers_box
-    .container
-      .employers
-        %h2
-          Employers:
-          = link_to "Post your job for free", [:new, :job]
-        %ul
-          %li Free to post your job.
-          %li Free to preview job applicant resumes.
-          %li Pay $0.99 to see full job applicant resume.
-        = link_to new_job_path, class: "btn" do
-          %i{ class: "icon-plus-sign"}
-          Post a Job
-        or visit the
-        = link_to "Employers", "#"
-        page to learn more.
-      .footer
-        = render "shared/footer"
+  .search_content.row
+    .search_box.span12
+      .logo= image_tag("logo-large5.png")
+      .search_form= render "jobs/search_form"
+  - if flash.any?
+    .flash.row
+      .span12
+        - flash.each do |name, msg|
+          %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
+            %a.close{"data-dismiss" => "alert"} ×
+            = msg
+  .content
+    %h2 WorkCheetah is a Different & Better Job Engine
+    .columns.columns_two
+      .column.c1
+        .difference
+          %h3
+            Employers Can
+            = link_to "Post Jobs For Free", new_job_path
+          %p
+            When someone applies to your job, you can preview their resume.
+            Like what you see? See their full resume and contact info for $0.99
+        .difference
+          %h3 Private Jobs Portal for Employers
+          %p
+            Customize the look of WorkCheetah to match your brand and off-load
+            the jobs section of your website to us.
+      .column.c2
+        .difference
+          %h3
+            Job Seekers Know When Things Happen
+          %p
+            Unlike other job sites, WorkCheetah is not a blackhole. When you apply for a job, you’ll know when your resume is viewed, shortlisted or discarded.
+        .difference
+          %h3
+            Video Resumes Bring Life & Character
+          %p
+            For some industries, such as sales and customer support, personality and people skills matter significantly. Video let’s the strongest canidates shine.
+
+    %hr.divider
+    %h2 News & Resources
+    .articles
+      - @articles.each do |article|
+        - @side = cycle("left", "right")
+        .article_box
+          .article{ class: @side }
+            %h3= link_to article.title, article
+            %p.teaser= ActionView::Base.full_sanitizer.sanitize(article.body).truncate(200)
+        - if @side == "right"
+          .clearfix
+
+
