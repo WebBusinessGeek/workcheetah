@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   end
 
   unless Rails.application.config.consider_all_requests_local
-    rescue_from Exception, with: lambda { |exception| Rails.logger.info(exception.backtrace.join("\n")); render_error 500, exception; }
-    rescue_from ActionController::RoutingError, ActionController::UnknownController, ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound, with: lambda { |exception|  Rails.logger.info(exception.backtrace.join("\n")); render_error 404, exception; }
+    rescue_from Exception, with: lambda { |exception| Rails.logger.info(exception.to_s); render_error 500, exception; }
+    rescue_from ActionController::RoutingError, ActionController::UnknownController, ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound, with: lambda { |exception|  Rails.logger.info(exception.to_s); render_error 404, exception; }
   end
 
   private
