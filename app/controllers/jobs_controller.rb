@@ -13,6 +13,7 @@ class JobsController < ApplicationController
     if @jobs.empty? && @query.present?
       @session_variable = (@query.parameterize.gsub('-','_') + "_jobs_count").to_sym
       @jobs_count = session[@session_variable] ||= 28 + Random.rand(63)
+      @articles = Article.order(:created_at).limit(10)
     end
 
     respond_to do |format|

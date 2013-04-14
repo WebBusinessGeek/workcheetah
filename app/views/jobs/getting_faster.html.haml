@@ -1,32 +1,40 @@
 .getting_faster
-  .white_box{ style: "text-align: center;"}
-    - if params[:subscribed] == "true"
-      %h1 You'll be receiving an email soon.
-      %p
-        Check your email later today for the list of
-        = @jobs_count
-        = @query
-        positions
-        - if @location.present?
-          in
-          = @location
-    - else
-      %h1 We're Working On Getting Faster
-      %p
-        Dont let us slow you down. Get a list of
-        = @jobs_count
-        = @query
-        positions
-        - if @location.present?
-          in
-          = @location
-      .row
-        .span4{ style: "margin: auto; float: none;"}
+  .form_box
+    .contents_box
+      - if params[:subscribed] == "true"
+        %h1 You'll be receiving an email soon.
+        %p
+          Check your email later today for the list of
+          = @jobs_count
+          = @query
+          positions
+          - if @location.present?
+            in
+            = @location
+      - else
+        %h1 Upgrades In Progress
+        %p
+          Let us email you a list of
+          %span.job_count= @jobs_count
+          %span.job_query
+            = @query
+            positions
+          - if @location.present?
+            in
+            %span.location= @location
+          once the upgrade is complete.
+
           = form_for @email_subscription, class: "form-vertical" do |f|
-            %div
-              = f.label :email
+            .field
+              = f.label :email, "Enter your email:"
               = f.text_field :email, placeholder: "Ex. your.email@gmail.com"
             = f.hidden_field :query, value: @query
             = f.hidden_field :location, value: @location
             = f.hidden_field :return_url, value: request.url
-            %div= f.submit "Send Me The List", class: "btn btn-success btn-large"
+            .action= f.submit "Send Me The List", class: "btn btn-success btn-large"
+  .articles
+    - @articles.each do |article|
+      .article
+        %h3= link_to article.title, article
+        .teaser= ActionView::Base.full_sanitizer.sanitize(article.body).truncate(200)
+    .clearfix
