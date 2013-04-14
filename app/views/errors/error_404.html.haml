@@ -1,11 +1,10 @@
-%h2 404
-%div
-  %h3 We're sorry
-  %p
-    The content that you requested could not be found.
-  %p
-    You tried to access '#{@not_found_path}', which is not a valid page.
-  %p
-    Want to
-    %a{href: root_path} go back to our home page
-    and try again?
+.errors_404
+  .message_box
+    .contents_box
+      %h1 Error 404: Page Not Found
+      %p
+        Whoops, the page you’re looking for took off in a hurry but didn’t leave a note about here it was going.
+      %p
+        Want to
+        %a{href: root_path} go back to our home page
+        and try again?
