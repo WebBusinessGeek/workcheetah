@@ -32,6 +32,7 @@ class ResumesController < ApplicationController
 
   def show
     load_resume
+    raise ActiveRecord::RecordNotFound unless user_signed_in? && @resume.user == current_user
   end
 
   def edit
