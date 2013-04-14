@@ -2,8 +2,13 @@ class ResumesController < ApplicationController
   # before_filter :authenticate_user!
 
   def new
-    @user = user_signed_in? ? current_user : User.new
-    @resume = @user.build_resume
+    @resume = Resume.new
+    if user_signed_in?
+      @resume.user = current_user
+    else
+      @resume.build_user
+    end
+
     @resume.addresses.build
     @resume.schools.build
     @resume.references.build
@@ -11,9 +16,15 @@ class ResumesController < ApplicationController
   end
 
   def create
-    @resume = current_user.build_resume(resume_params)
+    if user_signed_in?
+      @resume = current_user.build_resume(resume_params)
+    else
+      @resume = Resume.new(resume_params)
+    end
+
     if @resume.save
       redirect_to resume_path(@resume), notice: "Resume created successfully"
+      sign_in @resume.user unless user_signed_in?
     else
       render "new"
     end
@@ -63,7 +74,8 @@ class ResumesController < ApplicationController
       addresses_attributes: [ :id, :address_1, :address_2, :city, :state, :zip, :_destroy ],
       experiences_attributes: [ :id, :company_name, :job_title, :from, :till, :highlights, :_destroy ],
       schools_attributes: [ :id, :name, :degree_type, :degree_name, :from, :till, :highlights, :_destroy],
-      references_attributes: [ :id, :name, :job_title, :company, :phone, :email, :notes, :reference_type, :_destroy ] )
+      references_attributes: [ :id, :name, :job_title, :company, :phone, :email, :notes, :reference_type, :_destroy ],
+      user_attributes: [ :email, :password, :password_confirmation ] )
   end
 
   def load_resume

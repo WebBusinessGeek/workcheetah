@@ -14,6 +14,7 @@ class Resume < ActiveRecord::Base
   accepts_nested_attributes_for :schools
   accepts_nested_attributes_for :references
   accepts_nested_attributes_for :experiences
+  accepts_nested_attributes_for :user
 
   # after_save :enqueue_video
 
