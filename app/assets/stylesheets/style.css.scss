@@ -34,7 +34,7 @@ $break-tallest: 805px;
 }
 
 body{
-  background: url("background.jpg");
+  background: url("background2c.jpg") #ad5100 no-repeat top center fixed;
   font-family: "myriad-pro";
 
   @include respond-to(handheld){
@@ -57,16 +57,19 @@ body{
     .home{ display: none; }
   }
 
-  .navbar{
+  .navbar.navbar-inverse{
     .navbar-inner{
-      color: white;
+      background: transparent;
+      color: black;
+      border: 0;
 
       a{
         margin-right: 10px;
         margin-left: 10px;
         padding: 10px 0;
         display: inline-block;
-        color: white;
+        color: black;
+        text-shadow: 0px 0px 5px rgba(255, 255, 255, 1);
 
         &:hover{
           background: transparent;
@@ -78,6 +81,20 @@ body{
 }
 
 body.home{
+  background: url("background.jpg") repeat top center;
+  // background: url("background2b.jpg") #ad5100 no-repeat top center fixed;
+
+  .navbar.navbar-inverse{
+    .navbar-inner{
+      background: black;
+
+      a{
+        color: white;
+        text-shadow: 0 0 0;
+      }
+    }
+  }
+
   .search_box{
     background: url("billboard.jpg") no-repeat bottom right;
     height: 550px;
@@ -253,16 +270,17 @@ body.home{
 
 .header{
   background: url("header.png") repeat-x top #2e2a23;
+  @include border-radius(10px 10px 0 0);
 
   .logo img{
-    padding: 20px;
+    padding: 30px 20px;
     width: 440px;
   }
 
   .as-seen-on{
     float: right;
     width: 400px;
-    margin: 25px 30px;
+    margin: 35px 30px;
 
     @include respond-to(medium){
       display: none;
