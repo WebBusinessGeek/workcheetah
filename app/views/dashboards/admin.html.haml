@@ -35,9 +35,7 @@
             - @applicant_accesses.each do |applicant_access|
               %tr
                 %td= applicant_access.account.name
-                %td
-                  - if applicant_access && applicant_access.job_application && applicant_access.job_application.user && applicant_access.job_application.resume
-                    = applicant_access.job_application.user.resume.name
+                %td= applicant_access.job_application.user.resume.name
                 %td= applicant_access.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%m/%d/%Y %l:%m %P %Z")
 
           %p
