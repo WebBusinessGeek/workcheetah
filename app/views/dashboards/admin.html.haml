@@ -1,0 +1,54 @@
+.admin
+  .header_box
+    = render "shared/header_nav"
+  .header
+    .logo= link_to image_tag("logo-large5.png"), root_path
+  .content
+    %h1 Admin Dashboard
+    .row
+      .span5
+        %h3 Latest Jobs
+        %ul
+          - @jobs.each do |job|
+            %li= link_to job.title, job
+        %p
+          Total Jobs:
+          = @jobs.count
+        %h3 Newest Resume
+        %ul
+          - @resumes.each do |resume|
+            %li= link_to resume.name, resume
+        %p
+          Total Jobs:
+          = @resumes.count
+      .span5
+        %h3 Resume Purchases
+        %table{ style: "width: 100%;" }
+          %tr
+            %th Company
+            %th Applicant
+            %th Purchase Date
+          - @applicant_accesses.each do |applicant_access|
+            %tr
+              %td= applicant_access.account.name
+              %td= applicant_access.job_application.user.resume.name
+              %td= applicant_access.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%m/%d/%Y %l:%m %P %Z")
+
+        %p
+          %br/
+          Total Purchases:
+          = number_to_currency(@applicant_accesses_count * 0.99)
+          %br/
+          Today's Purchases:
+          = number_to_currency(@applicant_accesses_today_count * 0.99)
+
+          %br/
+          Last 7 Days Purchases:
+          = number_to_currency(@applicant_accesses_last_7_days_count * 0.99)
+
+          %br/
+          Last 28 Days Purchases:
+          = number_to_currency(@applicant_accesses_last_28_days_count * 0.99)
+
+  .footer
+    = render "shared/footer"

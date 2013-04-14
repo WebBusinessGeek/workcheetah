@@ -17,6 +17,8 @@
             %span.action= f.submit "Sign in", class: "btn"
     .links-top-right
       %span.home= link_to "Home", root_path
+      - if user_signed_in? && current_user.admin?
+        = link_to "Admin", admin_path
       - unless @portal
         - if user_signed_in? && current_user.account.present?
           %span.my_account= link_to "My Account", account_path

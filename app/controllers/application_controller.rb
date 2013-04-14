@@ -17,4 +17,8 @@ class ApplicationController < ActionController::Base
       format.all { render nothing: true, status: status }
     end
   end
+
+  def authorize_admin_user!
+    redirect_to root_path, notice: "You're not authorized to view this page." unless user_signed_in? && current_user.admin?
+  end
 end

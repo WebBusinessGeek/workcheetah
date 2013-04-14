@@ -3,7 +3,7 @@ class Job < ActiveRecord::Base
 
   # attr_accessible :about_company, :description, :title
   belongs_to :account
-  has_many :job_applications
+  has_many :job_applications, dependent: :destroy
 
   accepts_nested_attributes_for :account
   geocoded_by :address

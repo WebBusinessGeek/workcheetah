@@ -1,4 +1,6 @@
 .home
+  .header_box
+    = render "shared/header_nav"
   .search_content.row
     .search_box.span12
       .logo= image_tag("logo-large5.png")
@@ -49,5 +51,6 @@
             %p.teaser= ActionView::Base.full_sanitizer.sanitize(article.body).truncate(200)
         - if @side == "right"
           .clearfix
-
+  .footer
+    = render "shared/footer"
 
