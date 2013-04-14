@@ -1,3 +1,8 @@
+- if @resume.errors.any?
+  %ul.errors
+    - @resume.errors.full_messages.each do |msg|
+      %li.error= msg
+
 = form_for @resume do |f|
   = tinymce
 
