@@ -7,7 +7,7 @@
   .form-inputs
     .control-group
       = f.label :title, "Job title"
-      .control= f.text_field :title, style: "width: 98%; font-size: 24px; padding: 10px;"
+      .control= f.text_field :title, style: "width: 98%; font-size: 24px; padding: 0.4em; height: 1.2em"
     .control-group
       = f.label :description, "Job description"
       .control= f.text_area :description, style: "height: 200px; width: 100%; font-size: 16px;", class: "tinymce"
@@ -18,30 +18,31 @@
       = f.label :address
       .control= f.text_field :address, style: "width: 100%; max-width: 400px; font-size: 16px;"
 
-    - unless user_signed_in?
+    - unless user_signed_in? && current_user.account
       = f.fields_for :account do |af|
         %h2 Account Info
         .control-group
           = af.label :name, "Company name"
-          .control= af.text_field :name
+          .control= af.text_field :name, placeholder: "ABC Company"
         .control-group
           = af.label :website, "Company website"
-          .control= af.text_field :website
+          .control= af.text_field :website, class: "website", placeholder: "http://www.yourdomain.com"
         .control-group
           = af.label :phone, "Company phone"
-          .control= af.text_field :phone
-        %h2 Admin User Settings
-        %p Let's start by creating the first user on your account. You can add additional users later.
-        = af.fields_for :users do |uf|
-          .control-group
-            = uf.label :email, "Your email"
-            .control= uf.email_field :email
-          .control-group
-            = uf.label :password
-            .control= uf.password_field :password
-          .control-group
-            = uf.label :password_confirmation
-            .control= uf.password_field :password_confirmation
+          .control= af.text_field :phone, class: "phone", placeholder: "(555) 555-5555 x555"
+        - unless user_signed_in?
+          %h2 Admin User Settings
+          %p Let's start by creating the first user on your account. You can add additional users later.
+          = af.fields_for :users do |uf|
+            .control-group
+              = uf.label :email, "Your email"
+              .control= uf.email_field :email, placeholder: "john.doe@example.com"
+            .control-group
+              = uf.label :password
+              .control= uf.password_field :password, placeholder: "************"
+            .control-group
+              = uf.label :password_confirmation
+              .control= uf.password_field :password_confirmation, placeholder: "************"
         .checkbox
           = check_box_tag :terms_conditions_agreement
           = label_tag :terms_conditions_agreement, "I agree to the terms & conditions"

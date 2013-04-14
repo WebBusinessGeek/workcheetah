@@ -1,13 +1,20 @@
 .navbar.navbar-static-top.navbar-inverse
   .navbar-inner
     .navbar-form.pull-right
-      - if user_signed_in?
-        = link_to "Sign Out", destroy_user_session_path, method: :delete
-      - else
-        = form_for("user", :url => user_session_path, html: { class: "navbar-form" }) do |f|
-          %span.field= f.email_field :email, placeholder: "Email", class: "input-medium"
-          %span.field= f.password_field :password, placeholder: "Password", class: "input-medium"
-          %span.action= f.submit "Sign in", class: "btn"
+      .nav
+        - if user_signed_in?
+          .dropdown
+            = link_to "#", class: "dropdown-toggle", data: { toggle: "dropdown"} do
+              = current_user.resume.present? && !current_user.resume.new_record? ? current_user.resume.name : current_user.email
+              %b.caret
+            %ul.dropdown-menu{ style: "background: black;"}
+
+              %li= link_to "Sign Out", destroy_user_session_path, method: :delete
+        - else
+          = form_for("user", :url => user_session_path, html: { class: "navbar-form" }) do |f|
+            %span.field= f.email_field :email, placeholder: "Email", class: "input-medium"
+            %span.field= f.password_field :password, placeholder: "Password", class: "input-medium"
+            %span.action= f.submit "Sign in", class: "btn"
     .links-top-right
       %span.home= link_to "Home", root_path
       - unless @portal

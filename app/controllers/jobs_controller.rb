@@ -4,7 +4,16 @@ class JobsController < ApplicationController
   def index
     @query = params[:search]
     @location = params[:location]
-    @jobs = Job.text_search(@query, @location)
+    if @query.present? || @location.present?
+      @jobs = Job.text_search(@query, @location)
+    else
+      @jobs = Job.scoped
+    end
+
+    if @jobs.empty? && @query.present?
+      @session_variable = (@query.parameterize.gsub('-','_') + "_jobs_count").to_sym
+      @jobs_count = session[@session_variable] ||= 28 + Random.rand(63)
+    end
 
     respond_to do |format|
       format.html do
@@ -12,6 +21,7 @@ class JobsController < ApplicationController
           render "index"
         else
           @email_subscription = EmailSubscription.new
+
           render "getting_faster"
         end
       end
@@ -44,7 +54,12 @@ class JobsController < ApplicationController
   # GET /jobs/new.json
   def new
     @job = Job.new
-    unless user_signed_in?
+
+    if user_signed_in?
+      unless current_user.account
+        @account = @job.build_account
+      end
+    else
       @account = @job.build_account
       @account.users.build
     end
@@ -64,7 +79,14 @@ class JobsController < ApplicationController
   # POST /jobs.json
   def create
     @job = Job.new(job_params)
-    @job.account = current_user.account if user_signed_in?
+
+    if user_signed_in?
+      if current_user.account
+        @job.account = current_user.account
+      else
+        @job.account.users << current_user
+      end
+    end
 
     respond_to do |format|
       if @job.save

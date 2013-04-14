@@ -5,6 +5,7 @@ billboard.jpg: billboard-b2eb33963fd091f0179cd7bf47018fee.jpg
 favicon-briefcase.ico: favicon-briefcase-54c0669e3630249015ed2c7d38e32f42.ico
 favicon-claw1.ico: favicon-claw1-30c005bc8eeffbd5df7d47b99a896388.ico
 favicon-claw2.ico: favicon-claw2-53b2f1e6ed49272e54d94ba6d07ff9e3.ico
+getting-faster.jpg: getting-faster-94fb76e3a59771bfd31d22305747285b.jpg
 header.png: header-fc7150af454e2c9f7aac0677a9aaf5b2.png
 home-employers-background.png: home-employers-background-a910a2bb86604c1f522d535f25cc500e.png
 logo-large.png: logo-large-092fe1dbbb1d66c512d7bc6474f3eab9.png
@@ -18,8 +19,8 @@ logo.png: logo-cd91215349df28ce17abbf6dea861fc5.png
 logo2.png: logo2-393df58483b8a7d02dfd6a8a7baf457e.png
 logo3.png: logo3-275213c28c6eaf44f1632035300e710c.png
 nav-hover.png: nav-hover-35f5611ed7464fe3e35ddc935794ed51.png
-application.js: application-e06e4473a9174eeea192d7c1bf08811f.js
-application.css: application-014af0be16d525665c891ec986465ab5.css
+application.js: application-e35cb325e1e8c1e042bc94fc5b538417.js
+application.css: application-61a31d7ba9e0024a2adb3a9fc6510318.css
 tinymce.js: tinymce-6f6673341736f74af3e32c64d6ceae74.js
 tinymce/license.txt: tinymce/license-1ec127777c811211027640b3b24364f2.txt
 tinymce/plugins/advhr/rule.htm: tinymce/plugins/advhr/rule-d4d2d2fa20f4000d3d14f7c6c6dae00b.htm
@@ -120,5 +121,9 @@ jquery-ui/ui-icons_2e83ff_256x240.png: jquery-ui/ui-icons_2e83ff_256x240-efb394f
 jquery-ui/ui-icons_454545_256x240.png: jquery-ui/ui-icons_454545_256x240-17e6740beb176dd87da44be76c94bb47.png
 jquery-ui/ui-icons_888888_256x240.png: jquery-ui/ui-icons_888888_256x240-5b928d6b862809eb8130d7b7e0b51a1d.png
 jquery-ui/ui-icons_cd0a0a_256x240.png: jquery-ui/ui-icons_cd0a0a_256x240-635d34cf8bf22d711a729017ab9aaebe.png
+FontAwesome.otf: FontAwesome-07ef65cef9337906acb1706e338a1af2.otf
+fontawesome-webfont.eot: fontawesome-webfont-77e1d850f2d1e5ac753cdf3454949543.eot
+fontawesome-webfont.ttf: fontawesome-webfont-bfb261547b1311ffef80aa06ba5cddfc.ttf
+fontawesome-webfont.woff: fontawesome-webfont-ee254ab81e26c3eb79566a682d48a252.woff
 glyphicons-halflings-white.png: glyphicons-halflings-white-13553a5bf21ae3cc374006592488ec64.png
 glyphicons-halflings.png: glyphicons-halflings-ab3144065a860d198f1d7d9a4882640c.png

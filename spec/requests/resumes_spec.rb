@@ -1,17 +1,18 @@
 require 'spec_helper'
 
-describe "ProfilesController" do
-  describe "profiles#new" do
+describe "ResumesController" do
+  describe "new" do
     before(:each) do
-      create(:user, email: "mr@example.com", password: "password123")
-      visit root_path
-      login_user "mr@example.com", "password123"
+      # create(:user, email: "mr@example.com", password: "password123")
+      # visit root_path
+      # login_user "mr@example.com", "password123"
       visit new_resume_path
     end
-    it "should allow you to create a new profile" do
-      fill_in_profile_contact_details
+
+    it "should allow you to create a new resume" do
+      fill_in_account_details fill_in_contact_details
       set_employment_statuses
-      set_importance
+
       within ".experience" do
         fill_in_experience
       end
@@ -21,8 +22,8 @@ describe "ProfilesController" do
       within ".reference" do
         fill_in_reference
       end
-      click_button "Create Profile"
-      page.should have_content "Profile created successfully"
+      click_button "Create Resume"
+      page.should have_content "Resume created successfully"
       page.should have_css ".address"
       page.should have_css ".reference"
       page.should have_css ".school"

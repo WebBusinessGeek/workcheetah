@@ -10,6 +10,11 @@ development:
   bucket_name: ladderdev
   # bucket_name: hammer-example
 
+test:
+  <<: *base
+  bucket_name: laddertest
+  # bucket_name: hammer-example
+
 production:
   <<: *base
   bucket_name: ladderpro

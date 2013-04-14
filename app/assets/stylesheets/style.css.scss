@@ -67,6 +67,11 @@ body{
         padding: 10px 0;
         display: inline-block;
         color: white;
+
+        &:hover{
+          background: transparent;
+          text-decoration: underline;
+        }
       }
     }
   }
@@ -280,4 +285,14 @@ body.home{
     padding: 20px;
   }
 
+}
+
+label{
+  text-transform: capitalize;
+
+  .explanation{
+    color: #3baf18;
+    margin-left: 5px;
+    font-size: 12px;
+  }
 }

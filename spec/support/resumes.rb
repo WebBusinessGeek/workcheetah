@@ -1,17 +1,22 @@
-def fill_in_profile_contact_details
+def fill_in_account_details
+  fill_in "Company Name", with: "ABC Company"
+  fill_in "Company Website", with: "http://www.webdesigncompany.net"
+  fill_in "Company Phone", with: "(555) 555-5555"
+end
+
+def fill_in_contact_details
   fill_in "Name", with: "Ernest Hemingway"
   fill_in "Phone", with: "(555) 555-5555"
-  fill_in "Address 1", with: "50 Pennsylvania Avenue"
-  fill_in "Address 2", with: ""
+  fill_in "Home Address", with: "50 Pennsylvania Avenue"
   fill_in "City", with: "Washington D.C."
   fill_in "Zip", with: "55555"
-  fill_in "Email", with: "example@example.com"
+  fill_in "Email (professional email if different)", with: "example@example.com"
   fill_in "Website", with: "www.example.com"
   fill_in "Twitter", with: "eh"
 end
 
 def set_employment_statuses
-  select "Employed", from: "profile_status"
+  select "Employed", from: "Current Employment Status"
 end
 
 def set_importance

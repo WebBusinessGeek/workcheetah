@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
-gem 'thin'
+# gem 'thin'
 gem 'rmagick'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -13,6 +13,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'bootstrap-sass'
+  gem 'font-awesome-sass-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'uglifier', '>= 1.0.3'
@@ -36,6 +37,7 @@ gem 'carrierwave_direct'
 gem 'aws-sdk'
 # gem 'rmagick'
 gem "geocoder"
+gem "unicorn"
 
 
 group :test do

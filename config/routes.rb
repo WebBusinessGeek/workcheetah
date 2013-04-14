@@ -38,10 +38,14 @@ CareerLoop::Application.routes.draw do
   resources :credit_packages
   resources :credit_transactions
 
-  devise_for :users, :controllers => {:registrations => "users/registrations", :passwords => "users/passwords"}
+  devise_for :users, :controllers => { :registrations => "users/registrations" }
 
   root :to => 'dashboards#home'
   match ':slug' => "accounts#show", as: "slug"
+  match '/errors/error_404' => "errors#error_404"
+  match '/errors/error_500' => "errors#error_500"
 
-
+  unless Rails.application.config.consider_all_requests_local
+    match '*not_found', to: 'errors#error_404'
+  end
 end

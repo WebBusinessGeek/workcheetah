@@ -24,10 +24,10 @@
         %span= link_to @resume.website, @resume.website
         %span= link_to "@#{@resume.twitter}", "http://www.twitter/#{@resume.twitter}"
 
-        / - @resume.addresses.each do |address|
-        /   .address
-        /     = address.city
-        /     = address.state
+        - @resume.addresses.each do |address|
+          .address
+            = address.city
+            = address.state
 
       - if @resume.experiences.any?
         %h3 Experience

@@ -13,7 +13,7 @@ class ResumesController < ApplicationController
   def create
     @resume = current_user.build_resume(resume_params)
     if @resume.save
-      redirect_to resume_path(@resume), notice: "Profile created successfully"
+      redirect_to resume_path(@resume), notice: "Resume created successfully"
     else
       render "new"
     end

@@ -3,7 +3,8 @@
     - if params[:subscribed] == "true"
       %h1 You'll be receiving an email soon.
       %p
-        Check your email later today for the list of 35
+        Check your email later today for the list of
+        = @jobs_count
         = @query
         positions
         - if @location.present?
@@ -12,7 +13,8 @@
     - else
       %h1 We're Working On Getting Faster
       %p
-        Dont let us slow you down. Get a list of 35
+        Dont let us slow you down. Get a list of
+        = @jobs_count
         = @query
         positions
         - if @location.present?

@@ -1,11 +1,18 @@
 jQuery ->
+  $.mask.definitions['%'] = '[A-Za-z0-9\_.\\-+/ ]'
+  $.mask.definitions['x'] = '[x0-9]'
   do_when_ready()
-# $(window).bind('page:change', do_when_ready)
 
 do_when_ready = ->
   # console.log("ready to fire")
-  Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
-  new_payment_profile_form.setupForm()
+  if typeof Stripe isnt 'undefined'
+    Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
+    new_payment_profile_form.setupForm()
+
+  $("input.phone").mask("(999) 999-9999? x9999", {placeholder:" "})
+  $("input.website").mask("http://%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%", {placeholder:" "})
+  $("input.date").datepicker()
+  $("input.twitter").mask("@?***************", {placeholder:" "})
 
 new_payment_profile_form =
   setupForm: ->
@@ -29,7 +36,8 @@ new_payment_profile_form =
       expYear: $('#card_year').val()
 
     # console.log("getting stripe token")
-    Stripe.createToken(card, new_payment_profile_form.handleStripeResponse)
+    if typeof Stripe isnt 'undefined'
+      Stripe.createToken(card, new_payment_profile_form.handleStripeResponse)
 
   handleStripeResponse: (status, response) ->
     # console.log("handling response")
