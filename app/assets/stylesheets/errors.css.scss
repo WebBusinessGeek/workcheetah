@@ -4,6 +4,10 @@
     padding: 20px;
     @include border-radius(10px);
 
+    @include respond-to(wide){
+      background-position: 0 center;
+    }
+
     .contents_box{
       -moz-border-radius: 5px;
       -webkit-border-radius: 5px;
