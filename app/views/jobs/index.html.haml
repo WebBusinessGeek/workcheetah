@@ -9,7 +9,7 @@
       %tr
         %th Position
         %th Company
-        %th Posted
+        %th Applicants
       - @jobs.each do |job|
         %tr
           %td
@@ -18,6 +18,6 @@
           %td
             - if job.account && job.account.name
               = job.account.name
-          %td= job.created_at.strftime("%m/%d/%Y")
+          %td= job.job_applications_count
     %br/
 
