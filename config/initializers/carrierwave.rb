@@ -8,7 +8,7 @@ if Rails.env.production?
       :aws_access_key_id      => 'AKIAJMAFP7FPMMGMEOVA',                        # required
       :aws_secret_access_key  => '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',                        # required
       # :region                 => 'eu-west-1',                  # optional, defaults to 'us-east-1'
-      :host                   => "https://#{fog_directory}.s3.amazonaws.com",             # optional, defaults to nil
+      :host                   => "https://ladderpro.s3.amazonaws.com",             # optional, defaults to nil
       # :endpoint               => 'https://peacock_pro.s3-website-us-east-1.amazonaws.com' # optional, defaults to nil
     }
     config.fog_directory  = 'ladderpro'                     # required
@@ -43,7 +43,7 @@ elsif Rails.env.development?
       :aws_access_key_id      => 'AKIAJMAFP7FPMMGMEOVA',                        # required
       :aws_secret_access_key  => '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',                        # required
       # :region                 => 'eu-west-1',                  # optional, defaults to 'us-east-1'
-      :host                   => "https://#{fog_directory}.s3.amazonaws.com",             # optional, defaults to nil
+      :host                   => "https://ladderdev.s3.amazonaws.com",             # optional, defaults to nil
       # :endpoint               => 'https://peacock_dev.s3-website-us-east-1.amazonaws.com' # optional, defaults to nil
     }
     config.fog_directory  = 'ladderdev'                     # required
