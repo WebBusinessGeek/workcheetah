@@ -46,15 +46,13 @@
           .header
             .as-seen-on= image_tag("as-seen-on.png")
             .logo= link_to image_tag("logo-large5.png"), root_path
-
-      - if flash.any?
-        .flash.row
-          .span12
+      .content
+        - if flash.any?
+          .flash
             - flash.each do |name, msg|
               %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
                 %a.close{"data-dismiss" => "alert"} ×
                 = msg
-      .content
         = yield
       .footer{ style: "border: 0; padding: 10px 0 20px;"}
         = render "shared/footer"

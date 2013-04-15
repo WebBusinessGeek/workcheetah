@@ -316,6 +316,11 @@ label{
   }
 }
 
+.alert{
+  margin-bottom: 0;
+  @include border-radius(0);
+}
+
 .admin{
   table{
     tr{
