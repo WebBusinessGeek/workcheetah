@@ -6,15 +6,6 @@
           = link_to "Add Video Resume", [:add_video, @resume], class: "btn"
           = link_to "Edit Resume", [:edit, @resume], class: "btn"
       %h1= @resume.name
-      - if @resume.web_video.present?
-        :erb
-          <video id="my_video_1" class="video-js vjs-default-skin" controls
-            preload="auto" width="640" height="360"
-            data-setup="{}">
-            <source src="<%= @resume.web_video.url %>" type='video/mp4'>
-          </video>
-
-      / = @resume.video
 
       .contact_details
         %span= @resume.phone
@@ -26,6 +17,15 @@
           .address
             = address.city
             = address.state
+
+      - if @resume.web_video.present?
+        .video_resume
+          :erb
+            <video id="my_video_1" class="video-js vjs-default-skin" controls
+              preload="auto" width="640" height="360"
+              data-setup="{}">
+              <source src="<%= @resume.web_video.url %>" type='video/mp4'>
+            </video>
 
       - if @resume.experiences.any?
         %h3 Experience
