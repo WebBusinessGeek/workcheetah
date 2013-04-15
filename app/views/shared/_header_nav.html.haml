@@ -19,14 +19,13 @@
       %span.home= link_to "Home", root_path
       - if user_signed_in? && current_user.admin?
         = link_to "Admin", admin_path
-      - unless @portal
-        - if user_signed_in? && current_user.account.present?
-          %span.my_account= link_to "My Account", account_path
-          %span.my_jobs= link_to "My Jobs", my_jobs_path
-        - if user_signed_in? && current_user.job_applications.any?
-          %span.my_job_apps= link_to "My Job Applications", job_applications_path
-        %span.search_jobs= link_to "Search Jobs", root_path, class: (root_path == request.path ? "current" : "" )
-        %span.post_a_job= link_to "Post a Job", [:new, :job], class: (new_job_path == request.path ? "current" : "" )
+      - if user_signed_in? && current_user.account.present?
+        %span.my_account= link_to "My Account", account_path
+        %span.my_jobs= link_to "My Jobs", my_jobs_path
+      - if user_signed_in? && current_user.job_applications.any?
+        %span.my_job_apps= link_to "My Job Applications", job_applications_path
+      %span.search_jobs= link_to "Search Jobs", root_path, class: (root_path == request.path ? "current" : "" )
+      %span.post_a_job= link_to "Post a Job", [:new, :job], class: (new_job_path == request.path ? "current" : "" )
       - if user_signed_in? && current_user.resume.present?
         %span.my_resume= link_to "My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
       - else

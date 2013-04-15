@@ -17,7 +17,7 @@
               = link_to job.title, job
           %td
             - if job.account && job.account.name
-              = job.account.name
+              = link_to job.account.name, slug_path(job.account.slug)
           %td= job.job_applications_count
     %br/
 
