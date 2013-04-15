@@ -57,6 +57,7 @@ class ResumesController < ApplicationController
     load_resume
     @uploader = @resume.video
     @uploader.success_action_redirect = update_video_resume_url(@resume)
+    raise
   end
 
   def update_video
