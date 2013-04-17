@@ -201,29 +201,58 @@ body.home{
       }
     }
 
-    .c1 .difference{ padding-right: 20px; }
-    .c2 .difference{ padding-left: 20px; }
+    .columns{
+      width: 100%;
+      margin: auto;
 
-    .difference{
-      margin-bottom: 20px;
-
-      h3{
-        font-weight: normal;
-        font-size: 20px;
-        line-height: 1;
-
-        @include respond-to(medium){
-          font-size: 18px;
-          font-weight: bold;
-        }
+      @include respond-to(wide){
+        width: 80%;
       }
 
-      p{
-        @include respond-to(wide){
-          font-size: 15px;
+      .column{
+        background: white;
+        margin: 0 1% 20px;
+        width: 44%;
+        padding: 20px 2%;
+        min-height: 300px;
+        @include border-radius(5px);
+
+        @include respond-to(medium){
+          width: 94%;
+        }
+
+        h3{
+          font-size: 20px;
+          line-height: 1;
+          margin-left: 10px;
+        }
+
+        .difference{
+          margin-bottom: 20px;
+          clear: both;
+
+          h4{
+            font-size: 18px;
+            font-weight: normal;
+            padding-top: 10px;
+            margin-bottom: 0
+          }
+
+          p{
+
+            @include respond-to(medium){
+              width: 80%;
+            }
+
+            @include respond-to(wide){
+              font-size: 15px;
+            }
+          }
         }
       }
     }
+
+
 
     .articles{
       .article_box{
@@ -326,6 +355,11 @@ label{
 .alert{
   margin-bottom: 0;
   @include border-radius(0);
+}
+
+img.align-left{
+  float: left;
+  margin: 0 10px 10px 0;
 }
 
 .admin{

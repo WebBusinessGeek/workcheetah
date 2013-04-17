@@ -14,32 +14,56 @@
       .search_form= render "jobs/search_form"
 
   .content
-    %h2 WorkCheetah is a Different & Better Job Engine
+    %h2{ style: "font-weight: normal;" } How Is WorkCheetah The Fastest Job Network?
     .columns.columns_two
       .column.c1
+        %h3 Job Seekers
         .difference
-          %h3
-            Employers Can
-            = link_to "Post Jobs For Free", new_job_path
-          %p
-            When someone applies to your job, you can preview their resume.
-            Like what you see? See their full resume and contact info for $0.99
+          = image_tag "radar.jpg", class: "align-left"
+          %h4 Track Your Application
+          %p Know when your application has been viewed, shortlisted or declined instantly.
         .difference
-          %h3 Private Jobs Portal for Employers
-          %p
-            Customize the look of WorkCheetah to match your brand and off-load
-            the jobs section of your website to us.
+          = image_tag "competition.jpg", class: "align-left"
+          %h4 Know Your Competition
+          %p See who’s applying to jobs you’re interested in and how you stack up against them.
+        .difference
+          = image_tag "fresh.jpg", class: "align-left"
+          %h4 Fresh Job Inventory
+          %p No more stale jobs. If it’s on WorkCheetah, it’s still available.
+        .difference
+          = image_tag "video-player.jpg", class: "align-left"
+          %h4 Bring Your Resume To Life
+          %p Add a video to your resume to show employers what your resume can’t.
+        .difference
+          = image_tag "seal.jpg", class: "align-left"
+          %h4 Safe Job Search
+          %p Look for the Safe Job seal to know it’s a legitimate opportunity, and not a scam.
+        = link_to "Post Your Resume", new_resume_path, class: "btn btn-success btn-large"
       .column.c2
+        %h3 Employers
         .difference
-          %h3
-            Job Seekers Know When Things Happen
-          %p
-            Unlike other job sites, WorkCheetah is not a blackhole. When you apply for a job, you’ll know when your resume is viewed, shortlisted or discarded.
+          = image_tag "hiring.jpg", class: "align-left"
+          %h4= link_to "Post Your Job For Free", new_job_path
+          %p Reach qualified candidants in your area without paying a penny.
         .difference
-          %h3
-            Video Resumes Bring Life & Character
-          %p
-            For some industries, such as sales and customer support, personality and people skills matter significantly. Video let’s the strongest canidates shine.
+          = image_tag "brand.jpg", class: "align-left"
+          %h4 Customized Job Portal
+          %p Manage applicants through your branded company dashboard.
+        .difference
+          = image_tag "video-camera.jpg", class: "align-left"
+          %h4 Video Is  Worth a Billion Words
+          %p Know who you’re hiring quickly by seeing what the resume doesn’t show you.
+        .difference
+          = image_tag "seal.jpg", class: "align-left"
+          %h4 Attract Quality Candidates
+          %p Gain trust of potential applicants by verifying your company with WorkCheetah.
+        .difference
+          = image_tag "ppa.jpg", class: "align-left"
+          %h4 Pay Only For Applicants You Want
+          %p Post jobs for free. Preview all applicants. Keep the ones you want.
+        = link_to "Post Your Job", new_job_path, class: "btn btn-primary btn-large"
+        or
+        = link_to "Learn More", "/employers"
 
     %hr.divider
     %h2 News & Resources
