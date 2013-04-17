@@ -8,7 +8,7 @@
               = current_user.resume.present? && !current_user.resume.new_record? ? current_user.resume.name : current_user.email
               %b.caret
             %ul.dropdown-menu{ style: "background: black;"}
-
+              %li= link_to "Change Password", [:change_password, :user]
               %li= link_to "Sign Out", destroy_user_session_path, method: :delete
         - else
           = form_for("user", :url => user_session_path, html: { class: "navbar-form" }) do |f|
