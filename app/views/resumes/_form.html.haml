@@ -24,9 +24,9 @@
   %h3 Contact Details
   .row
     .span5
-      = f.label :name
+      = f.label :name, "Full name"
       = f.text_field :name, style: "width: 100%"
-      = f.label :phone
+      = f.label :phone, "Phone (This is the number given to employers who want to contact you, please use a valid phone number)"
       = f.text_field :phone, style: "width: 100%", class: "phone"
       = f.label :email do
         Email
