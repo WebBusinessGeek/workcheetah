@@ -34,7 +34,7 @@ $break-tallest: 805px;
 }
 
 body{
-  background: url("background2c.jpg") #ad5100 no-repeat top center fixed;
+  background: url("background3.jpg") #ad5100 no-repeat top center fixed;
   font-family: "myriad-pro";
 
   @include respond-to(handheld){
@@ -245,7 +245,7 @@ body.home{
             }
 
             @include respond-to(wide){
-              font-size: 15px;
+              font-size: 14px;
             }
           }
 

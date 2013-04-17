@@ -5,6 +5,7 @@ background.jpg: background-d358c7dca5276f4f4f85bb43258418e6.jpg
 background2.jpg: background2-e3726c07a647b371be737647e274ee2d.jpg
 background2b.jpg: background2b-e3c36ba31b83946704759571d78a2866.jpg
 background2c.jpg: background2c-42d36e5c75fc0efbb0e3877b784e68cc.jpg
+background3.jpg: background3-c1e9fa52e677693520ccdd5e12f0d624.jpg
 billboard.jpg: billboard-b2eb33963fd091f0179cd7bf47018fee.jpg
 brand.jpg: brand-2ec91042497d2b6f6115aa13c0170075.jpg
 competition.jpg: competition-6d4f6b67e298cd354fbc66c360ede9dc.jpg
@@ -33,7 +34,7 @@ seal.jpg: seal-550b30b7ad26e340f279fdae5f057430.jpg
 video-camera.jpg: video-camera-7636b32c71a6a7019eb8f902149872a7.jpg
 video-player.jpg: video-player-ca4ff051fde774397444fbe40d76cbcb.jpg
 application.js: application-e35cb325e1e8c1e042bc94fc5b538417.js
-application.css: application-b3ce19a99afdf89c6f1320041633b041.css
+application.css: application-233badbc99571a178638399fe76f2fed.css
 tinymce.js: tinymce-6f6673341736f74af3e32c64d6ceae74.js
 tinymce/license.txt: tinymce/license-1ec127777c811211027640b3b24364f2.txt
 tinymce/plugins/advhr/rule.htm: tinymce/plugins/advhr/rule-d4d2d2fa20f4000d3d14f7c6c6dae00b.htm
