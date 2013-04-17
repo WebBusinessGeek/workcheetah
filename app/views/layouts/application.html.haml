@@ -42,10 +42,10 @@
     .container
       .header_box
         = render "shared/header_nav"
-        .container
-          .header
-            .as-seen-on= image_tag("as-seen-on.png")
-            .logo= link_to image_tag("logo-large5.png"), root_path
+        .header
+          .as-seen-on= image_tag("as-seen-on.png")
+          .logo= link_to image_tag("logo-large5.png"), root_path
+          .clearfix
       .content
         - if flash.any?
           .flash

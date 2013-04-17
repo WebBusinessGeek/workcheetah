@@ -34,7 +34,7 @@ $break-tallest: 805px;
 }
 
 body{
-  background: url("background3.jpg") #ad5100 no-repeat top center fixed;
+  background: url("background3.jpg") #1a5310 no-repeat top center fixed;
   font-family: "myriad-pro";
 
   @include respond-to(handheld){
@@ -89,7 +89,6 @@ body{
 
 body.home{
   background: url("background.jpg") repeat top center;
-  // background: url("background2b.jpg") #ad5100 no-repeat top center fixed;
 
   .navbar.navbar-inverse{
     .navbar-inner{
@@ -333,14 +332,14 @@ body.home{
 }
 
 .content{
-  background: #e2ebf0;
+  background: #fff;
   padding: 20px;
   @include border-radius(0 0 10px 10px);
 
   .white_box{
     background: white;
     @include border-radius(10px);
-    @include box-shadow(0 0 10px #bbb);
+    border: 3px solid #eee;
     padding: 20px;
   }
 
