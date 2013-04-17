@@ -11,13 +11,15 @@
         %th Company
         %th Applicants
       - @jobs.each do |job|
-        %tr
+        %tr{ class: "job #{ job.account.safe_job_seal? ? " safe_seal" : "" }"}
           %td
             - if job.title.present?
               = link_to job.title, job
           %td
             - if job.account && job.account.name
               = link_to job.account.name, slug_path(job.account.slug)
-          %td= job.job_applications_count
+              - if job.account.safe_job_seal?
+                = image_tag "safe-seal-small.png", alt: "Safe Job seal"
+          %td= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
     %br/
 

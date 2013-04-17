@@ -37,4 +37,19 @@ class Account < ActiveRecord::Base
       @response
     end
   end
+
+  def buy_seal
+    if has_payment_profile?
+      @payment_profile = self.payment_profiles.first
+      @response = Stripe::Charge.create(
+        :amount      => 1995,
+        :currency    => "usd",
+        :customer    => @payment_profile.stripe_customer_token,
+        :description => "Charge for Safe Job seal")
+      if @response.failure_message.nil?
+        self.update_attribute(:safe_job_seal, true)
+      end
+      @response
+    end
+  end
 end

@@ -91,8 +91,8 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        sign_in @job.account.users.first
-        format.html { redirect_to @job, notice: 'Job was successfully created.' }
+        sign_in @job.account.users.first unless user_signed_in?
+        format.html { redirect_to (@job.account.safe_job_seal? ? @job : [:add_seal, :account]), notice: 'Job was successfully created.' }
         format.json { render json: @job, status: :created, location: @job }
       else
         format.html { render action: "new" }

@@ -1,12 +1,13 @@
 .job_applicants_show
   .white_box
     - if @resume.present?
-      .pull-right{ style: "text-align: center;" }
-        = link_to "Buy Now - $0.99", [:buy, @job, @job_application], class: "btn btn-large btn-success", method: :post
-        %br/
-        or
-        %br/
-        = link_to "Not Interested", [:reject, @job, @job_application], class: "btn btn-danger", method: :post
+      - if can? :manage, @job
+        .pull-right{ style: "text-align: center;" }
+          = link_to "Buy Now - $0.99", [:buy, @job, @job_application], class: "btn btn-large btn-success", method: :post
+          %br/
+          or
+          %br/
+          = link_to "Not Interested", [:reject, @job, @job_application], class: "btn btn-danger", method: :post
       %h1 Applicant Name
 
       .contact_details

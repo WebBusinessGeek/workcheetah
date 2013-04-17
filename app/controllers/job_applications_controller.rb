@@ -1,14 +1,15 @@
 class JobApplicationsController < ApplicationController
   before_filter :load_job
-  before_filter :authorize_user, except: [:create, :new]
+  before_filter :authorize_user, except: [:index, :show, :create, :new]
 
   def index
     if @job
-      if can? :manage, @job
-        @job_applications = @job.job_applications
-      else
-        redirect_to @job, alert: "Access denied."
-      end
+      @job_applications = @job.job_applications
+      # if can? :manage, @job
+
+      # else
+      #   redirect_to @job, alert: "Access denied."
+      # end
     else
       @job_applications = current_user.job_applications
     end

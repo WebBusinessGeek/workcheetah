@@ -29,6 +29,20 @@ class AccountsController < ApplicationController
     redirect_to account_path
   end
 
+  def add_seal
+    load_account
+  end
+
+  def buy_seal
+    load_account
+    @response = @account.buy_seal
+    if @response.failure_message.nil?
+      redirect_to [:account], notice: "Safe Job seal added"
+    else
+      redirect_to [:add_seal, :account], notice: "Something went wrong while adding Safe Job seal."
+    end
+  end
+
   private
 
   def load_account

@@ -5,6 +5,7 @@ class PaymentProfile < ActiveRecord::Base
   # attr_accessible :cc_number_preview, :expiration, :nickname, :stripe_customer_token
 
   attr_accessor :stripe_card_token
+  attr_accessor :product
   attr_accessor :first_job_applicant_to_buy
 
   scope :active, -> { where(status: "active") }

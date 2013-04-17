@@ -2,5 +2,6 @@
   = f.hidden_field :stripe_card_token
   - if @job_application.present?
     = f.hidden_field :first_job_applicant_to_buy, value: @job_application.id
+  = f.hidden_field :product
   = render "shared/credit_card_fields"
   = f.submit "Continue", class: "btn btn-large btn-success"

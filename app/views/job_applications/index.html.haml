@@ -6,7 +6,7 @@
         %tr
           %th Applicant
           %th
-        - @job_applications.each do |job_application|
+        - @job_applications.each_with_index do |job_application, i|
           - if job_application.user.resume.present?
             %tr
               - if can? :read, job_application
@@ -14,12 +14,13 @@
                 %td= link_to "View", [@job, job_application], class: "btn"
               - else
                 %td
-                  Preview:
-                  = job_application.user.email.truncate(10)
+                  = link_to [@job, job_application] do
+                    Applicant
+                    = i + 1
 
                 %td
-
-                  = link_to "Buy", [:buy, @job, job_application], method: :post, class: "btn"
+                  - if can? :manage, @job
+                    = link_to "Buy", [:buy, @job, job_application], method: :post, class: "btn"
                   = link_to "Preview", [@job, job_application], class: "btn"
     - else
       %table.table

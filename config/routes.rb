@@ -29,6 +29,8 @@ CareerLoop::Application.routes.draw do
   resource :account do
     member do
       get :customize
+      get :add_seal
+      post :buy_seal
     end
   end
 

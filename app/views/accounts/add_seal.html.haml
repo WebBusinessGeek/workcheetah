@@ -1,0 +1,9 @@
+.accounts_show
+  .white_box
+    %h1 Add Certified Seal - $19.95
+    %p Adding the WorkCheetah Safe Job seal allows your job to stand out and prove that it is in fact a legitimate job, and not a scam.
+    - if @account.payment_profiles.any?
+      %p Looks like you already have your billing information saved. Click the button below to add the seal.
+      %p= link_to "Add Safe Job Seal for $19.95", [:buy_seal, :account], method: :post, class: "btn btn-success btn-large"
+    - else
+      %p= link_to "Add Billing Details", new_payment_profile_path(product: "seal"), class: "btn btn-success btn-large"
