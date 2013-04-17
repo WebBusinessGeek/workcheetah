@@ -38,7 +38,7 @@
           = image_tag "seal.jpg", class: "align-left"
           %h4 Safe Job Search
           %p Look for the Safe Job seal to know it’s a legitimate opportunity, and not a scam.
-        = link_to "Post Your Resume", new_resume_path, class: "btn btn-success btn-large"
+        .action= link_to "Post Your Resume", new_resume_path, class: "btn btn-success btn-large"
       .column.c2
         %h3 Employers
         .difference
@@ -61,9 +61,10 @@
           = image_tag "ppa.jpg", class: "align-left"
           %h4 Pay Only For Applicants You Want
           %p Post jobs for free. Preview all applicants. Keep the ones you want.
-        = link_to "Post Your Job", new_job_path, class: "btn btn-primary btn-large"
-        or
-        = link_to "Learn More", "/employers"
+        .action
+          = link_to "Post Your Job", new_job_path, class: "btn btn-primary btn-large"
+          or
+          = link_to "Learn More", "/employers"
 
     %hr.divider
     %h2 News & Resources
