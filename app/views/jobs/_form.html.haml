@@ -34,6 +34,11 @@
         .control-group
           = af.label :phone, "Company phone"
           .control= af.text_field :phone, class: "phone", placeholder: "(555) 555-5555 x555"
+        .control-group
+          = af.label :slug, "Jobs portal address (no spaces allowed)"
+          .control
+            http://www.workcheetah.com/
+            = af.text_field :slug, placeholder: "your-company-name-without-spaces", style: "width: 400px;"
         - unless user_signed_in?
           %h2 Admin User Settings
           %p Let's start by creating the first user on your account. You can add additional users later.
