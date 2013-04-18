@@ -8,7 +8,7 @@
               = current_user.resume.present? && !current_user.resume.new_record? ? current_user.resume.name : current_user.email
               %b.caret
             %ul.dropdown-menu{ style: "background: black;"}
-              - if user_signed_in? && (current_user.account.nil? || current_user.account.jobs.empty?)
+              - if user_signed_in? && current_user.account.nil?
                 - if current_user.resume.present?
                   %li= link_to "Edit My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
                 - else
@@ -32,7 +32,7 @@
         %span.my_job_apps= link_to "My Job Applications", job_applications_path
 
       %span.post_a_job= link_to "Post a Job", [:new, :job], class: (new_job_path == request.path ? "current" : "" )
-      - if user_signed_in? && (current_user.account.nil? || current_user.account.jobs.empty?)
+      - if user_signed_in? && current_user.account.nil?
         - if current_user.resume.present?
           %span.my_resume= link_to "My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
         - else
