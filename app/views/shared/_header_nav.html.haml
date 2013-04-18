@@ -8,7 +8,7 @@
               = current_user.resume.present? && !current_user.resume.new_record? ? current_user.resume.name : current_user.email
               %b.caret
             %ul.dropdown-menu{ style: "background: black;"}
-              - if user_signed_in? && current_user.account.jobs.empty?
+              - if user_signed_in? && current_user.account && current_user.account.jobs.empty?
                 - if user_signed_in? && current_user.resume.present?
                   %li= link_to "Edit My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
                 - else
