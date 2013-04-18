@@ -39,7 +39,10 @@
           = image_tag "seal.jpg", class: "align-left"
           %h4 Safe Job Search
           %p Look for the Safe Job seal to know it’s a legitimate opportunity, and not a scam.
-        .action= link_to "Post Your Resume", new_resume_path, class: "btn btn-success btn-large"
+        .action
+          = link_to "Post Your Resume", new_resume_path, class: "btn btn-success btn-large"
+          or
+          = link_to "Browse jobs", categories_path
       .column.c2
         %h3 Employers
         .difference
