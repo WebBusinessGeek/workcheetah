@@ -42,9 +42,8 @@
     .container
       .header_box
         = render "shared/header_nav"
-        .header
-          .as-seen-on= image_tag("as-seen-on.png")
-          .logo= link_to image_tag("logo-large5.png"), root_path
+        .header{ style: "background: white;" }
+          .pull-right.logo= link_to image_tag("logo3.png"), root_path
           .clearfix
       .content
         - if flash.any?
