@@ -9,7 +9,9 @@
       %br/
       Phone:
       = @account.phone
-    - unless @account.safe_job_seal?
+    - if @account.safe_job_seal?
+      = link_to "Remove Safe Job Seal", [:remove_seal, :account], class: "btn"
+    - else
       = link_to "Verify Your Company", [:add_seal, :account], class: "btn btn-success"
 
     .payment_profiles

@@ -1,12 +1,13 @@
 .accounts_add_seal
   .white_box
-    %h1 Your Job Is Live on WorkCheetah
+    %h1 Your Job Is Live on WorkCheetah!
     %h2 The next step is verifying your company...
-    .row
-      .span7.verify
+    .verify_box
+      .verify_content
         .heading
-          = image_tag "safe-job-seal-large.png"
-          Verify Your Company
+          Verify Your
+          %br/
+          Company
         %ul
           %li Attract More Candidates
           %li Verifies All Your Job Listings
@@ -15,20 +16,16 @@
           Verifying your company is simple and ensures applicants
           that your listing is legitimate! Receive a temporary seal
           until the verification process is complete.
-        %p
+        .button
           - if @account.payment_profiles.any?
             = link_to "Verify My Company", [:buy_seal, :account], method: :post
           - else
             = link_to "Add Billing Details", new_payment_profile_path(product: "seal")
-          %br
-          Processing Fee of $19.95
+        .after_button Processing Fee of $19.95
 
-      .span4.no_thanks
+    .no_thanks_box
+      .no_thanks_content
         .heading No Thanks, I Don’t Want To Verify My Company
         %p= link_to "Don’t Verify - Continue", [:my, :jobs]
-    %p Adding the WorkCheetah Safe Job seal allows your job to stand out and prove that it is in fact a legitimate job, and not a scam.
-    - if @account.payment_profiles.any?
-      %p Looks like you already have your billing information saved. Click the button below to add the seal.
-      %p= link_to "Add Safe Job Seal for $19.95", [:buy_seal, :account], method: :post, class: "btn btn-success btn-large"
-    - else
-      %p= link_to "Add Billing Details", new_payment_profile_path(product: "seal"), class: "btn btn-success btn-large"
+
+    .clearfix

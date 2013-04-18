@@ -36,13 +36,22 @@ class AccountsController < ApplicationController
 
   def add_seal
     load_account
+    if @account.safe_job_seal?
+      redirect_to my_jobs_path, notice: "Your account already has the Safe Job seal."
+    end
+  end
+
+  def remove_seal
+    load_account
+    @account.update_attribute(:safe_job_seal, false)
+    redirect_to [:account]
   end
 
   def buy_seal
     load_account
     @response = @account.buy_seal
     if @response.failure_message.nil?
-      redirect_to [:account], notice: "Safe Job seal added"
+      redirect_to [:account], notice: "Your credit card has been charged $19.95 and we've added the Safe Job seal to your jobs."
     else
       redirect_to [:add_seal, :account], notice: "Something went wrong while adding Safe Job seal."
     end

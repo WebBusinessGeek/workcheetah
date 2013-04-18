@@ -14,6 +14,7 @@ favicon-claw1.ico: favicon-claw1-30c005bc8eeffbd5df7d47b99a896388.ico
 favicon-claw2.ico: favicon-claw2-53b2f1e6ed49272e54d94ba6d07ff9e3.ico
 fresh.jpg: fresh-9e45da6b5a34b970f3757823a26c124e.jpg
 getting-faster.jpg: getting-faster-94fb76e3a59771bfd31d22305747285b.jpg
+green-checkmark.png: green-checkmark-360442d666cc7549d582b9487cdbe23f.png
 header.png: header-fc7150af454e2c9f7aac0677a9aaf5b2.png
 hiring.jpg: hiring-88b2d37be95e1d610f635486778b09e3.jpg
 home-employers-background.png: home-employers-background-a910a2bb86604c1f522d535f25cc500e.png
@@ -30,12 +31,13 @@ logo3.png: logo3-275213c28c6eaf44f1632035300e710c.png
 nav-hover.png: nav-hover-35f5611ed7464fe3e35ddc935794ed51.png
 ppa.jpg: ppa-2905e5c091e9a2150137648cf6e82f01.jpg
 radar.jpg: radar-d7d00424bb8b1c9129a94fbf0902e59a.jpg
+safe-job-seal-large.png: safe-job-seal-large-5efcacd200e3793653e581ff72de395f.png
 safe-seal-small.png: safe-seal-small-55e7e686522b87ac4d53eef377771c9b.png
 seal.jpg: seal-550b30b7ad26e340f279fdae5f057430.jpg
 video-camera.jpg: video-camera-7636b32c71a6a7019eb8f902149872a7.jpg
 video-player.jpg: video-player-ca4ff051fde774397444fbe40d76cbcb.jpg
 application.js: application-e35cb325e1e8c1e042bc94fc5b538417.js
-application.css: application-151d2a0fb8312453b5a1cccc4f9259eb.css
+application.css: application-2eff865b169400f0378983356663ad86.css
 tinymce.js: tinymce-6f6673341736f74af3e32c64d6ceae74.js
 tinymce/license.txt: tinymce/license-1ec127777c811211027640b3b24364f2.txt
 tinymce/plugins/advhr/rule.htm: tinymce/plugins/advhr/rule-d4d2d2fa20f4000d3d14f7c6c6dae00b.htm

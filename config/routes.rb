@@ -32,6 +32,7 @@ CareerLoop::Application.routes.draw do
     member do
       get :customize
       get :add_seal
+      get :remove_seal
       post :buy_seal
     end
   end
