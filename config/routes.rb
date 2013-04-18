@@ -34,7 +34,11 @@ CareerLoop::Application.routes.draw do
     end
   end
 
-  resources :accounts
+  resources :accounts do
+    member do
+      post :suspend
+    end
+  end
 
 
   resources :credit_packages
@@ -45,7 +49,7 @@ CareerLoop::Application.routes.draw do
   resource :user do
     member do
       get :change_password
-      post :update_password
+      put :update_password
     end
   end
 

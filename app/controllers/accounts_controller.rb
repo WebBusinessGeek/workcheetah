@@ -1,10 +1,15 @@
 class AccountsController < ApplicationController
   def index
-    @accounts = Account.scoped
+    if current_user.admin?
+      @accounts = Account.scoped
+    else
+      redirect_to root_path, notice: "Access denied"
+    end
   end
 
   def show
     load_account
+    redirect_to root_path, notice: "Access denied" unless current_user.admin? || current_user.account == @account
     if params[:slug]
       @jobs = @account.jobs
       @portal = true
@@ -41,6 +46,13 @@ class AccountsController < ApplicationController
     else
       redirect_to [:add_seal, :account], notice: "Something went wrong while adding Safe Job seal."
     end
+  end
+
+  def suspend
+    load_account
+    @account.update_attribute(:active, false)
+    @account.jobs.update_all(active: false)
+    redirect_to accounts_path
   end
 
   private

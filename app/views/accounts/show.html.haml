@@ -9,7 +9,8 @@
       %br/
       Phone:
       = @account.phone
-    = link_to "Add Safe Job Seal", [:add_seal, :account], class: "btn"
+    - unless @account.safe_job_seal?
+      = link_to "Add Safe Job Seal", [:add_seal, :account], class: "btn"
 
     .payment_profiles
       %h2 Payment Profiles

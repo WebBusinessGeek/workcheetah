@@ -1,6 +1,8 @@
 class Job < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
+  default_scope where(active: true)
+
   # attr_accessible :about_company, :description, :title
   belongs_to :account
   has_many :job_applications, dependent: :destroy

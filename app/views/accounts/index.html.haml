@@ -1,0 +1,13 @@
+.accounts_index
+  .white_box
+    %h1 Accounts
+    %table{ style: "width: 100%; text-align: left;"}
+      %tr
+        %th Name
+        %th Status
+        %th Actions
+      - @accounts.each do |account|
+        %tr{ style: "border-top: 1px solid #ddd;"}
+          %td= link_to account.name, "/accounts/#{account.id}"
+          %td= account.active? ? "Active" : "Suspended"
+          %td= link_to "Suspend", [:suspend, account], method: :post, class: "btn btn-danger btn-small"

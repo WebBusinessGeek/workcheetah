@@ -24,5 +24,6 @@ class DashboardsController < ApplicationController
     @applicant_accesses_today_count = ApplicantAccess.where(created_at: Date.today).order('created_at desc').count
     @applicant_accesses_last_7_days_count = ApplicantAccess.where(created_at: 7.days.ago..Date.today).order('created_at desc').count
     @applicant_accesses_last_28_days_count = ApplicantAccess.where(created_at: 28.days.ago..Date.today).order('created_at desc').count
+    @accounts = Account.order('created_at desc').limit(10)
   end
 end
