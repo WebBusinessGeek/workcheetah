@@ -1,7 +1,7 @@
 .jobs_index
   .white_box
     .pull-right
-      - if @category
+      - if @category && user_signed_in? && current_user.admin?
         = link_to "Edit Category", [:edit, @category], class: "btn"
     %h1
       = @category.name if @category
