@@ -20,7 +20,7 @@ class JobApplicationsController < ApplicationController
     @job_application = @job.job_applications.find(params[:id])
     @resume = @job_application.user.resume
     if can? :read, @job_application
-      @job_application.status = "Shortlisted"
+      @job_application.status = "Company Interested"
       @job_application.save if @job_application.changed?
       render "resumes/show"
     else
