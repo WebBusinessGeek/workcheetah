@@ -1,7 +1,8 @@
 .accounts_show
   .white_box
-    .pull-right
-      = image_tag @account.logo.medium.url
+    - if @account.logo.present?
+      .pull-right
+        = image_tag @account.logo.medium.url
     %h1.account_name= @account.name
     %p
       Website:
