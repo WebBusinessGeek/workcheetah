@@ -1,6 +1,6 @@
 .categories_index
   .white_box
-    - if current_user.admin?
+    - if user_signed_in? && current_user.admin?
       .pull-right
         = link_to "Add Category", [:new, :category], class: "btn"
     %h1 Categories
