@@ -32,7 +32,8 @@
         %span.my_job_apps= link_to "My Job Applications", job_applications_path
 
       %span.post_a_job= link_to "Post a Job", [:new, :job], class: (new_job_path == request.path ? "current" : "" )
-      - if user_signed_in? && current_user.resume.present?
-        %span.my_resume= link_to "My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
-      - else
-        %span.create_my_resume= link_to "My Resume", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
+      - if user_signed_in? && (current_user.account.nil? || current_user.account.jobs.empty?)
+        - if current_user.resume.present?
+          %span.my_resume= link_to "My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
+        - else
+          %span.create_my_resume= link_to "My Resume", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
