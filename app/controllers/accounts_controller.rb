@@ -9,7 +9,7 @@ class AccountsController < ApplicationController
 
   def show
     load_account
-    redirect_to root_path, notice: "Access denied" unless current_user.admin? || current_user.account == @account
+    # redirect_to root_path, notice: "Access denied" unless current_user.admin? || current_user.account == @account
     if params[:slug]
       @jobs = @account.jobs
       @portal = true
