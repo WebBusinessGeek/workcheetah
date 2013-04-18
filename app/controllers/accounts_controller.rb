@@ -50,7 +50,8 @@ class AccountsController < ApplicationController
   def buy_seal
     load_account
     @response = @account.buy_seal
-    if @response.failure_message.nil?
+    # if @response.failure_message.nil?
+    if @response
       redirect_to [:account], notice: "Your credit card has been charged $19.95 and we've added the Safe Job seal to your jobs."
     else
       redirect_to [:add_seal, :account], notice: "Something went wrong while adding Safe Job seal."

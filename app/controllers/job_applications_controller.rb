@@ -53,7 +53,8 @@ class JobApplicationsController < ApplicationController
         redirect_to [@job_application.job, @job_application], notice: "You already have access to this job application. No need to buy it again."
       else
         @purchase_response = current_user.account.buy_applicant(@job_application)
-        if @purchase_response.failure_message.nil?
+        # if @purchase_response.failure_message.nil?
+        if @purchase_response
           redirect_to [@job_application.job, @job_application], notice: "Access purchased"
         else
           redirect_to [@job_application.job, @job_application], error: "Something went wrong with the purcahse"

@@ -22,7 +22,7 @@
             %span.action= f.submit "Sign in", class: "btn"
     .links-top-right
       %span.home= link_to "Home", root_path
-      %span.search_jobs= link_to "Jobs by Category", categories_path, class: (root_path == request.path ? "current" : "" )
+      %span.search_jobs= link_to "Browse Jobs By Category", categories_path, class: (root_path == request.path ? "current" : "" )
       - if user_signed_in? && current_user.admin?
         = link_to "Admin", admin_path
       - if user_signed_in? && current_user.account.present?

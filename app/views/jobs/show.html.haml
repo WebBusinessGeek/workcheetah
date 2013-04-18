@@ -15,7 +15,7 @@
         - if @job.about_company.present?
           %h3 About Company
           %p= @job.about_company.html_safe
-        = link_to 'Back', jobs_path
+        = link_to 'Back', "javascript: history.go(-1)"
       .span2
         - if current_user && current_user.has_applied_to?(@job)
           .applied You've already applied.
