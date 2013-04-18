@@ -1,8 +1,13 @@
 .jobs_index
   .white_box
-    %h1 Jobs
+    .pull-right
+      - if @category
+        = link_to "Edit Category", [:edit, @category], class: "btn"
+    %h1
+      = @category.name if @category
+      Jobs
 
-    - unless @portal
+    - unless @portal || @category
       = render "jobs/search_form"
 
     %table.table

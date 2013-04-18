@@ -7,7 +7,7 @@ class JobsController < ApplicationController
     if @query.present? || @location.present?
       @jobs = Job.text_search(@query, @location)
     else
-      @jobs = Job.scoped
+      @jobs = Job.scoped.order('created_at desc')
     end
 
     if @jobs.empty? && @query.present?
@@ -132,6 +132,6 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:title, :description, :about_company, :address, account_attributes: [ :name, :website, :phone, users_attributes: [ :email, :password, :password_confirmation ] ])
+    params.require(:job).permit(:title, :description, :category_id, :about_company, :address, account_attributes: [ :name, :website, :phone, users_attributes: [ :email, :password, :password_confirmation ] ])
   end
 end

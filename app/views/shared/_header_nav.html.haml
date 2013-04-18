@@ -8,6 +8,11 @@
               = current_user.resume.present? && !current_user.resume.new_record? ? current_user.resume.name : current_user.email
               %b.caret
             %ul.dropdown-menu{ style: "background: black;"}
+              - if user_signed_in? && current_user.account.jobs.empty?
+                - if user_signed_in? && current_user.resume.present?
+                  %li= link_to "Edit My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
+                - else
+                  %li= link_to "Edit My Resume", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
               %li= link_to "Change Password", [:change_password, :user]
               %li= link_to "Sign Out", destroy_user_session_path, method: :delete
         - else
@@ -17,6 +22,7 @@
             %span.action= f.submit "Sign in", class: "btn"
     .links-top-right
       %span.home= link_to "Home", root_path
+      %span.search_jobs= link_to "Jobs by Category", categories_path, class: (root_path == request.path ? "current" : "" )
       - if user_signed_in? && current_user.admin?
         = link_to "Admin", admin_path
       - if user_signed_in? && current_user.account.present?
@@ -24,9 +30,9 @@
         %span.my_jobs= link_to "My Jobs", my_jobs_path
       - if user_signed_in? && current_user.job_applications.any?
         %span.my_job_apps= link_to "My Job Applications", job_applications_path
-      %span.search_jobs= link_to "Search Jobs", root_path, class: (root_path == request.path ? "current" : "" )
+
       %span.post_a_job= link_to "Post a Job", [:new, :job], class: (new_job_path == request.path ? "current" : "" )
       - if user_signed_in? && current_user.resume.present?
         %span.my_resume= link_to "My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
       - else
-        %span.create_my_resume= link_to "Create My Resume", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
+        %span.create_my_resume= link_to "My Resume", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )

@@ -34,7 +34,8 @@ $break-tallest: 805px;
 }
 
 body{
-  background: url("background3.jpg") #1a5310 no-repeat top center fixed;
+  // background: url("background3.jpg") #1a5310 no-repeat top center fixed;
+  background: url("background.jpg");
   font-family: "myriad-pro";
 
   @include respond-to(handheld){
@@ -59,8 +60,8 @@ body{
 
   .navbar.navbar-inverse{
     .navbar-inner{
-      background: transparent;
-      color: black;
+      background: black;
+      color: white;
       border: 0;
 
       a{
@@ -68,8 +69,8 @@ body{
         margin-left: 10px;
         padding: 10px 0;
         display: inline-block;
-        color: black;
-        text-shadow: 0px 0px 5px rgba(255, 255, 255, 1);
+        color: white;
+        text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
 
         &:hover{
           background: transparent;
@@ -237,7 +238,7 @@ body.home{
 
           h4{
             font-size: 18px;
-            font-weight: normal;
+
             padding-top: 10px;
             margin-bottom: 0
           }
@@ -313,7 +314,7 @@ body.home{
 
 .header{
   background: url("header.png") repeat-x top #2e2a23;
-  @include border-radius(10px 10px 0 0);
+  // @include border-radius(10px 10px 0 0);
 
   .logo img{
     padding: 30px 20px;
@@ -376,5 +377,22 @@ img.align-left{
         text-align: left;
       }
     }
+  }
+}
+
+.categories_index{
+  .row .span3{
+    width: 22%;
+
+    @include respond-to(medium){
+      width: 45%;
+    }
+  }
+}
+
+.accounts_add_seal{
+  h1{
+    font-size: 40px;
+    text-align: center;
   }
 }

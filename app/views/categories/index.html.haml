@@ -1,0 +1,9 @@
+.categories_index
+  .white_box
+    - if current_user.admin?
+      .pull-right
+        = link_to "Add Category", [:new, :category], class: "btn"
+    %h1 Categories
+    .row.categories
+      - @categories.each do |category|
+        .span3.category= link_to category.name, category

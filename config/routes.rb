@@ -1,4 +1,6 @@
 CareerLoop::Application.routes.draw do
+  resources :categories
+
   resources :resumes do
     member do
       get :add_video

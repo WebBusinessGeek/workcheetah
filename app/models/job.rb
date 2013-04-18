@@ -5,6 +5,7 @@ class Job < ActiveRecord::Base
 
   # attr_accessible :about_company, :description, :title
   belongs_to :account
+  belongs_to :category
   has_many :job_applications, dependent: :destroy
 
   accepts_nested_attributes_for :account

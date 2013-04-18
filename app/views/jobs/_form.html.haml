@@ -9,6 +9,10 @@
       = f.label :title, "Job title"
       .control= f.text_field :title, style: "width: 98%; font-size: 24px; padding: 0.4em; height: 1.2em"
     .control-group
+      = f.label :category, "Job category"
+      = f.collection_select(:category_id, Category.scoped, :id, :name, :prompt => true)
+
+    .control-group
       = f.label :description, "Job description"
       .control= f.text_area :description, style: "height: 200px; width: 100%; font-size: 16px;", class: "tinymce"
     .control-group

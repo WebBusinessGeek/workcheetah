@@ -1,6 +1,9 @@
 .job_applicants_index
   .white_box
-    %h1 Job Applications
+    - if @job
+      %h1 My Job Applicants
+    - else
+      %h1 Job Applications
     - if @job
       %table.table
         %tr
@@ -20,8 +23,8 @@
 
                 %td
                   - if can? :manage, @job
-                    = link_to "Buy", [:buy, @job, job_application], method: :post, class: "btn"
-                  = link_to "Preview", [@job, job_application], class: "btn"
+                    = link_to "Purchase Applicant", [:buy, @job, job_application], method: :post, class: "btn btn-success"
+                  = link_to "Preview", [@job, job_application], class: "btn btn-primary"
     - else
       %table.table
         %tr

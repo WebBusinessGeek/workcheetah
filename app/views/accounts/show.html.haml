@@ -10,7 +10,7 @@
       Phone:
       = @account.phone
     - unless @account.safe_job_seal?
-      = link_to "Add Safe Job Seal", [:add_seal, :account], class: "btn"
+      = link_to "Verify Your Company", [:add_seal, :account], class: "btn btn-success"
 
     .payment_profiles
       %h2 Payment Profiles
