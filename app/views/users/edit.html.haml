@@ -1,6 +1,9 @@
 .white_box
-  %h1 Update Password
-  = form_for(@user, :url => { :action => "update_password" } ) do |f|
+  %h1 Edit Your Account
+  = form_for(@user, :url => { :action => "update" } ) do |f|
+    .field
+      = f.label :email
+      = f.text_field :email
     .field
       = f.label :password, "New Password"
       = f.password_field :password, :autocomplete => "off"

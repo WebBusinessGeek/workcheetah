@@ -14,7 +14,7 @@ class PaymentProfilesController < ApplicationController
       if job_application_id
         buy_job_application(@payment_profile.first_job_applicant_to_buy)
       elsif product == "seal"
-        redirect_to [:add_seal, :account]
+        redirect_to [:add_seal, :account], notice: "Your billing information has been saved and you're ready to now verify your company."
       else
         redirect_to account_path
       end

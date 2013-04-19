@@ -3,7 +3,7 @@
     - if user_signed_in? && current_user.admin?
       .pull-right
         = link_to "Add Article", [:new, :article], class: "btn"
-    %h1 Resource Center
+    %h1 Career Stuff 101
     - if @articles.any?
       - @articles.each do |article|
         %h3.title= link_to article.title, article

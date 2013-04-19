@@ -13,7 +13,7 @@
                   %li= link_to "Edit My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
                 - else
                   %li= link_to "Edit My Resume", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
-              %li= link_to "Change Password", [:change_password, :user]
+              %li= link_to "Edit Email & Password", [:edit, :user]
               %li= link_to "Sign Out", destroy_user_session_path, method: :delete
         - else
           = form_for("user", :url => user_session_path, html: { class: "navbar-form" }) do |f|
@@ -31,9 +31,10 @@
       - if user_signed_in? && current_user.job_applications.any?
         %span.my_job_apps= link_to "My Job Applications", job_applications_path
 
-      %span.post_a_job= link_to "Post a Job", [:new, :job], class: (new_job_path == request.path ? "current" : "" )
-      - if user_signed_in? && current_user.account.nil?
-        - if current_user.resume.present?
+      - if should_have_job_link?(current_user)
+        %span.post_a_job= link_to "Post a Job", [:new, :job], class: (new_job_path == request.path ? "current" : "" )
+      - if should_have_resume_link?(current_user)
+        - if user_signed_in? && current_user.resume.present?
           %span.my_resume= link_to "My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
         - else
-          %span.create_my_resume= link_to "My Resume", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
+          %span.create_my_resume= link_to "Build a Resume", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )

@@ -3,7 +3,12 @@
     - if user_signed_in? && current_user.admin?
       .pull-right
         = link_to "Add Category", [:new, :category], class: "btn"
-    %h1 Categories
+    %h1 Browse Jobs by Categories
+    - if @location && @jobs_count > 40
+      %h3{ style: "margin-bottom: 20px; font-weight: normal; color: #ee6003; text-transform: capitalize;"}
+        = @jobs_count
+        jobs available in
+        = @location
     .row.categories
       - @categories.each do |category|
         .span3.category= link_to category.name, category

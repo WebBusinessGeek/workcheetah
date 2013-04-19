@@ -1,6 +1,17 @@
 class CategoriesController < ApplicationController
   def index
     @categories = Category.scoped.order(:name)
+
+    @visitors_ip = Rails.env.development? ? "71.197.119.115" : request.remote_ip
+    @current_location = Geocoder.search(@visitors_ip).first
+    if @current_location
+      @location = [@current_location.city, @current_location.state].map{ |x| x if x.present? }.join(", ")
+    else
+      @location = ""
+    end
+
+    @jobs_count = Job.text_search("", @location).count
+
   end
 
   def new
@@ -16,7 +27,14 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.find(params[:id])
     @jobs = @category.jobs
-    render "jobs/index"
+    if @jobs.any?
+      render "jobs/index"
+    else
+      @articles = Article.order(:created_at).limit(10) if @jobs.empty?
+      @query = @category.name
+      @email_subscription = EmailSubscription.new
+      render "jobs/getting_faster"
+    end
   end
 
   def edit

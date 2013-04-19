@@ -14,12 +14,12 @@
       %h1 Applicant Name
 
       .contact_details
-        %span (XXX) XXX-XXXX
-        %span xxxx@xxxxxxxxx.xxx
+        .phone Phone: (XXX) XXX-XXXX
+        .email Email: xxxx@xxxxxxxxx.xxx
         - if @resume.website.present?
-          %span http://xxx.xxxxxxxxxxx.xxx
+          .website Website: http://xxx.xxxxxxxxxxx.xxx
         - if @resume.twitter.present?
-          %span @xxxxxxxxx
+          .twitter Twitter: @xxxxxxxxx
 
       .experiences
         - if @resume.experiences.any?

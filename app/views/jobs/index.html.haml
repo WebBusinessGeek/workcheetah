@@ -10,6 +10,9 @@
     - unless @portal || @category
       = render "jobs/search_form"
 
+    %h3
+      Open positions in
+      = @location || @current_location_clean
     %table.table
       %tr
         %th Position

@@ -1,13 +1,14 @@
 .jobs_show
   .white_box
     .row
-      .span9
-        .pull-right
-          - if can? :manage, @job
-            = link_to 'Edit Job', edit_job_path(@job), class: "btn"
+      .span8
         - if @job.account.logo.present?
           = image_tag @job.account.logo.medium.url
-        %h2= @job.title
+        %h2
+          = @job.title
+          - if can? :manage, @job
+            = link_to 'Edit Job', edit_job_path(@job), class: "btn"
+            = link_to 'Deactivate Job', job_path(@job), method: :delete, class: "btn btn-danger"
 
         %h3 Job Description
         - if @job.description

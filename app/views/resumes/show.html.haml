@@ -2,16 +2,23 @@
   .white_box
     - if @resume.present?
       - if @resume.user == current_user
-        .pull-right
-          = link_to "Add Video Resume", [:add_video, @resume], class: "btn"
-          = link_to "Edit Resume", [:edit, @resume], class: "btn"
+        .pull-right{ style: "width: 300px"}
+          = link_to [:add_video, @resume], class: "btn btn-success" do
+            %b{ class: "icon-facetime-video"}
+            Add Video Resume
+
+          = link_to [:edit, @resume], class: "btn btn-primary" do
+            %b{ class: "icon-user"}
+            Edit Resume
+          %p{ style: "margin-top: 10px;" } Video helps you sell yourself to potential employers. Stand out with a great visual presentation of your skills.
+
       %h1= @resume.name
 
       .contact_details
-        %span= @resume.phone
-        %span= @resume.email
-        %span= link_to @resume.website, @resume.website
-        %span= link_to "@#{@resume.twitter}", "http://www.twitter/#{@resume.twitter}"
+        .phone= @resume.phone
+        .email= @resume.email
+        .website= link_to @resume.website, @resume.website
+        .twitter= link_to "@#{@resume.twitter}", "http://www.twitter/#{@resume.twitter}"
 
         - @resume.addresses.each do |address|
           .address

@@ -18,4 +18,5 @@ class User < ActiveRecord::Base
   def has_applied_to?(job)
     self.job_applications.where(job_id: job.id).any?
   end
+
 end

@@ -3,17 +3,30 @@ class JobsController < ApplicationController
   # GET /jobs.json
   def index
     @query = params[:search]
-    @location = params[:location]
+    if params[:location]
+      @location = params[:location]
+    else
+      @visitors_ip = Rails.env.development? ? "71.197.119.115" : request.remote_ip
+      @current_location = Geocoder.search(@visitors_ip).first
+      if @current_location
+        @location = [@current_location.city, @current_location.state].map{ |x| x if x.present? }.join(", ")
+      else
+        @location = ""
+      end
+    end
+
     if @query.present? || @location.present?
       @jobs = Job.text_search(@query, @location)
     else
       @jobs = Job.scoped.order('created_at desc')
     end
 
+    @articles = Article.order(:created_at).limit(10) if @jobs.empty?
+
     if @jobs.empty? && @query.present?
       @session_variable = (@query.parameterize.gsub('-','_') + "_jobs_count").to_sym
       @jobs_count = session[@session_variable] ||= 28 + Random.rand(63)
-      @articles = Article.order(:created_at).limit(10)
+
     end
 
     respond_to do |format|
@@ -121,7 +134,7 @@ class JobsController < ApplicationController
   # DELETE /jobs/1.json
   def destroy
     @job = Job.find(params[:id])
-    @job.destroy
+    @job.update_attribute(:active, false)
 
     respond_to do |format|
       format.html { redirect_to jobs_url }
@@ -132,6 +145,6 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:title, :description, :category_id, :about_company, :address, account_attributes: [ :name, :website, :phone, users_attributes: [ :email, :password, :password_confirmation ] ])
+    params.require(:job).permit(:title, :description, :category_id, :about_company, :address, account_attributes: [ :name, :website, :phone, :slug, users_attributes: [ :email, :password, :password_confirmation ] ])
   end
 end

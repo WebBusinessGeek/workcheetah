@@ -2,30 +2,33 @@
   .white_box
     %h1 Your Job Is Live on WorkCheetah!
     %h2 The next step is verifying your company...
-    .verify_box
-      .verify_content
-        .heading
-          Verify Your
-          %br/
-          Company
-        %ul
-          %li Attract More Candidates
-          %li Verifies All Your Job Listings
-          %li Ensure Applicants You’re Jobs Are Legitimate
-        %p
-          Verifying your company is simple and ensures applicants
-          that your listing is legitimate! Receive a temporary seal
-          until the verification process is complete.
-        .button
+    .options
+      .no_thanks_box
+        .no_thanks_content
+          .heading No Thanks, I Don’t Want To Verify My Company
+          %p= link_to "Don’t Verify - Continue", [:my, :jobs]
+      .verify_box
+        .verify_content
+          .heading
+            Verify Your
+            %br/
+            Company
+          %ul
+            %li Attract More Candidates
+            %li Verifies All Your Job Listings
+            %li Ensure Applicants You’re Jobs Are Legitimate
+          %p
+            Verifying your company is simple and ensures applicants
+            that your listing is legitimate! Receive a temporary seal
+            until the verification process is complete.
           - if @account.payment_profiles.any?
-            = link_to "Verify My Company", [:buy_seal, :account], method: :post
+            .button= link_to "Verify My Company", [:buy_seal, :account], method: :post
+            .after_button There is an application fee of $19.95
           - else
-            = link_to "Add Billing Details", new_payment_profile_path(product: "seal")
-        .after_button Processing Fee of $19.95
+            .button= link_to "Verify Your Company Now", new_payment_profile_path(product: "seal")
+            .after_button Start by adding billing details
 
-    .no_thanks_box
-      .no_thanks_content
-        .heading No Thanks, I Don’t Want To Verify My Company
-        %p= link_to "Don’t Verify - Continue", [:my, :jobs]
 
-    .clearfix
+
+
+      .clearfix

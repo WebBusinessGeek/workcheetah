@@ -49,12 +49,13 @@ CareerLoop::Application.routes.draw do
 
   devise_for :users, :controllers => { :registrations => "users/registrations" }
 
-  resource :user do
-    member do
-      get :change_password
-      put :update_password
-    end
-  end
+  resource :user
+  #  do
+  #   member do
+  #     get :change_password
+  #     put :update_password
+  #   end
+  # end
 
   root :to => 'dashboards#home'
   match '/admin' => "dashboards#admin", as: "admin"

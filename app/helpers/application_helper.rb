@@ -67,4 +67,20 @@ module ApplicationHelper
       ['Wyoming', 'WY']
     ]
   end
+
+  def should_have_resume_link?(user)
+    user.nil? || user.account.nil?
+  end
+
+  def should_have_job_link?(user)
+    if user.nil?
+      true
+    elsif user.admin?
+      true
+    elsif user.resume.nil?
+      true
+    else
+      false
+    end
+  end
 end
