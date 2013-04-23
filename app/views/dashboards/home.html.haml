@@ -76,7 +76,7 @@
         .article_box
           .article{ class: @side }
             %h3= link_to article.title, article
-            %p.teaser= ActionView::Base.full_sanitizer.sanitize(article.body).truncate(200)
+            %p.teaser= strip_tags(article.body).truncate(200).html_safe
         - if @side == "right"
           .clearfix
   .footer

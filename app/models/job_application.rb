@@ -5,4 +5,12 @@ class JobApplication < ActiveRecord::Base
   belongs_to :user
   has_one :applicant_access
   # attr_accessible :status
+
+  def reject!
+    self.update_attribute(:status, "Declined")
+  end
+
+  def rejected?
+    self.status == "Declined"
+  end
 end

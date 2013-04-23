@@ -24,7 +24,7 @@ class JobApplicationsController < ApplicationController
       @job_application.save if @job_application.changed?
       render "resumes/show"
     else
-      @job_application.status = "Viewed"
+      @job_application.status = "Viewed" if @job_application.status == "Application Sent"
       @job_application.save if @job_application.changed?
       render "resumes/preview_resume"
     end
@@ -34,7 +34,7 @@ class JobApplicationsController < ApplicationController
     @job = Job.find(params[:job_id])
     @job_application = @job.job_applications.find(params[:id])
     @job_application.reject!
-    redirect_to [@job, @job_application]
+    redirect_to [@job, :job_applications]
   end
 
   def new
@@ -45,7 +45,7 @@ class JobApplicationsController < ApplicationController
     elsif current_user.job_applications.where(job_id: @job.id).any?
       redirect_to @job, notice: "You've already applied to this job."
     else
-      @job_app = current_user.job_applications.create(job: @job, status: "Applicant Sent")
+      @job_app = current_user.job_applications.create(job: @job, status: "Application Sent")
       NotificationMailer.new_job_application(@job_app).deliver
       redirect_to @job, notice: "Application sent! You'll hear back soon."
     end

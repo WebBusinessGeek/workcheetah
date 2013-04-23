@@ -8,6 +8,8 @@
       %table.table
         %tr
           %th Applicant
+          - if can? :manage, @job
+            %th Status
           %th
         - @job_applications.each_with_index do |job_application, i|
           - if job_application.user.resume.present?
@@ -20,11 +22,13 @@
                   = link_to [@job, job_application] do
                     Applicant
                     = i + 1
-
+                - if can? :manage, @job
+                  %td= job_application.status
                 %td
-                  - if can? :manage, @job
-                    = link_to "Purchase Applicant", [:buy, @job, job_application], method: :post, class: "btn btn-success"
-                  = link_to "Preview", [@job, job_application], class: "btn btn-primary"
+                  - unless job_application.rejected?
+                    - if can? :manage, @job
+                      = link_to "Purchase Applicant", [:buy, @job, job_application], method: :post, class: "btn btn-success"
+                    = link_to "Preview", [@job, job_application], class: "btn btn-primary"
     - else
       %table.table
         %tr
