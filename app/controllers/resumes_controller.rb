@@ -23,8 +23,8 @@ class ResumesController < ApplicationController
     end
 
     if @resume.save
-      redirect_to resume_path(@resume), notice: "Resume created successfully"
       sign_in @resume.user unless user_signed_in?
+      redirect_to resume_path(@resume), notice: "Resume created successfully"
     else
       render "new"
     end
