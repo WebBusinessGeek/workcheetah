@@ -27,7 +27,7 @@ gem 'haml', '~> 3.2.0.beta.1'
 gem 'devise'
 gem 'rspec-rails'
 # gem "simple_form"
-gem "strong_parameters"
+gem "strong_parameters", '>= 0.2.0'
 gem "cancan"
 gem 'stripe'
 gem "state_select"

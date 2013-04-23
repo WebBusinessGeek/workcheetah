@@ -223,7 +223,7 @@ GEM
     stripe (1.7.11)
       multi_json (>= 1.0.4, < 2)
       rest-client (~> 1.4)
-    strong_parameters (0.1.6)
+    strong_parameters (0.2.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
       railties (~> 3.0)
@@ -290,7 +290,7 @@ DEPENDENCIES
   sqlite3
   state_select
   stripe
-  strong_parameters
+  strong_parameters (>= 0.2.0)
   therubyracer
   tinymce-rails
   uglifier (>= 1.0.3)

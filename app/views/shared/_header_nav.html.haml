@@ -5,7 +5,7 @@
         - if user_signed_in?
           .dropdown
             = link_to "#", class: "dropdown-toggle", data: { toggle: "dropdown"} do
-              = current_user.resume.present? && !current_user.resume.new_record? ? current_user.resume.name : current_user.email
+              = current_user.resume.present? && current_user.resume.name.present? && !current_user.resume.new_record? ? current_user.resume.name : current_user.email
               %b.caret
             %ul.dropdown-menu{ style: "background: black;"}
               - if user_signed_in? && current_user.account.nil?
