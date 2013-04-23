@@ -30,6 +30,13 @@ class JobApplicationsController < ApplicationController
     end
   end
 
+  def reject
+    @job = Job.find(params[:job_id])
+    @job_application = @job.job_applications.find(params[:id])
+    @job_application.reject!
+    redirect_to [@job, @job_application]
+  end
+
   def new
     authenticate_user!
 

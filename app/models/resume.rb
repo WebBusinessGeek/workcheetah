@@ -16,7 +16,7 @@ class Resume < ActiveRecord::Base
   accepts_nested_attributes_for :experiences
   accepts_nested_attributes_for :user
 
-  after_save :enqueue_video
+  # after_save :enqueue_video
 
   def video_name
     File.basename(video.path || video.filename) unless video.blank?

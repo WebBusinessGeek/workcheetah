@@ -63,6 +63,7 @@ class ResumesController < ApplicationController
     load_resume
     @resume.key = params[:key]
     @resume.save
+    @resume.enqueue_video
     redirect_to @resume
   end
 
