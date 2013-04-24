@@ -1,7 +1,9 @@
 .job_applicants_index
   .white_box
     - if @job
-      %h1 Job Applicants
+      %h1
+        Who's Applying to
+        = "'#{@job.title}'"
     - else
       %h1 My Job Applications
     - if @job
