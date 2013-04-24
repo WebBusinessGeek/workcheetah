@@ -17,7 +17,7 @@
       %tr
         %th Position
         %th Company
-        %th Applicants
+        %th Who's Applying?
       - @jobs.each do |job|
         %tr{ class: "job #{ job.account.safe_job_seal? ? " safe_seal" : "" }"}
           %td
