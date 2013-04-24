@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130418025924) do
+ActiveRecord::Schema.define(:version => 20130424024136) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -176,6 +176,9 @@ ActiveRecord::Schema.define(:version => 20130418025924) do
     t.integer  "user_id"
     t.string   "web_video"
     t.string   "video"
+    t.integer  "category1_id"
+    t.integer  "category2_id"
+    t.integer  "category3_id"
   end
 
   create_table "schools", :force => true do |t|

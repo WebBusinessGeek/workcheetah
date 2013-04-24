@@ -39,6 +39,13 @@
       = f.text_field :twitter, style: "width: 100%", class: "twitter"
       = f.label :status, "Current Employment Status"
       = f.select :status, options_for_select([ "Employed", "Unemployed", "Expecting Layoff" ]), { include_blank: true }
+      %h4 What Types Of Jobs Are You Looking For?
+      = f.label :category1, "Preference 1:"
+      = f.collection_select(:category1_id, Category.all, :id, :name, :prompt => true)
+      = f.label :category1, "Preference 2:"
+      = f.collection_select(:category2_id, Category.all, :id, :name, :prompt => true)
+      = f.label :category1, "Preference 3:"
+      = f.collection_select(:category3_id, Category.all, :id, :name, :prompt => true)
     .span6
       = f.fields_for :addresses do |af|
         = render "address_fields", f: af

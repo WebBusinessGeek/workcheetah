@@ -6,6 +6,9 @@ class Resume < ActiveRecord::Base
   has_many :schools, dependent: :destroy
   has_many :references, dependent: :destroy
   belongs_to :user
+  belongs_to :category1, class_name: "Category"
+  belongs_to :category2, class_name: "Category"
+  belongs_to :category3, class_name: "Category"
 
   mount_uploader :video, VideoUploader
   mount_uploader :web_video, VideoUploader

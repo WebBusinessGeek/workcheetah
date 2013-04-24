@@ -1,8 +1,8 @@
 .resumes_show
   .white_box
     - if @resume.present?
-      - if @resume.user == current_user
-        .pull-right{ style: "width: 300px"}
+      .pull-right{ style: "width: 300px"}
+        - if @resume.user == current_user
           = link_to [:add_video, @resume], class: "btn btn-success" do
             %b{ class: "icon-facetime-video"}
             Add Video Resume
@@ -11,17 +11,35 @@
             %b{ class: "icon-user"}
             Edit Resume
           %p{ style: "margin-top: 10px;" } Video helps you sell yourself to potential employers. Stand out with a great visual presentation of your skills.
+        %strong Types of Jobs They Are Interested In:
+        - if @resume.category1 || @resume.category2 || @resume.category3
+          %ul
+            - if @resume.category1
+              %li= @resume.category1.name
+            - if @resume.category2
+              %li= @resume.category2.name
+            - if @resume.category3
+              %li= @resume.category3.name
 
       %h1= @resume.name
 
       .contact_details
-        .phone= @resume.phone
-        .email= @resume.email
-        .website= link_to @resume.website, @resume.website
-        .twitter= link_to "@#{@resume.twitter}", "http://www.twitter/#{@resume.twitter}"
+        .phone
+          %span.resume_detail_label Phone:
+          = @resume.phone
+        .email
+          %span.resume_detail_label Email:
+          = @resume.email
+        .website
+          %span.resume_detail_label Webste:
+          = link_to @resume.website, @resume.website
+        .twitter
+          %span.resume_detail_label Twitter:
+          = link_to "@#{@resume.twitter}", "http://www.twitter/#{@resume.twitter}"
 
         - @resume.addresses.each do |address|
           .address
+            %span.resume_detail_label Address:
             = address.city
             = address.state
 
