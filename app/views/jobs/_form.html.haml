@@ -19,7 +19,7 @@
       = f.label :about_company
       .control= f.text_area :about_company, style: "height: 200px; width: 100%; font-size: 16px;", class: "tinymce"
     .control-group
-      = f.label :address
+      = f.label :address, "City, State (ex. Los Angeles, CA)"
       .control= f.text_field :address, style: "width: 100%; max-width: 400px; font-size: 16px;"
 
     - unless user_signed_in? && current_user.account
