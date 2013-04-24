@@ -6,6 +6,10 @@
           = image_tag @job.account.logo.medium.url
         %h2
           = @job.title
+          - if @job.address.present?
+            %span.city{ style: "font-weight: normal; font-size: 18px; color: #555"}
+              &ndash;
+              = @job.address
           - if can? :manage, @job
             = link_to 'Edit Job', edit_job_path(@job), class: "btn"
             = link_to 'Deactivate Job', job_path(@job), method: :delete, class: "btn btn-danger"
@@ -13,6 +17,8 @@
         %h3 Job Description
         - if @job.description
           %p= @job.description.html_safe
+
+
         - if @job.about_company.present?
           %h3 About Company
           %p= @job.about_company.html_safe
