@@ -1,6 +1,7 @@
 .jobs_index
   .white_box
     .pull-right
+      = image_tag("look-for-safe-seal.png")
       - if @category && user_signed_in? && current_user.admin?
         = link_to "Edit Category", [:edit, @category], class: "btn"
     %h1
@@ -8,6 +9,7 @@
       Jobs
 
     - unless @portal || @category
+
       = render "jobs/search_form"
 
     %h3
@@ -17,17 +19,21 @@
       %tr
         %th Position
         %th Company
+        %th Job Type
         %th Who's Applying?
       - @jobs.each do |job|
         %tr{ class: "job #{ job.account.safe_job_seal? ? " safe_seal" : "" }"}
           %td
             - if job.title.present?
               = link_to job.title, job
+
           %td
             - if job.account && job.account.name
               = link_to job.account.name, slug_path(job.account.slug)
               - if job.account.safe_job_seal?
                 = image_tag "safe-seal-small.png", alt: "Safe Job seal"
+
+          %td= job.category ? job.category.name : "n/a"
           %td= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
     %br/
 
