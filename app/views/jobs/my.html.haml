@@ -5,6 +5,7 @@
       %tr
         %th Position
         %th Applicants
+        %th Date Posted
       - @jobs.each do |job|
         %tr
           %td
@@ -12,6 +13,7 @@
               = link_to job.title, job
           %td
             = link_to pluralize(job.job_applications.count, "Applicant"), [job, :job_applications]
+          %td= job.created_at.strftime("%m/%d/%Y")
 
     %br/
 
