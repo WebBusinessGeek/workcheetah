@@ -6,13 +6,8 @@ class JobsController < ApplicationController
     if params[:location]
       @location = params[:location]
     else
-      @visitors_ip = Rails.env.development? ? "71.197.119.115" : request.remote_ip
-      @current_location = Geocoder.search(@visitors_ip).first
-      if @current_location
-        @location = [@current_location.city, @current_location.state].map{ |x| x if x.present? }.join(", ")
-      else
-        @location = ""
-      end
+      @current_location = current_location
+      @location ||= human_readable_current_location
     end
 
     if @query.present? || @location.present?

@@ -26,7 +26,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @jobs = @category.jobs
+    @jobs = @category.jobs.near(human_readable_current_location, 50)
     if @jobs.any?
       render "jobs/index"
     else
