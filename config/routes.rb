@@ -65,6 +65,7 @@ CareerLoop::Application.routes.draw do
   # end
 
   root :to => 'dashboards#home'
+  match '/contact' => "pages#contact", as: "contact"
   match '/admin' => "dashboards#admin", as: "admin"
   match ':slug' => "accounts#show", as: "slug"
   match '/errors/error_404' => "errors#error_404"

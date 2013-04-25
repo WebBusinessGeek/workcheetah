@@ -79,6 +79,7 @@
             %p.teaser= strip_tags(article.body).truncate(200).html_safe
         - if @side == "right"
           .clearfix
+      .clearfix
   .footer
     = render "shared/footer"
 

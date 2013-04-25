@@ -1,0 +1,22 @@
+.pages_contact
+  .white_box
+    - if @sent_email
+      %h1 Thank You For Contacting Us
+      %p Your message and contact details have been sent. We'll be getting touch with you shortly.
+    - else
+      %h1 Contact Us
+      %p
+        We're here to help so if you have any questions, comments or suggestions, please contact us using the form below or email
+        = link_to "support@workcheetah.com", "mailto:support@workcheetah.com"
+      = form_tag [:contact] do
+        .field
+          = label_tag :name
+          = text_field_tag :name
+        .field
+          = label_tag :email
+          = email_field_tag :email
+        .field
+          = label_tag :message
+          = text_area_tag :message, nil, style: "width: 97%; height: 10em;"
+        .action
+          = submit_tag "Send Your Message", class: "btn btn-success"
