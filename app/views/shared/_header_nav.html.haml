@@ -28,6 +28,7 @@
       - if user_signed_in? && current_user.account.present?
         %span.my_account= link_to "My Account", account_path
         %span.my_jobs= link_to "My Jobs", my_jobs_path
+        %span.my_recruits= link_to "My Recruits", [:recruits, current_user.account]
       - if user_signed_in? && current_user.job_applications.any?
         %span.my_job_apps= link_to "My Job Applications", job_applications_path
 

@@ -1,0 +1,22 @@
+= form_for @scam_report do |f|
+  .field
+    %p
+      %strong Scammer Type:
+      = f.radio_button :scammer_type, "Company", style: "display: inline; margin-right: 5px; margin-left: 5px;"
+      = f.label :scammer_type_company, "Company", style: "display: inline;  margin-right: 10px;"
+      = f.radio_button :scammer_type, "Employee", style: "display: inline; margin-right: 5px;"
+      = f.label :scammer_type_employee, "Employee", style: "display: inline"
+
+  .field
+    %strong= f.label :name_used
+    = f.text_field :name_used
+  .field
+    %strong= f.label :email_used
+    = f.text_field :email_used
+  .field
+    %strong= f.label :phone_number_used
+    = f.text_field :phone_number_used
+  .field
+    %strong= f.label :any_additional_info
+    = f.text_area :any_additional_info, style: "width: 98%; height: 10em"
+  .action= f.submit "Submit Scam Report", class: "btn btn-success"

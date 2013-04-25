@@ -1,5 +1,7 @@
 CareerLoop::Application.routes.draw do
   resources :categories
+  resources :validation_requests, only: [:new, :create]
+  resources :scam_reports, only: [:new, :create]
 
   resources :resumes do
     member do
@@ -14,6 +16,10 @@ CareerLoop::Application.routes.draw do
   resources :jobs do
     collection do
       get :my
+    end
+
+    member do
+      post :flag
     end
 
     resources :job_applications do
@@ -40,6 +46,7 @@ CareerLoop::Application.routes.draw do
   resources :accounts do
     member do
       post :suspend
+      get :recruits
     end
   end
 

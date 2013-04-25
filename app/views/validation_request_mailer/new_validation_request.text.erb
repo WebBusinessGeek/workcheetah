@@ -1,0 +1,13 @@
+NEW VALIDATION SEAL REQUEST WAS SUBMITTED
+
+Here are the details that were submitted:
+
+Company Legal Name: <%= @validation_request.name %>
+EIN: <%= @validation_request.ein %>
+Last four digits of your SSN: <%= @validation_request.ssn %>
+Industry: <%= @validation_request.industry %>
+Length of business: <%= @validation_request.length_of_business %>
+Are any of the positions within your organization "Commission only" opportunities: <%= @validation_request.commission_only ? "Yes" : "No" %>
+
+----------------
+WorkCheetah Team

@@ -99,6 +99,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
+        NotificationMailer.new_job(@job).deliver
         sign_in @job.account.users.first unless user_signed_in?
         format.html { redirect_to (@job.account.safe_job_seal? ? @job : [:add_seal, :account]), notice: 'Job was successfully created.' }
         format.json { render json: @job, status: :created, location: @job }
@@ -135,6 +136,12 @@ class JobsController < ApplicationController
       format.html { redirect_to jobs_url }
       format.json { head :no_content }
     end
+  end
+
+  def flag
+    @job = Job.find(params[:id])
+    JobMailer.job_flagged(@job, request.remote_ip, (user_signed_in? ? current_user : nil)).deliver
+    redirect_to request.referer, notice: "The job has been flagged. We'll take a look into this ASAP."
   end
 
   private

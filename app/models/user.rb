@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
   has_many :job_applications
+  has_many :scam_reports
   has_one :resume
   belongs_to :account
 

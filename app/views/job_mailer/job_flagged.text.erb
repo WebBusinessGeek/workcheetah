@@ -1,0 +1,9 @@
+JOB FLAGGED
+
+The following job was just flagged:
+<%= job_url(@job, host: "www.workcheetah.com") %>
+
+Reporter IP: <%= @reporter_ip %>
+<% if @user %>
+User Email: <%= @user.email %>
+<% end %>

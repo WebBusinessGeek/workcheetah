@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130424024136) do
+ActiveRecord::Schema.define(:version => 20130425060910) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -181,6 +181,18 @@ ActiveRecord::Schema.define(:version => 20130424024136) do
     t.integer  "category3_id"
   end
 
+  create_table "scam_reports", :force => true do |t|
+    t.string   "scammer_type"
+    t.string   "name_used"
+    t.string   "email_used"
+    t.string   "reporter_ip"
+    t.integer  "user_id"
+    t.string   "phone_number_used"
+    t.text     "any_additional_info"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
   create_table "schools", :force => true do |t|
     t.string   "name"
     t.string   "degree_type"
@@ -213,5 +225,19 @@ ActiveRecord::Schema.define(:version => 20130424024136) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "validation_requests", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "name"
+    t.string   "ein"
+    t.string   "ssn"
+    t.string   "industry"
+    t.string   "length_of_business"
+    t.boolean  "commission_only"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "validation_requests", ["account_id"], :name => "index_validation_requests_on_account_id"
 
 end

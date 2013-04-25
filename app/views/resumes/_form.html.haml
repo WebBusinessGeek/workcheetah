@@ -119,10 +119,10 @@
     = link_to_add_fields "Add Experience", f, :experiences
 
   .schools
-    %h2 School
+    %h2 Education
     = f.fields_for :schools do |sf|
       = render "school_fields", f: sf
-    = link_to_add_fields "Add School", f, :schools
+    = link_to_add_fields "Add Education", f, :schools
 
   .references
     %h2 References

@@ -65,6 +65,11 @@ class AccountsController < ApplicationController
     redirect_to accounts_path
   end
 
+  def recruits
+    load_account
+    @accessible_job_applications = @account.job_applications.includes(:job, user: :resume)
+  end
+
   private
 
   def load_account

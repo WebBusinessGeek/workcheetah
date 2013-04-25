@@ -4,7 +4,7 @@ class Account < ActiveRecord::Base
   has_many :jobs
   has_many :users
   has_many :applicant_accesses
-  has_many :accessible_job_applications, through: :applicant_accesses
+  has_many :job_applications, through: :applicant_accesses
   has_many :payment_profiles
 
   validates_uniqueness_of :slug

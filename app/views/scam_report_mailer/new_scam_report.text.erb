@@ -1,0 +1,15 @@
+NEW SCAM REPORT
+
+Scammer Type: <%= @scam_report.scammer_type %>
+Name Used: <%= @scam_report.name_used %>
+Email Used: <%= @scam_report.email_used %>
+Phone Number Used: <%= @scam_report.phone_number_used %>
+Additional Info: <%= @scam_report.any_additional_info %>
+
+Reporter IP: <%= @scam_report.reporter_ip %>
+<% if @scam_report.user %>
+User Email: <%= @scam_report.user.email %>
+<% end %>
+
+----------------
+WorkCheetah Team

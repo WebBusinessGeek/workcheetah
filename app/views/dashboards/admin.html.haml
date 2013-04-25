@@ -28,8 +28,13 @@
         - if @accounts.any?
           %ul
             - @accounts.each do |account|
-              %li= link_to account.name, account
-          = link_to "View All Accounts", accounts_path
+              %li= link_to account.name, accounts_path + "/#{account.id}"
+
+          %p
+            = link_to "View All Accounts", accounts_path
+            = " - "
+            Total Accounts:
+            = @accounts.count
       .span5
         %h3 Resume Purchases
         - if @applicant_accesses.any?
