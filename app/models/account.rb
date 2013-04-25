@@ -23,35 +23,35 @@ class Account < ActiveRecord::Base
   end
 
   def buy_applicant(job_applicant)
-    # if has_payment_profile?
-    #   @payment_profile = self.payment_profiles.first
-    #   @payment_profile.stripe_customer_token
-    #   @response = Stripe::Charge.create(
-    #     :amount      => ApplicantAccess::PRICE_PER_APPLICANT,
-    #     :currency    => "usd",
-    #     :customer    => @payment_profile.stripe_customer_token,
-    #     :description => "Charge for Job Applicant ##{job_applicant.id}")
-    #   if @response.failure_message.nil?
-    #     self.applicant_accesses.create(job_application: job_applicant)
-    #   end
-    #   @response
-    # end
-    self.applicant_accesses.create(job_application: job_applicant)
+    if has_payment_profile?
+      @payment_profile = self.payment_profiles.first
+      @payment_profile.stripe_customer_token
+      @response = Stripe::Charge.create(
+        :amount      => ApplicantAccess::PRICE_PER_APPLICANT,
+        :currency    => "usd",
+        :customer    => @payment_profile.stripe_customer_token,
+        :description => "Charge for Job Applicant ##{job_applicant.id}")
+      if @response.failure_message.nil?
+        self.applicant_accesses.create(job_application: job_applicant)
+      end
+      @response
+    end
+    # self.applicant_accesses.create(job_application: job_applicant)
   end
 
   def buy_seal
-    # if has_payment_profile?
-    #   @payment_profile = self.payment_profiles.first
-    #   @response = Stripe::Charge.create(
-    #     :amount      => 1995,
-    #     :currency    => "usd",
-    #     :customer    => @payment_profile.stripe_customer_token,
-    #     :description => "Charge for Safe Job seal")
-    #   if @response.failure_message.nil?
-    #     self.update_attribute(:safe_job_seal, true)
-    #   end
-    #   @response
-    # end
-    self.update_attribute(:safe_job_seal, true)
+    if has_payment_profile?
+      @payment_profile = self.payment_profiles.first
+      @response = Stripe::Charge.create(
+        :amount      => 1995,
+        :currency    => "usd",
+        :customer    => @payment_profile.stripe_customer_token,
+        :description => "Charge for Safe Job seal")
+      if @response.failure_message.nil?
+        self.update_attribute(:safe_job_seal, true)
+      end
+      @response
+    end
+    # self.update_attribute(:safe_job_seal, true)
   end
 end
