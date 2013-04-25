@@ -8,6 +8,6 @@ class NotificationMailer < ActionMailer::Base
 
   def new_job(job)
     @job = job
-    mail(:to => job.account.users.first.email, :subject => "Your Job Has Been Posted")
+    mail(:to => job.account.users.first.email, :subject => "YOUR JOB IS NOW LIVE ON WORKCHEETAH!")
   end
 end

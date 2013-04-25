@@ -5,7 +5,7 @@ class ScamReportsController < ApplicationController
 
   def create
     @scam_report = ScamReport.new(scam_report_params)
-    @scam_report.reporter_id = request.remote_ip
+    @scam_report.reporter_ip = request.remote_ip
     @scam_report.user = current_user if user_signed_in?
     @scam_report.save!
     ScamReportMailer.new_scam_report(@scam_report).deliver

@@ -22,8 +22,19 @@
             that your listing is legitimate! Receive a temporary seal
             until the verification process is complete.
           - if @account.payment_profiles.any?
-            .button= link_to "Verify My Company", [:buy_seal, :account], method: :post
-            .after_button There is an application fee of $19.95
+            .button= link_to "Verify My Company - $19.95", [:buy_seal, :account], method: :post
+            .after_button
+              %strong NOTE:
+              Clicking the above button will charge $19.95
+              %br/
+              to the card ending in
+              = "XXXX-" + @account.payment_profiles.first.cc_number_preview
+              immediately. Paying for
+              %br/
+              this seal does not guarantee verification.
+              Verification is
+              %br/
+              awarded only to those whose applications are accepted.
           - else
             .button= link_to "Verify Your Company Now", new_payment_profile_path(product: "seal")
             .after_button Start by adding billing details

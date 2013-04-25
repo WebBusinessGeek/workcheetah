@@ -1,36 +1,40 @@
 .job_applicants_index
   .white_box
-    - if @job
-      %h1
-        Who's Applying to
-        = "'#{@job.title}'"
-    - else
-      %h1 My Job Applications
+    %h1= @job ? "Who's Applying to '#{@job.title}'" : "My Job Applications"
+    %br/
     - if @job
       %table.table
         %tr
+          %th{ style: "width: 60px"} Actions
           %th Applicant
-          - if can? :manage, @job
-            %th Status
-          %th
+          %th Status
+          %th Applied Date
+
         - @job_applications.each_with_index do |job_application, i|
           - if job_application.user.resume.present?
             %tr
-              - if can? :read, job_application
-                %td= job_application.user.resume.name
-                %td= link_to "View", [@job, job_application], class: "btn"
-              - else
-                %td
+              %td.actions
+                - if !job_application.rejected?
+                  - if can?(:read, job_application)
+                    = link_to "View", [@job, job_application], class: "btn"
+                  - else
+                    = link_to "Preview", [@job, job_application], class: "btn btn-primary"
+              %td.applicant
+                - if can?(:read, job_application)
+                  = job_application.user.resume.name
+                - else
                   = link_to [@job, job_application] do
                     Applicant
                     = i + 1
-                - if can? :manage, @job
-                  %td= job_application.status
-                %td
-                  - unless job_application.rejected?
-                    - if can? :manage, @job
-                      = link_to "Purchase Applicant", [:buy, @job, job_application], method: :post, class: "btn btn-success"
-                    = link_to "Preview", [@job, job_application], class: "btn btn-primary"
+              %td
+                - if can?(:read, job_application)
+                  Purchased
+                - elsif job_application.status == "Declined"
+                  Rejected
+                - else
+                  Pending
+              %td= job_application.created_at.strftime("%m/%d/%Y")
+
     - else
       %table.table
         %tr

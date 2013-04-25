@@ -5,6 +5,6 @@ class JobMailer < ActionMailer::Base
     @job = job
     @reporter_ip = reporter_ip
     @user = user
-    mail(to: "kevin@workcheetah.com", subject: "Job Flagged")
+    mail(to: "support@workcheetah.com", subject: "Job Flagged")
   end
 end

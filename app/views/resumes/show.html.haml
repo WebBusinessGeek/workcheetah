@@ -29,13 +29,13 @@
           = @resume.phone
         .email
           %span.resume_detail_label Email:
-          = @resume.email
+          = link_to @resume.email, "mailto: #{@resume.email}"
         .website
           %span.resume_detail_label Webste:
           = link_to @resume.website, @resume.website
         .twitter
           %span.resume_detail_label Twitter:
-          = link_to "@#{@resume.twitter}", "http://www.twitter/#{@resume.twitter}"
+          = link_to "@#{@resume.twitter.gsub("@", "")}", "http://www.twitter.com/#{@resume.twitter.gsub("@", "")}"
 
         - @resume.addresses.each do |address|
           .address

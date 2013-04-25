@@ -3,6 +3,6 @@ class ValidationRequestMailer < ActionMailer::Base
 
   def new_validation_request(validation_request)
     @validation_request = validation_request
-    mail(:to => "kevin@workcheetah.com", :subject => "New Validation Seal Request")
+    mail(:to => "support@workcheetah.com", :subject => "New Validation Seal Request")
   end
 end

@@ -1,5 +1,5 @@
 class Resume < ActiveRecord::Base
-  attr_accessible :name, :phone, :email, :website, :twitter, :status, :addresses_attributes, :experiences_attributes, :schools_attributes, :references_attributes, :user_attributes
+  attr_accessible :name, :phone, :email, :website, :twitter, :status, :addresses_attributes, :experiences_attributes, :schools_attributes, :references_attributes, :user_attributes, :category1_id, :category2_id, :category3_id
 
   has_many :addresses, as: :addressable, dependent: :destroy
   has_many :experiences, dependent: :destroy

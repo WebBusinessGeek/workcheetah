@@ -56,4 +56,7 @@
           = check_box_tag :terms_conditions_agreement
           = label_tag :terms_conditions_agreement, "I agree to the terms & conditions"
   .form-actions
-    = f.submit (f.object.new_record? ? "Create Account & Save Job Listing" : "Update Job Listing"), class: "btn btn-large btn-success"
+    - if user_signed_in? && current_user.account.present?
+      = f.submit class: "btn btn-large btn-success"
+    - else
+      = f.submit "Create Account & Save Job Listing", class: "btn btn-large btn-success"
