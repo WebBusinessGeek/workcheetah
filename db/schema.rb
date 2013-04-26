@@ -11,6 +11,233 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20130425060910) do
+
+  create_table "accounts", :force => true do |t|
+    t.string   "name"
+    t.string   "website"
+    t.string   "phone"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.integer  "credits"
+    t.string   "logo"
+    t.string   "slug"
+    t.boolean  "safe_job_seal", :default => false
+    t.boolean  "active",        :default => true
+  end
+
+  create_table "addresses", :force => true do |t|
+    t.string   "address_1"
+    t.string   "address_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "addressable_type"
+    t.integer  "addressable_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "applicant_accesses", :force => true do |t|
+    t.integer  "job_application_id"
+    t.integer  "account_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "applicant_accesses", ["account_id"], :name => "index_applicant_accesses_on_account_id"
+  add_index "applicant_accesses", ["job_application_id"], :name => "index_applicant_accesses_on_job_application_id"
+
+  create_table "articles", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "slug"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "credit_packages", :force => true do |t|
+    t.string   "name"
+    t.decimal  "cost",       :precision => 6, :scale => 2
+    t.integer  "quantity"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+  end
+
+  create_table "credit_transactions", :force => true do |t|
+    t.decimal  "amount",             :precision => 8, :scale => 2
+    t.string   "description"
+    t.integer  "quantity"
+    t.integer  "account_id"
+    t.integer  "credit_package_id"
+    t.integer  "payment_profile_id"
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
+  end
+
+  add_index "credit_transactions", ["account_id"], :name => "index_credit_transactions_on_account_id"
+  add_index "credit_transactions", ["credit_package_id"], :name => "index_credit_transactions_on_credit_package_id"
+  add_index "credit_transactions", ["payment_profile_id"], :name => "index_credit_transactions_on_payment_method_id"
+
+  create_table "email_subscriptions", :force => true do |t|
+    t.string   "query"
+    t.string   "location"
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "experiences", :force => true do |t|
+    t.string   "company_name"
+    t.string   "job_title"
+    t.date     "from"
+    t.date     "till"
+    t.text     "highlights"
+    t.integer  "resume_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.boolean  "current_employer"
+  end
+
+  create_table "job_applications", :force => true do |t|
+    t.integer  "job_id"
+    t.integer  "user_id"
+    t.string   "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "job_applications", ["job_id"], :name => "index_job_applications_on_job_id"
+  add_index "job_applications", ["user_id"], :name => "index_job_applications_on_user_id"
+
+  create_table "jobs", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.text     "about_company"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.integer  "account_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "address"
+    t.boolean  "active",                 :default => true
+    t.integer  "job_applications_count", :default => 0
+    t.integer  "category_id"
+  end
+
+  create_table "payment_profiles", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "stripe_customer_token"
+    t.string   "nickname"
+    t.string   "expiration"
+    t.string   "cc_number_preview"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.string   "status"
+  end
+
+  add_index "payment_profiles", ["account_id"], :name => "index_payment_profiles_on_account_id"
+
+  create_table "references", :force => true do |t|
+    t.string   "name"
+    t.string   "job_title"
+    t.string   "company"
+    t.string   "phone"
+    t.string   "email"
+    t.text     "notes"
+    t.string   "reference_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "resume_id"
+  end
+
+  create_table "resumes", :force => true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "website"
+    t.string   "status"
+    t.string   "growth_importance"
+    t.string   "distance_importance"
+    t.string   "freedom_importance"
+    t.string   "pay_importance"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "twitter"
+    t.integer  "user_id"
+    t.string   "web_video"
+    t.string   "video"
+    t.integer  "category1_id"
+    t.integer  "category2_id"
+    t.integer  "category3_id"
+  end
+
+  create_table "scam_reports", :force => true do |t|
+    t.string   "scammer_type"
+    t.string   "name_used"
+    t.string   "email_used"
+    t.string   "reporter_ip"
+    t.integer  "user_id"
+    t.string   "phone_number_used"
+    t.text     "any_additional_info"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "schools", :force => true do |t|
+    t.string   "name"
+    t.string   "degree_type"
+    t.string   "degree_name"
+    t.date     "from"
+    t.date     "till"
+    t.boolean  "currently_attending"
+    t.text     "highlights"
+    t.integer  "resume_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.integer  "account_id"
+    t.boolean  "admin"
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "validation_requests", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "name"
+    t.string   "ein"
+    t.string   "ssn"
+    t.string   "industry"
+    t.string   "length_of_business"
+    t.boolean  "commission_only"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "validation_requests", ["account_id"], :name => "index_validation_requests_on_account_id"
 
 end
