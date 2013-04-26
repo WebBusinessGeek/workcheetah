@@ -27,7 +27,7 @@ def set_importance
 end
 
 def fill_in_experience
-  fill_in "Company name", with: "Black & Decker"
+  fill_in "Company Name", with: "Black & Decker"
   fill_in "Job title", with: "CEO"
   fill_in "From", with: "01/01/2001"
   fill_in "Till", with: "01/01/2013"
@@ -52,17 +52,17 @@ def fill_in_school
 end
 
 def add_school_to_profile
-  click_link "Add School"
+  click_link "Add Education"
 end
 
 def remove_school_from_profile
-  click_link "Remove School"
+  click_link "Remove Education"
 end
 
 def fill_in_reference
   fill_in "Name", with: "John Doesworth"
   fill_in "Job title", with: "Manager"
-  fill_in "Company name", with: "Somecompany"
+  fill_in "Company Name", with: "Somecompany"
   fill_in "Phone number", with: "555 555 5555"
   fill_in "Email", with: "john@example.com"
   fill_in "Notes", with: lorem_ipsum
