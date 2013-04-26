@@ -41,7 +41,6 @@ gem 'aws-sdk'
 gem "geocoder"
 gem "unicorn"
 
-
 group :test do
   gem "factory_girl_rails"
   gem "capybara"
@@ -60,6 +59,7 @@ end
 # end
 
 group :development do
+  gem 'rack-mini-profiler'
   gem 'brakeman'
   # gem 'sqlite3'
   gem 'therubyracer', "0.11.4", :platforms => :ruby
