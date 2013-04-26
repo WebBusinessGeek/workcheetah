@@ -60,6 +60,7 @@ end
 
 group :development do
   gem 'rack-mini-profiler'
+  gem "railroady"
   gem 'brakeman'
   # gem 'sqlite3'
   gem 'therubyracer', "0.11.4", :platforms => :ruby
