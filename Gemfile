@@ -20,6 +20,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'libv8', '~> 3.11.8.3'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'tinymce-rails'
@@ -59,8 +60,8 @@ end
 # end
 
 group :development do
-  gem 'sqlite3'
-  gem 'therubyracer', :platforms => :ruby
+  # gem 'sqlite3'
+  gem 'therubyracer', "0.11.4", :platforms => :ruby
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
