@@ -20,6 +20,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem "figaro"
 gem 'libv8', '~> 3.11.8.3'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
