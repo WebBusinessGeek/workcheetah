@@ -1,3 +1,5 @@
+-# coding: UTF-8
+
 .home
   .header_box
     = render "shared/header_nav"
@@ -26,19 +28,19 @@
         .difference
           = image_tag "competition.jpg", class: "align-left"
           %h4 Know Your Competition
-          %p See who’s applying to jobs you’re interested in and how you stack up against them.
+          %p See who's applying to jobs you're interested in and how you stack up against them.
         .difference
           = image_tag "fresh.jpg", class: "align-left"
           %h4 Fresh Job Inventory
-          %p No more stale jobs. If it’s on WorkCheetah, it’s still available.
+          %p No more stale jobs. If it's on WorkCheetah, it's still available.
         .difference
           = image_tag "video-player.jpg", class: "align-left"
           %h4 Bring Your Resume To Life
-          %p Add a video to your resume to show employers what your resume can’t.
+          %p Add a video to your resume to show employers what your resume can't.
         .difference
           = image_tag "seal.jpg", class: "align-left"
           %h4 Safe Job Search
-          %p Look for the Safe Job seal to know it’s a legitimate opportunity, and not a scam.
+          %p Look for the Safe Job seal to know it's a legitimate opportunity, and not a scam.
         .action
           = link_to "Post Your Resume", new_resume_path, class: "btn btn-success btn-large"
           or
@@ -56,7 +58,7 @@
         .difference
           = image_tag "video-camera.jpg", class: "align-left"
           %h4 Video Is  Worth a Billion Words
-          %p Know who you’re hiring quickly by seeing what the resume doesn’t show you.
+          %p Know who you're hiring quickly by seeing what the resume doesn't show you.
         .difference
           = image_tag "seal.jpg", class: "align-left"
           %h4 Attract Quality Candidates
@@ -69,7 +71,7 @@
           = link_to "Post Your Job", new_job_path, class: "btn btn-primary btn-large"
 
     %hr.divider
-    %h2 News & Resources
+    %h2 News &amp; Resources
     .articles
       - @articles.each do |article|
         - @side = cycle("left", "right")

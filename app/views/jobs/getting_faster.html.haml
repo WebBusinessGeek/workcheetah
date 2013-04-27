@@ -30,7 +30,7 @@
               = f.text_field :email, placeholder: "Ex. your.email@gmail.com"
             = f.hidden_field :query, value: @query
             = f.hidden_field :location, value: @location
-            = f.hidden_field :return_url, value: request.url
+            / = f.hidden_field :return_url, value: request.url
             .action= f.submit "Send Me The List", class: "btn btn-success btn-large"
   .articles
     - @articles.each do |article|
