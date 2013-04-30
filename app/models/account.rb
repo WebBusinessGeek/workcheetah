@@ -43,7 +43,7 @@ class Account < ActiveRecord::Base
     if has_payment_profile?
       @payment_profile = self.payment_profiles.first
       @response = Stripe::Charge.create(
-        :amount      => 1995,
+        :amount      => 2495,
         :currency    => "usd",
         :customer    => @payment_profile.stripe_customer_token,
         :description => "Charge for Safe Job seal")
