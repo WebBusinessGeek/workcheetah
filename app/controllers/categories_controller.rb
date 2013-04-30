@@ -27,8 +27,6 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.find(params[:id])
     @jobs = @category.jobs.near(human_readable_current_location, 50)
-    # User.last.resume.addresses.first.state
-    # current_location.state_code
 
     if !@jobs.any? # if no jobs within next 50 miles
       @jobs = @category.jobs.near(current_location.state_code) 
@@ -36,7 +34,7 @@ class CategoriesController < ApplicationController
     end
 
     if !@jobs.any? # if still no jobs
-      @jobs = Job.all
+      @jobs = @category.jobs
       flash[:notice] = "There were no jobs near you or in your state, so here are all jobs."
     end
 

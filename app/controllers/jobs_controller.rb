@@ -16,6 +16,11 @@ class JobsController < ApplicationController
       @jobs = Job.scoped.order('created_at desc')
     end
 
+    if !@jobs.any? # if no jobs
+      @jobs = Job.scoped.order('created_at DESC')
+      flash[:notice] = "There were no jobs near you or in your state, so here are all jobs."
+    end
+
     @articles = Article.order(:created_at).limit(10) if @jobs.empty?
 
     if @jobs.empty? && @query.present?
