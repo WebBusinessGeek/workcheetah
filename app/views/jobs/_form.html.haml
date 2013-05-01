@@ -54,7 +54,7 @@
               .control= uf.password_field :password_confirmation, placeholder: "************"
         .checkbox
           = check_box_tag :terms_conditions_agreement
-          = label_tag :terms_conditions_agreement, "I agree to the terms & conditions"
+          = label_tag :terms_conditions_agreement, raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}")
   .form-actions
     - if user_signed_in? && current_user.account.present?
       = f.submit class: "btn btn-large btn-success"

@@ -24,8 +24,9 @@
           %p= @job.about_company.html_safe
         = link_to 'Back', "javascript: history.go(-1)"
       .span2{ style: "width: 22%"}
-        - if current_user && current_user.has_applied_to?(@job)
-          .applied You've already applied.
-        - elsif current_user.account != @job.account
-          = link_to "Apply", new_job_job_application_path(@job), class: "btn btn-primary btn-large", style: "width: 86%"
-          = link_to "Flag This Job", [:flag, @job], method: :post, style: "width: 100%; margin: 20px auto; display: block; text-align: center;"
+        - if current_user
+          - if current_user.has_applied_to?(@job)
+            .applied You've already applied.
+          - elsif current_user.account != @job.account
+            = link_to "Apply", new_job_job_application_path(@job), class: "btn btn-primary btn-large", style: "width: 86%"
+            = link_to "Flag This Job", [:flag, @job], method: :post, style: "width: 100%; margin: 20px auto; display: block; text-align: center;"

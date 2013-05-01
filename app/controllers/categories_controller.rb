@@ -34,7 +34,7 @@ class CategoriesController < ApplicationController
     end
 
     if !@jobs.any? # if still no jobs
-      @jobs = Job.scoped.order('created_at DESC')
+      @jobs = @category.jobs
       flash[:notice] = "There were no jobs near you or in your state, so here are all jobs."
     end
 
