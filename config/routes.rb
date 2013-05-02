@@ -5,7 +5,6 @@ CareerLoop::Application.routes.draw do
     end
   end
 
-
   resources :categories
   resources :validation_requests, only: [:new, :create]
   resources :scam_reports, only: [:new, :create]
@@ -56,7 +55,6 @@ CareerLoop::Application.routes.draw do
       get :recruits
     end
   end
-
 
   resources :credit_packages
   resources :credit_transactions

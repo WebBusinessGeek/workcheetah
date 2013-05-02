@@ -1,12 +1,11 @@
 class VideoChatsController < ApplicationController
   before_filter :authenticate_user!
-  # load_and_authorize_resource
+  load_and_authorize_resource
 
   # GET /video_chats
   # GET /video_chats.json
   def index
-    @video_chats = VideoChat.all
-    # can? :manage, @job
+    @video_chats = VideoChat.where("recipient_id = ? OR requester_id = ?", current_user.id, current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,12 +16,6 @@ class VideoChatsController < ApplicationController
   # GET /video_chats/1
   # GET /video_chats/1.json
   def show
-    @video_chat = VideoChat.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @video_chat }
-    end
   end
 
   # GET /video_chats/new
@@ -41,7 +34,6 @@ class VideoChatsController < ApplicationController
 
   # GET /video_chats/1/edit
   def edit
-    @video_chat = VideoChat.find(params[:id])
   end
 
   # POST /video_chats

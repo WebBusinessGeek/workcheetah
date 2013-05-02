@@ -23,10 +23,21 @@ class Ability
       can :read, JobApplication, applicant_access: { account_id: user.account.id }
     end
 
+    can :manage, VideoChat do |video_chat| video_chat_managable?(video_chat, user) end
+    # can :manage, VideoChat do |video_chat| video_chat_managable?(video_chat, user) end
+
     # can :manage, VideoChat { |video_chat| video_chat_belongs_to_user(user, video_chat) }
     #
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
   end
+
+  def video_chat_managable?(video_chat, user)
+    user == video_chat.requester || user == video_chat.recipient
+  end
+
+  # def video_chat_managable?(video_chat, user)
+  #   raise CanCan::AccessDenied if false #video_chat.recipient != user and video_chat.requester != user
+  # end
 
   # def video_chat_belongs_to_user? user, video_chat
   #   User.find(user.id).requested_video_chats.where(id: video_chat.id)# || User.find(user.id).received_video_chats(where: id: video_chat.id) || video_chat.new_record?
