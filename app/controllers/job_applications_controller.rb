@@ -52,25 +52,37 @@ class JobApplicationsController < ApplicationController
   end
 
   def buy
-
     @job_application = @job.job_applications.find(params[:id])
 
-    if current_user.account.has_payment_profile?
-      if can? :read, @job_application
-        redirect_to [@job_application.job, @job_application], notice: "You already have access to this job application. No need to buy it again."
-      else
-        @purchase_response = current_user.account.buy_applicant(@job_application)
-        # if @purchase_response.failure_message.nil?
-        if @purchase_response
-          redirect_to [@job_application.job, @job_application], notice: "Access purchased"
-        else
-          redirect_to [@job_application.job, @job_application], error: "Something went wrong with the purcahse"
-        end
-      end
+    if can? :read, @job_application
+      redirect_to [@job_application.job, @job_application], notice: "You already have access to this job application. No need to save it again."
     else
-      @payment_profile = current_user.account.payment_profiles.new
-      render "create_payment_profile"
+      @purchase_response = current_user.account.buy_applicant(@job_application) # currently returns true in any case to make the purchase free
+      if @purchase_response
+        redirect_to [@job_application.job, @job_application], notice: "Access purchased"
+      else
+        redirect_to [@job_application.job, @job_application], error: "Something went wrong with the purcahse"
+      end
     end
+
+    # Once the application purchase is not free anymore, comment in below code
+
+    # if current_user.account.has_payment_profile?
+    #   if can? :read, @job_application
+    #     redirect_to [@job_application.job, @job_application], notice: "You already have access to this job application. No need to buy it again."
+    #   else
+    #     @purchase_response = current_user.account.buy_applicant(@job_application)
+    #     # if @purchase_response.failure_message.nil?
+    #     if @purchase_response
+    #       redirect_to [@job_application.job, @job_application], notice: "Access purchased"
+    #     else
+    #       redirect_to [@job_application.job, @job_application], error: "Something went wrong with the purcahse"
+    #     end
+    #   end
+    # else
+    #   @payment_profile = current_user.account.payment_profiles.new
+    #   render "create_payment_profile"
+    # end
   end
 
   private

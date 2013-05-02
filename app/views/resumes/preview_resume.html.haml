@@ -3,7 +3,7 @@
     - if @resume.present?
       - if can? :manage, @job
         .pull-right{ style: "text-align: center;" }
-          = link_to "Buy Now - $0.99", [:buy, @job, @job_application], class: "btn btn-large btn-success", method: :post
+          = link_to "Save applicant", [:buy, @job, @job_application], class: "btn btn-large btn-success", method: :post
           %br/
           or
           %br/
@@ -31,7 +31,7 @@
                 %span.title{ style: "font-weight: normal; margin-left: 10px;" }= experience.job_title
                 %span.range{ style: "font-weight: normal; margin-left: 10px; font-size: 14px;" }
                   = [experience.from, experience.till].map{ |x| x unless x.blank? }.join(" - ")
-              %em{ style: "color: #999;" } Details available once you buy access to this job applicant.
+              %em{ style: "color: #999;" } Details available once you save this job applicant (currently free!).
       .schools
         %h3 Schools
         - @resume.schools.each do |school|
