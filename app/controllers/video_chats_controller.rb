@@ -71,7 +71,7 @@ class VideoChatsController < ApplicationController
     end
 
     respond_to do |format|
-      if @video_chat.update_attributes(video_chat_params)
+      if @video_chat = @video_chat.update_attributes(video_chat_params)
         NotificationMailer.video_chat_update(@video_chat, mail_recipient).deliver
         format.html { redirect_to @video_chat, notice: 'Video chat was successfully updated.' }
         format.json { head :no_content }
