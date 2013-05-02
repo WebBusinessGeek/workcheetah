@@ -1,4 +1,11 @@
 CareerLoop::Application.routes.draw do
+  resources :video_chats do
+    member do
+      put :accept
+    end
+  end
+
+
   resources :categories
   resources :validation_requests, only: [:new, :create]
   resources :scam_reports, only: [:new, :create]

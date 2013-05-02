@@ -1,0 +1,2 @@
+module VideoChatsHelper
+end

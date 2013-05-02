@@ -1,0 +1,29 @@
+<h1>Video Interviews</h1>
+
+<table class="table">
+  <tr>
+    <th>Requester</th>
+    <th>Recipient</th>
+    <th>Accepted by requester</th>
+    <th>Accepted by recipient</th>
+    <th>Start time</th>
+    <th>End time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @video_chats.each do |video_chat| %>
+  <tr>
+    <td><%= video_chat.requester_id %></td>
+    <td><%= video_chat.recipient_id %></td>
+    <td><%= video_chat.accepted_by_requester %></td>
+    <td><%= video_chat.accepted_by_recipient %></td>
+    <td><%= video_chat.start_time %></td>
+    <td><%= video_chat.end_time %></td>
+    <td><%= link_to 'Show', video_chat %></td>
+    <td><%= link_to 'Edit', edit_video_chat_path(video_chat) %></td>
+    <td><%= link_to 'Destroy', video_chat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>

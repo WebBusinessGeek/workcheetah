@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   has_many :scam_reports
   has_one :resume
   belongs_to :account
+  has_many :requested_video_chats, class_name: "VideoChat", foreign_key: :requester_id, dependent: :destroy
+  has_many :received_video_chats, class_name: "VideoChat", foreign_key: :recipient_id, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

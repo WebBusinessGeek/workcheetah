@@ -39,3 +39,5 @@
           %span.my_resume= link_to "My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
         - else
           %span.create_my_resume= link_to "Build a Resume", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
+      - if user_signed_in?
+        = link_to "Video Interviews", video_chats_path

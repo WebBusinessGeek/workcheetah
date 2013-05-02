@@ -1,0 +1,12 @@
+Your video chat on
+
+Start time: <%= @video_chat.start_time %>
+End time: <%= @video_chat.end_time %>
+
+has been accepted.
+
+Click below link to access the video interview:
+<%= link_to "#{video_chat_url(@video_chat)}", video_chat_url(@video_chat) %>
+
+----------------
+WorkCheetah Team

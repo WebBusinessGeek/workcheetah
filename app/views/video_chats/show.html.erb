@@ -1,0 +1,39 @@
+<p>
+  <b>Requester:</b>
+  <%= @video_chat.requester_id %>
+</p>
+
+<p>
+  <b>Recipient:</b>
+  <%= @video_chat.recipient_id %>
+</p>
+
+<p>
+  <b>Accepted by requester:</b>
+  <%= @video_chat.accepted_by_requester %>
+</p>
+
+<p>
+  <b>Accepted by recipient:</b>
+  <%= @video_chat.accepted_by_recipient %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%= @video_chat.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%= @video_chat.end_time %>
+</p>
+
+
+<%= link_to 'Edit', edit_video_chat_path(@video_chat) %> |
+<%= link_to 'Back', video_chats_path %>
+
+<% if current_user == @video_chat.requester && !@video_chat.accepted_by_requester? %>
+  <%= link_to "Accept", accept_video_chat_path(@video_chat), method: :put, class: "btn btn-success" %>
+<% elsif current_user == @video_chat.recipient && !@video_chat.accepted_by_recipient? %>
+  <%= link_to "Accept", accept_video_chat_path(@video_chat), method: :put, class: "btn btn-success" %>
+<% end %>

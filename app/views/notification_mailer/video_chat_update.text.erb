@@ -1,0 +1,10 @@
+Your video chat has been rescheduled to:
+
+Start time: <%= @video_chat.start_time %>
+End time: <%= @video_chat.end_time %>
+
+Click below link to accept or change the video interview date:
+<%= link_to "#{video_chat_url(@video_chat)}", video_chat_url(@video_chat) %>
+
+----------------
+WorkCheetah Team

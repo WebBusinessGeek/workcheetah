@@ -7,9 +7,11 @@
         %th Phone Number
         %th Email
         %th Job Applied
+        %th
       - @accessible_job_applications.each do |job_application|
         %tr
           %td= link_to job_application.user.resume.name, [job_application.job, job_application]
           %td= job_application.user.resume.phone
           %td= job_application.user.resume.email
           %td= job_application.job.title
+          %td= link_to "Schedule video interview", new_video_chat_path(recipient_id: job_application.user.id)
