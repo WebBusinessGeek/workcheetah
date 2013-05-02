@@ -47,7 +47,7 @@ class VideoChatsController < ApplicationController
     respond_to do |format|
       if @video_chat.save
         NotificationMailer.new_video_chat(@video_chat).deliver
-        format.html { redirect_to @video_chat, notice: 'Video chat was successfully created.' }
+        format.html { redirect_to @video_chat, notice: 'Video chat was successfully created. Your interview partner has been informed.' }
         format.json { render json: @video_chat, status: :created, location: @video_chat }
       else
         format.html { render action: "new" }
@@ -60,6 +60,9 @@ class VideoChatsController < ApplicationController
   # PATCH/PUT /video_chats/1.json
   def update
     @video_chat = VideoChat.find(params[:id])
+    old_start_time = @video_chat.start_time
+    old_end_time = @video_chat.end_time
+
     if current_user == @video_chat.recipient
       @video_chat.accepted_by_recipient = true
       @video_chat.accepted_by_requester = false
@@ -71,9 +74,9 @@ class VideoChatsController < ApplicationController
     end
 
     respond_to do |format|
-      if @video_chat = @video_chat.update_attributes(video_chat_params)
-        NotificationMailer.video_chat_update(@video_chat, mail_recipient).deliver
-        format.html { redirect_to @video_chat, notice: 'Video chat was successfully updated.' }
+      if @video_chat.update_attributes(video_chat_params)
+        NotificationMailer.video_chat_update(@video_chat, mail_recipient).deliver if old_start_time != @video_chat.start_time || old_end_time != @video_chat.end_time
+        format.html { redirect_to @video_chat, notice: 'Video chat was successfully updated. Your interview partner has been informed about the changes if times changed.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
