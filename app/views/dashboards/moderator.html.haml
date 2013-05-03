@@ -1,0 +1,16 @@
+.moderator
+  .header_box
+    = render "shared/header_nav"
+  .header
+    .logo= link_to image_tag("logo-large5.png"), root_path
+  .content
+    %h1 Moderator Dashboard
+    = link_to "Add job", "javascript:void(0);", id: "add-job"
+    = link_to "Add resume", "javascript:void(0);", id: "add-resume"
+    .add-job{style: "display: none;"}
+      = render "jobs_form"
+    .add-resume{style: "display: none;"}
+      = render "resumes_form"
+
+  .footer
+    = render "shared/footer"

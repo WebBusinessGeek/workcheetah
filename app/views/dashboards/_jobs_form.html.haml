@@ -1,0 +1,67 @@
+- if @job.errors.any?
+  %ul.errors
+    - @job.errors.full_messages.each do |msg|
+      %li.error= msg
+
+= form_for(@job, html: { class: "form-vertical"}) do |f|
+  = tinymce :theme => "simple", :plugins => ["inlinepopups", "paste"]
+  - if @job.errors.any?
+    .errors
+      = @job.errors.full_messages.each do |msg|
+        %li= msg
+  .form-inputs
+    .control-group
+      = f.label :title, "Job title"
+      .control= f.text_field :title, style: "width: 98%; font-size: 24px; padding: 0.4em; height: 1.2em"
+    .control-group
+      = f.label :category, "Job category"
+      = f.collection_select(:category_id, Category.scoped, :id, :name, :prompt => true)
+
+    .control-group
+      = f.label :description, "Job description"
+      .control= f.text_area :description, style: "height: 200px; width: 100%; font-size: 16px;", class: "tinymce"
+    .control-group
+      = f.label :about_company
+      .control= f.text_area :about_company, style: "height: 200px; width: 100%; font-size: 16px;", class: "tinymce"
+    .control-group
+      = f.label :address, "City, State (ex. Los Angeles, CA)"
+      .control= f.text_field :address, style: "width: 100%; max-width: 400px; font-size: 16px;"
+
+    - unless user_signed_in? && current_user.account
+      = f.fields_for :account do |af|
+        %h2 Account Info
+        .control-group
+          = af.label :name, "Company name"
+          .control= af.text_field :name, placeholder: "ABC Company"
+        .control-group
+          = af.label :website, "Company website"
+          .control= af.text_field :website, class: "website", placeholder: "http://www.yourdomain.com"
+        .control-group
+          = af.label :phone, "Company phone"
+          .control= af.text_field :phone, class: "phone", placeholder: "(555) 555-5555 x555"
+        .control-group
+          = af.label :slug, "Jobs portal address (no spaces allowed)"
+          .control
+            http://www.workcheetah.com/
+            = af.text_field :slug, placeholder: "your-company-name-without-spaces", style: "width: 400px;"
+        - unless user_signed_in?
+          %h2 Admin User Settings
+          %p Let's start by creating the first user on your account. You can add additional users later.
+          = af.fields_for :users do |uf|
+            .control-group
+              = uf.label :email, "Your email"
+              .control= uf.email_field :email, placeholder: "john.doe@example.com"
+            .control-group
+              = uf.label :password
+              .control= uf.password_field :password, placeholder: "************"
+            .control-group
+              = uf.label :password_confirmation
+              .control= uf.password_field :password_confirmation, placeholder: "************"
+        .checkbox
+          = check_box_tag :terms_conditions_agreement
+          = label_tag :terms_conditions_agreement, raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}")
+  .form-actions
+    - if user_signed_in? && current_user.account.present?
+      = f.submit class: "btn btn-large btn-success"
+    - else
+      = f.submit "Create Account & Save Job Listing", class: "btn btn-large btn-success"

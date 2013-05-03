@@ -1,0 +1,132 @@
+- if @resume.errors.any?
+  %ul.errors
+    - @resume.errors.full_messages.each do |msg|
+      %li.error= msg
+
+= form_for @resume do |f|
+  = tinymce
+  .pull-right
+    .video_label{ style: "width: 300px; padding: 20px; background: rgb(19, 95, 230); border: 1px solid rgb(16, 78, 172); border-radius: 10px; text-align: center; color: white;"} You can add video after building your resume
+  - unless user_signed_in?
+    %h3 Account Details
+    = f.fields_for :user do |uf|
+      .control-group
+        = uf.label :email do
+          Email
+          %span.explanation (used to login)
+
+        .control= uf.email_field :email
+      .control-group
+        = uf.label :password
+        .control= uf.password_field :password
+      .control-group
+        = uf.label :password_confirmation
+        .control= uf.password_field :password_confirmation
+  %h3 Contact Details
+  .row
+    .span5
+      = f.label :name, "Full name"
+      = f.text_field :name, style: "width: 100%"
+      = f.label :phone, "Phone (This is the number given to employers who want to contact you, please use a valid phone number)"
+      = f.text_field :phone, style: "width: 100%", class: "phone"
+      = f.label :email do
+        Email
+        %span.explanation (professional email if different)
+      = f.email_field :email, style: "width: 100%"
+      = f.label :website
+      = f.text_field :website, style: "width: 100%", class: "website"
+      = f.label :twitter
+      = f.text_field :twitter, style: "width: 100%", class: "twitter"
+      = f.label :status, "Current Employment Status"
+      = f.select :status, options_for_select([ "Employed", "Unemployed", "Expecting Layoff" ]), { include_blank: true }
+      %h4 What Types Of Jobs Are You Looking For?
+      = f.label :category1, "Preference 1:"
+      = f.collection_select(:category1_id, Category.all, :id, :name, :prompt => true)
+      = f.label :category1, "Preference 2:"
+      = f.collection_select(:category2_id, Category.all, :id, :name, :prompt => true)
+      = f.label :category1, "Preference 3:"
+      = f.collection_select(:category3_id, Category.all, :id, :name, :prompt => true)
+    .span6
+      = f.fields_for :addresses do |af|
+        = render "address_fields", f: af
+
+  .hidden
+    %h2 What's Important To You?
+    .question
+      = f.label :growth_importance, "Growth potential: ", class: "radio inline", style: "width: 150px;"
+      = f.label :growth_importance_0, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :growth_importance, "0"
+        Not Important
+
+
+      = f.label :growth_importance_5, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :growth_importance, "5"
+        Important
+
+      = f.label :growth_importance_10, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :growth_importance, "10"
+        Very Important
+
+    .question
+      = f.label :distance_importance, "Close to home: ", class: "radio inline", style: "width: 150px;"
+      = f.label :distance_importance_0, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :distance_importance, "0"
+        Not Important
+
+
+      = f.label :distance_importance_5, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :distance_importance, "5"
+        Important
+
+      = f.label :distance_importance_10, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :distance_importance, "10"
+        Very Important
+
+    .question
+      = f.label :freedom_importance, "Freedom: ", class: "radio inline", style: "width: 150px;"
+      = f.label :freedom_importance_0, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :freedom_importance, "0"
+        Not Important
+
+
+      = f.label :freedom_importance_5, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :freedom_importance, "5"
+        Important
+
+      = f.label :freedom_importance_10, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :freedom_importance, "10"
+        Very Important
+
+    .question
+      = f.label :pay_importance, "Pay structure: ", class: "radio inline", style: "width: 150px;"
+      = f.label :pay_importance_0, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :pay_importance, "0"
+        Not Important
+
+
+      = f.label :pay_importance_5, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :pay_importance, "5"
+        Important
+
+      = f.label :pay_importance_10, class: "radio inline", style: "width: 150px" do
+        = f.radio_button :pay_importance, "10"
+        Very Important
+
+  .experiences
+    %h2 Experience
+    = f.fields_for :experiences do |pf|
+      = render "experience_fields", f: pf
+    = link_to_add_fields "Add Experience", f, :experiences
+
+  .schools
+    %h2 Education
+    = f.fields_for :schools do |sf|
+      = render "school_fields", f: sf
+    = link_to_add_fields "Add Education", f, :schools
+
+  .references
+    %h2 References
+    = f.fields_for :references do |rf|
+      = render "reference_fields", f: rf
+    = link_to_add_fields "Add Reference", f, :references
+  = f.submit((f.object.new_record? ? "Create Resume" : "Edit Resume" ), class: "btn btn-success")

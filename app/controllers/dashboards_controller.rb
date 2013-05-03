@@ -30,6 +30,7 @@ class DashboardsController < ApplicationController
   end
 
   def moderator
-    
+    @job = Job.new
+    @resume = Resume.new
   end
 end
