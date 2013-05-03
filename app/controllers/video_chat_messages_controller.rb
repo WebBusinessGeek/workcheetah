@@ -4,6 +4,11 @@ class VideoChatMessagesController < ApplicationController
   def create
   	@video_chat_message = VideoChatMessage.new(params[:video_chat_message])
   	@video_chat_message.sender = current_user
-  	@video_chat_message.save
+
+  	if @video_chat_message.save!
+  	  render "create", handlers: [ "js.erb" ]
+  	else
+  	  return false
+  	end
   end
 end
