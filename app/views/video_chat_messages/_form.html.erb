@@ -1,0 +1,5 @@
+<%= simple_form_for VideoChatMessage.new, remote: :true, html: { class: "form-inline" } do |f| %>
+	<%= f.text_field :body %>
+	<%= f.hidden_field :video_chat_id, value: video_chat.id %>
+	<%= f.submit "Send", class: "btn btn-success" %>
+<% end %>

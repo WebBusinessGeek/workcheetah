@@ -1,4 +1,6 @@
 CareerLoop::Application.routes.draw do
+  resources :video_chat_messages, only: [ :create ]
+
   resources :video_chats do
     member do
       put :accept

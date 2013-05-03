@@ -5,6 +5,8 @@ describe VideoChat do
   	[ :recipient, :requester ].each do |association_name|
   		it { should belong_to association_name }
   	end
+
+  	it { should have_many :video_chat_messages }
 	end
 
 	describe "Basics" do

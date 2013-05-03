@@ -1,0 +1,6 @@
+$("#video_chat_message_body").val("");
+$("#chat").scrollTop($("#chat")[0].scrollHeight);
+
+<% publish_to "/video_chats/#{@video_chat_message.video_chat.id}" do %>
+	$("#chat").append("<%= j render @video_chat_message %>");
+<% end %>

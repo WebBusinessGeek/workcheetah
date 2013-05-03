@@ -1,0 +1,72 @@
+%p
+  %b Requester:
+  = @video_chat.requester_id
+%p
+  %b Recipient:
+  = @video_chat.recipient_id
+%p
+  %b Accepted by requester:
+  = @video_chat.accepted_by_requester
+%p
+  %b Accepted by recipient:
+  = @video_chat.accepted_by_recipient
+%p
+  %b Start time:
+  = @video_chat.start_time
+%p
+  %b End time:
+  = @video_chat.end_time
+- if current_user == @video_chat.requester
+  %p
+    %b Note:
+    = @video_chat.note
+
+.videos
+  #local-video.pull-left
+  #remote-videos.pull-left
+  %br{clear: :all}/ 
+
+= link_to "Start video chat", "javascript:void(0);", id: "start-video-chat", class: "btn btn-primary"
+
+#chat{:style => "height: 200px; overflow: auto;"}
+  = render @video_chat.video_chat_messages
+
+= render partial: "video_chat_messages/form", locals: { video_chat: @video_chat }
+
+= link_to 'Edit', edit_video_chat_path(@video_chat)
+|
+\#{link_to 'Back', video_chats_path}
+
+- if current_user == @video_chat.requester && !@video_chat.accepted_by_requester?
+  = link_to "Accept", accept_video_chat_path(@video_chat), method: :put, class: "btn btn-success"
+- elsif current_user == @video_chat.recipient && !@video_chat.accepted_by_recipient?
+  = link_to "Accept", accept_video_chat_path(@video_chat), method: :put, class: "btn btn-success"
+
+= subscribe_to "/video_chats/#{@video_chat.id}"
+
+:javascript
+  $(document).ready(function(){
+    $("#chat").scrollTop($("#chat")[0].scrollHeight);
+  });
+
+/ - publish_to "/video_chats/#{@video_chat.id}" do
+:javascript
+  // Video chat
+  $("#start-video-chat").click(function(){
+    var webrtc = new WebRTC({
+      // the id/element dom element that will hold "our" video
+      localVideoEl: 'local-video',
+      // the id/element dom element that will hold remote videos
+      remoteVideosEl: 'remote-videos',
+      // immediately ask for camera access
+      autoRequestMedia: true
+    });
+
+    // we have to wait until it's ready
+    webrtc.on('readyToCall', function () {
+      // you can name it anything
+      webrtc.joinRoom("/video_chats/#{@video_chat.id}");
+      $("#video-notice").fadeOut(200);
+      $(".videos").append('<br clear="all"/><hr/>');
+    });
+  });

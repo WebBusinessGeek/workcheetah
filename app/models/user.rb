@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   belongs_to :account
   has_many :requested_video_chats, class_name: "VideoChat", foreign_key: :requester_id, dependent: :destroy
   has_many :received_video_chats, class_name: "VideoChat", foreign_key: :recipient_id, dependent: :destroy
+  has_many :video_chat_messages, foreign_key: :sender_id, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

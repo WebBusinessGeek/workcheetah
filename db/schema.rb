@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502234546) do
+ActiveRecord::Schema.define(:version => 20130503002140) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -239,6 +239,14 @@ ActiveRecord::Schema.define(:version => 20130502234546) do
   end
 
   add_index "validation_requests", ["account_id"], :name => "index_validation_requests_on_account_id"
+
+  create_table "video_chat_messages", :force => true do |t|
+    t.integer  "video_chat_id"
+    t.integer  "sender_id"
+    t.text     "body"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "video_chats", :force => true do |t|
     t.integer  "requester_id"
