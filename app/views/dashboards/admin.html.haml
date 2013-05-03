@@ -67,5 +67,16 @@
         - else
           %p Sorry, no purchases have occurred yet.
 
+        %h3 Moderators
+        %ul
+          - @moderators.each do |moderator|
+            %li
+              = moderator.email
+              = link_to "Delete", destroy_moderator_path(moderator), method: :delete
+        = form_for(User.new, :url => { controller: "users", :action => "create_moderator" }) do |f|
+          = f.email_field :email, placeholder: "Email"
+          = f.password_field :password, placeholder: "Password"
+          = f.submit "Create moderator", class: "btn btn-success"
+
   .footer
     = render "shared/footer"

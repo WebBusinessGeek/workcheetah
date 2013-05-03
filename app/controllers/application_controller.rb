@@ -36,7 +36,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authorize_admin_user!
-    redirect_to root_path, notice: "You're not authorized to view this page." unless user_signed_in? && current_user.admin?
+  def authorize_admin!
+    return redirect_to root_path, notice: "You're not authorized to view this page." unless user_signed_in? && current_user.admin?
+  end
+
+  def authorize_moderator!
+    return redirect_to root_path, notice: "You're not authorized to view this page." unless user_signed_in? && current_user.moderator?
   end
 end

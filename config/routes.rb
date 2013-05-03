@@ -64,6 +64,10 @@ CareerLoop::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => "users/registrations" }
 
   resource :user
+
+  post "/moderators" => "users#create_moderator", as: :create_moderator
+  delete "/moderators/:id" => "users#destroy_moderator", as: :destroy_moderator
+
   #  do
   #   member do
   #     get :change_password
@@ -74,6 +78,7 @@ CareerLoop::Application.routes.draw do
   root :to => 'dashboards#home'
   match '/contact' => "pages#contact", as: "contact"
   match '/admin' => "dashboards#admin", as: "admin"
+  match '/moderator' => "dashboards#moderator", as: "admin_moderator"
   match ':slug' => "accounts#show", as: "slug"
   match '/errors/error_404' => "errors#error_404"
   match '/errors/error_500' => "errors#error_500"

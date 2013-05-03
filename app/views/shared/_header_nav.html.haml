@@ -25,6 +25,8 @@
       %span.search_jobs= link_to "Browse Jobs By Category", categories_path, class: (root_path == request.path ? "current" : "" )
       - if user_signed_in? && current_user.admin?
         = link_to "Admin", admin_path
+      - elsif user_signed_in? && current_user.moderator?
+        = link_to "moderator", admin_moderator_path
       - if user_signed_in? && current_user.account.present?
         %span.my_account= link_to "My Account", account_path
         %span.my_jobs= link_to "My Jobs", my_jobs_path

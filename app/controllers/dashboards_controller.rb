@@ -1,6 +1,8 @@
 class DashboardsController < ApplicationController
   layout "home"
 
+  before_filter :authorize_admin!, only: [ :admin ]
+  before_filter :authorize_moderator!, only: [ :moderator ]
 
   def home
     @articles = Article.order('created_at desc').limit(10)
@@ -15,7 +17,6 @@ class DashboardsController < ApplicationController
   end
 
   def admin
-    authorize_admin_user!
     @jobs = Job.order('created_at desc').limit(10)
     @resumes = Resume.order('created_at desc').limit(10)
     @jobs_count = Job.scoped.count
@@ -25,5 +26,10 @@ class DashboardsController < ApplicationController
     @applicant_accesses_last_7_days_count = ApplicantAccess.where(created_at: 7.days.ago..Date.today).order('created_at desc').count
     @applicant_accesses_last_28_days_count = ApplicantAccess.where(created_at: 28.days.ago..Date.today).order('created_at desc').count
     @accounts = Account.order('created_at desc').limit(10)
+    @moderators = User.where(moderator: true)
+  end
+
+  def moderator
+    
   end
 end
