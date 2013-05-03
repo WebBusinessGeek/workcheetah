@@ -49,10 +49,10 @@
     $("#chat").scrollTop($("#chat")[0].scrollHeight);
   });
 
-/ - publish_to "/video_chats/#{@video_chat.id}" do
 :javascript
   // Video chat
   $("#start-video-chat").click(function(){
+    // Start call
     var webrtc = new WebRTC({
       // the id/element dom element that will hold "our" video
       localVideoEl: 'local-video',
@@ -66,7 +66,8 @@
     webrtc.on('readyToCall', function () {
       // you can name it anything
       webrtc.joinRoom("/video_chats/#{@video_chat.id}");
-      $("#video-notice").fadeOut(200);
-      $(".videos").append('<br clear="all"/><hr/>');
     });
+
+    // Hide button
+    $(this).hide(200);
   });
