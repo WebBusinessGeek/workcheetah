@@ -28,6 +28,13 @@
   <%= @video_chat.end_time %>
 </p>
 
+<% if current_user == @video_chat.requester %>
+  <p>
+    <b>Note:</b>
+    <%= @video_chat.note %>
+  </p>
+<% end %>
+
 
 <%= link_to 'Edit', edit_video_chat_path(@video_chat) %> |
 <%= link_to 'Back', video_chats_path %>

@@ -9,7 +9,7 @@ describe VideoChat do
 
 	describe "Basics" do
 		context "Attributes" do
-			[ :accepted_by_recipient, :accepted_by_requester, :end_time, :recipient_id, :requester_id, :start_time ].each do |attr|
+			[ :accepted_by_recipient, :accepted_by_requester, :note, :end_time, :recipient_id, :requester_id, :start_time ].each do |attr|
 				it { should respond_to attr }
 				it { should allow_mass_assignment_of attr }
 			end

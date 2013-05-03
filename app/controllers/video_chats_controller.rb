@@ -128,6 +128,6 @@ class VideoChatsController < ApplicationController
     # params.require(:person).permit(:name, :age)
     # Also, you can specialize this method with per-user checking of permissible attributes.
     def video_chat_params
-      params.require(:video_chat).permit(:accepted_by_recipient, :accepted_by_requester, :end_time, :recipient_id, :requester_id, :start_time)
+      params.require(:video_chat).permit(:accepted_by_recipient, :accepted_by_requester, :end_time, :note, :recipient_id, :requester_id, :start_time)
     end
 end

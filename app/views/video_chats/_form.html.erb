@@ -8,6 +8,9 @@
     <%= f.hidden_field :recipient_id, value: params[:recipient_id] || @video_chat.recipient_id %>
     <%= f.input :start_time %>
     <%= f.input :end_time %>
+    <% if current_user == @video_chat.requester %>
+      <%= f.input :note %>
+    <% end %>
   </div>
 
   <div class="form-actions">
