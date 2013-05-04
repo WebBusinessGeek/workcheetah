@@ -129,4 +129,8 @@
     = f.fields_for :references do |rf|
       = render "reference_fields", f: rf
     = link_to_add_fields "Add Reference", f, :references
+
+  .email_for_claim
+    = f.label :email_for_claim, "Email to send claim to"
+    = f.email_field :email_for_claim
   = f.submit((f.object.new_record? ? "Create Resume" : "Edit Resume" ), class: "btn btn-success")

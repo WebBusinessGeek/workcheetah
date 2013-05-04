@@ -16,15 +16,32 @@ class ResumesController < ApplicationController
   end
 
   def create
-    if user_signed_in?
-      @resume = current_user.build_resume(resume_params)
+    if current_user
+      if current_user.moderator?
+        @resume = Resume.new(resume_params)
+      elsif !current_user.moderator?
+        @resume = current_user.build_resume(resume_params)
+      end
     else
       @resume = Resume.new(resume_params)
     end
 
+    # if user_signed_in? && current_user.moderator
+    #   @resume = Resume.new(resume_params)
+    # elsif user_signed_in? && !current_user.moderator?
+    #   @resume = current_user.build_resume(resume_params)
+    # else
+    #   @resume = Resume.new(resume_params)
+    # end
+
     if @resume.save
-      sign_in @resume.user unless user_signed_in?
-      redirect_to resume_path(@resume), notice: "Resume created successfully"
+      if current_user.moderator?
+        NotificationMailer.new_claimable_resume(@resume).deliver
+        redirect_to :back, notice: "Claimable resume created successfully."
+      else
+        sign_in @resume.user unless user_signed_in?
+        redirect_to resume_path(@resume), notice: "Resume created successfully"
+      end
     else
       render "new"
     end
@@ -67,10 +84,22 @@ class ResumesController < ApplicationController
     redirect_to @resume
   end
 
+  def claim
+    @resume = Resume.find(params[:id])
+
+    if user_signed_in?
+      @resume.user = current_user
+    else
+      @resume.build_user
+    end
+
+    render action: "new"
+  end
+
   private
 
   def resume_params
-    params.require(:resume).permit( :name, :phone, :email, :website,
+    params.require(:resume).permit( :name, :phone, :email, :email_for_claim, :website,
       :twitter, :status, :growth_importance, :distance_importance,
       :category1_id, :category2_id, :category3_id,
       :freedom_importance, :pay_importance,

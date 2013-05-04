@@ -95,25 +95,39 @@ class JobsController < ApplicationController
     @job = Job.new(job_params)
     @job.email_for_claim = params[:job][:email_for_claim]
 
-    if user_signed_in? && current_user.moderator?
-      @job.account = nil
-    elsif user_signed_in? && !current_user.moderator?
-      if current_user.account
-        @job.account = current_user.account
-      else
-        @job.account.users << current_user
+    if current_user
+      if current_user.moderator?
+        @job.account = nil
+      elsif !current_user.moderator?
+        if current_user.account
+          @job.account = current_user.account
+        else
+          @job.account.users << current_user
+        end
       end
     end
 
+    # if user_signed_in? && current_user.moderator?
+    #   @job.account = nil
+    # elsif user_signed_in? && !current_user.moderator?
+    #   if current_user.account
+    #     @job.account = current_user.account
+    #   else
+    #     @job.account.users << current_user
+    #   end
+    # end
+
     respond_to do |format|
       if @job.save
-        if current_user.moderator?
-          NotificationMailer.new_claimable_job(@job).deliver
+        if current_user
+          if current_user.moderator?
+            NotificationMailer.new_claimable_job(@job).deliver
+          end
         else
           NotificationMailer.new_job(@job).deliver
         end
 
-        sign_in @job.account.users.first unless user_signed_in? || current_user.moderator?
+        sign_in @job.account.users.first unless user_signed_in?
 
         if current_user.moderator?
           format.html { redirect_to :back, notice: "Job created successfully." }

@@ -14,6 +14,7 @@ CareerLoop::Application.routes.draw do resources :video_chat_messages, only: [ :
     member do
       get :add_video
       get :update_video
+      get :claim
     end
   end
 

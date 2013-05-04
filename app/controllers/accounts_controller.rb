@@ -77,7 +77,7 @@ class AccountsController < ApplicationController
       @account = Account.find(params[:id])
     elsif params[:slug].present?
       @account = Account.where(slug: params[:slug]).first!
-    else
+    elsif current_user
       @account = current_user.account
     end
   end
