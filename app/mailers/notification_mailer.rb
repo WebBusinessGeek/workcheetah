@@ -30,4 +30,9 @@ class NotificationMailer < ActionMailer::Base
   	@video_chat = video_chat
   	mail(to: recipient.email, subject: "Video interview cancelled")
   end
+
+  def new_claimable_job(job)
+    @job = job
+    mail(to: @job.email_for_claim, subject: "You have been invited to claim a job!")
+  end
 end

@@ -1,5 +1,4 @@
-CareerLoop::Application.routes.draw do
-  resources :video_chat_messages, only: [ :create ]
+CareerLoop::Application.routes.draw do resources :video_chat_messages, only: [ :create ]
 
   resources :video_chats do
     member do
@@ -28,6 +27,7 @@ CareerLoop::Application.routes.draw do
 
     member do
       post :flag
+      get :claim
     end
 
     resources :job_applications do

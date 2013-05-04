@@ -26,6 +26,9 @@
     .control-group
       = f.label :address, "City, State (ex. Los Angeles, CA)"
       .control= f.text_field :address, style: "width: 100%; max-width: 400px; font-size: 16px;"
+    .control-group
+      = f.label :email, "Email to send claim to"
+      .control= f.email_field :email_for_claim
 
     - unless user_signed_in? && current_user.account
       = f.fields_for :account do |af|

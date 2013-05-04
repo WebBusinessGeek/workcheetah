@@ -12,6 +12,7 @@ class Job < ActiveRecord::Base
   geocoded_by :address
   after_validation :geocode, :if => :address_changed?
 
+  attr_accessor :email_for_claim
 
   def self.text_search(query, location)
     if query.present?

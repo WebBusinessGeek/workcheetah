@@ -93,8 +93,11 @@ class JobsController < ApplicationController
   # POST /jobs.json
   def create
     @job = Job.new(job_params)
+    @job.email_for_claim = params[:job][:email_for_claim]
 
-    if user_signed_in?
+    if user_signed_in? && current_user.moderator?
+      @job.account = nil
+    elsif user_signed_in? && !current_user.moderator?
       if current_user.account
         @job.account = current_user.account
       else
@@ -104,10 +107,20 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        NotificationMailer.new_job(@job).deliver
-        sign_in @job.account.users.first unless user_signed_in?
-        format.html { redirect_to (@job.account.safe_job_seal? ? @job : [:add_seal, :account]), notice: 'Job was successfully created.' }
-        format.json { render json: @job, status: :created, location: @job }
+        if current_user.moderator?
+          NotificationMailer.new_claimable_job(@job).deliver
+        else
+          NotificationMailer.new_job(@job).deliver
+        end
+
+        sign_in @job.account.users.first unless user_signed_in? || current_user.moderator?
+
+        if current_user.moderator?
+          format.html { redirect_to :back, notice: "Job created successfully." }
+        else
+          format.html { redirect_to (@job.account.safe_job_seal? ? @job : [:add_seal, :account]), notice: 'Job was successfully created.' }
+          format.json { render json: @job, status: :created, location: @job }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @job.errors, status: :unprocessable_entity }
@@ -149,9 +162,24 @@ class JobsController < ApplicationController
     redirect_to request.referer, notice: "The job has been flagged. We'll take a look into this ASAP."
   end
 
+  def claim
+    @job = Job.find(params[:id])
+
+    if user_signed_in?
+      unless current_user.account
+        @account = @job.build_account
+      end
+    else
+      @account = @job.build_account
+      @account.users.build
+    end
+
+    render action: "new"
+  end
+
   private
 
   def job_params
-    params.require(:job).permit(:title, :description, :category_id, :about_company, :address, account_attributes: [ :name, :website, :phone, :slug, users_attributes: [ :email, :password, :password_confirmation ] ])
+    params.require(:job).permit(:title, :description, :category_id, :email_for_claim, :about_company, :address, account_attributes: [ :name, :website, :phone, :slug, users_attributes: [ :email, :password, :password_confirmation ] ])
   end
 end
