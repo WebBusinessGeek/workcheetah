@@ -1,15 +1,15 @@
 .jobs_index
   .white_box
-    .pull-left.span6
+    .pull-left.span4
       %h1
         = @category.name if @category
         Jobs
       - unless @portal || @category
         = render "jobs/search_form"
-    .pull-right.span4
+    .pull-right.span6
       = image_tag("look-for-safe-seal.png")
       %br/ 
-      %em WorkCheetah.com Inc expresses its right to disclaim any liability for any scams, hoaxes, or cons that are represented to be legitimate on its website. WorkCheetah.com Inc only confirms that each validated employer is registered with the IRS and cannot be held liable for any interactions that occur as a result from using WorkCheetah.com websites and services. Please research all companies thoroughly before arranging physical meetings. If you feel you have been a victim of a scam, or have concerns of an employer or profile please report it using the Report a Scam page.
+      %em WorkCheetah validates all employers holding the WorkCheetah Validation seal by confirming company information with the IRS. WorkCheetah expresses its right to disclaim any responsibility for scams, hoaxes, or otherwise illegal activities on its site. WorkCheetah WILL NOT tolerate any abuse of its website or its users and asks that any individuals who experience suspicious activity to <u>report it immediately</u>. Please do you research before entertaining offers from ANY organizations learned about online. – WorkCheetah Team
       - if @category && user_signed_in? && current_user.admin?
         = link_to "Edit Category", [:edit, @category], class: "btn"
   

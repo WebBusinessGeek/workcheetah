@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_filter :hide_categories_from_companies
+
   def index
     @categories = Category.scoped.order(:name)
 
@@ -57,6 +59,10 @@ class CategoriesController < ApplicationController
     @category.assign_attributes(category_params)
     @category.save
     redirect_to categories_path, notice: "Category created"
+  end
+
+  def hide_categories_from_companies
+    raise CanCan::AccessDenied if user_signed_in? && current_user.account
   end
 
   private

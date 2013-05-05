@@ -32,7 +32,7 @@ class Ability
   end
 
   def video_chat_managable?(video_chat, user)
-    user == video_chat.requester || user == video_chat.recipient
+    user == video_chat.requester || user == video_chat.recipient || video_chat.new_record?
   end
 
   # def video_chat_managable?(video_chat, user)

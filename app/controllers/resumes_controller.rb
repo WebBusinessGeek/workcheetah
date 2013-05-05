@@ -35,9 +35,11 @@ class ResumesController < ApplicationController
     # end
 
     if @resume.save
-      if current_user.moderator?
-        NotificationMailer.new_claimable_resume(@resume).deliver
-        redirect_to :back, notice: "Claimable resume created successfully."
+      if current_user
+        if current_user.moderator?
+          NotificationMailer.new_claimable_resume(@resume).deliver
+          redirect_to :back, notice: "Claimable resume created successfully."
+        end
       else
         sign_in @resume.user unless user_signed_in?
         redirect_to resume_path(@resume), notice: "Resume created successfully"

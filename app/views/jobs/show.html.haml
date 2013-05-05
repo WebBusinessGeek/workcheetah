@@ -24,6 +24,10 @@
           %p= @job.about_company.html_safe
         = link_to 'Back', "javascript: history.go(-1)"
       .span2{ style: "width: 22%"}
+        - if @job.account.safe_job_seal?
+          = image_tag "safe-job-seal-large.png"
+        - else
+          Company not verified.
         - if current_user
           - if current_user.has_applied_to?(@job)
             .applied You've already applied.

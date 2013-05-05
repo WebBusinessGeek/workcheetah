@@ -36,36 +36,50 @@
             Total Accounts:
             = @accounts.count
       .span5
-        %h3 Resume Purchases
-        - if @applicant_accesses.any?
+        %h3 Latest Seal Purchases
+        - if @seal_purchases.any?
           %table{ style: "width: 100%;" }
-            %tr
+            %tr 
               %th Company
-              %th Applicant
+              %th Amount
               %th Purchase Date
-            - @applicant_accesses.each do |applicant_access|
-              %tr
-                %td= applicant_access.account.name
-                %td= applicant_access.job_application.user.resume.name
-                %td= applicant_access.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%m/%d/%Y %l:%m %P %Z")
-
-          %p
-            %br/
-            Total Purchases:
-            = number_to_currency(@applicant_accesses_count * 0.99)
-            %br/
-            Today's Purchases:
-            = number_to_currency(@applicant_accesses_today_count * 0.99)
-
-            %br/
-            Last 7 Days Purchases:
-            = number_to_currency(@applicant_accesses_last_7_days_count * 0.99)
-
-            %br/
-            Last 28 Days Purchases:
-            = number_to_currency(@applicant_accesses_last_28_days_count * 0.99)
+            - @seal_purchases.each do |seal_purchase|
+              %td= seal_purchase.account.name
+              %td= "$ #{seal_purchase.amount / 100}"
+              %td= seal_purchase.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%m/%d/%Y %l:%m %P %Z")
         - else
           %p Sorry, no purchases have occurred yet.
+
+        / %h3 Resume Purchases
+        / - if @applicant_accesses.any?
+        /   %table{ style: "width: 100%;" }
+        /     %tr
+        /       %th Company
+        /       %th Applicant
+        /       %th Purchase Date
+        /     - @applicant_accesses.each do |applicant_access|
+        /       %tr
+        /         %td= applicant_access.account.name
+        /         %td= applicant_access.job_application.user.resume.name
+        /         %td= applicant_access.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%m/%d/%Y %l:%m %P %Z")
+
+        /   %p
+        /     %br/
+        /     Total Purchases:
+        /     = number_to_currency(@applicant_accesses_count * 0.99)
+        /     %br/
+        /     Today's Purchases:
+        /     = number_to_currency(@applicant_accesses_today_count * 0.99)
+
+        /     %br/
+        /     Last 7 Days Purchases:
+        /     = number_to_currency(@applicant_accesses_last_7_days_count * 0.99)
+
+        /     %br/
+        /     Last 28 Days Purchases:
+        /     = number_to_currency(@applicant_accesses_last_28_days_count * 0.99)
+        / - else
+        /   %p Sorry, no purchases have occurred yet.
 
         %h3 Moderators
         %ul

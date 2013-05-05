@@ -19,7 +19,9 @@ describe User do
 		end
 
 		context "Methods" do
-			it { should respond_to :has_applied_to? }
+			[ :has_applied_to?, :name ].each do |method|
+				it { should respond_to method }				
+			end
 		end
 	end
 

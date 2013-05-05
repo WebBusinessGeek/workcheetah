@@ -6,6 +6,7 @@ class Account < ActiveRecord::Base
   has_many :applicant_accesses
   has_many :job_applications, through: :applicant_accesses
   has_many :payment_profiles
+  has_many :seal_purchases
 
   validates_uniqueness_of :slug
 
@@ -45,15 +46,16 @@ class Account < ActiveRecord::Base
     if has_payment_profile?
       @payment_profile = self.payment_profiles.first
       @response = Stripe::Charge.create(
-        :amount      => 2495,
+        :amount      => PaymentProfile::SAFE_SEAL_PRICE,
         :currency    => "usd",
         :customer    => @payment_profile.stripe_customer_token,
-        :description => "Charge for Safe Job seal")
+        :description => "Charge for Safe Job seal"
+      )
       if @response.failure_message.nil?
         self.update_attribute(:safe_job_seal, true)
+        self.seal_purchases.create(amount: PaymentProfile::SAFE_SEAL_PRICE)
       end
       @response
     end
-    # self.update_attribute(:safe_job_seal, true)
   end
 end

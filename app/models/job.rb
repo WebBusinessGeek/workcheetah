@@ -1,7 +1,7 @@
 class Job < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  default_scope where(active: true)
+  default_scope where("active = true AND account_id IS NOT null")
 
   # attr_accessible :about_company, :description, :title
   belongs_to :account

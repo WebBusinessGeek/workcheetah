@@ -13,7 +13,11 @@
   .search_content.row
     .search_box.span12
       .logo= image_tag("logo-large5.png")
-      .search_form= render "jobs/search_form"
+      - if current_user
+        - if !current_user.account
+          .search_form= render "jobs/search_form"
+      - else
+        .search_form= render "jobs/search_form"
 
   %a{ name: "how"}
   .content
@@ -40,7 +44,7 @@
         .difference
           = image_tag "seal.jpg", class: "align-left"
           %h4 Safe Job Search
-          %p Look for the Safe Job seal to know it's a legitimate opportunity, and not a scam.
+          %p Look for the Validation Seal to know it’s a legitimate employer and not a scammer.
         .action
           = link_to "Post Your Resume", new_resume_path, class: "btn btn-success btn-large"
           or
@@ -53,20 +57,20 @@
           %p Reach qualified candidants in your area without paying a penny.
         .difference
           = image_tag "brand.jpg", class: "align-left"
-          %h4 Customized Job Portal
-          %p Manage applicants through your branded company dashboard.
+          %h4 Receive Applications with Video
+          %p See what the resume doesn't show you and know who you're hiring faster.
         .difference
           = image_tag "video-camera.jpg", class: "align-left"
-          %h4 Video Is Worth a Billion Words
-          %p Know who you're hiring quickly by seeing what the resume doesn't show you.
+          %h4 Manage Your Applicants Easily
+          %p Manage recruits from your dashboard. Request interviews or compare candidates effortlessly.
         .difference
           = image_tag "seal.jpg", class: "align-left"
-          %h4 Attract Quality Candidates
-          %p Gain trust of potential applicants by verifying your company with WorkCheetah.
+          %h4 Attract Better Candidates
+          %p Validate your company with WorkCheetah to gain the trust of qualified applicants.
         .difference
           = image_tag "ppa.jpg", class: "align-left"
-          %h4 Make the right hire every time
-          %p Post your job. Preview all applicants. Keep the best for further screening. Free
+          %h4 Modernize Your Recruiting
+          %p Use WorkCheetah to schedule and conduct interviews right from your computer. Free
         .action
           = link_to "Post Your Job", new_job_path, class: "btn btn-primary btn-large"
 
