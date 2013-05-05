@@ -1,21 +1,15 @@
 %p
-  %b Requester:
-  = @video_chat.requester_id
+  %b With
+  = current_user == @video_chat.requester ? @video_chat.recipient.name : @video_chat.requester.name
 %p
-  %b Recipient:
-  = @video_chat.recipient_id
-%p
-  %b Accepted by requester:
-  = @video_chat.accepted_by_requester
-%p
-  %b Accepted by recipient:
-  = @video_chat.accepted_by_recipient
+  %b Accepted by other party:
+  = current_user == @video_chat.requester ? @video_chat.accepted_by_recipient : @video_chat.accepted_by_requester
 %p
   %b Start time:
-  = @video_chat.start_time
+  = @video_chat.start_time.strftime("%b %e, %Y at %l:%M%P")
 %p
   %b End time:
-  = @video_chat.end_time
+  = @video_chat.end_time.strftime("%b %e, %Y at %l:%M%P")
 - if current_user == @video_chat.requester
   %p
     %b Note:
@@ -26,10 +20,12 @@
   #remote-videos.pull-left
   %br{clear: :all}/ 
 
-= link_to "Start video chat", "javascript:void(0);", id: "start-video-chat", class: "btn btn-primary"
+#start-video-div
+  = link_to "Start video chat", "javascript:void(0);", id: "start-video-chat", class: "btn btn-primary"
+  = raw "(only available with #{link_to "Google Chrome", "http://www.google.com/chrome/"} or #{link_to "Firefox Nightly", "http://nightly.mozilla.org/"})"
 
 #chat{:style => "height: 200px; overflow: auto;"}
-  = render @video_chat.video_chat_messages
+  = render @video_chat.video_chat_messages.order("id ASC")
 
 = render partial: "video_chat_messages/form", locals: { video_chat: @video_chat }
 
@@ -37,9 +33,7 @@
 |
 \#{link_to 'Back', video_chats_path}
 
-- if current_user == @video_chat.requester && !@video_chat.accepted_by_requester?
-  = link_to "Accept", accept_video_chat_path(@video_chat), method: :put, class: "btn btn-success"
-- elsif current_user == @video_chat.recipient && !@video_chat.accepted_by_recipient?
+- if (current_user == @video_chat.requester && !@video_chat.accepted_by_requester?) || current_user == @video_chat.recipient && !@video_chat.accepted_by_recipient?
   = link_to "Accept", accept_video_chat_path(@video_chat), method: :put, class: "btn btn-success"
 
 = subscribe_to "/video_chats/#{@video_chat.id}"
@@ -68,6 +62,6 @@
       webrtc.joinRoom("/video_chats/#{@video_chat.id}");
     });
 
-    // Hide button
-    $(this).hide(200);
+    // Hide button and advices
+    $("#start-video-div").hide(200);
   });

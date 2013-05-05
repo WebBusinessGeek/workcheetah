@@ -10,7 +10,10 @@ class PaymentProfile < ActiveRecord::Base
 
   scope :active, -> { where(status: "active") }
 
-  before_create :get_stripe_customer_token
+  # before_create :get_stripe_customer_token
+
+  SAFE_SEAL_PRICE = 2500
+  SAFE_SEAL_PRICE_IN_DOLLARS = 25
 
   # private
 

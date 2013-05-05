@@ -23,4 +23,19 @@ class User < ActiveRecord::Base
     self.job_applications.where(job_id: job.id).any?
   end
 
+  def name
+    if self.account
+      self.account.name
+    elsif self.resume
+      self.resume.name
+    end
+  end
+
+  def name=(name)
+    if self.account
+      self.account.update_attribute(:name, name)
+    elsif self.resume
+      self.resume.update_attribute(:name, name)
+    end
+  end
 end

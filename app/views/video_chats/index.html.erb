@@ -1,13 +1,12 @@
-<h1>Video Interviews</h1>
+<h1>Interviews</h1>
 
 <table class="table">
   <tr>
-    <th>Requester</th>
-    <th>Recipient</th>
-    <th>Accepted by requester</th>
-    <th>Accepted by recipient</th>
+    <th>With</th>
+    <th>Accepted by other party</th>
     <th>Start time</th>
     <th>End time</th>
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,15 +14,18 @@
 
 <% @video_chats.each do |video_chat| %>
   <tr>
-    <td><%= video_chat.requester_id %></td>
-    <td><%= video_chat.recipient_id %></td>
-    <td><%= video_chat.accepted_by_requester %></td>
-    <td><%= video_chat.accepted_by_recipient %></td>
-    <td><%= video_chat.start_time %></td>
-    <td><%= video_chat.end_time %></td>
-    <td><%= link_to 'Show', video_chat %></td>
-    <td><%= link_to 'Edit', edit_video_chat_path(video_chat) %></td>
-    <td><%= link_to 'Destroy', video_chat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= current_user == video_chat.requester ? video_chat.recipient.name : video_chat.requester.name %></td>
+    <td><%= current_user == video_chat.requester ? video_chat.accepted_by_recipient : video_chat.accepted_by_requester %></td>
+    <td><%= video_chat.start_time.strftime("%b %e, %Y at %l:%M%P") %></td>
+    <td><%= video_chat.end_time.strftime("%b %e, %Y at %l:%M%P") %></td>
+    <td><%= link_to 'Start interview', video_chat, class: "btn btn-primary" %></td>
+    <td><%= link_to 'Reschedule', edit_video_chat_path(video_chat), class: "btn btn-info" %></td>
+    <td><%= link_to 'Cancel', video_chat, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+    <td>
+        <% if (current_user == video_chat.requester && !video_chat.accepted_by_requester?) || current_user == video_chat.recipient && !video_chat.accepted_by_recipient? %>
+            <%= link_to "Accept", accept_video_chat_path(video_chat), method: :put, class: "btn btn-success" %>
+        <% end %>
+    </td>
   </tr>
 <% end %>
 </table>

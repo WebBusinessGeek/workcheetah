@@ -22,10 +22,10 @@
             that your listing is legitimate! Receive a temporary seal
             until the verification process is complete.
           - if @account.payment_profiles.any?
-            .button= link_to "Verify My Company - $19.95", [:buy_seal, :account], method: :post
+            .button= link_to "Verify My Company - $ #{PaymentProfile::SAFE_SEAL_PRICE_IN_DOLLARS}", [:buy_seal, :account], method: :post
             .after_button
               %strong NOTE:
-              Clicking the above button will charge $19.95
+              = "Clicking the above button will charge $ #{PaymentProfile::SAFE_SEAL_PRICE_IN_DOLLARS}"
               %br/
               to the card ending in
               = "XXXX-" + @account.payment_profiles.first.cc_number_preview
@@ -38,8 +38,5 @@
           - else
             .button= link_to "Verify Your Company Now", new_payment_profile_path(product: "seal")
             .after_button Start by adding billing details
-
-
-
 
       .clearfix

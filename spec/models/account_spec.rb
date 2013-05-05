@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Account do
 	describe "Assocations" do
-		[:jobs, :users, :applicant_accesses, :payment_profiles].each do |association_name|
+		[ :jobs, :users, :applicant_accesses, :payment_profiles, :seal_purchases ].each do |association_name|
 			it { should have_many(association_name) }
 		end
 

@@ -14,6 +14,8 @@
                 - else
                   %li= link_to "Edit My Resume", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
               %li= link_to "Edit Email & Password", [:edit, :user]
+              - if user_signed_in? && current_user.account
+                %li= link_to "My Account", account_path
               %li= link_to "Sign Out", destroy_user_session_path, method: :delete
         - else
           = form_for("user", :url => user_session_path, html: { class: "navbar-form" }) do |f|
@@ -22,13 +24,13 @@
             %span.action= f.submit "Sign in", class: "btn"
     .links-top-right
       %span.home= link_to "Home", root_path
-      %span.search_jobs= link_to "Browse Jobs By Category", categories_path, class: (root_path == request.path ? "current" : "" )
+      - if user_signed_in? && !current_user.account
+        %span.search_jobs= link_to "Browse Jobs By Category", categories_path, class: (root_path == request.path ? "current" : "" )
       - if user_signed_in? && current_user.admin?
         = link_to "Admin", admin_path
       - elsif user_signed_in? && current_user.moderator?
         = link_to "Moderator", moderator_path
       - if user_signed_in? && current_user.account.present?
-        %span.my_account= link_to "My Account", account_path
         %span.my_jobs= link_to "My Jobs", my_jobs_path
         %span.my_recruits= link_to "My Recruits", [:recruits, current_user.account]
       - if user_signed_in? && current_user.job_applications.any?
@@ -42,4 +44,4 @@
         - else
           %span.create_my_resume= link_to "Build a Resume", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
       - if user_signed_in?
-        = link_to "Video Interviews", video_chats_path
+        = link_to "Interviews", video_chats_path

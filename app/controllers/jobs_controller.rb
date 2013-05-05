@@ -1,4 +1,6 @@
 class JobsController < ApplicationController
+  before_filter :hide_some_jobs_from_companies, only: [ :index ]
+
   # GET /jobs
   # GET /jobs.json
   def index
@@ -58,6 +60,8 @@ class JobsController < ApplicationController
   def show
     @job = Job.find(params[:id])
 
+    raise CanCan::AccessDenied if user_signed_in? && current_user.account && cannot?(:show, @job)
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @job }
@@ -87,6 +91,7 @@ class JobsController < ApplicationController
   # GET /jobs/1/edit
   def edit
     @job = Job.find(params[:id])
+    raise CanCan::AccessDenied if user_signed_in? && current_user.account && cannot?(:edit, @job)
   end
 
   # POST /jobs
@@ -146,6 +151,7 @@ class JobsController < ApplicationController
   # PUT /jobs/1.json
   def update
     @job = Job.find(params[:id])
+    raise CanCan::AccessDenied if user_signed_in? && current_user.account && cannot?(:update, @job)
 
     respond_to do |format|
       if @job.update_attributes(job_params)
@@ -162,6 +168,7 @@ class JobsController < ApplicationController
   # DELETE /jobs/1.json
   def destroy
     @job = Job.find(params[:id])
+    raise CanCan::AccessDenied if user_signed_in? && current_user.account && cannot?(:destroy, @job)
     @job.update_attribute(:active, false)
 
     respond_to do |format|
@@ -189,6 +196,10 @@ class JobsController < ApplicationController
     end
 
     render action: "new"
+  end
+
+  def hide_some_jobs_from_companies
+    raise CanCan::AccessDenied if user_signed_in? && current_user.account
   end
 
   private

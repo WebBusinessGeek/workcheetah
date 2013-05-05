@@ -18,17 +18,17 @@ class NotificationMailer < ActionMailer::Base
 
   def video_chat_update(video_chat, recipient)
   	@video_chat = video_chat
-  	mail(to: recipient.email, subject: "Video interview update")
+  	mail(to: recipient.email, subject: "Interview update")
   end
 
   def accept_video_chat(video_chat, recipient)
   	@video_chat = video_chat
-  	mail(to: recipient.email, subject: "Video interview accepted")
+  	mail(to: recipient.email, subject: "Interview accepted")
   end
 
   def video_chat_cancellation(video_chat, recipient)
   	@video_chat = video_chat
-  	mail(to: recipient.email, subject: "Video interview cancelled")
+  	mail(to: recipient.email, subject: "Interview cancelled")
   end
 
   def new_claimable_job(job)
