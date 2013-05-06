@@ -33,11 +33,11 @@ class NotificationMailer < ActionMailer::Base
 
   def new_claimable_job(job)
     @job = job
-    mail(to: @job.email_for_claim, subject: "You have been invited to claim a job!")
+    mail(to: @job.email_for_claim, subject: "Your recent job post '#{@job.title}'")
   end
 
   def new_claimable_resume(resume)
     @resume = resume
-    mail(to: @resume.email_for_claim, subject: "You have been invited to claim a resume!")
+    mail(to: @resume.email_for_claim, subject: "Your recent Resume post")
   end
 end

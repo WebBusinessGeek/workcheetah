@@ -12,7 +12,10 @@
             = msg
   .search_content.row
     .search_box.span12
-      .logo= image_tag("logo-large5.png")
+      - if user_signed_in? and current_user.account
+        .logo= image_tag("logo-large6.png")
+      - else
+        .logo= image_tag("logo-large5.png")
       - if current_user
         - if !current_user.account
           .search_form= render "jobs/search_form"
@@ -56,13 +59,13 @@
           %h4= link_to "Post Your Job For Free", new_job_path
           %p Reach qualified candidants in your area without paying a penny.
         .difference
-          = image_tag "brand.jpg", class: "align-left"
+          = image_tag "video-camera.jpg", class: "align-left"
           %h4 Receive Applications with Video
           %p See what the resume doesn't show you and know who you're hiring faster.
         .difference
-          = image_tag "video-camera.jpg", class: "align-left"
+          = image_tag "brand.jpg", class: "align-left"
           %h4 Manage Your Applicants Easily
-          %p Manage recruits from your dashboard. Request interviews or compare candidates effortlessly.
+          %p Manage recruits from your customized dashboard. Compare applicants effortlessly.
         .difference
           = image_tag "seal.jpg", class: "align-left"
           %h4 Attract Better Candidates
@@ -73,19 +76,21 @@
           %p Use WorkCheetah to schedule and conduct interviews right from your computer. Free
         .action
           = link_to "Post Your Job", new_job_path, class: "btn btn-primary btn-large"
+          it's free
 
-    %hr.divider
-    %h2 News &amp; Resources
-    .articles
-      - @articles.each do |article|
-        - @side = cycle("left", "right")
-        .article_box
-          .article{ class: @side }
-            %h3= link_to article.title, article
-            %p.teaser= strip_tags(article.body).truncate(200).html_safe
-        - if @side == "right"
-          .clearfix
-      .clearfix
+    - if @articles.any?
+      %hr.divider
+      %h2 News &amp; Resources
+      .articles
+        - @articles.each do |article|
+          - @side = cycle("left", "right")
+          .article_box
+            .article{ class: @side }
+              %h3= link_to article.title, article
+              %p.teaser= strip_tags(article.body).truncate(200).html_safe
+          - if @side == "right"
+            .clearfix
+        .clearfix
   .footer
     = render "shared/footer"
 

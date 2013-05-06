@@ -11,8 +11,8 @@
             %b{ class: "icon-user"}
             Edit Resume
           %p{ style: "margin-top: 10px;" } Video helps you sell yourself to potential employers. Stand out with a great visual presentation of your skills.
-        %strong Types of Jobs They Are Interested In:
         - if @resume.category1 || @resume.category2 || @resume.category3
+          %strong Types of Jobs They Are Interested In:
           %ul
             - if @resume.category1
               %li= @resume.category1.name
@@ -24,24 +24,29 @@
       %h1= @resume.name
 
       .contact_details
-        .phone
-          %span.resume_detail_label Phone:
-          = @resume.phone
-        .email
-          %span.resume_detail_label Email:
-          = link_to @resume.email, "mailto: #{@resume.email}"
-        .website
-          %span.resume_detail_label Webste:
-          = link_to @resume.website, @resume.website
-        .twitter
-          %span.resume_detail_label Twitter:
-          = link_to "@#{@resume.twitter.gsub("@", "")}", "http://www.twitter.com/#{@resume.twitter.gsub("@", "")}"
+        - if !@resume.phone.blank?
+          .phone
+            %span.resume_detail_label Phone:
+            = @resume.phone
+        - if !@resume.email.blank?
+          .email
+            %span.resume_detail_label Email:
+            = link_to @resume.email, "mailto: #{@resume.email}"
+        - if !@resume.website.blank?
+          .website
+            %span.resume_detail_label Website:
+            = link_to @resume.website, @resume.website
+        - if !@resume.twitter.blank?
+          .twitter
+            %span.resume_detail_label Twitter:
+            = link_to "@#{@resume.twitter.gsub("@", "")}", "http://www.twitter.com/#{@resume.twitter.gsub("@", "")}"
 
-        - @resume.addresses.each do |address|
-          .address
-            %span.resume_detail_label Address:
-            = address.city
-            = address.state
+        - if @resume.addresses.any?
+          - @resume.addresses.each do |address|
+            .address
+              %span.resume_detail_label Address:
+              = address.city
+              = address.state
 
       - if @resume.web_video.present?
         .video_resume
@@ -65,21 +70,23 @@
                 = " - "
                 = experience.till
             %span= experience.highlights.html_safe
-      .schools
-        %h3 Schools
-        - @resume.schools.each do |school|
-          .school
-            %h4.school_name= school.name
-      .references
-        %h3 References
-        - @resume.references.each do |reference|
-          .reference
-            %h4.name{ style: "margin-bottom: 0"}= reference.name
-            %em.job= reference.job_title
-            .company= reference.company
-            .phone= reference.phone
-            .email= reference.email
-            .notes= reference.notes
+      - if @resume.schools.any?
+        .schools
+          %h3 Schools
+          - @resume.schools.each do |school|
+            .school
+              %h4.school_name= school.name
+      - if @resume.references.any?
+        .references
+          %h3 References
+          - @resume.references.each do |reference|
+            .reference
+              %h4.name{ style: "margin-bottom: 0"}= reference.name
+              %em.job= reference.job_title
+              .company= reference.company
+              .phone= reference.phone
+              .email= reference.email
+              .notes= reference.notes
 
     - else
       %p This application doesn't have a resume

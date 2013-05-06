@@ -69,12 +69,21 @@ module ApplicationHelper
   end
 
   def should_have_resume_link?(user)
-    user.nil? || user.account.nil?
+    if user.nil?
+      true
+    elsif user.moderator?
+      false
+    elsif user.account.nil?
+      true
+    end 
+    # user.nil? || user.account.nil? || user.moderator?
   end
 
   def should_have_job_link?(user)
     if user.nil?
       true
+    elsif user.moderator?
+      false
     elsif user.admin?
       true
     elsif user.resume.nil?

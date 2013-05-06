@@ -13,7 +13,7 @@ class JobsController < ApplicationController
     end
 
     if @query.present? || @location.present?
-      @jobs = Job.text_search(@query, @location)
+      @jobs = Job.text_search(@query, @location).order("created_at DESC")
     else
       @jobs = Job.scoped.order('created_at desc')
     end
@@ -184,7 +184,7 @@ class JobsController < ApplicationController
   end
 
   def claim
-    @job = Job.find(params[:id])
+    @job = Job.unscoped.find(params[:id])
 
     if user_signed_in?
       unless current_user.account

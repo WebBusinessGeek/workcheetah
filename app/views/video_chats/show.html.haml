@@ -1,40 +1,50 @@
-%p
-  %b With
-  = current_user == @video_chat.requester ? @video_chat.recipient.name : @video_chat.requester.name
-%p
-  %b Accepted by other party:
-  = current_user == @video_chat.requester ? @video_chat.accepted_by_recipient : @video_chat.accepted_by_requester
-%p
-  %b Start time:
-  = @video_chat.start_time.strftime("%b %e, %Y at %l:%M%P")
-%p
-  %b End time:
-  = @video_chat.end_time.strftime("%b %e, %Y at %l:%M%P")
-- if current_user == @video_chat.requester
-  %p
-    %b Note:
-    = @video_chat.note
+.video_chats_show
+  .white_box
+    %p
+      %b With
+      = current_user == @video_chat.requester ? @video_chat.recipient.name : @video_chat.requester.name
+    %p
+      - if current_user == @video_chat.requester
+        - if @video_chat.accepted_by_recipient
+          %b Interview confirmed.
+        - else
+          %b Interview unconfirmed.
+      - elsif current_user == @video_chat.recipient
+        - if @video_chat.accepted_by_requester
+          %b Interview confirmed.
+        - else
+          %b Interview unconfirmed.
+    %p
+      %b Start time:
+      = @video_chat.start_time.strftime("%b %e, %Y at %l:%M%P")
+    %p
+      %b End time:
+      = @video_chat.end_time.strftime("%b %e, %Y at %l:%M%P")
+    - if current_user == @video_chat.requester
+      %p
+        %b Note:
+        = @video_chat.note
 
-.videos
-  #local-video.pull-left
-  #remote-videos.pull-left
-  %br{clear: :all}/ 
+    .videos
+      #local-video.pull-left
+      #remote-videos.pull-left
+      %br{clear: :all}/ 
 
-#start-video-div
-  = link_to "Start video chat", "javascript:void(0);", id: "start-video-chat", class: "btn btn-primary"
-  = raw "(only available with #{link_to "Google Chrome", "http://www.google.com/chrome/"} or #{link_to "Firefox Nightly", "http://nightly.mozilla.org/"})"
+    #start-video-div
+      = link_to "Start video chat", "javascript:void(0);", id: "start-video-chat", class: "btn btn-primary"
+      = raw "(only available with #{link_to "Google Chrome", "http://www.google.com/chrome/"} or #{link_to "Firefox Nightly", "http://nightly.mozilla.org/"})"
 
-#chat{:style => "height: 200px; overflow: auto;"}
-  = render @video_chat.video_chat_messages.order("id ASC")
+    #chat{:style => "height: 200px; overflow: auto;"}
+      = render @video_chat.video_chat_messages.order("id ASC")
 
-= render partial: "video_chat_messages/form", locals: { video_chat: @video_chat }
+    = render partial: "video_chat_messages/form", locals: { video_chat: @video_chat }
 
-= link_to 'Edit', edit_video_chat_path(@video_chat)
-|
-\#{link_to 'Back', video_chats_path}
+    = link_to 'Edit', edit_video_chat_path(@video_chat)
+    |
+    \#{link_to 'Back', video_chats_path}
 
-- if (current_user == @video_chat.requester && !@video_chat.accepted_by_requester?) || current_user == @video_chat.recipient && !@video_chat.accepted_by_recipient?
-  = link_to "Accept", accept_video_chat_path(@video_chat), method: :put, class: "btn btn-success"
+    - if (current_user == @video_chat.requester && !@video_chat.accepted_by_requester?) || current_user == @video_chat.recipient && !@video_chat.accepted_by_recipient?
+      = link_to "Accept", accept_video_chat_path(@video_chat), method: :put, class: "btn btn-success"
 
 = subscribe_to "/video_chats/#{@video_chat.id}"
 

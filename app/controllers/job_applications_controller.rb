@@ -59,7 +59,7 @@ class JobApplicationsController < ApplicationController
     else
       @purchase_response = current_user.account.buy_applicant(@job_application) # currently returns true in any case to make the purchase free
       if @purchase_response
-        redirect_to [@job_application.job, @job_application], notice: "Access purchased"
+        redirect_to [@job_application.job, @job_application], notice: "Recruit added."
       else
         redirect_to [@job_application.job, @job_application], error: "Something went wrong with the purcahse"
       end
@@ -74,7 +74,7 @@ class JobApplicationsController < ApplicationController
     #     @purchase_response = current_user.account.buy_applicant(@job_application)
     #     # if @purchase_response.failure_message.nil?
     #     if @purchase_response
-    #       redirect_to [@job_application.job, @job_application], notice: "Access purchased"
+    #       redirect_to [@job_application.job, @job_application], notice: "Recruit added."
     #     else
     #       redirect_to [@job_application.job, @job_application], error: "Something went wrong with the purcahse"
     #     end

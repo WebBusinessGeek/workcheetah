@@ -41,7 +41,7 @@ class PaymentProfilesController < ApplicationController
     # @job = @job_application.job
     @purchase_response = current_user.account.buy_applicant(@job_application)
     if @purchase_response.failure_message.nil?
-      redirect_to [@job_application.job, @job_application], notice: "Access purchased"
+      redirect_to [@job_application.job, @job_application], notice: "Recruit added."
     end
   end
 end
