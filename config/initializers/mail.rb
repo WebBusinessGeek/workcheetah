@@ -1,9 +1,9 @@
 ActionMailer::Base.smtp_settings = {
-  :address        => 'smtp.sendgrid.net',
+  :address        => 'smtp.mandrillapp.com',
   :port           => '587',
   :authentication => :plain,
-  :user_name      => ENV['SENDGRID_USERNAME'],
-  :password       => ENV['SENDGRID_PASSWORD'],
+  :user_name      => ENV['MANDRILL_USERNAME'],
+  :password       => ENV['MANDRILL_PASSWORD'],
   :domain         => 'heroku.com',
   :enable_starttls_auto => true
 }
