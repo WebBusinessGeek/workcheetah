@@ -52,7 +52,7 @@ class AccountsController < ApplicationController
     @response = @account.buy_seal
     # if @response.failure_message.nil?
     if @response
-      redirect_to [:new, :validation_request], notice: "Your card was charged $19.95. Your next step is to complete the Validation Seal Request form below."
+      redirect_to [:new, :validation_request], notice: "Your card was charged $ #{PaymentProfile::SAFE_SEAL_PRICE_IN_DOLLARS}. Your next step is to complete the Validation Seal Request form below."
     else
       redirect_to [:add_seal, :account], notice: "Something went wrong while adding Safe Job seal."
     end

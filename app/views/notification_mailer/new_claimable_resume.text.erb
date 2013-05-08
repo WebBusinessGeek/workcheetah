@@ -1,4 +1,6 @@
-Are you still using Craigslist to find your new job? 
+Your recent resume post <%= @resume.title %> has been on craigslist for a while now
+
+Why aren’t you using WorkCheetah? 
 
 Top 5 Reasons People Are Switching to WorkCheetah to Find Jobs:
 
@@ -7,23 +9,23 @@ Top 5 Reasons People Are Switching to WorkCheetah to Find Jobs:
 3. Fresh job inventory- No more stale jobs. All jobs on our site are available.
 4. Video Resume- show the employer why you’re worth the job.
 5. Interview from home- interview with employers right from your computer.
+ 
+ We know how hard it is to find work. Our mission is to make this process easier for both job seekers and employers
 
-We ran across your resume on Craigslist and thought you might find some success using these features.
+ You can start using WorkCheetah by building your resume. Follow the link to get started:<%= link_to claim_resume_url(@resume), claim_resume_url(@resume) %>
 
-We know how hard it is to find work. Our mission is to make this process easier for both job seekers and employers
+ Or to search open positions near you;
 
-You can start using WorkCheetah by building your resume. Follow the link to get started:
+http://www.WorkCheetah.com/categories
 
-<%= claim_resume_url(@resume) %> 
-
-Or to search open positions near you;
-
-<%= categories_url %>
-
-To not use a great tool to find a job, follow this link or simply ignore this email.
+ To not use a great tool to find jobs, follow this link or simply ignore this email.
 
 <%= claim_resume_url(@resume) %>
 
 Solve for x:
 
 WorkCheetah>Craigslist=Duh!
+
+ By the way,
+
+Visit us at www.WorkCheetah.com
