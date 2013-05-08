@@ -152,7 +152,7 @@ class JobsController < ApplicationController
   # PUT /jobs/1
   # PUT /jobs/1.json
   def update
-    @job = Job.find(params[:id])
+    @job = Job.unscoped.where(id: params[:id], active: true).first
     raise CanCan::AccessDenied if user_signed_in? && current_user.account && cannot?(:update, @job)
 
     respond_to do |format|
@@ -186,7 +186,8 @@ class JobsController < ApplicationController
   end
 
   def claim
-    @job = Job.unscoped.find(params[:id])
+    @job = Job.unscoped.where(id: params[:id], active: true, account_id: nil).first
+    return redirect_to root_path, notice: "That job has been claimed already or doesn't exist." if !@job
 
     if user_signed_in?
       unless current_user.account
