@@ -27,8 +27,9 @@
               %strong NOTE:
               = "Clicking the above button will charge $ #{PaymentProfile::SAFE_SEAL_PRICE_IN_DOLLARS}"
               %br/
-              to the card ending in
-              = "XXXX-" + @account.payment_profiles.first.cc_number_preview
+              to your card
+              /  ending in
+              / = "XXXX-" + @account.payment_profiles.first.cc_number_preview
               immediately. Paying for
               %br/
               this seal does not guarantee verification.

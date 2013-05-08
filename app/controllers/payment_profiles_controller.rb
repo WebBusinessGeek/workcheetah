@@ -9,7 +9,6 @@ class PaymentProfilesController < ApplicationController
     job_application_id = @payment_profile.first_job_applicant_to_buy
     product = @payment_profile.product
 
-
     if @payment_profile.save
       if job_application_id
         buy_job_application(@payment_profile.first_job_applicant_to_buy)
