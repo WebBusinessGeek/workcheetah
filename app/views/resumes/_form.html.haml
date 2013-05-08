@@ -22,6 +22,9 @@
       .control-group
         = uf.label :password_confirmation
         .control= uf.password_field :password_confirmation
+      .checkbox
+        = uf.check_box :terms_of_service
+        = uf.label :terms_of_service, raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}")
   %h3 Contact Details
   .row
     .span5

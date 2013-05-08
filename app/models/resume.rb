@@ -21,6 +21,8 @@ class Resume < ActiveRecord::Base
 
   attr_accessor :email_for_claim
 
+  validates :terms_of_service, acceptance: { accept: 1 }
+
   # after_save :enqueue_video
 
   def video_name

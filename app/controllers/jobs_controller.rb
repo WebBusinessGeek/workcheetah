@@ -97,6 +97,8 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.json
   def create
+    # raise params.inspect
+
     @job = Job.new(job_params)
     @job.email_for_claim = params[:job][:email_for_claim]
 
@@ -205,6 +207,6 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:title, :description, :category_id, :email_for_claim, :about_company, :address, account_attributes: [ :name, :website, :phone, :slug, users_attributes: [ :email, :password, :password_confirmation ] ])
+    params.require(:job).permit(:title, :description, :category_id, :email_for_claim, :about_company, :address, account_attributes: [ :name, :website, :phone, :slug, users_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] ])
   end
 end

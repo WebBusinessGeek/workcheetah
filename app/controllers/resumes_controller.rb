@@ -109,7 +109,7 @@ class ResumesController < ApplicationController
       experiences_attributes: [ :id, :company_name, :job_title, :from, :till, :highlights, :_destroy ],
       schools_attributes: [ :id, :name, :degree_type, :degree_name, :from, :till, :highlights, :_destroy],
       references_attributes: [ :id, :name, :job_title, :company, :phone, :email, :notes, :reference_type, :_destroy ],
-      user_attributes: [ :email, :password, :password_confirmation ] )
+      user_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] )
   end
 
   def load_resume
