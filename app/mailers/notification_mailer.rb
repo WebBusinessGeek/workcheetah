@@ -38,6 +38,6 @@ class NotificationMailer < ActionMailer::Base
 
   def new_claimable_resume(resume)
     @resume = resume
-    mail(to: @resume.email_for_claim, subject: "Your recent resume post #{@resume.title}")
+    mail(to: @resume.email_for_claim, subject: "Your recent resume post #{@resume.name}")
   end
 end
