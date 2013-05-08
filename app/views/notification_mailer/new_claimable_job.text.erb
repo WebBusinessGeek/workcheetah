@@ -4,7 +4,7 @@ A likely reason is that WorkCheetah allows job seekers to track their applicatio
 
 To view/edit your job post you can use the following link
 
-<%= link_to claim_job_url(@job), claim_job_url(@job) %>
+<%= claim_job_url(@job) %>
 
 We here at WorkCheetah know you hate having to Copy/Paste that annoyingly long job description...
 
@@ -24,7 +24,7 @@ Top 5 Reasons Why Hiring Managers Are Switching From Craigslist to Workcheetah
 
 To remove your job and to keep paying to post jobs follow this link or ignore this email
 
-<%= link_to claim_job_url(@job), claim_job_url(@job) %>
+<%= claim_job_url(@job) %>
 
 Q: What's WorkCheetah?
 
@@ -38,4 +38,4 @@ WorkCheetah > Craigslist= Duh!
 
 By the way,
 
-You can visit us at <%= link_to "www.WorkCheetah.com", "https://www.workcheetah.com" %>
+You can visit us at <%= root_url %>
