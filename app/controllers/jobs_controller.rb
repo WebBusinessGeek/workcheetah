@@ -157,7 +157,10 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.update_attributes(job_params)
-        format.html { redirect_to @job, notice: 'Job was successfully updated.' }
+
+        sign_in @job.account.users.first unless user_signed_in?
+        
+        format.html { redirect_to (@job.account.safe_job_seal? ? @job : [:add_seal, :account]), notice: 'Job was successfully created.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
