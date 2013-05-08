@@ -14,7 +14,8 @@
     .search_box.span12
       - if user_signed_in? and current_user.account
         .logo
-          = image_tag "logo-large5.png"
+          %img{:src => "assets/logo-large5.png", :alt => "large logo", style: "width: 70%;"}/ 
+          / = image_tag "logo-large5.png"
       - else
         .logo= image_tag("logo-large5.png")
       - if current_user
