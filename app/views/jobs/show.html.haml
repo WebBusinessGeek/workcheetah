@@ -35,3 +35,5 @@
           - elsif current_user.account != @job.account
             = link_to "Apply", new_job_job_application_path(@job), class: "btn btn-primary btn-large", style: "width: 86%"
             = link_to "Flag This Job", [:flag, @job], method: :post, style: "width: 100%; margin: 20px auto; display: block; text-align: center;"
+        - else
+          = link_to "Apply", new_job_job_application_path(@job), class: "btn btn-primary btn-large", style: "width: 86%"
