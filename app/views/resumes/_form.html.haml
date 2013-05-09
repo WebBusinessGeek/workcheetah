@@ -132,4 +132,4 @@
     = f.fields_for :references do |rf|
       = render "reference_fields", f: rf
     = link_to_add_fields "Add Reference", f, :references
-  = f.submit((f.object.new_record? ? "Create Resume" : "Edit Resume" ), class: "btn btn-success")
+  = f.submit((f.object.new_record? ? "Create Resume" : "Update Resume" ), class: "btn btn-success")
