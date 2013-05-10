@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130505215008) do
+ActiveRecord::Schema.define(:version => 20130510151824) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -87,6 +87,22 @@ ActiveRecord::Schema.define(:version => 20130505215008) do
   add_index "credit_transactions", ["account_id"], :name => "index_credit_transactions_on_account_id"
   add_index "credit_transactions", ["credit_package_id"], :name => "index_credit_transactions_on_credit_package_id"
   add_index "credit_transactions", ["payment_profile_id"], :name => "index_credit_transactions_on_payment_method_id"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "email_subscriptions", :force => true do |t|
     t.string   "query"
