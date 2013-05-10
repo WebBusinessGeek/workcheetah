@@ -30,15 +30,15 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     @jobs = @category.jobs.near(human_readable_current_location, 50).order("created_at DESC")
 
-    if !@jobs.any? # if no jobs within next 50 miles
-      @jobs = @category.jobs.near(current_location.state_code).order("created_at DESC")
-      flash[:notice] = "There were no jobs near you, so here are some inside your state."
-    end
+    # if !@jobs.any? # if no jobs within next 50 miles
+    #   @jobs = @category.jobs.near(current_location.state_code).order("created_at DESC")
+    #   flash[:notice] = "There were no jobs near you, so here are some inside your state."
+    # end
 
-    if !@jobs.any? # if still no jobs
-      @jobs = @category.jobs.order("created_at DESC")
-      flash[:notice] = "There were no jobs near you or in your state, so here are all jobs."
-    end
+    # if !@jobs.any? # if still no jobs
+    #   @jobs = @category.jobs.order("created_at DESC")
+    #   flash[:notice] = "There were no jobs near you or in your state, so here are all jobs."
+    # end
 
     if @jobs.any?
       render "jobs/index"

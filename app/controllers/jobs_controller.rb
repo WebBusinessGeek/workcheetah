@@ -18,18 +18,17 @@ class JobsController < ApplicationController
       @jobs = Job.scoped.order('created_at desc')
     end
 
-    if !@jobs.any? # if no jobs
-      @jobs = Job.scoped.order('created_at DESC')
-      flash[:notice] = "There were no jobs near you or in your state, so here are all jobs."
-    end
+    # if !@jobs.any? # if no jobs
+    #   @jobs = Job.scoped.order('created_at DESC')
+    #   flash[:notice] = "There were no jobs near you or in your state, so here are all jobs."
+    # end
 
     @articles = Article.order(:created_at).limit(10) if @jobs.empty?
 
-    if @jobs.empty? && @query.present?
-      @session_variable = (@query.parameterize.gsub('-','_') + "_jobs_count").to_sym
-      @jobs_count = session[@session_variable] ||= 28 + Random.rand(63)
-
-    end
+    # if @jobs.empty? && @query.present?
+    #   @session_variable = (@query.parameterize.gsub('-','_') + "_jobs_count").to_sym
+    #   @jobs_count = session[@session_variable] ||= 28 + Random.rand(63)
+    # end
 
     respond_to do |format|
       format.html do
