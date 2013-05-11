@@ -19,6 +19,7 @@
               %li= link_to "Sign Out", destroy_user_session_path, method: :delete
         - else
           = form_for("user", :url => user_session_path, html: { class: "navbar-form" }) do |f|
+            = link_to "Forgot password", new_user_password_path
             %span.field= f.email_field :email, placeholder: "Email", class: "input-medium"
             %span.field= f.password_field :password, placeholder: "Password", class: "input-medium"
             %span.action= f.submit "Sign in", class: "btn"
