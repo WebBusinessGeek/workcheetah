@@ -1,7 +1,4 @@
 = form_for(@job, html: { class: "form-vertical"}) do |f|
-  .pull-right
-    .video_label{ style: "width: 300px; padding: 20px; background: rgb(19, 95, 230); border: 1px solid rgb(16, 78, 172); border-radius: 10px; text-align: center; color: white;"} It is free to advertise your open positions on WorkCheetah. Fill out your job details and find your next employee!
-  %br{clear: :all}/ 
   = tinymce :theme => "simple", :plugins => ["inlinepopups", "paste"]
   - if @job.errors.any?
     .errors
