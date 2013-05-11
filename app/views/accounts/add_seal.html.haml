@@ -18,9 +18,9 @@
             %li Verifies All Your Job Listings
             %li Ensure Applicants You're Jobs Are Legitimate
           %p
-            Verifying your company is simple and ensures applicants
-            that your listing is legitimate! Receive a temporary seal
-            until the verification process is complete.
+            Verifying your company is simple and ensures applicants that your organization is legitimate! You will receive a temporary seal until the verification process is completed. Please see
+            %strong NOTE
+            below button BEFORE clicking.
           - if @account.payment_profiles.any?
             .button= link_to "Verify My Company - $ #{PaymentProfile::SAFE_SEAL_PRICE_IN_DOLLARS}", [:buy_seal, :account], method: :post
             .after_button
