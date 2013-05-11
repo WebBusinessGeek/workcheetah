@@ -3,7 +3,7 @@ class VideoChat < ActiveRecord::Base
 
   belongs_to :recipient, class_name: "User"
   belongs_to :requester, class_name: "User"
-  has_many :video_chat_messages
+  has_many :video_chat_messages, dependent: :destroy
 
   validates :start_time, presence: true
   validates :end_time, presence: true

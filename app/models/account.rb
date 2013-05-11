@@ -1,12 +1,12 @@
 class Account < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  has_many :jobs
-  has_many :users
-  has_many :applicant_accesses
+  has_many :jobs, dependent: :destroy
+  has_many :users, dependent: :destroy
+  has_many :applicant_accesses, dependent: :destroy
   has_many :job_applications, through: :applicant_accesses
-  has_many :payment_profiles
-  has_many :seal_purchases
+  has_many :payment_profiles, dependent: :destroy
+  has_many :seal_purchases, dependent: :destroy
 
   validates_uniqueness_of :slug
 

@@ -7,7 +7,9 @@ describe CreditPackage do
 
 	describe "Basics" do
 		context "Attributes" do
-			
+			[ :name, :cost, :quantity ].each do |attr|
+				it { should respond_to attr }
+			end
 		end
 
 		context "Methods" do

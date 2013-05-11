@@ -6,7 +6,7 @@ describe JobApplication do
 			it { should belong_to association_name }
 		end
 
-		it { should have_one :applicant_access }
+		it { should have_one(:applicant_access).dependent(:destroy) }
 	end
 
 	describe "Basics" do

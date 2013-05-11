@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Account do
 	describe "Assocations" do
 		[ :jobs, :users, :applicant_accesses, :payment_profiles, :seal_purchases ].each do |association_name|
-			it { should have_many(association_name) }
+			it { should have_many(association_name).dependent(:destroy) }
 		end
 
 		it { should have_many(:job_applications).through(:applicant_accesses) }

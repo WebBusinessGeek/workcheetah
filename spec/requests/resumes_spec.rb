@@ -44,7 +44,7 @@ describe "ResumesController" do
         all(".experience", :visible => true).count.should == 2
       end
 
-      it "should allow you to rearrange experiences"
+      # it "should allow you to rearrange experiences"
     end
 
     describe "education section", js: true do
@@ -60,7 +60,7 @@ describe "ResumesController" do
         all(".school", :visible => true).count.should == 2
       end
 
-      it "should allow you to rearrange schools"
+      # it "should allow you to rearrange schools"
     end
 
     describe "references section", js: true do
@@ -77,10 +77,10 @@ describe "ResumesController" do
     end
 
     describe "recommendations section" do
-      it "should allow to you add another recommendations"
-      it "should allow you to remove a recommendation"
+      # it "should allow to you add another recommendations"
+      # it "should allow you to remove a recommendation"
     end
 
-    it "should allow them to upload an overview video"
+    # it "should allow them to upload an overview video"
   end
 end

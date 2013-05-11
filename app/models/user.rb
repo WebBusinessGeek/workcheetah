@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  has_many :job_applications
-  has_many :scam_reports
-  has_one :resume
+  has_many :job_applications, dependent: :destroy
+  has_many :scam_reports, dependent: :destroy
+  has_one :resume, dependent: :destroy
   belongs_to :account
   has_many :requested_video_chats, class_name: "VideoChat", foreign_key: :requester_id, dependent: :destroy
   has_many :received_video_chats, class_name: "VideoChat", foreign_key: :recipient_id, dependent: :destroy
