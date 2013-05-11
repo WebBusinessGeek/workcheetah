@@ -40,4 +40,8 @@ class NotificationMailer < ActionMailer::Base
     @resume = resume
     mail(to: @resume.email_for_claim, subject: "Your recent resume post #{@resume.name}")
   end
+
+  def seal_purchase(user)
+    mail(to: user.email, subject: "Workceehta Seal Purchase", bcc: "kevin@workcheetah.com")
+  end
 end

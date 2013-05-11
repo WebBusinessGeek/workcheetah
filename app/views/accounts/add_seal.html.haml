@@ -30,14 +30,12 @@
               to your card
               /  ending in
               / = "XXXX-" + @account.payment_profiles.first.cc_number_preview
-              immediately. Paying for
-              %br/
-              this seal does not guarantee verification.
-              Verification is
-              %br/
-              awarded only to those whose applications are accepted.
+              immediately. This fee is for APPLICATION ONLY. Company verification comes only from providing legitimate information about your company. Paying for the application in no way guarantees the validation of your company with WorkCheetah.
           - else
             .button= link_to "Verify Your Company Now", new_payment_profile_path(product: "seal")
-            .after_button Start by adding billing details
+            .after_button
+              %strong Start by adding billing details
+              %p
+                Verifying your company is optional and not required to use WorkCheetah. We charge a non-refundable processing fee of $25 to match your company information with IRS records. Please start the process by adding billing details. NOTE: If you do not know your company’s EIN (Employer Identification Number) or cannot obtain it DO NOT fill out an application. You will be automatically denied. Sole proprietors without an EIN cannot verify at this time.
 
       .clearfix

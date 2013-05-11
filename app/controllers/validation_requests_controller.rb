@@ -9,7 +9,7 @@ class ValidationRequestsController < ApplicationController
     @validation_request = ValidationRequest.new(validation_request_params, account: current_user.account)
     if @validation_request.save
       ValidationRequestMailer.new_validation_request(@validation_request).deliver
-      redirect_to [:account], notice: "Your validation seal request has been submitted."
+      redirect_to [:account], notice: "Thank you for your application. We have provided you with a temporary seal until we conclude review of your application."
     end
   end
 
