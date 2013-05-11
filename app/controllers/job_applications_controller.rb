@@ -3,8 +3,10 @@ class JobApplicationsController < ApplicationController
   before_filter :authorize_user, except: [:index, :show, :create, :new]
 
   def index
-    raise CanCan::AccessDenied if !user_signed_in? || (!current_user.resume and current_user.account != @job.account)
-    # http://localhost:3000/jobs/6-sdffd/job_applications
+    if !user_signed_in? || (!current_user.resume and current_user.account != @job.account)
+      return redirect_to new_resume_path, notice: "You have to have a resume to view that."
+    end
+
     if @job
       @job_applications = @job.job_applications
       # if can? :manage, @job
