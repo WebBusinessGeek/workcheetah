@@ -38,6 +38,6 @@
           
           %td= job.address
           %td= job.category ? job.category.name : "n/a"
-          %td= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
+          %td= (user_signed_in? and current_user.resume) ? (link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]) : "? Applicants"
     %br/
 

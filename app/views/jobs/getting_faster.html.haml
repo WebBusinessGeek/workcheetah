@@ -33,7 +33,7 @@
         /     / = f.hidden_field :return_url, value: request.url
         /     .action= f.submit "Send Me The List", class: "btn btn-success btn-large"
         %p There are currently no job offers in your area. Please come back later.
-        - if !user_signed_in? || !current_user.account
+        - if !user_signed_in? || !current_user.resume
           Or
           = link_to "Build a Resume", new_resume_path, class: "btn btn-success"
   .articles

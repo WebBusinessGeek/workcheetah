@@ -3,6 +3,8 @@ class JobApplicationsController < ApplicationController
   before_filter :authorize_user, except: [:index, :show, :create, :new]
 
   def index
+    raise CanCan::AccessDenied if !user_signed_in? || (!current_user.resume and current_user.account != @job.account)
+    # http://localhost:3000/jobs/6-sdffd/job_applications
     if @job
       @job_applications = @job.job_applications
       # if can? :manage, @job
@@ -17,6 +19,7 @@ class JobApplicationsController < ApplicationController
 
   def show
     @job = Job.find(params[:job_id])
+
     @job_application = @job.job_applications.find(params[:id])
     @resume = @job_application.user.resume
     if can? :read, @job_application
