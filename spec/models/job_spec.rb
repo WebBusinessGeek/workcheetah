@@ -24,6 +24,18 @@ describe Job do
 	end
 
 	describe "Validations" do
-		
+		context "Presence" do
+			[ :title, :description, :address, :category_id ].each do |attr|
+				it { should validate_presence_of attr }
+			end
+		end
+
+		context "Numericality" do
+			[ :account_id, :category_id ].each do |attr|
+				it { should validate_numericality_of(attr).only_integer }				
+			end
+			
+			it { should allow_value(nil).for(:account_id) }
+		end
 	end
 end

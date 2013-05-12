@@ -19,6 +19,8 @@ describe Category do
 	end
 
 	describe "Validations" do
-		
+		context "Presence" do
+			it { should validate_presence_of :name }
+		end
 	end
 end

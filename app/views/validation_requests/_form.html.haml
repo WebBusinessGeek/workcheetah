@@ -1,11 +1,8 @@
-= form_for @validation_request do |f|
-  .field
-    = f.label :name, "Company Legal Name"
-    = f.text_field :name
-  .field
-    = f.label :ein, "EIN"
-    = f.text_field :ein
-  .field
+= simple_form_for @validation_request do |f|
+  = f.error_notification
+  .form-fields
+    = f.input :name, label: "Company Legal Name"
+    = f.input :ein, label: "EIN"
     %p Are any of the positions within your organization "Commission only" opportunities?
     = f.radio_button :commission_only, "0", style: "float: left; margin-right: 5px;"
     = f.label :commission_only_0, "No", style: "float: left;  margin-right: 10px;"
@@ -14,4 +11,5 @@
     .clearfix
     %br/
 
-  .action= f.submit "Submit Validation Seal Request", class: "btn btn-success"
+  .form-actions
+    = f.submit "Submit Validation Seal Request", class: "btn btn-success"

@@ -28,5 +28,11 @@ describe Account do
 	describe "Validations" do
 		before { FactoryGirl.create(:account) }
 		it { should validate_uniqueness_of :slug }
+
+		context "Presence" do
+			[ :name, :slug ].each do |attr|
+				it { should validate_presence_of attr }
+			end
+		end
 	end
 end

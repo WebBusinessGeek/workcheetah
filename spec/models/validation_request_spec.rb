@@ -19,6 +19,18 @@ describe ValidationRequest do
 	end
 
 	describe "Validations" do
-		
+		context "Presence" do
+			[ :account_id, :commission_only, :ein, :name ].each do |attr|
+				it { should validate_presence_of attr }
+			end
+		end
+
+		context "Numericality" do
+			it { should validate_numericality_of :account_id }
+		end
+
+		context "Format" do
+			it { should validate_format_of(:ein).with(/\d{2}-\d{7}/) }
+		end
 	end
 end

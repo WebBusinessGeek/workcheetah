@@ -19,6 +19,15 @@ describe Address do
 	end
 
 	describe "Validations" do
-		
+		context "Presence" do
+			[ :address_1, :city, :state, :zip ].each do |attr|
+				it { should validate_presence_of attr }
+			end
+		end
+
+		context "Numericality" do
+			it { should validate_numericality_of(:addressable_id).only_integer }
+			it { should allow_value(nil).for(:addressable_id) }
+		end
 	end
 end

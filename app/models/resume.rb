@@ -22,6 +22,12 @@ class Resume < ActiveRecord::Base
   attr_accessor :email_for_claim
 
   validates :terms_of_service, acceptance: { accept: 1 }
+  validates :name, presence: true
+  validates :phone, presence: true
+  validates :status, presence: true
+  validates :category1_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :category2_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
+  validates :category3_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
 
   # after_save :enqueue_video
 

@@ -8,7 +8,8 @@ class Account < ActiveRecord::Base
   has_many :payment_profiles, dependent: :destroy
   has_many :seal_purchases, dependent: :destroy
 
-  validates_uniqueness_of :slug
+  validates :name, presence: true
+  validates :slug, presence: true, uniqueness: true
 
   mount_uploader :logo, LogoUploader
   # attr_accessible :name, :phone, :website
