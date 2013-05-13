@@ -1,6 +1,11 @@
 <div class="video_chats_index">
     <div class="white_box">
         <h1>Interviews</h1>
+        <% if current_user.account %>
+            <div class="alert alert-success alert-block">
+                With our Online Interviewing system you can hire more effectively and way faster! Pick your best <%= link_to "recruits", [:recruits, current_user.account] %> to interview now.
+            </div>
+        <% end %>
         <% if @video_chats.any? %>
             <table class="table">
               <tr>

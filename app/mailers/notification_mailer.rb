@@ -42,6 +42,6 @@ class NotificationMailer < ActionMailer::Base
   end
 
   def seal_purchase(user)
-    mail(to: user.email, subject: "Workceehta Seal Purchase", bcc: "kevin@workcheetah.com")
+    mail(to: user.email, subject: "Workcheetah Seal Purchase", bcc: "kevin@workcheetah.com")
   end
 end

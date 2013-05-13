@@ -1,5 +1,11 @@
 .resumes_show
   .white_box
+    - if user_signed_in? and current_user.resume
+      .alert.alert-success.alert-block
+        This is your resume. This is what employers see when they are interested in hiring you. Fill out as much information as possible so you have a better chance of landing an
+        = link_to "interview", video_chats_path
+        = "."
+      %br/ 
     - if @resume.present?
       .pull-right{ style: "width: 300px"}
         - if @resume.user == current_user
