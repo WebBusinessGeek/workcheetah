@@ -10,10 +10,10 @@ class User < ActiveRecord::Base
   has_many :video_chat_messages, foreign_key: :sender_id, dependent: :destroy
 
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
+  # :token_authenticatable, 
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   validates :terms_of_service, acceptance: true
 
