@@ -1,5 +1,8 @@
 .jobs_index
   .white_box
+    - if !user_signed_in? or current_user.resume
+      .alert.alert-success.alert-block
+        All listings on WorkCheetah are current. On this page you can view available positions, apply in seconds, and see who your competing against with "Who's Applying?" if you have a resume already. Oh, and look for the Validation seal to identify employers that have been verified by WorkCheetah. Happy job hunting!
     .pull-left.span4
       %h1
         = @category.name if @category
