@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513164324) do
+ActiveRecord::Schema.define(:version => 20130514165033) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -148,7 +148,10 @@ ActiveRecord::Schema.define(:version => 20130513164324) do
     t.boolean  "active",                 :default => true
     t.integer  "job_applications_count", :default => 0
     t.integer  "category_id"
+    t.boolean  "quick_applicable",       :default => true
   end
+
+  add_index "jobs", ["quick_applicable"], :name => "index_jobs_on_quick_applicable"
 
   create_table "payment_profiles", :force => true do |t|
     t.integer  "account_id"

@@ -13,7 +13,7 @@ describe Job do
 
 	describe "Basics" do
 		context "Attributes" do
-			["id", "title", "description", "about_company", "created_at", "updated_at", "account_id", "latitude", "longitude", "address", "active", "job_applications_count", "category_id"].each do |attr|
+			["id", "quick_applicable", "title", "description", "about_company", "created_at", "updated_at", "account_id", "latitude", "longitude", "address", "active", "job_applications_count", "category_id"].each do |attr|
 				it { should respond_to attr }
 			end
 		end
