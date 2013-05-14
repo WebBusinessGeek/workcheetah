@@ -203,6 +203,23 @@ class JobsController < ApplicationController
     render action: "new"
   end
 
+  def quick_apply
+    # raise params.inspect
+
+    return redirect_to new_resume_path, notice: "Please build a resume to apply to jobs." if !user_signed_in?
+
+    job_ids = params[:job_ids]
+    return redirect_to :back, notice: "Please check some jobs you want to quick apply for." if job_ids.nil?
+
+    job_ids.each do |job_id|
+      if JobApplication.where(user_id: current_user.id, job_id: job_id).empty? and Job.find(job_id).quick_applicable?
+        JobApplication.create(user_id: current_user.id, job_id: job_id, status: "Application Sent")
+      end
+    end
+
+    redirect_to root_path, notice: "Successfully applied for #{view_context.pluralize job_ids.count, "job"}."
+  end
+
   def hide_some_jobs_from_companies
     raise CanCan::AccessDenied if user_signed_in? && current_user.account
   end

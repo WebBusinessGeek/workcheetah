@@ -21,6 +21,9 @@
     .control-group
       = f.label :address, "City, State (ex. Los Angeles, CA)"
       .control= f.text_field :address, style: "width: 100%; max-width: 400px; font-size: 16px;"
+    .control-group
+      = f.label :quick_applicable, "Quick applicable?"
+      .control= f.check_box :quick_applicable
 
     - unless user_signed_in? && current_user.account
       = f.fields_for :account do |af|

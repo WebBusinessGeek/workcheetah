@@ -24,6 +24,7 @@ CareerLoop::Application.routes.draw do resources :video_chat_messages, only: [ :
   resources :jobs do
     collection do
       get :my
+      post :quick_apply, as: :quick_apply_to
     end
 
     member do

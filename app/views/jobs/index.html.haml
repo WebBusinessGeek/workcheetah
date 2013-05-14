@@ -20,27 +20,48 @@
     %h3
       Open positions
       / = @location || @current_location_clean
-    %table.table
-      %tr
-        %th Position
-        %th Company
-        %th City
-        %th Job Type
-        %th Who's Applying?
-      - @jobs.each do |job|
-        %tr{ class: "job #{ job.account.safe_job_seal? ? " safe_seal" : "" }"}
-          %td
-            - if job.title.present?
-              = link_to job.title, job
+    = form_tag :quick_apply_to_jobs do
+      %fieldset
+        %table.table
+          %tr
+            %th Position
+            %th Company
+            %th City
+            %th Job Type
+            %th Who's Applying?
+            %th
+              Quick apply to all
+              = check_box_tag "check_all", false
+          - @jobs.each do |job|
+            %tr{ class: "job #{ job.account.safe_job_seal? ? " safe_seal" : "" }"}
+              %td
+                - if job.title.present?
+                  = link_to job.title, job
 
-          %td
-            - if job.account && job.account.name
-              = link_to job.account.name, slug_path(job.account.slug)
-              - if job.account.safe_job_seal?
-                = image_tag "safe-seal-small.png", alt: "Safe Job seal"
-          
-          %td= job.address
-          %td= job.category ? job.category.name : "n/a"
-          %td= (user_signed_in? and current_user.resume) ? (link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]) : (link_to "? Applicants", [job, :job_applications])
+              %td
+                - if job.account && job.account.name
+                  = link_to job.account.name, slug_path(job.account.slug)
+                  - if job.account.safe_job_seal?
+                    = image_tag "safe-seal-small.png", alt: "Safe Job seal"
+              
+              %td= job.address
+              %td= job.category ? job.category.name : "n/a"
+              %td= (user_signed_in? and current_user.resume) ? (link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]) : (link_to "? Applicants", [job, :job_applications])
+              %td
+                - if job.quick_applicable?
+                  - if user_signed_in?
+                    - if current_user.job_applications.where(job_id: job).empty?
+                      = check_box_tag 'job_ids[]', job.id, false
+                  - else
+                    = check_box_tag 'job_ids[]', job.id, false
+      .pull-right
+        = submit_tag "Quick apply", class: "btn"
     %br/
 
+:javascript
+  // Check all checkboxes
+  $(document).ready(function () {
+    $('#check_all').on('click', function () {
+      $(this).closest('fieldset').find(':checkbox').prop('checked', this.checked);
+    });
+  });
