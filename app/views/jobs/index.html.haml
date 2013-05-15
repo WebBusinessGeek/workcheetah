@@ -29,7 +29,6 @@
         %table.table
           %tr
             %th Position
-            %th Company
             %th City
             %th Job Type
             %th Who's Applying?
@@ -37,16 +36,12 @@
               Quick apply to all
               = check_box_tag "check_all", false
           - @jobs.each do |job|
-            %tr{ class: "job #{ job.account.safe_job_seal? ? " safe_seal" : "" }"}
+            %tr
               %td
                 - if job.title.present?
                   = link_to job.title, job
-
-              %td
-                - if job.account && job.account.name
-                  = link_to job.account.name, slug_path(job.account.slug)
-                  - if job.account.safe_job_seal?
-                    = image_tag "safe-seal-small.png", alt: "Safe Job seal"
+                - if job.account.safe_job_seal?
+                  = link_to(image_tag("safe-seal-small.png", alt: "Safe Job seal"), job) 
               
               %td= job.address
               %td= job.category ? job.category.name : "n/a"
