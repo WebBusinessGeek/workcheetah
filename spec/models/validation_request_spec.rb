@@ -30,7 +30,7 @@ describe ValidationRequest do
 		end
 
 		context "Format" do
-			it { should validate_format_of(:ein).with(/\d{2}-\d{7}/) }
+			# it { should validate_format_of(:ein).with(/\d{2}-\d{7}/) }
 		end
 	end
 end
