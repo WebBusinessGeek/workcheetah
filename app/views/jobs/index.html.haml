@@ -21,6 +21,10 @@
       Open positions
       / = @location || @current_location_clean
     = form_tag :quick_apply_to_jobs do
+      .pull-right
+        = submit_tag "Quick apply", class: "btn btn-primary"
+      %br{clear: :all}/ 
+      %br/ 
       %fieldset
         %table.table
           %tr
@@ -55,7 +59,7 @@
                   - else
                     = check_box_tag 'job_ids[]', job.id, false
       .pull-right
-        = submit_tag "Quick apply", class: "btn"
+        = submit_tag "Quick apply", class: "btn btn-primary"
     %br/
 
 :javascript
