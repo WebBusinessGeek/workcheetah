@@ -6,7 +6,9 @@ class ValidationRequestsController < ApplicationController
 
   def create
     verify_has_account
-    @validation_request = ValidationRequest.new(validation_request_params, account: current_user.account)
+    @validation_request = ValidationRequest.new(validation_request_params)
+    @validation_request.account = current_user.account
+    
     if @validation_request.save
       ValidationRequestMailer.new_validation_request(@validation_request).deliver
       redirect_to [:account], notice: "Thank you for your application. We have provided you with a temporary seal until we conclude review of your application."
