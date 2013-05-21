@@ -9,6 +9,9 @@ Capybara.javascript_driver = :webkit
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+# Cancan
+require "cancan/matchers"
+
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.mock_with :rspec

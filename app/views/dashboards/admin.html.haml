@@ -92,5 +92,8 @@
           = f.password_field :password, placeholder: "Password"
           = f.submit "Create moderator", class: "btn btn-success"
 
+        %h3
+          = link_to "Tweets", tweets_path
+
   .footer
     = render "shared/footer"

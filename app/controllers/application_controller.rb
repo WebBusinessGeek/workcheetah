@@ -1,6 +1,17 @@
 class ApplicationController < ActionController::Base
-  
   protect_from_forgery
+
+  before_filter :get_tweet
+
+  def get_tweet
+    if user_signed_in? and current_user.account.present?
+      @tweet_for_user = Tweet.where(for_accounts: true).order("id DESC").first
+    elsif user_signed_in? and current_user.resume.present?
+      @tweet_for_user = Tweet.where(for_resumes: true).order("id DESC").first
+    else
+      @tweet_for_user = Tweet.where(for_public: true).order("id DESC").first
+    end
+  end
 
   def current_account
     @account ||= current_user.account

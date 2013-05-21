@@ -24,7 +24,6 @@ describe User do
 			context "as normal user" do
 				subject { normal_user }
 				it { should_not be_able_to :manage, Tweet }
-				it { should be_able_to :read, Tweet }
 			end
 		end
 	end
