@@ -24,6 +24,10 @@ class Ability
     end
 
     can :manage, VideoChat do |video_chat| video_chat_managable?(video_chat, user) end
+
+    if !user.admin?
+      cannot :manage, Tweet
+    end
     # can :manage, VideoChat do |video_chat| video_chat_managable?(video_chat, user) end
 
     # can :manage, VideoChat { |video_chat| video_chat_belongs_to_user(user, video_chat) }

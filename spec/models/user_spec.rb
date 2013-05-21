@@ -11,6 +11,24 @@ describe User do
 		it { should belong_to :account }
 	end
 
+	describe "Authorization" do
+		let(:admin) { Ability.new(User.new(admin: true)) }
+		let(:normal_user) { Ability.new(User.new) }
+
+		context "Tweets" do
+			context "as admin" do
+				subject { admin }
+				it { should be_able_to :manage, Tweet }				
+			end
+
+			context "as normal user" do
+				subject { normal_user }
+				it { should_not be_able_to :manage, Tweet }
+				it { should be_able_to :read, Tweet }
+			end
+		end
+	end
+
 	describe "Basics" do
 		context "Attributes" do
 			["id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "sign_in_count", "current_sign_in_at", "last_sign_in_at", "current_sign_in_ip", "last_sign_in_ip", "created_at", "updated_at", "account_id", "admin", "moderator" ].each do |attr|
