@@ -13,10 +13,10 @@ class Resume < ActiveRecord::Base
   mount_uploader :video, VideoUploader
   mount_uploader :web_video, VideoUploader
 
-  accepts_nested_attributes_for :addresses
-  accepts_nested_attributes_for :schools
-  accepts_nested_attributes_for :references
-  accepts_nested_attributes_for :experiences
+  accepts_nested_attributes_for :addresses, reject_if: proc { |attributes| attributes['address_1'].blank? }
+  accepts_nested_attributes_for :schools, reject_if: proc { |attributes| attributes['name'].blank? }
+  accepts_nested_attributes_for :references, reject_if: proc { |attributes| attributes['name'].blank? }
+  accepts_nested_attributes_for :experiences, reject_if: proc { |attributes| attributes['company_name'].blank? || attributes['job_title'].blank? }
   accepts_nested_attributes_for :user
 
   attr_accessor :email_for_claim
@@ -37,6 +37,10 @@ class Resume < ActiveRecord::Base
 
   def enqueue_video
     VideoWorker.perform(id, key) if key.present?
+  end
+
+  def enough_for_employers?
+    name.present? and phone.present? and addresses.any? and category1_id.present?
   end
 end
 
