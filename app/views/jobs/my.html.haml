@@ -1,21 +1,22 @@
 .jobs_index
-  .white_box
-    .alert.alert-success.alert-block
-      Your dashboard helps you manage all your job posts and applicants in the cloud. You can click on your listings to view/edit/delete the descriptions at any time. You can follow the applicant links to view who's applying to your job listings.
-    %h1 My Jobs
-    %table.table
-      %tr
-        %th Position
-        %th Applicants
-        %th Date Posted
-      - @jobs.each do |job|
-        %tr
-          %td
-            - if job.title.present?
-              = link_to job.title, job
-          %td
-            = link_to pluralize(job.job_applications.count, "Applicant"), [job, :job_applications]
-          %td= job.created_at.strftime("%m/%d/%Y")
+	.white_box
+		.alert.alert-info.alert-block
+			%button.close{"data-dismiss" => "alert", :type => "button"} &times;
+			Your dashboard helps you manage all your job posts and applicants in the cloud. You can click on your listings to view/edit/delete the descriptions at any time. You can follow the applicant links to view who's applying to your job listings.
+		%h1 My Jobs
+		%table.table
+			%tr
+				%th Position
+				%th Applicants
+				%th Date Posted
+			- @jobs.each do |job|
+				%tr
+					%td
+						- if job.title.present?
+							= link_to job.title, job
+					%td
+						= link_to pluralize(job.job_applications.count, "Applicant"), [job, :job_applications]
+					%td= job.created_at.strftime("%m/%d/%Y")
 
-    %br/
+		%br/
 

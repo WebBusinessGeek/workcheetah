@@ -1,24 +1,25 @@
 .accounts_show
-  .white_box
-    .alert.alert-success.alert-block
-      Manage your recruits here. You can easily compare applicants with access to their resume and attached videos. See a winner? Schedule an
-      = link_to "online interview", video_chats_path
-      with them.
-    %h1 My Recruits
-    - if @accessible_job_applications.any?
-      %table.table
-        %tr
-          %th Recruit Name
-          %th Phone Number
-          %th Email
-          %th Job Applied
-          %th
-        - @accessible_job_applications.each do |job_application|
-          %tr
-            %td= link_to job_application.user.resume.name, [job_application.job, job_application]
-            %td= job_application.user.resume.phone
-            %td= job_application.user.resume.email
-            %td= job_application.job.title
-            %td= link_to "Schedule interview", new_video_chat_path(recipient_id: job_application.user.id)
-    - else
-      %p You currently have no recruits. Save an applicant that applies to your jobs to create a recruit.
+	.white_box
+		.alert.alert-info.alert-block
+			%button.close{"data-dismiss" => "alert", :type => "button"} &times;
+			Manage your recruits here. You can easily compare applicants with access to their resume and attached videos. See a winner? Schedule an
+			= link_to "online interview", video_chats_path
+			with them.
+		%h1 My Recruits
+		- if @accessible_job_applications.any?
+			%table.table
+				%tr
+					%th Recruit Name
+					%th Phone Number
+					%th Email
+					%th Job Applied
+					%th
+				- @accessible_job_applications.each do |job_application|
+					%tr
+						%td= link_to job_application.user.resume.name, [job_application.job, job_application]
+						%td= job_application.user.resume.phone
+						%td= job_application.user.resume.email
+						%td= job_application.job.title
+						%td= link_to "Schedule interview", new_video_chat_path(recipient_id: job_application.user.id)
+		- else
+			%p You currently have no recruits. Save an applicant that applies to your jobs to create a recruit.

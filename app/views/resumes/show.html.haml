@@ -1,7 +1,8 @@
 .resumes_show
   .white_box
     - if user_signed_in? and current_user.resume
-      .alert.alert-success.alert-block
+      .alert.alert-info.alert-block
+        %button.close{"data-dismiss" => "alert", :type => "button"} &times;
         This is your resume. This is what employers see when they are interested in hiring you. Fill out as much information as possible so you have a better chance of landing an
         = link_to "interview", video_chats_path
         = "."

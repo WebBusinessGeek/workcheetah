@@ -1,66 +1,67 @@
 .jobs_index
-  .white_box
-    - if !user_signed_in? or current_user.resume
-      .alert.alert-success.alert-block
-        All listings on WorkCheetah are current. On this page you can view available positions, apply in seconds, and see who your competing against with "Who's Applying?" if you have a resume already. Oh, and look for the Validation seal to identify employers that have been verified by WorkCheetah. Happy job hunting!
-    .pull-left.span4
-      %h1
-        = @category.name if @category
-        Jobs
-      - unless @portal || @category
-        = render "jobs/search_form"
-    .pull-right.span6
-      = image_tag("look-for-safe-seal.png")
-      %br/ 
-      %em WorkCheetah validates all employers holding the WorkCheetah Validation seal by confirming company information with the IRS. WorkCheetah expresses its right to disclaim any responsibility for scams, hoaxes, or otherwise illegal activities on its site. WorkCheetah WILL NOT tolerate any abuse of its website or its users and asks that any individuals who experience suspicious activity to <u>report it immediately</u>. Please do your research before entertaining offers from ANY organizations learned about online. – WorkCheetah Team
-      - if @category && user_signed_in? && current_user.admin?
-        = link_to "Edit Category", [:edit, @category], class: "btn"
-  
-    %br{clear: :all}/ 
-    %h3
-      Open positions
-      / = @location || @current_location_clean
-    = form_tag :quick_apply_to_jobs do
-      .pull-right
-        = submit_tag "Quick apply", class: "btn btn-primary"
-      %br{clear: :all}/ 
-      %br/ 
-      %fieldset
-        %table.table
-          %tr
-            %th Position
-            %th City
-            %th Job Type
-            %th Who's Applying?
-            %th
-              Quick apply to all
-              = check_box_tag "check_all", false
-          - @jobs.each do |job|
-            %tr
-              %td
-                - if job.title.present?
-                  = link_to job.title, job
-                - if job.account.safe_job_seal?
-                  = link_to(image_tag("safe-seal-small.png", alt: "Safe Job seal"), job) 
-              
-              %td= job.address
-              %td= job.category ? job.category.name : "n/a"
-              %td= (user_signed_in? and current_user.resume) ? (link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]) : (link_to "? Applicants", [job, :job_applications])
-              %td
-                - if job.quick_applicable?
-                  - if user_signed_in?
-                    - if current_user.job_applications.where(job_id: job).empty?
-                      = check_box_tag 'job_ids[]', job.id, false
-                  - else
-                    = check_box_tag 'job_ids[]', job.id, false
-      .pull-right
-        = submit_tag "Quick apply", class: "btn btn-primary"
-    %br/
+	.white_box
+		- if !user_signed_in? or current_user.resume
+			.alert.alert-info.alert-block
+				%button.close{"data-dismiss" => "alert", :type => "button"} &times;
+				All listings on WorkCheetah are current. On this page you can view available positions, apply in seconds, and see who your competing against with "Who's Applying?" if you have a resume already. Oh, and look for the Validation seal to identify employers that have been verified by WorkCheetah. Happy job hunting!
+		.pull-left.span4
+			%h1
+				= @category.name if @category
+				Jobs
+			- unless @portal || @category
+				= render "jobs/search_form"
+		.pull-right.span6
+			= image_tag("look-for-safe-seal.png")
+			%br/ 
+			%em WorkCheetah validates all employers holding the WorkCheetah Validation seal by confirming company information with the IRS. WorkCheetah expresses its right to disclaim any responsibility for scams, hoaxes, or otherwise illegal activities on its site. WorkCheetah WILL NOT tolerate any abuse of its website or its users and asks that any individuals who experience suspicious activity to <u>report it immediately</u>. Please do your research before entertaining offers from ANY organizations learned about online. – WorkCheetah Team
+			- if @category && user_signed_in? && current_user.admin?
+				= link_to "Edit Category", [:edit, @category], class: "btn"
+	
+		%br{clear: :all}/ 
+		%h3
+			Open positions
+			/ = @location || @current_location_clean
+		= form_tag :quick_apply_to_jobs do
+			.pull-right
+				= submit_tag "Quick apply", class: "btn btn-primary"
+			%br{clear: :all}/ 
+			%br/ 
+			%fieldset
+				%table.table
+					%tr
+						%th Position
+						%th City
+						%th Job Type
+						%th Who's Applying?
+						%th
+							Quick apply to all
+							= check_box_tag "check_all", false
+					- @jobs.each do |job|
+						%tr
+							%td
+								- if job.title.present?
+									= link_to job.title, job
+								- if job.account.safe_job_seal?
+									= link_to(image_tag("safe-seal-small.png", alt: "Safe Job seal"), job) 
+							
+							%td= job.address
+							%td= job.category ? job.category.name : "n/a"
+							%td= (user_signed_in? and current_user.resume) ? (link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]) : (link_to "? Applicants", [job, :job_applications])
+							%td
+								- if job.quick_applicable?
+									- if user_signed_in?
+										- if current_user.job_applications.where(job_id: job).empty?
+											= check_box_tag 'job_ids[]', job.id, false
+									- else
+										= check_box_tag 'job_ids[]', job.id, false
+			.pull-right
+				= submit_tag "Quick apply", class: "btn btn-primary"
+		%br/
 
 :javascript
-  // Check all checkboxes
-  $(document).ready(function () {
-    $('#check_all').on('click', function () {
-      $(this).closest('fieldset').find(':checkbox').prop('checked', this.checked);
-    });
-  });
+	// Check all checkboxes
+	$(document).ready(function () {
+		$('#check_all').on('click', function () {
+			$(this).closest('fieldset').find(':checkbox').prop('checked', this.checked);
+		});
+	});
