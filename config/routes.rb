@@ -33,6 +33,7 @@ CareerLoop::Application.routes.draw do
     member do
       post :flag
       get :claim
+      post :invite_job_seekers, as: :invite_job_seekers_to
     end
 
     resources :job_applications do

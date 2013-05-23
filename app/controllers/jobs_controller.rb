@@ -204,8 +204,6 @@ class JobsController < ApplicationController
   end
 
   def quick_apply
-    # raise params.inspect
-
     return redirect_to new_resume_path, notice: "Please build a resume to apply to jobs." if !user_signed_in?
 
     job_ids = params[:job_ids]
@@ -218,6 +216,26 @@ class JobsController < ApplicationController
     end
 
     redirect_to root_path, notice: "Successfully applied for #{view_context.pluralize job_ids.count, "job"}."
+  end
+
+  def invite_job_seekers
+    @job = Job.find(params[:id])
+    authorize! :invite_job_seekers, @job
+
+    redirect_to :back, notice: "Job applicants invited."
+
+    #### DEFINITELY PUT IN BACKGROUND TASK ####
+
+    # Find resumes near job
+    resumes = []
+    Resume.all.each do |resume|
+      if resume.addresses.any?
+        resumes << resume if Job.near(resume.addresses.first.city, 50).where("category_id = ? OR category_id = ? OR category_id = ?",  resume.category1_id, resume.category2_id, resume.category3_id).include? @job
+      end
+    end
+
+    # Send out invites (all in bcc so that it only has to send one email)
+    NotificationMailer.new_job_invite(@job, resumes).deliver
   end
 
   def hide_some_jobs_from_companies

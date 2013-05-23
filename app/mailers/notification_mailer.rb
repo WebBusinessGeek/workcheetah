@@ -44,4 +44,11 @@ class NotificationMailer < ActionMailer::Base
   def seal_purchase(user)
     mail(to: user.email, subject: "Workcheetah Seal Purchase", bcc: "kevin@workcheetah.com")
   end
+
+  def new_job_invite(job, resumes)
+    @job = job
+    emails = []
+    resumes.each { |resume| emails << resume.user.email }
+    mail(to: "support@workcheetah.com", bcc: emails, subject: "You have been invited to apply for a job!")
+  end
 end
