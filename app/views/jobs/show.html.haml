@@ -1,4 +1,7 @@
 .jobs_show
+  - if user_signed_in? and current_user.resume and !current_user.resume.enough_for_employers?
+    .alert.alert-danger
+      Looks like your profile is not complete yet. You should provide your name, phone number, at least one address and at least one category that's of interest.
   .white_box
     .row
       .span11

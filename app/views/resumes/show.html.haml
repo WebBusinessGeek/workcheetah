@@ -1,8 +1,5 @@
 .resumes_show
   .white_box
-    - if user_signed_in? and current_user.resume and !current_user.resume.enough_for_employers?
-      .alert.alert-danger
-        Looks like your profile is not complete yet. You should provide your name, phone number, at least one address and at least one category that's of interest.
     - if user_signed_in? and current_user.resume
       .alert.alert-success.alert-block
         This is your resume. This is what employers see when they are interested in hiring you. Fill out as much information as possible so you have a better chance of landing an
