@@ -21,10 +21,10 @@
           - if can? :manage, @job
             = link_to 'Edit Job', edit_job_path(@job), class: "btn"
             = link_to 'Deactivate Job', job_path(@job), method: :delete, class: "btn btn-danger"
-          - if can? :manage, @job and @job.account.safe_job_seal?
+          - if can? :manage, @job and !@job.invited? and @job.account.safe_job_seal?
             = link_to 'Invite job seekers', invite_job_seekers_to_job_path(@job), method: :post, class: "btn btn-success"
-          - elsif can? :manage, @job
-            %a#invite-popover.btn.btn-success{"data-content" => "Add a seal to invite job seekers who might be interested in your job 50 miles around you.", "data-original-title" => "Twitter Bootstrap Popover", :href => "javascript: void(0);", :rel => "popover"} Invite job seekers
+          - elsif can? :manage, @job and !@job.invited?
+            %a#invite-popover.btn.btn-success{"data-content" => "Add a seal to invite job seekers who might be interested in your job 50 miles around you.", "data-original-title" => "Invite", :href => "javascript: void(0);", :rel => "popover"} Invite job seekers
 
         %h3 Job Description
         - if @job.description

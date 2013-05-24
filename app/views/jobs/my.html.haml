@@ -9,6 +9,7 @@
 				%th Position
 				%th Applicants
 				%th Date Posted
+				%th 
 			- @jobs.each do |job|
 				%tr
 					%td
@@ -17,6 +18,11 @@
 					%td
 						= link_to pluralize(job.job_applications.count, "Applicant"), [job, :job_applications]
 					%td= job.created_at.strftime("%m/%d/%Y")
+					%td 
+						- if !job.invited? and current_user.account.safe_job_seal?
+							= link_to 'Invite job seekers', invite_job_seekers_to_job_path(job), method: :post, class: "btn btn-success"
+						- elsif !job.invited?
+							%a#invite-popover.btn.btn-success{"data-content" => "Add a seal to invite job seekers who might be interested in your job 50 miles around you.", "data-original-title" => "Invite", :href => "javascript: void(0);", :rel => "popover"} Invite job seekers
 
 		%br/
 

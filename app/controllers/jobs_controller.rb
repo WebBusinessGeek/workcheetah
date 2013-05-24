@@ -220,7 +220,8 @@ class JobsController < ApplicationController
 
   def invite_job_seekers
     @job = Job.find(params[:id])
-    authorize! :invite_job_seekers, @job
+
+    raise CanCan::AccessDenied if @job.invited? or @job.account_id != current_user.account.id
 
     redirect_to :back, notice: "Job applicants invited."
 
@@ -236,6 +237,9 @@ class JobsController < ApplicationController
 
     # Send out invites (all in bcc so that it only has to send one email)
     NotificationMailer.new_job_invite(@job, resumes).deliver
+
+    # Set job to invited so that no invitations can be sent out again for that job (handled in ability.rb)
+    @job.update_attribute(:invited, true)
   end
 
   def hide_some_jobs_from_companies

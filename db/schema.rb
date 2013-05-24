@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130521225616) do
+ActiveRecord::Schema.define(:version => 20130524213139) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -139,8 +139,8 @@ ActiveRecord::Schema.define(:version => 20130521225616) do
     t.string   "title"
     t.text     "description"
     t.text     "about_company"
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.integer  "account_id"
     t.float    "latitude"
     t.float    "longitude"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20130521225616) do
     t.integer  "job_applications_count", :default => 0
     t.integer  "category_id"
     t.boolean  "quick_applicable",       :default => true
+    t.boolean  "invited",                :default => false
   end
 
   add_index "jobs", ["quick_applicable"], :name => "index_jobs_on_quick_applicable"
