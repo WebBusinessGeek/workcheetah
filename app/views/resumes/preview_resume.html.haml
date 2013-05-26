@@ -1,5 +1,9 @@
 .job_applicants_show
   .white_box
+    - if user_signed_in? and current_user.resume.present?
+      .alert.alert-block.alert-info
+        %button.close{"data-dismiss" => "alert", :type => "button"} &times;
+      Due to privacy, you can see limited information about your competition.
     - if @resume.present?
       - if can? :manage, @job
         .pull-right{ style: "text-align: center;" }
@@ -46,7 +50,7 @@
             .company Company
             .phone (XXX) XXX-XXXX
             .email xxxxxx@xxxxxxxxxxxx.xxx
-            - if reference.notes.present?
-              .notes Additional notes available when you've purchased this job applicant.
+            / - if reference.notes.present?
+            /   .notes Additional notes available when you've purchased this job applicant.
     - else
       %p This application doesn't have a resume

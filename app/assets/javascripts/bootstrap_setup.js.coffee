@@ -1,5 +1,5 @@
 jQuery ->
-  $("a[rel=popover]").popover()
+  $("a[rel=popover]").popover({html: true})
   $(".tooltip").tooltip()
   $("a[rel=tooltip]").tooltip()
 
