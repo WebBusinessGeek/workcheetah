@@ -1,8 +1,21 @@
-.jobs_index
+.jobs_index.accounts_show
 	.white_box
 		.alert.alert-info.alert-block
 			%button.close{"data-dismiss" => "alert", :type => "button"} &times;
 			Your dashboard helps you manage all your job posts and applicants in the cloud. You can click on your listings to view/edit/delete the descriptions at any time. You can follow the applicant links to view who's applying to your job listings.
+		- if !current_user.account.safe_job_seal?
+			.pull-right
+				.complete_account
+					%h2 Complete Your Account
+					%ul
+						%li.completed Create Account
+						%li.completed Create First Job Listing
+						%li.incomplete
+							= link_to "Verify Your Company", [:add_seal, :account]
+							.small_text
+								You have not verified your company.
+								%br/
+								Please verify your company now.
 		%h1 My Jobs
 		%table.table
 			%tr
@@ -25,4 +38,3 @@
 							%a#invite-popover.btn.btn-success{"data-content" => "Add a seal to invite job seekers who might be interested in your job 50 miles around you.", "data-original-title" => "Invite", :href => "javascript: void(0);", :rel => "popover"} Invite job seekers
 
 		%br/
-

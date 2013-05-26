@@ -535,50 +535,48 @@ img.align-left{
 
 }
 
-.accounts_show{
-  .complete_account{
-    width: 350px;
-    padding: 25px;
-    border: 3px solid green;
-    @include border-radius(10px);
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box; /* prevents bg color from leaking outside the border */
-    background-color: #f1fae3; /* layer fill content */
-    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0iaGF0MCIgZ3JhZGllbnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giIHgxPSI1MCUiIHkxPSIxMDAlIiB4Mj0iNTAlIiB5Mj0iLTEuNDIxMDg1NDcxNTIwMmUtMTQlIj4KPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YxZjllMyIgc3RvcC1vcGFjaXR5PSIxIi8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgIDwvbGluZWFyR3JhZGllbnQ+Cgo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0idXJsKCNoYXQwKSIgLz4KPC9zdmc+); /* gradient overlay */
-    background-image: -moz-linear-gradient(bottom, #f1f9e3 0%, #fff 100%); /* gradient overlay */
-    background-image: -o-linear-gradient(bottom, #f1f9e3 0%, #fff 100%); /* gradient overlay */
-    background-image: -webkit-linear-gradient(bottom, #f1f9e3 0%, #fff 100%); /* gradient overlay */
-    background-image: linear-gradient(bottom, #f1f9e3 0%, #fff 100%); /* gradient overlay */
+.complete_account{
+  width: 350px;
+  padding: 25px;
+  border: 3px solid green;
+  @include border-radius(10px);
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box; /* prevents bg color from leaking outside the border */
+  background-color: #f1fae3; /* layer fill content */
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0iaGF0MCIgZ3JhZGllbnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giIHgxPSI1MCUiIHkxPSIxMDAlIiB4Mj0iNTAlIiB5Mj0iLTEuNDIxMDg1NDcxNTIwMmUtMTQlIj4KPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YxZjllMyIgc3RvcC1vcGFjaXR5PSIxIi8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgIDwvbGluZWFyR3JhZGllbnQ+Cgo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0idXJsKCNoYXQwKSIgLz4KPC9zdmc+); /* gradient overlay */
+  background-image: -moz-linear-gradient(bottom, #f1f9e3 0%, #fff 100%); /* gradient overlay */
+  background-image: -o-linear-gradient(bottom, #f1f9e3 0%, #fff 100%); /* gradient overlay */
+  background-image: -webkit-linear-gradient(bottom, #f1f9e3 0%, #fff 100%); /* gradient overlay */
+  background-image: linear-gradient(bottom, #f1f9e3 0%, #fff 100%); /* gradient overlay */
 
-    h2{
-      padding: 0;
-      margin: 0;
-    }
-
-    ul{
-      margin-top: 10px;
-
-      li{
-        list-style: none;
-        font-size: 20px;
-        padding: 10px 0 10px 40px;
-
-        &.completed{
-          background: url("black-checkmark.png") no-repeat left 10px;
-        }
-
-        &.incomplete{
-          background: url("black-empty-checkbox.png") no-repeat left 10px;
-
-          a{ text-decoration: underline; }
-        }
-
-        & .small_text{ font-size: 14px; margin-top: 5px; }
-      }
-    }
-
+  h2{
+    padding: 0;
+    margin: 0;
   }
+
+  ul{
+    margin-top: 10px;
+
+    li{
+      list-style: none;
+      font-size: 20px;
+      padding: 10px 0 10px 40px;
+
+      &.completed{
+        background: url("black-checkmark.png") no-repeat left 10px;
+      }
+
+      &.incomplete{
+        background: url("black-empty-checkbox.png") no-repeat left 10px;
+
+        a{ text-decoration: underline; }
+      }
+
+      & .small_text{ font-size: 14px; margin-top: 5px; }
+    }
+  }
+
 }
 
 
