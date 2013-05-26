@@ -42,4 +42,6 @@
             = link_to "Apply", new_job_job_application_path(@job), class: "btn btn-primary btn-large", style: "width: 86%"
             = link_to "Flag This Job", [:flag, @job], method: :post, style: "width: 100%; margin: 20px auto; display: block; text-align: center;"
         - else
-          = link_to "Apply", new_job_job_application_path(@job), class: "btn btn-primary btn-large", style: "width: 86%"
+          %a#invite-popover.btn.btn-primary.btn-large{"data-content" => "Please build a resume to apply to jobs.", "data-original-title" => "#{link_to "Build a resume", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left", style: "width: 86%;"} Apply
+        / - else
+        /   = link_to "Apply", new_job_job_application_path(@job), class: "btn btn-primary btn-large", style: "width: 86%"
