@@ -1,11 +1,11 @@
 .accounts_show
 	.white_box
+		%h1 My Recruits
 		.alert.alert-info.alert-block
 			%button.close{"data-dismiss" => "alert", :type => "button"} &times;
 			Manage your recruits here. You can easily compare applicants with access to their resume and attached videos. See a winner? Schedule an
 			= link_to "online interview", video_chats_path
 			with them.
-		%h1 My Recruits
 		- if @accessible_job_applications.any?
 			%table.table
 				%tr

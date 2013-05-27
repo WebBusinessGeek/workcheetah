@@ -1,5 +1,6 @@
 .resumes_show
   .white_box
+    %h1= @resume.name
     - if user_signed_in? and current_user.resume
       .alert.alert-info.alert-block
         %button.close{"data-dismiss" => "alert", :type => "button"} &times;
@@ -27,8 +28,6 @@
               %li= @resume.category2.name
             - if @resume.category3
               %li= @resume.category3.name
-
-      %h1= @resume.name
 
       .contact_details
         - if !@resume.phone.blank?

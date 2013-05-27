@@ -1,13 +1,15 @@
 .jobs_index
 	.white_box
+		%h1
+			= @category.name if @category
+			Jobs
 		- if !user_signed_in? or current_user.resume
 			.alert.alert-info.alert-block
 				%button.close{"data-dismiss" => "alert", :type => "button"} &times;
 				All listings on WorkCheetah are current. On this page you can view available positions, apply in seconds, and see who your competing against with "Who's Applying?" if you have a resume already. Oh, and look for the Validation seal to identify employers that have been verified by WorkCheetah. Happy job hunting!
+			%br/ 
+			%br/ 
 		.pull-left.span4
-			%h1
-				= @category.name if @category
-				Jobs
 			- unless @portal || @category
 				= render "jobs/search_form"
 		.pull-right.span6

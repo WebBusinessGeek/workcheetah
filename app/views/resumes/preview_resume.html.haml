@@ -1,9 +1,5 @@
 .job_applicants_show
   .white_box
-    - if user_signed_in? and current_user.resume.present?
-      .alert.alert-block.alert-info
-        %button.close{"data-dismiss" => "alert", :type => "button"} &times;
-      Due to privacy, you can see limited information about your competition.
     - if @resume.present?
       - if can? :manage, @job
         .pull-right{ style: "text-align: center;" }
@@ -16,7 +12,10 @@
           %br/
           %p Please pick one
       %h1 Applicant Name
-
+      - if user_signed_in? and current_user.resume.present?
+        .alert.alert-block.alert-info
+          %button.close{"data-dismiss" => "alert", :type => "button"} &times;
+        Due to privacy, you can see limited information about your competition.
       .contact_details
         .phone Phone: (XXX) XXX-XXXX
         .email Email: xxxx@xxxxxxxxx.xxx
