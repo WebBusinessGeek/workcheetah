@@ -22,4 +22,7 @@
 						%td= job_application.job.title
 						%td= link_to "Schedule interview", new_video_chat_path(recipient_id: job_application.user.id)
 		- else
-			%p You currently have no recruits. Save an applicant that applies to your jobs to create a recruit.
+			%p
+				You currently have no recruits. Save an applicant from your
+				= link_to "my jobs", my_jobs_path
+				page to add a recruit.

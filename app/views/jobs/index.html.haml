@@ -49,7 +49,11 @@
 							
 							%td= job.address
 							%td= job.category ? job.category.name : "n/a"
-							%td= (user_signed_in? and current_user.resume) ? (link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]) : (link_to "? Applicants", [job, :job_applications])
+							%td
+								- if user_signed_in? and current_user.resume
+									= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
+								- else
+									%a#invite-popover{"data-content" => "You have to have a resume to view your competition.", "data-original-title" => "#{link_to "Build a resume", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left"} ? applicants
 							%td
 								- if job.quick_applicable?
 									- if user_signed_in?
