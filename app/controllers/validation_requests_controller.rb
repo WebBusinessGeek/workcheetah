@@ -8,6 +8,8 @@ class ValidationRequestsController < ApplicationController
     verify_has_account
     @validation_request = ValidationRequest.new(validation_request_params)
     @validation_request.account = current_user.account
+
+    @validation_request.build_address(params[:validation_request][:address])
     
     if @validation_request.save
       ValidationRequestMailer.new_validation_request(@validation_request).deliver
@@ -17,10 +19,10 @@ class ValidationRequestsController < ApplicationController
     end
   end
 
-  private
+private
 
   def validation_request_params
-    params.require(:validation_request).permit(:name, :ein, :ssn, :industry, :length_of_business, :commission_only)
+    params.require(:validation_request).permit(:address_attributes, :commission_only, :contact_email, :contact_person, :contact_phone, :ein, :independent_distributorship_opportunity, :industry, :length_of_business, :name, :profit, :ssn)
   end
 
   def verify_has_account

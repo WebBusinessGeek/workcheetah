@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130524213139) do
+ActiveRecord::Schema.define(:version => 20130528153739) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -276,8 +276,13 @@ ActiveRecord::Schema.define(:version => 20130524213139) do
     t.string   "industry"
     t.string   "length_of_business"
     t.boolean  "commission_only"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                                                 :null => false
+    t.datetime "updated_at",                                                 :null => false
+    t.boolean  "profit",                                  :default => false
+    t.string   "contact_person"
+    t.string   "contact_email"
+    t.string   "contact_phone"
+    t.boolean  "independent_distributorship_opportunity", :default => false
   end
 
   add_index "validation_requests", ["account_id"], :name => "index_validation_requests_on_account_id"
