@@ -4,6 +4,7 @@
       %li.error= msg
 
 = form_for @resume do |f|
+  = text_area_tag :editor, "", :class => "tinymce", :rows => 40, :cols => 120
   = tinymce
   - unless user_signed_in?
     %h3 Account Details
