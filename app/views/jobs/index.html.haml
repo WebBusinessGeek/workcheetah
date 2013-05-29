@@ -15,7 +15,10 @@
 		.pull-right.span6
 			= image_tag("look-for-safe-seal.png")
 			%br/ 
-			%em WorkCheetah validates all employers holding the WorkCheetah Validation seal by confirming company information with the IRS. WorkCheetah expresses its right to disclaim any responsibility for scams, hoaxes, or otherwise illegal activities on its site. WorkCheetah WILL NOT tolerate any abuse of its website or its users and asks that any individuals who experience suspicious activity to <u>report it immediately</u>. Please do your research before entertaining offers from ANY organizations learned about online. – WorkCheetah Team
+			%em
+				WorkCheetah validates all employers holding the WorkCheetah Seal by confirming company information. WorkCheetah WILL NOT tolerate abuse of its website or its users and asks that any individuals who experience suspicious activity to 
+				= link_to "report it", new_scam_report_path
+				immediately. Please do your research before entertaining offers from ANY organizations learned about online. WorkCheetah expresses its right to disclaim liability for scams, hoaxes, or otherwise illegal activities on the WorkCheetah website. – WorkCheetah Team
 			- if @category && user_signed_in? && current_user.admin?
 				= link_to "Edit Category", [:edit, @category], class: "btn"
 	
