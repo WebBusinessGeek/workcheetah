@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130528153739) do
+ActiveRecord::Schema.define(:version => 20130531001918) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -61,6 +61,20 @@ ActiveRecord::Schema.define(:version => 20130528153739) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "conversation_items", :force => true do |t|
+    t.text     "body"
+    t.integer  "recipient_id"
+    t.integer  "sender_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "conversation_id"
+  end
+
+  create_table "conversations", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -153,6 +167,13 @@ ActiveRecord::Schema.define(:version => 20130528153739) do
   end
 
   add_index "jobs", ["quick_applicable"], :name => "index_jobs_on_quick_applicable"
+
+  create_table "participants", :force => true do |t|
+    t.integer  "conversation_id"
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "payment_profiles", :force => true do |t|
     t.integer  "account_id"
