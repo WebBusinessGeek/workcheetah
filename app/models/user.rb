@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :participations, class_name: "Participant", dependent: :destroy
   has_many :conversations, through: :participations, dependent: :destroy
   has_many :conversation_items, through: :conversations, dependent: :destroy
+  has_many :blocks, class_name: "Block", foreign_key: :blocker_id, dependent: :destroy
+  has_many :blockings, class_name: "Block", foreign_key: :blocked_id, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, 

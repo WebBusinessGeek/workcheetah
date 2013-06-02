@@ -6,6 +6,9 @@ describe User do
 			it { should have_many(association_name).dependent(:destroy) }
 		end
 
+		it { should have_many(:blocks).class_name("Block").dependent(:destroy) }
+		it { should have_many(:blockings).class_name("Block").dependent(:destroy) }
+
 		it { should have_one(:resume).dependent(:destroy) }
 
 		it { should belong_to :account }
