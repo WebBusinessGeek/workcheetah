@@ -13,7 +13,7 @@ class ConversationsController < ApplicationController
 	end
 
 	def new
-		if !current_user.account.present?
+		if !current_user.account.present? and !current_user.admin? and !current_user.moderator?
 			redirect_to :back, notice: "Only employers can initiate conversations." and return
 		end
 
@@ -22,11 +22,11 @@ class ConversationsController < ApplicationController
 	end
 
 	def create
-		if !current_user.account.present?
+		if !current_user.account.present? and !current_user.admin? and !current_user.moderator?
 			redirect_to :back, notice: "Only employers can initiate conversations." and return
 		end
 
-		if !current_user.account.safe_job_seal?
+		if current_user.account.present? and !current_user.account.safe_job_seal?
 			redirect_to :back, notice: "Please validate your company in order to be able to send messages to your recruits." and return
 		end
 
@@ -41,15 +41,26 @@ class ConversationsController < ApplicationController
 		else
 			render action: :new, recipient_id: params[:recipient_id]
 		end
+
+		@conversation.participants.each do |participant|
+			NotificationMailer.new_conversation(@conversation, participant.user).deliver if participant.user.email != current_user.email
+		end
 	end
 
 	def update
+		if current_user.account.present? and !current_user.account.safe_job_seal?
+			redirect_to :back, notice: "Please validate your company in order to be able to send messages to your recruits." and return
+		end
+		
 		@conversation = Conversation.find(params[:id])
-		# raise params.inspect
 		conversation_item = @conversation.conversation_items.build(params[:conversation][:conversation_item], sender_id: current_user)
 		conversation_item.sender = current_user
 		if conversation_item.save
 			redirect_to @conversation
+
+			@conversation.participants.each do |participant|
+				NotificationMailer.new_conversation(@conversation, participant.user).deliver if participant.user.email != current_user.email
+			end
 		else
 			render action: :show
 		end

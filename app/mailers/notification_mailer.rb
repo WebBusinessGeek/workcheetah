@@ -51,4 +51,9 @@ class NotificationMailer < ActionMailer::Base
     resumes.each { |resume| emails << resume.user.email }
     mail(to: "support@workcheetah.com", bcc: emails, subject: "You have been invited to apply for a job!")
   end
+
+  def new_conversation(conversation, recipient)
+    @conversation = conversation
+    mail(to: recipient.email, subject: "New message")
+  end
 end
