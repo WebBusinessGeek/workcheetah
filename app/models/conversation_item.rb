@@ -9,5 +9,4 @@ class ConversationItem < ActiveRecord::Base
   validates :body, presence: true
   validates :conversation_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :sender_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :recipient_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
 end

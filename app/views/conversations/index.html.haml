@@ -1,0 +1,11 @@
+.conversations_index
+	.white_box
+		%h1 Conversations
+		- if current_user.account.present?
+			%p
+				Message your
+				= link_to "recruits", recruits_account_path(current_user.account)
+				= "- save an applicant to create a recruit."
+		- if @conversations.any?
+			- @conversations.each do |conversation|
+				%p= link_to conversation.participants.last.user.name, conversation

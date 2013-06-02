@@ -1,0 +1,15 @@
+.conversations_show
+	.white_box
+		%h1 Conversation
+		- @conversation.conversation_items.order("id ASC").each do |conversation_item|
+			%p
+				= conversation_item.sender.name
+				= "-"
+				= conversation_item.body
+			%hr/ 
+		= simple_form_for @conversation do |f|
+			.form-fields
+				= f.simple_fields_for @conversation.conversation_items.build do |ci|
+					= ci.text_field :body, autofocus: true
+			.form-actions
+				= f.button :submit, "Send", class: "btn btn-primary"

@@ -1,0 +1,10 @@
+.conversations_new
+	.white_box
+		%h1= "New message to #{@recipient.name}"
+		= simple_form_for @conversation do |f|
+			.form-fields
+				= f.simple_fields_for @conversation.conversation_items.build do |ci|
+					= ci.text_field :body, autofocus: true
+				= f.hidden_field :recipient_id, value: params[:recipient_id]
+			.form-actions
+				= f.button :submit, class: "btn btn-primary"
