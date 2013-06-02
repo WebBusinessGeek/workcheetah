@@ -19,6 +19,10 @@ class ConversationsController < ApplicationController
 
 		@conversation = Conversation.new
 		@recipient = User.find(params[:recipient_id])
+
+		if @recipient.blocks?(current_user)
+			redirect_to :back, notice: "That user is blocking you. You cannot send a message to that user." and return
+		end
 	end
 
 	def create
@@ -28,6 +32,10 @@ class ConversationsController < ApplicationController
 
 		if current_user.account.present? and !current_user.account.safe_job_seal?
 			redirect_to :back, notice: "Please validate your company in order to be able to send messages to your recruits." and return
+		end
+
+		if User.find(params[:conversation][:recipient_id]).blocks?(current_user)
+			redirect_to :back, notice: "That user is blocking you. You cannot send a message to that user." and return
 		end
 
 		@conversation = Conversation.create
@@ -53,6 +61,14 @@ class ConversationsController < ApplicationController
 		end
 		
 		@conversation = Conversation.find(params[:id])
+
+		@conversation.participants.each do |participant|
+			if participant.user.blocks?(current_user)
+				redirect_to :back, notice: "That user is blocking you. You cannot send a message to that user." and return
+				break
+			end
+		end
+
 		conversation_item = @conversation.conversation_items.build(params[:conversation][:conversation_item], sender_id: current_user)
 		conversation_item.sender = current_user
 		if conversation_item.save

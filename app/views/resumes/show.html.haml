@@ -3,6 +3,10 @@
     %h1= @resume.name
     - if current_user.admin? or current_user.moderator?
       = link_to "Send message", new_conversation_path(recipient_id: @resume.user.id)
+    - if current_user.blocks?(@account.users.first)
+      = link_to "Unblock", blocks_path(id: @resume.user.id), method: :delete
+    - else
+      = link_to "Block", blocks_path(id: @resume.user.id), method: :post
     - if user_signed_in? and current_user.resume
       .alert.alert-info.alert-block
         %button.close{"data-dismiss" => "alert", :type => "button"} &times;

@@ -1,4 +1,10 @@
 CareerLoop::Application.routes.draw do
+  resources :blocks, only: [ :create ] do
+    collection do
+      delete :destroy
+    end
+  end
+
   resources :conversations, only: [ :index, :show, :create, :update, :new ]
   resources :tweets
   resources :video_chat_messages, only: [ :create ]

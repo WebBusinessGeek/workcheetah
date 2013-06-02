@@ -22,9 +22,9 @@ class User < ActiveRecord::Base
 
   validates :terms_of_service, acceptance: true
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :email, :password, :password_confirmation, :remember_me
-  # attr_accessible :title, :body
+  def blocks? user
+    self.blocks.where(blocked_id: user).any?
+  end
 
   def has_applied_to?(job)
     self.job_applications.where(job_id: job.id).any?
