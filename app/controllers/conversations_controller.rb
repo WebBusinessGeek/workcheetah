@@ -50,8 +50,12 @@ class ConversationsController < ApplicationController
 			render action: :new, recipient_id: params[:recipient_id]
 		end
 
-		@conversation.participants.each do |participant|
-			NotificationMailer.new_conversation(@conversation, participant.user).deliver if participant.user.email != current_user.email
+		begin
+			@conversation.participants.each do |participant|
+				NotificationMailer.new_conversation(@conversation, participant.user).deliver if participant.user.email != current_user.email
+			end
+		rescue Exception => e
+			logger.info "Mails could not be sent after creation of conversation with id #{@conversation.id}"
 		end
 	end
 
@@ -74,8 +78,12 @@ class ConversationsController < ApplicationController
 		if conversation_item.save
 			redirect_to @conversation
 
-			@conversation.participants.each do |participant|
-				NotificationMailer.new_conversation(@conversation, participant.user).deliver if participant.user.email != current_user.email
+			begin
+				@conversation.participants.each do |participant|
+					NotificationMailer.new_conversation(@conversation, participant.user).deliver if participant.user.email != current_user.email
+				end
+			rescue Exception => e
+				logger.info "Mails could not be sent after update of conversation with id #{@conversation.id}"
 			end
 		else
 			render action: :show
