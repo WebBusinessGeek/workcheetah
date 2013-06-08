@@ -51,7 +51,7 @@ class JobApplicationsController < ApplicationController
       redirect_to @job, notice: "You've already applied to this job."
     else
       @job_app = current_user.job_applications.create(job: @job, status: "Application Sent")
-      NotificationMailer.new_job_application(@job_app).deliver
+      NotificationMailer.delay.new_job_application(@job_app)
       redirect_to @job, notice: "Application sent! You'll hear back soon."
     end
   end

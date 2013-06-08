@@ -46,7 +46,7 @@ class VideoChatsController < ApplicationController
 
     respond_to do |format|
       if @video_chat.save
-        NotificationMailer.new_video_chat(@video_chat).deliver
+        NotificationMailer.delay.new_video_chat(@video_chat)
         format.html { redirect_to @video_chat, notice: 'Interview was successfully created. Your interview partner has been informed.' }
         format.json { render json: @video_chat, status: :created, location: @video_chat }
       else
@@ -75,7 +75,7 @@ class VideoChatsController < ApplicationController
 
     respond_to do |format|
       if @video_chat.update_attributes(video_chat_params)
-        NotificationMailer.video_chat_update(@video_chat, mail_recipient).deliver if old_start_time != @video_chat.start_time || old_end_time != @video_chat.end_time
+        NotificationMailer.delay.video_chat_update(@video_chat, mail_recipient) if old_start_time != @video_chat.start_time || old_end_time != @video_chat.end_time
         format.html { redirect_to @video_chat, notice: 'Interview was successfully updated. Your interview partner has been informed about the changes if times changed.' }
         format.json { head :no_content }
       else
@@ -96,7 +96,7 @@ class VideoChatsController < ApplicationController
       mail_recipient = @video_chat.requester
     end
 
-    NotificationMailer.video_chat_cancellation(@video_chat, mail_recipient).deliver
+    NotificationMailer.delay.video_chat_cancellation(@video_chat, mail_recipient)
 
     @video_chat.destroy
 
@@ -117,7 +117,7 @@ class VideoChatsController < ApplicationController
     end
 
     if @video_chat.save
-      NotificationMailer.accept_video_chat(@video_chat, mail_recipient).deliver
+      NotificationMailer.delay.accept_video_chat(@video_chat, mail_recipient)
       redirect_to @video_chat, notice: "Your interview partner has been notified about you accepting the interview schedule."
     end
   end
