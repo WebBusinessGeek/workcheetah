@@ -11,7 +11,13 @@ describe Conversation do
 
 	describe "Basics" do
 		describe "Attributes" do
-			it { should allow_mass_assignment_of :conversation_items_attributes }
+			[ :subject ].each do |attr|
+				it { should respond_to attr }
+			end
+			
+			[ :conversation_items_attributes, :subject ].each do |attr|
+				it { should allow_mass_assignment_of :conversation_items_attributes }				
+			end
 		end
 	end
 end

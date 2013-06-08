@@ -1,6 +1,7 @@
 .conversations_show
 	.white_box
 		%h1 Conversation
+		%h3= @conversation.subject
 		- @conversation.conversation_items.order("id ASC").each do |conversation_item|
 			%p
 				= conversation_item.sender.name

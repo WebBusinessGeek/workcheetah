@@ -26,6 +26,8 @@ class ConversationsController < ApplicationController
 	end
 
 	def create
+		# raise params.inspect
+
 		if !current_user.account.present? and !current_user.admin? and !current_user.moderator?
 			redirect_to :back, notice: "Only employers can initiate conversations." and return
 		end
@@ -38,7 +40,8 @@ class ConversationsController < ApplicationController
 			redirect_to :back, notice: "That user is blocking you. You cannot send a message to that user." and return
 		end
 
-		@conversation = Conversation.create
+		@conversation = Conversation.create(subject: params[:conversation][:subject])
+
 		@message = @conversation.conversation_items.build(params[:conversation][:conversation_item])
 		@message.sender = current_user
 
