@@ -95,5 +95,13 @@
         %h3
           = link_to "Tweets", tweets_path
 
+        %h3
+          Users to message
+
+        %ul 
+          - User.find_each do |user|
+            %li= link_to user.name, new_conversation_path(recipient_id: user)
+
+
   .footer
     = render "shared/footer"
