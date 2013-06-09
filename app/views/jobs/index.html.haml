@@ -27,11 +27,11 @@
 			Open positions
 			/ = @location || @current_location_clean
 		= form_tag :quick_apply_to_jobs do
-			.pull-right
-				- if user_signed_in? and current_user.resume.present?
-					= submit_tag "Quick apply", class: "btn btn-primary"
-				- else
-					%a#invite-popover.btn.btn-primary{"data-content" => "Please build a resume to apply to jobs.", "data-original-title" => "#{link_to "Build a resume", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left"} Quick apply
+			/ .pull-right
+			/ 	- if user_signed_in? and current_user.resume.present?
+			/ 		= submit_tag "Quick apply", class: "btn btn-primary"
+			/ 	- else
+			/ 		%a#invite-popover.btn.btn-primary{"data-content" => "Please build a resume to apply to jobs.", "data-original-title" => "#{link_to "Build a resume", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left"} Quick apply
 			%br{clear: :all}/ 
 			%br/ 
 			%fieldset
@@ -41,9 +41,9 @@
 						%th City
 						%th Job Type
 						%th Who's Applying?
-						%th
-							Quick apply to all
-							= check_box_tag "check_all", false
+						/ %th
+						/ 	Quick apply to all
+						/ 	= check_box_tag "check_all", false
 					- @jobs.each do |job|
 						%tr
 							%td
@@ -59,18 +59,18 @@
 									= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
 								- else
 									%a#invite-popover{"data-content" => "You have to have a resume to view your competition.", "data-original-title" => "#{link_to "Build a resume", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left"} ? applicants
-							%td
-								- if job.quick_applicable?
-									- if user_signed_in?
-										- if current_user.job_applications.where(job_id: job).empty?
-											= check_box_tag 'job_ids[]', job.id, false
-									- else
-										= check_box_tag 'job_ids[]', job.id, false
-			.pull-right
-				- if user_signed_in? and current_user.resume.present?
-					= submit_tag "Quick apply", class: "btn btn-primary"
-				- else
-					%a#invite-popover.btn.btn-primary{"data-content" => "Please build a resume to apply to jobs.", "data-original-title" => "#{link_to "Build a resume", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left"} Quick apply
+							/ %td
+							/ 	- if job.quick_applicable?
+							/ 		- if user_signed_in?
+							/ 			- if current_user.job_applications.where(job_id: job).empty?
+							/ 				= check_box_tag 'job_ids[]', job.id, false
+							/ 		- else
+							/ 			= check_box_tag 'job_ids[]', job.id, false
+			/ .pull-right
+			/ 	- if user_signed_in? and current_user.resume.present?
+			/ 		= submit_tag "Quick apply", class: "btn btn-primary"
+			/ 	- else
+			/ 		%a#invite-popover.btn.btn-primary{"data-content" => "Please build a resume to apply to jobs.", "data-original-title" => "#{link_to "Build a resume", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left"} Quick apply
 		%br/
 
 :javascript
