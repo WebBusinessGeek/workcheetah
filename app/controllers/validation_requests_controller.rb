@@ -13,6 +13,7 @@ class ValidationRequestsController < ApplicationController
     
     if @validation_request.save
       ValidationRequestMailer.delay.new_validation_request(@validation_request)
+      ValidationRequestMailer.delay.validation_receipt(@validation_request, current_user.email)
       redirect_to [:account], notice: "Thank you for your application. We have provided you with a temporary seal until we conclude review of your application."
     else
       render action: :new
