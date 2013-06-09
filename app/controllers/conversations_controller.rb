@@ -2,7 +2,7 @@ class ConversationsController < ApplicationController
 	before_filter :user_signed_in?
 
 	def index
-		@conversations = current_user.conversations
+		@conversations = current_user.conversations.order("id DESC")
 	end
 
 	def show

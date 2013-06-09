@@ -7,5 +7,9 @@
 				= link_to "recruits", recruits_account_path(current_user.account)
 				= "- save an applicant to create a recruit."
 		- if @conversations.any?
-			- @conversations.each do |conversation|
-				%p= link_to conversation.participants.last.user.name, conversation
+			%table.table.table-striped
+				- @conversations.each do |conversation|
+					%tr 
+						%td= link_to conversation.participants.where("user_id != ?", current_user.id).first.user.name, conversation
+						%td= link_to truncate(conversation.conversation_items.last.body), conversation
+						%td= link_to "#{time_ago_in_words(conversation.conversation_items.last.created_at)} ago", conversation
