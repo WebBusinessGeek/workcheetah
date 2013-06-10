@@ -1,23 +1,12 @@
-YOUR VALIDATION SEAL REQUEST WAS SUBMITTED
+THANK YOU FOR VERIFYING YOUR ACCOUNT ON WORKCHEETAH!
 
-Here are the details that were submitted:
+Date: <%= @validation_request.created_at %>
 
-Company Legal Name: <%= @validation_request.name %>
-EIN: <%= @validation_request.ein %>
-Last four digits of your SSN: <%= @validation_request.ssn %>
-Industry: <%= @validation_request.industry %>
-Length of business: <%= @validation_request.length_of_business %>
-Are any of the positions within your organization "Commission only" opportunities: <%= @validation_request.commission_only ? "Yes" : "No" %>
-For profit? <%= @validation_request.profit? ? "Yes" : "No" %>
-Address 1: <%= @validation_request.address.address_1 %>
-Address 2: <%= @validation_request.address.address_2 %>
-City: <%= @validation_request.address.city %>
-State: <%= @validation_request.address.state %>
-Zip: <%= @validation_request.address.zip %>
-Contact person: <%= @validation_request.contact_person %>
-Contact email: <%= @validation_request.contact_email %>
-Contact phone: <%= @validation_request.phone %>
-Is This An Independent Distributorship Opportunity? <%= @validation_request.independent_distributorship_opportunity? ? "Yes" : "No" %>
+Payment Method: <%= @validation_request.account.payment_profiles.first.cc_number_preview %>
+
+Amount: <%= PaymentProfile::SAFE_SEAL_PRICE_IN_DOLLARS %>
+
+Contact name: <%= @validation_request.contact_person %>
 
 ----------------
 WorkCheetah Team
