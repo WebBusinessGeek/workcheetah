@@ -16,5 +16,4 @@ Geocoder.configure(
   # caching (see below for details):
   :cache => {},
   :cache_prefix => "..."
-
 )
