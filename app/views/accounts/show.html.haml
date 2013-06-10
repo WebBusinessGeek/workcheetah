@@ -21,7 +21,8 @@
       .logo= image_tag @account.logo.medium.url
     %h1.account_name= @account.name
     - if current_user.admin? or current_user.moderator?
-      = link_to "Send message", new_conversation_path(recipient_id: @account.user.id)
+      = link_to "Send message", new_conversation_path(recipient_id: @account.users.first.id)
+      %br/ 
     - if current_user.blocks?(@account.users.first)
       = link_to "Unblock", blocks_path(id: @account.users.first), method: :delete
     - else
