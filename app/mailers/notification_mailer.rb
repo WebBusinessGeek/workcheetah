@@ -56,4 +56,11 @@ class NotificationMailer < ActionMailer::Base
     @conversation = conversation
     mail(to: recipient.email, subject: "New message")
   end
+
+  def message_to_all(conversation)
+    @conversation = conversation
+    emails = []
+    @conversation.last.participants.each { |participant| emails << participant.user.email }
+    mail(to: "support@workcheetah.com", bcc: emails, subject: "The system admin has sent you a message.")
+  end
 end

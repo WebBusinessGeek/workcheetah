@@ -5,7 +5,12 @@ CareerLoop::Application.routes.draw do
     end
   end
 
-  resources :conversations, only: [ :index, :show, :create, :update, :new ]
+  resources :conversations, only: [ :index, :show, :create, :update, :new ] do
+    collection do
+      post :send_to_all
+    end
+  end
+
   resources :tweets
   resources :video_chat_messages, only: [ :create ]
 

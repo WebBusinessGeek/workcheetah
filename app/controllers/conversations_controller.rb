@@ -26,8 +26,6 @@ class ConversationsController < ApplicationController
 	end
 
 	def create
-		# raise params.inspect
-
 		if !current_user.account.present? and !current_user.admin? and !current_user.moderator?
 			redirect_to :back, notice: "Only employers can initiate conversations." and return
 		end
@@ -91,5 +89,24 @@ class ConversationsController < ApplicationController
 		else
 			render action: :show
 		end
+	end
+
+	def send_to_all
+		redirect_to :back and return false unless current_user.admin
+
+		User.find_each do |user|
+			if user.id != current_user.id
+				conversation = Conversation.create(subject: params[:conversation][:subject])
+				conversation.participants.create(user_id: current_user.id)
+				conversation.participants.create(user_id: user.id)
+				conversation_item = conversation.conversation_items.build(params[:conversation][:conversation_item])
+				conversation_item.sender = current_user
+				conversation_item.save
+
+				NotificationMailer.delay.new_conversation(conversation, user)
+			end
+		end
+
+		redirect_to :back, notice: "Successfully sent message to everyone."
 	end
 end

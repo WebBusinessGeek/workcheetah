@@ -44,9 +44,10 @@
               %th Amount
               %th Purchase Date
             - @seal_purchases.each do |seal_purchase|
-              %td= seal_purchase.account.name
-              %td= "$ #{seal_purchase.amount / 100}"
-              %td= seal_purchase.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%m/%d/%Y %l:%m %P %Z")
+              %tr 
+                %td= seal_purchase.account.name
+                %td= "$ #{seal_purchase.amount / 100}"
+                %td= seal_purchase.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%m/%d/%Y %l:%m %P %Z")
         - else
           %p Sorry, no purchases have occurred yet.
 
@@ -97,6 +98,12 @@
 
         %h3
           Users to message
+
+          = simple_form_for Conversation.new, url: { controller: :conversations, action: :send_to_all } do |f|
+            = f.input :subject
+            = f.simple_fields_for :conversation_item do |mf|
+              = mf.input :body
+            = f.button :submit, class: "btn"
 
         %ul 
           - User.find_each do |user|
