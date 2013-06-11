@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130608132435) do
+ActiveRecord::Schema.define(:version => 20130611213502) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -171,6 +171,7 @@ ActiveRecord::Schema.define(:version => 20130608132435) do
     t.integer  "category_id"
     t.boolean  "quick_applicable",       :default => true
     t.boolean  "invited",                :default => false
+    t.boolean  "invite_only"
   end
 
   add_index "jobs", ["quick_applicable"], :name => "index_jobs_on_quick_applicable"
