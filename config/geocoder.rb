@@ -8,7 +8,7 @@ Geocoder.configure(
   :api_key => [ENV['GOOGLE_MAPS_API_KEY'], ENV['GOOGLE_MAPS_CLIENT_ID'], "channel"],
 
   # geocoding service request timeout, in seconds (default 3):
-  :timeout => 5,
+  :timeout => 15,
 
   # set default units to kilometers:
   # :units => :km,
