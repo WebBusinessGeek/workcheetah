@@ -48,7 +48,7 @@ class JobApplicationsController < ApplicationController
     if current_user.resume.nil?
       redirect_to new_resume_path, notice: "Before you can apply for a job, please create your resume"
     elsif current_user.job_applications.where(job_id: @job.id).any?
-      redirect_to @job, notice: "You've already applied to this job."
+      redirect_to @job, notice: "You've already applied for this job."
     else
       @job_app = current_user.job_applications.create(job: @job, status: "Application Sent")
       NotificationMailer.delay.new_job_application(@job_app)
