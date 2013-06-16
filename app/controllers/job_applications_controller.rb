@@ -50,9 +50,15 @@ class JobApplicationsController < ApplicationController
     elsif current_user.job_applications.where(job_id: @job.id).any?
       redirect_to @job, notice: "You've already applied for this job."
     else
-      @job_app = current_user.job_applications.create(job: @job, status: "Application Sent")
-      NotificationMailer.delay.new_job_application(@job_app)
-      redirect_to @job, notice: "Application sent! You'll hear back soon."
+      @job_app = current_user.job_applications.build(job: @job, status: "Application Sent")
+      if can? :create, @job_app
+        @job_app.save
+        NotificationMailer.delay.new_job_application(@job_app)
+        redirect_to @job, notice: "Application sent! You'll hear back soon."
+      else
+        flash[:error] = "This is an invite only job - you cannot apply unless you have been invited to do so by the job poster."
+        redirect_to @job
+      end
     end
   end
 

@@ -230,6 +230,8 @@ class JobsController < ApplicationController
     # Find resumes near job
     resumes = []
     Resume.all.each do |resume|
+      Invite.create(resume_id: resume, job_id: @job)
+      
       if resume.addresses.any?
         resumes << resume if Job.near(resume.addresses.first.city, 50).where("category_id = ? OR category_id = ? OR category_id = ?",  resume.category1_id, resume.category2_id, resume.category3_id).include? @job
       end
@@ -249,6 +251,6 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:title, :description, :category_id, :email_for_claim, :about_company, :address, account_attributes: [ :name, :website, :phone, :slug, users_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] ])
+    params.require(:job).permit(:title, :invite_only, :description, :category_id, :email_for_claim, :about_company, :address, account_attributes: [ :name, :website, :phone, :slug, users_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] ])
   end
 end

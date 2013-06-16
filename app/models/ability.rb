@@ -26,6 +26,8 @@ class Ability
       can :read, JobApplication, applicant_access: { account_id: user.account.id }
     end
 
+    can :create, JobApplication do |job_application| job_applicable?(job_application, user) end
+
     can :manage, VideoChat do |video_chat| video_chat_managable?(video_chat, user) end
 
     if !user.admin?
@@ -35,5 +37,9 @@ class Ability
 
   def video_chat_managable?(video_chat, user)
     user == video_chat.requester || user == video_chat.recipient || video_chat.new_record?
+  end
+
+  def job_applicable?(job_application, user)
+    ((job_application.job.invite_only? and user.resume.invited_to_job?(job_application.job)) or !job_application.job.invite_only?) and user.resume.present?
   end
 end

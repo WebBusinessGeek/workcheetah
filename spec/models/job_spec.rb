@@ -7,13 +7,14 @@ describe Job do
 		end
 
 		it { should have_many(:job_applications).dependent(:destroy) }
+		it { should have_many(:invites).dependent(:destroy) }
 
 		it { should accept_nested_attributes_for :account }
 	end
 
 	describe "Basics" do
 		context "Attributes" do
-			["id", "quick_applicable", "title", "description", "about_company", "created_at", "updated_at", "account_id", "latitude", "longitude", "address", "active", "job_applications_count", "category_id", "invited"].each do |attr|
+			["id", "invite_only", "quick_applicable", "title", "description", "about_company", "created_at", "updated_at", "account_id", "latitude", "longitude", "address", "active", "job_applications_count", "category_id", "invited"].each do |attr|
 				it { should respond_to attr }
 			end
 		end

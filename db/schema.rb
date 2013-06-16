@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130608132435) do
+ActiveRecord::Schema.define(:version => 20130616100118) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -145,6 +145,13 @@ ActiveRecord::Schema.define(:version => 20130608132435) do
     t.boolean  "current_employer"
   end
 
+  create_table "invites", :force => true do |t|
+    t.integer  "job_id"
+    t.integer  "resume_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "job_applications", :force => true do |t|
     t.integer  "job_id"
     t.integer  "user_id"
@@ -160,8 +167,8 @@ ActiveRecord::Schema.define(:version => 20130608132435) do
     t.string   "title"
     t.text     "description"
     t.text     "about_company"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.integer  "account_id"
     t.float    "latitude"
     t.float    "longitude"
@@ -170,7 +177,8 @@ ActiveRecord::Schema.define(:version => 20130608132435) do
     t.integer  "job_applications_count", :default => 0
     t.integer  "category_id"
     t.boolean  "quick_applicable",       :default => true
-    t.boolean  "invited",                :default => false
+    t.string   "invited"
+    t.boolean  "invite_only",            :default => true
   end
 
   add_index "jobs", ["quick_applicable"], :name => "index_jobs_on_quick_applicable"

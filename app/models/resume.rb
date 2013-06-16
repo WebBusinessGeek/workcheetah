@@ -3,6 +3,7 @@ class Resume < ActiveRecord::Base
 
   has_many :addresses, as: :addressable, dependent: :destroy
   has_many :experiences, dependent: :destroy
+  has_many :invites, dependent: :destroy
   has_many :schools, dependent: :destroy
   has_many :references, dependent: :destroy
   belongs_to :user
@@ -30,6 +31,10 @@ class Resume < ActiveRecord::Base
   validates :category3_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
 
   # after_save :enqueue_video
+
+  def invited_to_job?(job)
+    Invite.where(resume_id: self, job_id: job).any?
+  end
 
   def video_name
     File.basename(video.path || video.filename) unless video.blank?
