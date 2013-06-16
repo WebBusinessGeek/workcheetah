@@ -27,7 +27,7 @@
           %a#invite-popover.btn.btn-success{"data-content" => "#{link_to "Verify your company.", add_seal_account_path} As a verified employer you can invite all relevant job seekers within a 50 mile radius to your job opening.", "data-original-title" => "Invite", html: true, :href => "javascript: void(0);", :rel => "popover"} Invite job seekers
 
         - if @job.invite_only?
-          - if (user_signed_in? and !current_user.resume.invited_to_job?(@job)) or !user_signed_in?
+          - if (user_signed_in? and current_user.resume.present? and !current_user.resume.invited_to_job?(@job)) or !user_signed_in?
             %p
               This job posting is private and available only to those that were invited to apply.
               = link_to "Build a Resume", new_resume_path
