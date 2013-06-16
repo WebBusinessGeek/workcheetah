@@ -32,13 +32,13 @@ describe Job do
 
 	describe "Validations" do
 		context "Presence" do
-			[ :title, :description, :address, :category1_id ].each do |attr|
+			[ :title, :description, :address, :category_id ].each do |attr|
 				it { should validate_presence_of attr }
 			end
 		end
 
 		context "Numericality" do
-			[ :account_id, :category1_id ].each do |attr|
+			[ :account_id, :category_id ].each do |attr|
 				it { should validate_numericality_of(attr).only_integer }				
 			end
 			

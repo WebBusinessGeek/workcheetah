@@ -24,7 +24,7 @@ class Job < ActiveRecord::Base
   validates :description, presence: true
   validates :account_id, numericality: { only_integer: true, greather_than: 0 }, allow_blank: true
   validates :address, presence: true
-  validates :category1_id, presence: true, numericality: { only_integer: true, greather_than: 0 }
+  validates :category_id, presence: true, numericality: { only_integer: true, greather_than: 0 }
   validates :category2_id, numericality: { only_integer: true, greather_than: 0 }, allow_blank: true
   validates :category3_id, numericality: { only_integer: true, greather_than: 0 }, allow_blank: true
 
