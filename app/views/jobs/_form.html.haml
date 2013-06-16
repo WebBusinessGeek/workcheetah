@@ -9,8 +9,14 @@
       = f.label :title, "Job title"
       .control= f.text_field :title, style: "width: 98%; font-size: 24px; padding: 0.4em; height: 1.2em"
     .control-group
-      = f.label :category, "Job category"
-      = f.collection_select(:category_id, Category.scoped, :id, :name, :prompt => true)
+      = f.label :category1_id, "Job category"
+      = f.collection_select(:category1_id, Category.scoped, :id, :name, :prompt => true)
+    .control-group
+      = f.label :category2_id, "Job category 2"
+      = f.collection_select(:category2_id, Category.scoped, :id, :name, :prompt => true)
+    .control-group
+      = f.label :category3_id, "Job category 3"
+      = f.collection_select(:category3_id, Category.scoped, :id, :name, :prompt => true)
 
     .control-group
       = f.label :description, "Job description"

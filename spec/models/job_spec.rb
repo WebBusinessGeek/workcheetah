@@ -2,9 +2,15 @@ require 'spec_helper'
 
 describe Job do
   describe "Assocations" do
-		[ :account, :category ].each do |association_name|
+		[ :account ].each do |association_name|
 			it { should belong_to association_name }
 		end
+
+		[ :category1, :category2, :category3 ].each do |association_name| # test both category and category1! both names are used in the code for backwards compatibility reasons
+			it { should belong_to(association_name).class_name("Category") }
+		end
+
+		it { should belong_to :category } # test both category and category1! both names are used in the code for backwards compatibility reasons
 
 		it { should have_many(:job_applications).dependent(:destroy) }
 		it { should have_many(:invites).dependent(:destroy) }
@@ -14,7 +20,7 @@ describe Job do
 
 	describe "Basics" do
 		context "Attributes" do
-			["id", "invite_only", "quick_applicable", "title", "description", "about_company", "created_at", "updated_at", "account_id", "latitude", "longitude", "address", "active", "job_applications_count", "category_id", "invited"].each do |attr|
+			["id", "invite_only", "quick_applicable", "title", "description", "about_company", "created_at", "updated_at", "account_id", "latitude", "longitude", "address", "active", "job_applications_count", "category1_id", "category2_id", "category3_id", "invited"].each do |attr|
 				it { should respond_to attr }
 			end
 		end
@@ -26,17 +32,22 @@ describe Job do
 
 	describe "Validations" do
 		context "Presence" do
-			[ :title, :description, :address, :category_id ].each do |attr|
+			[ :title, :description, :address, :category1_id ].each do |attr|
 				it { should validate_presence_of attr }
 			end
 		end
 
 		context "Numericality" do
-			[ :account_id, :category_id ].each do |attr|
+			[ :account_id, :category1_id ].each do |attr|
 				it { should validate_numericality_of(attr).only_integer }				
 			end
 			
 			it { should allow_value(nil).for(:account_id) }
+
+			[ :category2_id, :category3_id ].each do |attr|
+				it { should validate_numericality_of(attr).only_integer }
+				it { should allow_value(nil).for(attr) }
+			end
 		end
 	end
 end
