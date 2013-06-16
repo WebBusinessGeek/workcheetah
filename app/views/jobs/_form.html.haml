@@ -24,6 +24,9 @@
     .control-group
       = f.label :quick_applicable, "Quick applicable?"
       .control= f.check_box :quick_applicable
+    .control-group
+      = f.label :invite_only, "Invite only?"
+      .control= f.check_box :invite_only, html: { checked: true }
 
     - unless user_signed_in? && current_user.account
       = f.fields_for :account do |af|

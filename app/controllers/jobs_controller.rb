@@ -230,6 +230,8 @@ class JobsController < ApplicationController
     # Find resumes near job
     resumes = []
     Resume.all.each do |resume|
+      Invite.create(resume_id: resume, job_id: @job)
+      
       if resume.addresses.any?
         resumes << resume if Job.near(resume.addresses.first.city, 50).where("category_id = ? OR category_id = ? OR category_id = ?",  resume.category1_id, resume.category2_id, resume.category3_id).include? @job
       end

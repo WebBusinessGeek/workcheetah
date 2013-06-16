@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Resume do
   describe "Assocations" do
-		[ :addresses, :experiences, :schools, :references ].each do |association_name|
+		[ :addresses, :experiences, :invites, :schools, :references ].each do |association_name|
 			it { should have_many(association_name).dependent(:destroy) }
 		end
 
@@ -26,7 +26,7 @@ describe Resume do
 		end
 
 		context "Methods" do
-			[ :video_name, :enqueue_video ].each do |method|
+			[ :video_name, :enqueue_video, :invited_to_job? ].each do |method|
 				it { should respond_to method }
 			end
 		end

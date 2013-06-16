@@ -7,6 +7,7 @@ describe Job do
 		end
 
 		it { should have_many(:job_applications).dependent(:destroy) }
+		it { should have_many(:invites).dependent(:destroy) }
 
 		it { should accept_nested_attributes_for :account }
 	end
