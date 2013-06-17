@@ -29,9 +29,8 @@
         - if @job.invite_only?
           - if (user_signed_in? and current_user.resume.present? and !current_user.resume.invited_to_job?(@job)) or !user_signed_in?
             %p
-              This job posting is private and available only to those that were invited to apply.
-              = link_to "Build a Resume", new_resume_path
-              to start receiving job invites.
+              This job description is Invite Only. You have to have been invited by the employer in order to see this job listing. To get job invites start by
+              = link_to "building a resume.", new_resume_path
         - else
 
           .span2
