@@ -9,7 +9,7 @@
           %center{ style: "color: red;" }
             Company Not Verified.
     .row
-      .span8{ style: "width: 72%"}
+      .span2{ style: "width: 72%"}
         - if @job.account.logo.present?
           = image_tag @job.account.logo.medium.url
         %h2
@@ -33,7 +33,7 @@
               = link_to "building a resume.", new_resume_path
         - else
 
-          .span2
+          .span8
             %h3 Job Description
             - if @job.description
               %p= @job.description.html_safe
@@ -42,7 +42,7 @@
               %h3 About Company
               %p= @job.about_company.html_safe
             = link_to 'Back', "javascript: history.go(-1)"
-          .span2{ style: "width: 22%"}
+          .span8{ style: "width: 22%"}
             - if current_user
               - if current_user.has_applied_to?(@job)
                 .applied You've already applied.
