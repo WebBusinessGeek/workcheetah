@@ -29,10 +29,14 @@
       .control= f.text_field :address, style: "width: 100%; max-width: 400px; font-size: 16px;"
     .control-group
       = f.label :quick_applicable, "Quick applicable?"
-      .control= f.check_box :quick_applicable
+      .control
+        = f.check_box :quick_applicable
+        %a#invite-popover.btn.btn-primary{"data-content" => "Allow job seekers to quickly apply to your jobs and increase the amount of applicants you receive.", "data-original-title" => "Quick Applicable", html: true, :href => "javascript: void(0);", :rel => "popover"} ?
     .control-group
       = f.label :invite_only, "Invite only?"
-      .control= f.check_box :invite_only, html: { checked: true }
+      .control
+        = f.check_box :invite_only, html: { checked: true }
+        %a#invite-popover.btn.btn-primary{"data-content" => "Protect yourself from spam. Your job only shows to those that you invite to your listing.", "data-original-title" => "Invite Only", html: true, :href => "javascript: void(0);", :rel => "popover"} ?
 
     - unless user_signed_in? && current_user.account
       = f.fields_for :account do |af|
