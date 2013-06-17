@@ -23,4 +23,9 @@ FactoryGirl.define do
     slug "test"
     name "test"
   end
+
+  factory :block do
+    blocker_id 1
+    blocked_id 2
+  end
 end

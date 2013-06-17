@@ -21,5 +21,11 @@ describe Block do
   		it { should validate_numericality_of(attr).only_integer }
   		it { should_not allow_value(0).for(attr) }
   	end
+
+    it "does not allow users to block themselves" do
+      block = Block.new(blocker_id: 1, blocked_id: 1)
+      block.should_not be_valid
+      block.errors[:base].should include "You cannot block yourself."
+    end
   end
 end

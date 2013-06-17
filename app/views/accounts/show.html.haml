@@ -16,7 +16,6 @@
                 %br/
                 Please verify your company now.
 
-
     - if @account.logo.present?
       .logo= image_tag @account.logo.medium.url
     %h1.account_name= @account.name
@@ -25,7 +24,7 @@
       %br/ 
     - if current_user.blocks?(@account.users.first)
       = link_to "Unblock", blocks_path(id: @account.users.first), method: :delete
-    - else
+    - elsif (current_user.account.present? and current_user.account != @account) or !current_user.account.present?
       = link_to "Block", blocks_path(id: @account.users.first), method: :post
 
     %p
@@ -34,7 +33,6 @@
       %br/
       Phone:
       = @account.phone
-
 
     .payment_profiles
       %h2 Payment Profiles
