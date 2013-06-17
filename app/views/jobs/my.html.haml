@@ -13,11 +13,11 @@
 						%li.completed Create Account
 						%li.completed Create First Job Listing
 						%li.incomplete
-							= link_to "Verify Your Company", [:add_seal, :account]
+							= link_to "Verify Your Account", [:add_seal, :account]
 							.small_text
-								You have not verified your company.
-								%br/
-								Please verify your company now.
+								You are not yet a verified employer.
+								%br/ 
+								Please Verify your account now.
 		%table.table
 			%tr
 				%th Position
@@ -36,6 +36,6 @@
 						- if !job.invited? and current_user.account.safe_job_seal?
 							= link_to 'Invite job seekers', invite_job_seekers_to_job_path(job), method: :post, class: "btn btn-success"
 						- elsif !job.invited?
-							%a#invite-popover.btn.btn-success{"data-content" => "#{link_to "Verify your company.", add_seal_account_path} As a verified employer you can invite all relevant job seekers within a 50 mile radius to your job opening.", "data-original-title" => "Invite", :href => "javascript: void(0);", :rel => "popover"} Invite job seekers
+							%a#invite-popover.btn.btn-success{"data-content" => "#{link_to "Verify your account.", add_seal_account_path} As a verified employer you can invite all relevant job seekers within a 50 mile radius to your job opening.", "data-original-title" => "Invite", :href => "javascript: void(0);", :rel => "popover"} Invite job seekers
 
 		%br/

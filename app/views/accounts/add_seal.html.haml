@@ -1,41 +1,44 @@
 .accounts_add_seal
   .white_box
     %h1 Your Job Is Live on WorkCheetah!
-    %h2 The next step is verifying your company...
+    %h2 The next step is verifying your account...
     .options
       .no_thanks_box
         .no_thanks_content
-          .heading No Thanks, I Don't Want To Verify My Company
-          %p= link_to "Don't Verify - Continue", [:my, :jobs]
+          .heading No Thanks, I don't want to be a Verified Employer.
+          - if @account.payment_profiles.any?
+            %p= link_to "CANCEL Verification Process", [:my, :jobs], class: "btn btn-danger"
+          - else
+            %p= link_to "Don't Verify - Continue", [:my, :jobs], class: "btn btn-danger"
       .verify_box
         .verify_content
           .heading
             Verify Your
             %br/
-            Company
+            Account
           %ul
             %li Attract More Candidates
             %li Verifies All Your Job Listings
-            %li Ensure Applicants You're Jobs Are Legitimate
+            %li Access Better Recruitment Tools Available ONLY to Verified Employers
           %p
-            Verifying your company is simple and ensures applicants that your organization is legitimate! You will receive a temporary seal until the verification process is completed. Please see
+            Becoming a Verified Employer on WorkCheetah is simple and easy! You will receive a Verification Seal upon completing the quick process. Please see
             %strong NOTE
             below button BEFORE clicking.
           - if @account.payment_profiles.any?
-            .button= link_to "Verify My Company - $ #{PaymentProfile::SAFE_SEAL_PRICE_IN_DOLLARS}", [:buy_seal, :account], method: :post
+            .button= link_to "Become Verified - $ #{PaymentProfile::SAFE_SEAL_PRICE_IN_DOLLARS}", [:buy_seal, :account], method: :post
             .after_button
               %strong NOTE:
               = "Clicking the above button will charge $ #{PaymentProfile::SAFE_SEAL_PRICE_IN_DOLLARS}"
               %br/
-              to your card
+              to the card on file.
               /  ending in
               / = "XXXX-" + @account.payment_profiles.first.cc_number_preview
-              immediately. Validation comes only from providing legitimate information about your company or organization. Paying the application fee does not guarantee validation with WorkCheetah.
+              Following payment you will immediately receive your seal and be able to access Verified Only recruiting tools on WorkCheetah. To cancel this process please click the Cancel Verification Process button to the left.
           - else
-            .button= link_to "Verify Your Company Now", new_payment_profile_path(product: "seal")
+            .button= link_to "Become A Verified Employer Now", new_payment_profile_path(product: "seal")
             .after_button
-              %strong Start by adding billing details
+              %strong PLEASE READ BELOW
               %p
-                Verifying your account is optional and not required to use WorkCheetah. There is a one-time application fee of $25. Please start the process by adding billing details.
+                Becoming a verified employer is optional and NOT required to use WorkCheetah. However it greatly increases your chances of recruiting better talent. Please start the process by adding billing details to verify your identity. You WILL NOT be charged to begin the verification.
 
       .clearfix
