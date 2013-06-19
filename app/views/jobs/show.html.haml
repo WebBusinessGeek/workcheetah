@@ -26,28 +26,28 @@
         - elsif can? :manage, @job and !@job.invited?
           %a#invite-popover.btn.btn-success{"data-content" => "#{link_to "Verify your company.", add_seal_account_path} As a verified employer you can invite all relevant job seekers within a 50 mile radius to your job opening.", "data-original-title" => "Invite", html: true, :href => "javascript: void(0);", :rel => "popover"} Invite job seekers
 
-        - if !@job.invite_only? or (current_user.account.present? and current_user.account == @job.account)
-          .span8
-            %h3 Job Description
-            - if @job.description
-              %p= @job.description.html_safe
+      - if !@job.invite_only? or (current_user.account.present? and current_user.account == @job.account)
+        .span8
+          %h3 Job Description
+          - if @job.description
+            %p= @job.description.html_safe
 
-            - if @job.about_company.present?
-              %h3 About Company
-              %p= @job.about_company.html_safe
-            = link_to 'Back', "javascript: history.go(-1)"
-          .span8{ style: "width: 22%"}
-            - if current_user
-              - if current_user.has_applied_to?(@job)
-                .applied You've already applied.
-              - elsif current_user.account != @job.account
-                = link_to "Apply", new_job_job_application_path(@job), class: "btn btn-primary btn-large", style: "width: 86%"
-                = link_to "Flag This Job", [:flag, @job], method: :post, style: "width: 100%; margin: 20px auto; display: block; text-align: center;"
-            - else
-              %a#invite-popover.btn.btn-primary.btn-large{"data-content" => "Please build a resume to apply to jobs.", "data-original-title" => "#{link_to "Build a resume", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left", style: "width: 86%;"} Apply
-        - else
-          - if (user_signed_in? and current_user.resume.present? and !current_user.resume.invited_to_job?(@job)) or !user_signed_in?
-            %p
-              This job description is Invite Only. You have to have been invited by the employer in order to see this job listing. To get job invites start by
-              = link_to "building a resume.", new_resume_path
-          
+          - if @job.about_company.present?
+            %h3 About Company
+            %p= @job.about_company.html_safe
+          = link_to 'Back', "javascript: history.go(-1)"
+        .span8{ style: "width: 22%"}
+          - if current_user
+            - if current_user.has_applied_to?(@job)
+              .applied You've already applied.
+            - elsif current_user.account != @job.account
+              = link_to "Apply", new_job_job_application_path(@job), class: "btn btn-primary btn-large", style: "width: 86%"
+              = link_to "Flag This Job", [:flag, @job], method: :post, style: "width: 100%; margin: 20px auto; display: block; text-align: center;"
+          - else
+            %a#invite-popover.btn.btn-primary.btn-large{"data-content" => "Please build a resume to apply to jobs.", "data-original-title" => "#{link_to "Build a resume", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left", style: "width: 86%;"} Apply
+      - else
+        - if (user_signed_in? and current_user.resume.present? and !current_user.resume.invited_to_job?(@job)) or !user_signed_in?
+          .span8
+            This job description is Invite Only. You have to have been invited by the employer in order to see this job listing. To get job invites start by
+            = link_to "building a resume.", new_resume_path
+        
