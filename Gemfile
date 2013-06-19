@@ -7,6 +7,7 @@ gem 'zencoder'
 gem "private_pub"
 gem 'delayed_job_active_record'
 gem "foreman"
+gem "auto_html"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

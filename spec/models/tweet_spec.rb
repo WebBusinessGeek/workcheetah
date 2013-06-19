@@ -7,7 +7,7 @@ describe Tweet do
 
 	describe "Basics" do
 		context "Attributes" do
-			[ :body, :for_accounts, :for_public, :for_resumes ].each do |attr|
+			[ :body, :for_accounts, :for_public, :for_resumes, :subject ].each do |attr|
 				it { should respond_to attr }
 				it { should allow_mass_assignment_of attr }
 			end

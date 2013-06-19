@@ -1,4 +1,10 @@
 module ApplicationHelper
+  include AutoHtml
+
+  def to_auto_html(text)
+    auto_html(text) { simple_format; link(:target => 'blank') }
+  end
+
   def resource_name
     :user
   end

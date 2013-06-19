@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130616141353) do
+ActiveRecord::Schema.define(:version => 20130619204819) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -278,6 +278,7 @@ ActiveRecord::Schema.define(:version => 20130616141353) do
     t.boolean  "for_resumes"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "subject"
   end
 
   create_table "users", :force => true do |t|

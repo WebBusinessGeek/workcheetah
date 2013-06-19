@@ -22,17 +22,17 @@
         = render "shared/header_nav"
         .header{ style: "background: white;" }
           .logo.pull-left= link_to image_tag("logo4-small.png"), root_path
-          / - if user_signed_in? and current_user.account.present?
-          /   - if Tweet.where(for_account: true).order("id DESC").any?
-          /     .pull-right.tweet.alert.alert-info.alert-block
-          /       = Tweet.where(for_account: true).order("id DESC").first.body
-          / - elsif user_signed_in? and current_user.resume.present?
-          /   - if Tweet.where(for_resume: true).order("id DESC").any?
-          / - 
-          - if @tweet_for_user.present?
-            .pull-right.tweet.alert.alert-info.alert-block
-              = @tweet_for_user.body
           .clearfix
+          - if @tweet.present?
+            .alert.alert-info.alert-block{ style: "color: rgb(65, 105, 225); background: none; border: 5px solid black;" }
+              %p
+                %h1 
+                  %p= to_auto_html @tweet.subject
+                  %p= to_auto_html @tweet.body
+              %p{ style: "text-align: right;" }
+                = link_to "Your tweet here", "#"
+            %br/ 
+            %br/ 
       .content
         - if flash.any?
           .flash
