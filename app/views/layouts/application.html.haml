@@ -24,13 +24,13 @@
           .logo.pull-left= link_to image_tag("logo4-small.png"), root_path
           .clearfix
           - if @tweet.present?
-            .alert.alert-info.alert-block{ style: "color: rgb(65, 105, 225); background: none; border: 5px solid black;" }
+            #tweet.alert.alert-info.alert-block{ style: "color: rgb(65, 105, 225); background: none; border: 5px solid black;" }
               %p
-                %h1 
-                  %p= to_auto_html @tweet.subject
-                  %p= to_auto_html @tweet.body
+                %h3
+                  = to_auto_html @tweet.subject
+                  = to_auto_html @tweet.body
               %p{ style: "text-align: right;" }
-                = link_to "Your tweet here", "#"
+                = link_to "Your Voice Here", "#"
             %br/ 
             %br/ 
       .content
