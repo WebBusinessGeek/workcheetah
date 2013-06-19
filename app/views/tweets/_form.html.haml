@@ -1,10 +1,10 @@
 = simple_form_for(@tweet) do |f|
-  = f.error_notification
-  .form-inputs
-  	= f.input :subject, autofocus: true
-    = f.input :body, input_html: { rows: 10 }
-    = f.input :for_accounts
-    = f.input :for_public
-    = f.input :for_resumes
-  .form-actions
-    = f.button :submit, class: "btn"
+	= f.error_notification
+	.form-inputs
+		= f.input :subject, autofocus: true
+		= f.input :body, input_html: { rows: 10 }
+		= f.input :for_accounts
+		= f.input :for_public
+		= f.input :for_resumes
+	.form-actions
+		= f.button :submit, class: "btn"
