@@ -5,6 +5,7 @@ gem 'thin'
 gem 'rmagick'
 gem 'zencoder'
 gem "private_pub"
+gem "delayed_job", '3.0.5'
 gem 'delayed_job_active_record'
 gem "foreman"
 gem "auto_html"
