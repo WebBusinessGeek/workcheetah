@@ -53,7 +53,7 @@ class ConversationsController < ApplicationController
 
 		begin
 			@conversation.participants.each do |participant|
-				NotificationMailer.delay.new_conversation(@conversation, participant.user) if participant.user.email != current_user.email
+				NotificationMailer.new_conversation(@conversation, participant.user).deliver if participant.user.email != current_user.email
 			end
 		rescue Exception => e
 			logger.info "Mails could not be sent after creation of conversation with id #{@conversation.id}"
@@ -81,7 +81,7 @@ class ConversationsController < ApplicationController
 
 			begin
 				@conversation.participants.each do |participant|
-					NotificationMailer.delay.new_conversation(@conversation, participant.user) if participant.user.email != current_user.email
+					NotificationMailer.new_conversation(@conversation, participant.user).deliver if participant.user.email != current_user.email
 				end
 			rescue Exception => e
 				logger.info "Mails could not be sent after update of conversation with id #{@conversation.id}"
@@ -103,7 +103,7 @@ class ConversationsController < ApplicationController
 				conversation_item.sender = current_user
 				conversation_item.save
 
-				NotificationMailer.delay.new_conversation(conversation, user)
+				NotificationMailer.new_conversation(conversation, user).deliver
 			end
 		end
 

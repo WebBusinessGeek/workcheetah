@@ -127,10 +127,10 @@ class JobsController < ApplicationController
       if @job.save
         if current_user
           if current_user.moderator?
-            NotificationMailer.delay.new_claimable_job(@job)
+            NotificationMailer.new_claimable_job(@job).deliver
           end
         else
-          NotificationMailer.delay.new_job(@job)
+          NotificationMailer.new_job(@job).deliver
         end
 
         sign_in @job.account.users.first unless user_signed_in?
@@ -183,7 +183,7 @@ class JobsController < ApplicationController
 
   def flag
     @job = Job.find(params[:id])
-    JobMailer.delay.job_flagged(@job, request.remote_ip, (user_signed_in? ? current_user : nil))
+    JobMailer.job_flagged(@job, request.remote_ip, (user_signed_in? ? current_user : nil)).deliver
     redirect_to request.referer, notice: "The job has been flagged. We'll take a look into this ASAP."
   end
 
@@ -238,7 +238,7 @@ class JobsController < ApplicationController
     end
 
     # Send out invites (all in bcc so that it only has to send one email)
-    NotificationMailer.delay.new_job_invite(@job, resumes)
+    NotificationMailer.new_job_invite(@job, resumes).deliver
 
     # Set job to invited so that no invitations can be sent out again for that job (handled in ability.rb)
     @job.update_attribute(:invited, true)

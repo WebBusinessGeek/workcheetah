@@ -4,7 +4,7 @@ class PagesController < ApplicationController
       name = params[:name]
       email = params[:email]
       message = params[:message]
-      ContactFormMailer.delay.submit_contact_form(name, email, message)
+      ContactFormMailer.submit_contact_form(name, email, message).deliver
       @sent_email = true
     end
   end
