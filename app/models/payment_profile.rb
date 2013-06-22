@@ -12,8 +12,8 @@ class PaymentProfile < ActiveRecord::Base
 
   before_create :get_stripe_customer_token
 
-  SAFE_SEAL_PRICE = 2500
-  SAFE_SEAL_PRICE_IN_DOLLARS = 25
+  SAFE_SEAL_PRICE = 1000
+  SAFE_SEAL_PRICE_IN_DOLLARS = SAFE_SEAL_PRICE / 100
 
   # private
 
