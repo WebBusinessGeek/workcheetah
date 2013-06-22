@@ -85,10 +85,10 @@ video-camera.jpg: video-camera-1a9301d0ae1e189576bc238faeec4f6e.jpg
 video-camera/index.jpg: video-camera-1a9301d0ae1e189576bc238faeec4f6e.jpg
 video-player.jpg: video-player-6ef72d1ee0bb3b60596501ff4986c52e.jpg
 video-player/index.jpg: video-player-6ef72d1ee0bb3b60596501ff4986c52e.jpg
-application.js: application-31583b089dfcc4788536645aebe63058.js
-application/index.js: application-31583b089dfcc4788536645aebe63058.js
-application.css: application-16826bdddf04b0de40809364c21c8bcc.css
-application/index.css: application-16826bdddf04b0de40809364c21c8bcc.css
+application.js: application-f39afd4279e9a47f96fc44b5a7b9ef85.js
+application/index.js: application-f39afd4279e9a47f96fc44b5a7b9ef85.js
+application.css: application-00faf629742a2420602d8e336bf2fdc5.css
+application/index.css: application-00faf629742a2420602d8e336bf2fdc5.css
 tinymce.js: tinymce-025f3a2beeeb18ce2b5f2dafdb14eb86.js
 tinymce/index.js: tinymce-025f3a2beeeb18ce2b5f2dafdb14eb86.js
 tinymce/license.txt: tinymce/license-6b8dfd9d628576a414268f9be344eb0a.txt

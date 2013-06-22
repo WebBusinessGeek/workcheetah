@@ -1,6 +1,14 @@
 @import "jquery.ui.all";
 @import "bootstrap";
 @import "bootstrap-responsive";
+
+// Override bootstrap
+.alert-info {
+	background-color: white !important;
+	border-color: white;
+	color: black;
+}
+
 @import 'font-awesome';
 @import "style";
 @import "jobs";
