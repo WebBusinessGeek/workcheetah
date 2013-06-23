@@ -29,6 +29,13 @@
           - else
             %a#invite-popover.btn.btn-success{"data-content" => "#{link_to "Verify your account.", add_seal_account_path} As a verified employer you can invite all relevant job seekers within a 50 mile radius to your job opening.", "data-original-title" => "Invite", :href => "javascript: void(0);", :rel => "popover"} Invite job seekers
 
+        - if current_user and current_user.account and current_user.account = @job.account and @job.invite_only?
+          %p
+            You selected Invite Only for your job posting. Only job seekers you
+            = link_to "invite", my_jobs_path
+            can see the job description. To remove the Invite Only option or to edit your description you can view your listing
+            = link_to "here", edit_job_path(@job)
+
       - if !@job.invite_only? or (current_user and current_user.account.present? and current_user.account == @job.account)
         .span8
           %h3 Job Description
