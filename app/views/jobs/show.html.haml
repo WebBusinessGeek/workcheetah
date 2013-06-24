@@ -21,7 +21,7 @@
         - if can? :manage, @job
           = link_to 'Edit Job', edit_job_path(@job), class: "btn"
           = link_to 'Deactivate Job', job_path(@job), method: :delete, class: "btn btn-danger"
-          - if current_user.account.safe_job_seal?
+          - if current_user.account.present? and current_user.account.safe_job_seal?
             - if !@job.invited?
               = link_to 'Invite job seekers', invite_job_seekers_to_job_path(@job), method: :post, class: "btn btn-success"
             - else
