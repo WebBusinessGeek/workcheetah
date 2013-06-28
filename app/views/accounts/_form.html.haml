@@ -1,5 +1,6 @@
-= form_for @account do |f|
+= simple_form_for @account do |f|
   .field
     = f.label :name, "Company name"
     = f.text_field :name
+    = f.input :role, collection: Account::ROLE_OPTIONS, include_blank: false
   = f.submit class: "btn"

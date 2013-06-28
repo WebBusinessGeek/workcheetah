@@ -13,7 +13,7 @@ describe Account do
 
 	describe "Basics" do
 		context "Attributes" do
-			["id", "name", "website", "phone", "created_at", "updated_at", "credits", "logo", "slug", "safe_job_seal", "active"].each do |attr|
+			[ "name", "website", "phone", "created_at", "updated_at", "credits", "logo", "slug", "safe_job_seal", "active", :role ].each do |attr|
 				it { should respond_to attr }
 			end
 		end
@@ -29,8 +29,12 @@ describe Account do
 		before { FactoryGirl.create(:account) }
 		it { should validate_uniqueness_of :slug }
 
+		context "Inclusion" do
+			it { should ensure_inclusion_of(:role).in_array([ "Hiring Manager", "CEO", "Business Owner", "Human Resource Manager", "Entrepreneur", "General Manager", "Independent Distributor", "Marketing Manager", "Sales Manager", "District Manager", "Regional Manager", "Account Executive", "Vice President", "President", "Director", "Partner" ]) }
+		end
+
 		context "Presence" do
-			[ :name, :slug ].each do |attr|
+			[ :name, :role, :slug ].each do |attr|
 				it { should validate_presence_of attr }
 			end
 		end

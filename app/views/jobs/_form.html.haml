@@ -1,4 +1,4 @@
-= form_for(@job, html: { class: "form-vertical"}) do |f|
+= simple_form_for(@job, html: { class: "form-vertical"}) do |f|
   = tinymce :theme => "simple", :plugins => ["inlinepopups", "paste"]
   - if @job.errors.any?
     .errors
@@ -44,6 +44,11 @@
         .control-group
           = af.label :name, "Company name"
           .control= af.text_field :name, placeholder: "ABC Company"
+        .control-group
+          = af.label :role, "Which describes your role best?"
+          / # .control= af.collection_select :role, Account::ROLE_OPTIONS, :id, { include_blank: false }
+          .control= af.input :role, collection: Account::ROLE_OPTIONS, include_blank: false
+          / f.collection_select(:category2_id, Category.scoped, :id, :name, :prompt => true)
         .control-group
           = af.label :website, "Company website"
           .control= af.text_field :website, class: "website", placeholder: "http://www.yourdomain.com"

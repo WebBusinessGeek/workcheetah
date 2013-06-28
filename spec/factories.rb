@@ -22,6 +22,7 @@ FactoryGirl.define do
   factory :account do
     slug "test"
     name "test"
+    role "CEO"
   end
 
   factory :block do

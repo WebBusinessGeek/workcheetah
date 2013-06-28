@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130623101049) do
+ActiveRecord::Schema.define(:version => 20130628085253) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20130623101049) do
     t.string   "slug"
     t.boolean  "safe_job_seal", :default => false
     t.boolean  "active",        :default => true
+    t.string   "role"
   end
 
   create_table "addresses", :force => true do |t|

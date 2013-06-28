@@ -35,7 +35,9 @@ describe ValidationRequest do
 		end
 
 		context "Format" do
-			it { should validate_format_of(:ein).with(/\d{2}-\d{7}/) }
+			# it { should validate_format_of(:ein).with(/\d{2}-\d{7}/) }
+			it { should allow_value("12-1234567").for(:ein) }
+			it { should_not allow_value("mystring").for(:ein) }
 			it { should allow_value(nil).for(:ein) }
 			it { should_not allow_value("this is not an email address").for(:contact_email) }
 			it { should allow_value("test@test.com").for(:contact_email) }

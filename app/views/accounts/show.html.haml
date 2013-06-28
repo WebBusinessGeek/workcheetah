@@ -33,6 +33,13 @@
       %br/
       Phone:
       = @account.phone
+      %br/ 
+      Role:
+      - if @account.role.present?
+        = @account.role
+      - else
+        = link_to "Please specify your role", edit_account_path(@account)
+
 
     .payment_profiles
       %h2 Payment Profiles
