@@ -17,6 +17,15 @@
       <meta name="norton-safeweb-site-verification" content="fzfm6lkgip0n2y51ih1ogqx197azlcrnbf0yorqhkbffncxzbchos0rbt8y3hbf-cmrq279msj9jm66hcgvu4ycrtgdur8ttvnxvsu496x4kk49jkoi4nuo4ax93uk-o" />
     = csrf_meta_tags
   %body
+    #fb-root
+    :javascript
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
     .container
       .header_box
         = render "shared/header_nav", portal: true
