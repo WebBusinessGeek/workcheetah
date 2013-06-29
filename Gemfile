@@ -47,6 +47,7 @@ gem 'aws-sdk'
 # gem 'rmagick'
 gem "geocoder"
 gem "unicorn"
+gem "paperclip", "~> 3.0"
 
 group :test do
   gem "factory_girl_rails"

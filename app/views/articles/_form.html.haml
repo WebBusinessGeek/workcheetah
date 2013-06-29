@@ -1,4 +1,4 @@
-= form_for @article do |f|
+= simple_form_for @article do |f|
   = tinymce
   .control-group
     = f.label :title
@@ -10,4 +10,6 @@
     = f.label :slug
     http://www.workcheetah.com/articles/
     = f.text_field :slug
+  .control-grpoup
+    = f.input :cover
   .action= f.submit class: "btn btn-large btn-success"

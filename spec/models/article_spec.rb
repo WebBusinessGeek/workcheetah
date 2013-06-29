@@ -7,7 +7,7 @@ describe Article do
 
 	describe "Basics" do
 		context "Attributes" do
-			[ :body, :slug, :title ].each do |attr|
+			[ :body, :cover, :slug, :title ].each do |attr|
 				it { should respond_to attr }
 				it { should allow_mass_assignment_of attr }
 			end
@@ -19,6 +19,8 @@ describe Article do
 	end
 
 	describe "Validations" do
-		
+		describe "Attachments" do
+			it { should validate_attachment_content_type(:cover).allowing('image/png', 'image/jpg', 'image/jpeg') }
+		end
 	end
 end

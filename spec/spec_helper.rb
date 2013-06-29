@@ -9,6 +9,9 @@ Capybara.javascript_driver = :webkit
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+# Paperclip (more inside config block)
+require "paperclip/matchers"
+
 # Cancan
 require "cancan/matchers"
 
@@ -29,4 +32,7 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  # Paperclip
+  config.include Paperclip::Shoulda::Matchers
 end

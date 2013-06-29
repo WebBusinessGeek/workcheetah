@@ -1,10 +1,12 @@
 .articles_show
-  .white_box
-    .breadcrumbs
-      = link_to "All Articles", articles_path
+	.white_box
+		.breadcrumbs
+			= link_to "All Articles", articles_path
 
-    .pull-right
-      - if user_signed_in? && current_user.admin?
-        = link_to "Edit Article", [:edit, @article], class: "btn"
-    %h1= @article.title
-    = @article.body.html_safe
+		.pull-right
+			- if user_signed_in? && current_user.admin?
+				= link_to "Edit Article", [:edit, @article], class: "btn"
+		%h1= @article.title
+		.article-cover
+			= image_tag @article.cover.url(:landscape) if @article.cover.present?
+		= @article.body.html_safe
