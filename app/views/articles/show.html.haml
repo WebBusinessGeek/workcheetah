@@ -25,6 +25,7 @@
 			- if user_signed_in? && current_user.admin?
 				= link_to "Edit Article", [:edit, @article], class: "btn"
 		%h1= @article.title
+		%h2= @article.subtitle
 		.article-cover{style: "margin-bottom: 20px; text-align: center;"}
 			= image_tag @article.cover.url(:landscape) if @article.cover.present?
 		= @article.body.html_safe
