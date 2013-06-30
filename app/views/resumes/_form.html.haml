@@ -3,50 +3,69 @@
     - @resume.errors.full_messages.each do |msg|
       %li.error= msg
 
-= form_for @resume do |f|
+= simple_form_for @resume do |f|
+  = f.error_notification
+
   - unless user_signed_in?
     %h3 Account Details
     = f.fields_for :user do |uf|
-      .control-group
-        = uf.label :email do
-          Email
-          %span.explanation (used to login)
+      / .control-group
+      /   = uf.label :email do
+      /     Email
+      /     %span.explanation (used to login)
 
-        .control= uf.email_field :email
-      .control-group
-        = uf.label :password
-        .control= uf.password_field :password
-      .control-group
-        = uf.label :password_confirmation
-        .control= uf.password_field :password_confirmation
-      .checkbox
-        = uf.check_box :terms_of_service
-        = uf.label :terms_of_service, raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}")
+      /   .control= uf.email_field :email
+
+      = uf.input :email, label: "Email (used to log in)", required: :true
+      / .control-group
+      /   = uf.label :password
+      /   .control= uf.password_field :password
+      = uf.input :password, required: :true
+      / .control-group
+      /   = uf.label :password_confirmation
+      /   .control= uf.password_field :password_confirmation
+      = uf.input :password_confirmation, required: :true
+      / .checkbox
+      /   = uf.check_box :terms_of_service
+      /   = uf.label :terms_of_service, raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}")
+      = uf.input :terms_of_service, as: :boolean, label: raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}"), required: :true
   %h3 Contact Details
   %p You choose what information you want to share with employers.
   .row
     .span5
-      = f.label :name, "Full name"
-      = f.text_field :name, style: "width: 100%"
-      = f.label :phone, "Phone (This number is the number shown to employers who want to contact you)"
-      = f.text_field :phone, style: "width: 100%", class: "phone"
-      = f.label :email do
-        Email
-        %span.explanation (professional email if different)
-      = f.email_field :email, style: "width: 100%"
-      = f.label :website
-      = f.text_field :website, style: "width: 100%", class: "website"
-      = f.label :twitter
-      = f.text_field :twitter, style: "width: 100%", class: "twitter"
-      = f.label :status, "Current Employment Status"
-      = f.select :status, options_for_select([ "Employed", "Unemployed", "Expecting Layoff" ]), { include_blank: true }
+      / = f.label :name, "Full name"
+      / = f.text_field :name, style: "width: 100%"
+      = f.input :name, label: "Full name", input_html: { style: "width: 100%;" }
+      / = f.label :phone, "Phone (This number is the number shown to employers who want to contact you)"
+      / = f.text_field :phone, style: "width: 100%", class: "phone"
+      = f.input :phone, label: "Phone (This number is the number shown to employers who want to contact you)", input_html: { style: "width: 100%", class: "phone" }
+      / = f.label :email do
+      /   Email
+      /   %span.explanation (professional email if different)
+      / = f.email_field :email, style: "width: 100%"
+      = f.input :email, label: false, label: "Email (professional email if different)", input_html: { style: "width: 100%;" }
+      / = f.label :website
+      / = f.text_field :website, style: "width: 100%", class: "website"
+      = f.input :website, input_html: { style: "width: 100%;", class: "website" }
+      / = f.label :twitter
+      / = f.text_field :twitter, style: "width: 100%", class: "twitter"
+      = f.input :twitter, input_html: { style: "width: 100%;", class: "twitter" }
+      / = f.label :status, "Current Employment Status"
+      / = f.select :status, options_for_select([ "Employed", "Unemployed", "Expecting Layoff" ]), { include_blank: true }
+      = f.input :status, collection: [ "Employed", "Unemployed", "Expecting Layoff" ], prompt: true
       %h4 What Types Of Jobs Are You Looking For?
+      / = f.label :category1, "Preference 1:"
+      / = f.collection_select(:category1_id, Category.all, :id, :name, :prompt => true)
       = f.label :category1, "Preference 1:"
-      = f.collection_select(:category1_id, Category.all, :id, :name, :prompt => true)
-      = f.label :category1, "Preference 2:"
-      = f.collection_select(:category2_id, Category.all, :id, :name, :prompt => true)
-      = f.label :category1, "Preference 3:"
-      = f.collection_select(:category3_id, Category.all, :id, :name, :prompt => true)
+      = f.collection_select(:category1_id, Category.all, :id, :name, prompt: true)
+      / = f.label :category1, "Preference 2:"
+      / = f.collection_select(:category2_id, Category.all, :id, :name, :prompt => true)
+      = f.label :category2, "Preference 2:"
+      = f.collection_select(:category2_id, Category.all, :id, :name, prompt: true)
+      / = f.label :category1, "Preference 3:"
+      / = f.collection_select(:category3_id, Category.all, :id, :name, :prompt => true)
+      = f.label :category3, "Preference 3:"
+      = f.collection_select(:category3_id, Category.all, :id, :name, prompt: true)
     .span6
       = f.fields_for :addresses do |af|
         = render "address_fields", f: af
