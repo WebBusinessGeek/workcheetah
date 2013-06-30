@@ -23,12 +23,12 @@
         = uf.check_box :terms_of_service
         = uf.label :terms_of_service, raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}")
   %h3 Contact Details
-  %p Info will only be shared with employers who are interested in recruiting you.
+  %p You choose what information you want to share with employers.
   .row
     .span5
       = f.label :name, "Full name"
       = f.text_field :name, style: "width: 100%"
-      = f.label :phone, "Phone (This is the number given to employers who want to contact you, please use a valid phone number)"
+      = f.label :phone, "Phone (This number is the number shown to employers who want to contact you)"
       = f.text_field :phone, style: "width: 100%", class: "phone"
       = f.label :email do
         Email
