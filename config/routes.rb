@@ -1,4 +1,8 @@
 CareerLoop::Application.routes.draw do
+  namespace :advertisers do
+    root to: "dashboard#home"
+  end
+
   resources :blocks, only: [ :create ] do
     collection do
       delete :destroy

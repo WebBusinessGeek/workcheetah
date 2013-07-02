@@ -54,4 +54,8 @@ class ApplicationController < ActionController::Base
   def authorize_moderator!
     return redirect_to root_path, notice: "You're not authorized to view this page." unless user_signed_in? && current_user.moderator?
   end
+
+  def authorize_advertiser!
+    return redirect_to root_path, notice: "You're not authorized to view this page." unless user_signed_in? && current_user.advertiser?
+  end
 end
