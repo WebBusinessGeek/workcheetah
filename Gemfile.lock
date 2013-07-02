@@ -211,6 +211,8 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.3.1)
+    pry-rails (0.3.1)
+      pry (>= 0.9.10)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -248,7 +250,7 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rinku (1.5.1)
-    rmagick (2.13.1)
+    rmagick (2.13.2)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -374,6 +376,8 @@ DEPENDENCIES
   paperclip (~> 3.0)
   pg
   private_pub
+  pry
+  pry-rails
   rack-mini-profiler
   railroady
   rails (= 3.2.13)
