@@ -22,7 +22,7 @@
 
 # Ignore application configuration
 /config/application.yml
-
+config/database.yml
 # Ignore keys
 y
 y.pub
