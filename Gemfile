@@ -48,6 +48,9 @@ gem 'aws-sdk'
 gem "geocoder"
 gem "unicorn"
 gem "paperclip", "~> 3.0"
+# So we get pry goodness on heroku
+gem 'pry-rails'
+gem 'pry'
 
 group :test do
   gem "factory_girl_rails"
