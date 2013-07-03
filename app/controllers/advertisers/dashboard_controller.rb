@@ -6,7 +6,7 @@ class Advertisers::DashboardController < Advertisers::BaseController
   end
 
   def sign_up
-  	resource = User.new(advertiser: true)
+    resource = User.new(advertiser: true)
     respond_with resource
   end
 end

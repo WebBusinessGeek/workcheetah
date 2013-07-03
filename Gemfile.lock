@@ -380,10 +380,7 @@ DEPENDENCIES
   private_pub
   pry
   pry-rails
-<<<<<<< HEAD
   quiet_assets
-=======
->>>>>>> Added Advertiser role to Users, and default dashboard path
   rack-mini-profiler
   railroady
   rails (= 3.2.13)
