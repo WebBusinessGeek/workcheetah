@@ -29,124 +29,143 @@
       /   = uf.check_box :terms_of_service
       /   = uf.label :terms_of_service, raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}")
       = uf.input :terms_of_service, as: :boolean, label: raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}"), required: :true
-  %h3 Contact Details
-  %p You choose what information you want to share with employers.
-  .row
-    .span5
-      / = f.label :name, "Full name"
-      / = f.text_field :name, style: "width: 100%"
-      = f.input :name, label: "Full name", input_html: { style: "width: 100%;" }
-      / = f.label :phone, "Phone (This number is the number shown to employers who want to contact you)"
-      / = f.text_field :phone, style: "width: 100%", class: "phone"
-      = f.input :phone, label: "Phone (This number is the number shown to employers who want to contact you)", input_html: { style: "width: 100%", class: "phone" }
-      / = f.label :email do
-      /   Email
-      /   %span.explanation (professional email if different)
-      / = f.email_field :email, style: "width: 100%"
-      = f.input :email, label: false, label: "Email (professional email if different)", input_html: { style: "width: 100%;" }
-      / = f.label :website
-      / = f.text_field :website, style: "width: 100%", class: "website"
-      = f.input :website, input_html: { style: "width: 100%;", class: "website" }
-      / = f.label :twitter
-      / = f.text_field :twitter, style: "width: 100%", class: "twitter"
-      = f.input :twitter, input_html: { style: "width: 100%;", class: "twitter" }
-      / = f.label :status, "Current Employment Status"
-      / = f.select :status, options_for_select([ "Employed", "Unemployed", "Expecting Layoff" ]), { include_blank: true }
-      = f.input :status, collection: [ "Employed", "Unemployed", "Expecting Layoff" ], prompt: true
-      %h4 What Types Of Jobs Are You Looking For?
-      / = f.label :category1, "Preference 1:"
-      / = f.collection_select(:category1_id, Category.all, :id, :name, :prompt => true)
-      = f.label :category1, "Preference 1:"
-      = f.collection_select(:category1_id, Category.all, :id, :name, prompt: true)
-      / = f.label :category1, "Preference 2:"
-      / = f.collection_select(:category2_id, Category.all, :id, :name, :prompt => true)
-      = f.label :category2, "Preference 2:"
-      = f.collection_select(:category2_id, Category.all, :id, :name, prompt: true)
-      / = f.label :category1, "Preference 3:"
-      / = f.collection_select(:category3_id, Category.all, :id, :name, :prompt => true)
-      = f.label :category3, "Preference 3:"
-      = f.collection_select(:category3_id, Category.all, :id, :name, prompt: true)
-    .span6
-      = f.fields_for :addresses do |af|
-        = render "address_fields", f: af
 
-  .hidden
-    %h2 What's Important To You?
-    .question
-      = f.label :growth_importance, "Growth potential: ", class: "radio inline", style: "width: 150px;"
-      = f.label :growth_importance_0, class: "radio inline", style: "width: 150px" do
-        = f.radio_button :growth_importance, "0"
-        Not Important
+  #contact-details{ class: !user_signed_in? ? "hidden" : "" }
+    %h3 Contact Details
+    %p You choose what information you want to share with employers.
+    .row
+      .span5
+        / = f.label :name, "Full name"
+        / = f.text_field :name, style: "width: 100%"
+        = f.input :name, label: "Full name", input_html: { style: "width: 100%;" }
+        / = f.label :phone, "Phone (This number is the number shown to employers who want to contact you)"
+        / = f.text_field :phone, style: "width: 100%", class: "phone"
+        = f.input :phone, label: "Phone (This number is the number shown to employers who want to contact you)", input_html: { style: "width: 100%", class: "phone" }
+        / = f.label :email do
+        /   Email
+        /   %span.explanation (professional email if different)
+        / = f.email_field :email, style: "width: 100%"
+        = f.input :email, label: false, label: "Email (professional email if different)", input_html: { style: "width: 100%;" }
+        / = f.label :website
+        / = f.text_field :website, style: "width: 100%", class: "website"
+        = f.input :website, input_html: { style: "width: 100%;", class: "website" }
+        / = f.label :twitter
+        / = f.text_field :twitter, style: "width: 100%", class: "twitter"
+        = f.input :twitter, input_html: { style: "width: 100%;", class: "twitter" }
+        / = f.label :status, "Current Employment Status"
+        / = f.select :status, options_for_select([ "Employed", "Unemployed", "Expecting Layoff" ]), { include_blank: true }
+        = f.input :status, collection: [ "Employed", "Unemployed", "Expecting Layoff" ], prompt: true
 
-
-      = f.label :growth_importance_5, class: "radio inline", style: "width: 150px" do
-        = f.radio_button :growth_importance, "5"
-        Important
-
-      = f.label :growth_importance_10, class: "radio inline", style: "width: 150px" do
-        = f.radio_button :growth_importance, "10"
-        Very Important
-
-    .question
-      = f.label :distance_importance, "Close to home: ", class: "radio inline", style: "width: 150px;"
-      = f.label :distance_importance_0, class: "radio inline", style: "width: 150px" do
-        = f.radio_button :distance_importance, "0"
-        Not Important
+  #rest.hidden
+    .row
+      .span5
+        %h4 What Types Of Jobs Are You Looking For?
+        / = f.label :category1, "Preference 1:"
+        / = f.collection_select(:category1_id, Category.all, :id, :name, :prompt => true)
+        = f.label :category1, "Preference 1:"
+        = f.collection_select(:category1_id, Category.all, :id, :name, prompt: true)
+        / = f.label :category1, "Preference 2:"
+        / = f.collection_select(:category2_id, Category.all, :id, :name, :prompt => true)
+        = f.label :category2, "Preference 2:"
+        = f.collection_select(:category2_id, Category.all, :id, :name, prompt: true)
+        / = f.label :category1, "Preference 3:"
+        / = f.collection_select(:category3_id, Category.all, :id, :name, :prompt => true)
+        = f.label :category3, "Preference 3:"
+        = f.collection_select(:category3_id, Category.all, :id, :name, prompt: true)
+      .span6
+        = f.fields_for :addresses do |af|
+          = render "address_fields", f: af
+    .hidden
+      %h2 What's Important To You?
+      .question
+        = f.label :growth_importance, "Growth potential: ", class: "radio inline", style: "width: 150px;"
+        = f.label :growth_importance_0, class: "radio inline", style: "width: 150px" do
+          = f.radio_button :growth_importance, "0"
+          Not Important
 
 
-      = f.label :distance_importance_5, class: "radio inline", style: "width: 150px" do
-        = f.radio_button :distance_importance, "5"
-        Important
+        = f.label :growth_importance_5, class: "radio inline", style: "width: 150px" do
+          = f.radio_button :growth_importance, "5"
+          Important
 
-      = f.label :distance_importance_10, class: "radio inline", style: "width: 150px" do
-        = f.radio_button :distance_importance, "10"
-        Very Important
+        = f.label :growth_importance_10, class: "radio inline", style: "width: 150px" do
+          = f.radio_button :growth_importance, "10"
+          Very Important
 
-    .question
-      = f.label :freedom_importance, "Freedom: ", class: "radio inline", style: "width: 150px;"
-      = f.label :freedom_importance_0, class: "radio inline", style: "width: 150px" do
-        = f.radio_button :freedom_importance, "0"
-        Not Important
-
-
-      = f.label :freedom_importance_5, class: "radio inline", style: "width: 150px" do
-        = f.radio_button :freedom_importance, "5"
-        Important
-
-      = f.label :freedom_importance_10, class: "radio inline", style: "width: 150px" do
-        = f.radio_button :freedom_importance, "10"
-        Very Important
-
-    .question
-      = f.label :pay_importance, "Pay structure: ", class: "radio inline", style: "width: 150px;"
-      = f.label :pay_importance_0, class: "radio inline", style: "width: 150px" do
-        = f.radio_button :pay_importance, "0"
-        Not Important
+      .question
+        = f.label :distance_importance, "Close to home: ", class: "radio inline", style: "width: 150px;"
+        = f.label :distance_importance_0, class: "radio inline", style: "width: 150px" do
+          = f.radio_button :distance_importance, "0"
+          Not Important
 
 
-      = f.label :pay_importance_5, class: "radio inline", style: "width: 150px" do
-        = f.radio_button :pay_importance, "5"
-        Important
+        = f.label :distance_importance_5, class: "radio inline", style: "width: 150px" do
+          = f.radio_button :distance_importance, "5"
+          Important
 
-      = f.label :pay_importance_10, class: "radio inline", style: "width: 150px" do
-        = f.radio_button :pay_importance, "10"
-        Very Important
+        = f.label :distance_importance_10, class: "radio inline", style: "width: 150px" do
+          = f.radio_button :distance_importance, "10"
+          Very Important
 
-  .schools
-    %h2 Education
-    = f.fields_for :schools do |sf|
-      = render "school_fields", f: sf
-    = link_to_add_fields "Add Education", f, :schools
+      .question
+        = f.label :freedom_importance, "Freedom: ", class: "radio inline", style: "width: 150px;"
+        = f.label :freedom_importance_0, class: "radio inline", style: "width: 150px" do
+          = f.radio_button :freedom_importance, "0"
+          Not Important
 
-  .experiences
-    %h2 Experience
-    = f.fields_for :experiences do |pf|
-      = render "experience_fields", f: pf
-    = link_to_add_fields "Add Experience", f, :experiences
 
-  .references
-    %h2 References
-    = f.fields_for :references do |rf|
-      = render "reference_fields", f: rf
-    = link_to_add_fields "Add Reference", f, :references
-  = f.submit((f.object.new_record? ? "Create Resume" : "Update Resume" ), class: "btn btn-success")
+        = f.label :freedom_importance_5, class: "radio inline", style: "width: 150px" do
+          = f.radio_button :freedom_importance, "5"
+          Important
+
+        = f.label :freedom_importance_10, class: "radio inline", style: "width: 150px" do
+          = f.radio_button :freedom_importance, "10"
+          Very Important
+
+      .question
+        = f.label :pay_importance, "Pay structure: ", class: "radio inline", style: "width: 150px;"
+        = f.label :pay_importance_0, class: "radio inline", style: "width: 150px" do
+          = f.radio_button :pay_importance, "0"
+          Not Important
+
+
+        = f.label :pay_importance_5, class: "radio inline", style: "width: 150px" do
+          = f.radio_button :pay_importance, "5"
+          Important
+
+        = f.label :pay_importance_10, class: "radio inline", style: "width: 150px" do
+          = f.radio_button :pay_importance, "10"
+          Very Important
+
+    .schools
+      %h2 Education
+      = f.fields_for :schools do |sf|
+        = render "school_fields", f: sf
+      = link_to_add_fields "Add Education", f, :schools
+
+    .experiences
+      %h2 Experience
+      = f.fields_for :experiences do |pf|
+        = render "experience_fields", f: pf
+      = link_to_add_fields "Add Experience", f, :experiences
+
+    .references
+      %h2 References
+      = f.fields_for :references do |rf|
+        = render "reference_fields", f: rf
+      = link_to_add_fields "Add Reference", f, :references
+    = f.submit((f.object.new_record? ? "Create Resume" : "Update Resume" ), class: "btn btn-success")
+
+:javascript
+  // $('#resume_user_attributes_terms_of_service').mousedown(function() {
+  //   if (!$(this).is(':checked')) {
+  //     $('#contact-details').show(200).css('visibility', 'visible');
+  //   }
+  // });
+  $('#resume_user_attributes_terms_of_service').change(function(){
+    $('#contact-details').show(200).css('visibility', 'visible');
+  });
+
+  $('#resume_status').change(function(){
+    $('#rest').show(200).css('visibility', 'visible');
+  });
