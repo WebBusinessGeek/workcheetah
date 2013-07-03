@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :scam_reports, dependent: :destroy
   has_one :resume, dependent: :destroy
   belongs_to :account
+  belongs_to :advertiser_account, inverse_of: :advertiser, foreign_key: "account_id"
   has_many :requested_video_chats, class_name: "VideoChat", foreign_key: :requester_id, dependent: :destroy
   has_many :received_video_chats, class_name: "VideoChat", foreign_key: :recipient_id, dependent: :destroy
   has_many :video_chat_messages, foreign_key: :sender_id, dependent: :destroy
@@ -21,6 +22,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   validates :terms_of_service, acceptance: true
+  after_create :build_advertiser_account
 
   def blocks? user
     self.blocks.where(blocked_id: user).any?
@@ -45,4 +47,9 @@ class User < ActiveRecord::Base
       self.resume.update_attribute(:name, name)
     end
   end
+
+  private
+    def build_advertiser_account
+      create_advertiser_account! if advertiser?
+    end
 end
