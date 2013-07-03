@@ -7,7 +7,7 @@ describe Article do
 
 	describe "Basics" do
 		context "Attributes" do
-			[ :body, :cover, :slug, :subtitle, :title ].each do |attr|
+			[ :body, :cover, :slug, :subtitle, :title, :view_count ].each do |attr|
 				it { should respond_to attr }
 				it { should allow_mass_assignment_of attr }
 			end

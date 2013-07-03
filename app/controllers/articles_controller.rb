@@ -7,6 +7,12 @@ class ArticlesController < ApplicationController
 
   def show
     load_article
+    session[:viewed_articles] ||= []
+    if !session[:viewed_articles].include? @article.id
+      @article.view_count += 1
+      @article.save
+      session[:viewed_articles] << @article.id
+    end
   end
 
   def new
