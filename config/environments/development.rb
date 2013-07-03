@@ -34,4 +34,13 @@ CareerLoop::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => 'Workcheetah',
+      :access_key_id => 'AKIAJMAFP7FPMMGMEOVA',
+      :secret_access_key => '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'
+    }
+  }
 end
