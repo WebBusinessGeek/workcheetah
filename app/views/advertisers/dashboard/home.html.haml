@@ -1,0 +1,11 @@
+
+.container
+  .row
+    .span2
+      %ul.nav.nav-pills.nav-stacked
+        %li
+          = link_to "home", advertisers_advertisers_path
+        %li
+          = link_to "manage my account", edit_advertisers_account_path(current_user.advertiser_account)
+    .span10
+      content
