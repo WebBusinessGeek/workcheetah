@@ -79,6 +79,8 @@ module ApplicationHelper
       true
     elsif user.moderator?
       false
+    elsif user.advertiser?
+      false
     elsif user.account.nil?
       true
     end 
@@ -90,6 +92,8 @@ module ApplicationHelper
       true
     elsif user.moderator?
       false
+    elsif user.advertiser?
+      false
     elsif user.admin?
       true
     elsif user.resume.nil?
@@ -98,4 +102,12 @@ module ApplicationHelper
       false
     end
   end
+
+  def nav_link_to(link_text, link_path)
+    class_name = current_page?(link_path) ? 'active' : ''
+
+    content_tag(:li, :class => class_name) do
+      link_to link_text, link_path
+  end
+end
 end
