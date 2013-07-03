@@ -1,0 +1,4 @@
+%ul.nav.nav-pills.nav-stacked
+    = nav_link_to "home", advertisers_advertisers_path
+    = nav_link_to "campaigns", advertisers_campaigns_path
+    = nav_link_to "manage my account", edit_advertisers_account_path(current_user.advertiser_account)

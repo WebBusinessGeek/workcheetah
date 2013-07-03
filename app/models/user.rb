@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   validates :terms_of_service, acceptance: true
-  after_create :build_advertiser_account
 
   def blocks? user
     self.blocks.where(blocked_id: user).any?
@@ -48,9 +47,4 @@ class User < ActiveRecord::Base
       self.resume.update_attribute(:name, name)
     end
   end
-
-  private
-    def build_advertiser_account
-      create_advertiser_account! if advertiser?
-    end
 end
