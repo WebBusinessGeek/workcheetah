@@ -132,17 +132,17 @@
         = f.radio_button :pay_importance, "10"
         Very Important
 
-  .experiences
-    %h2 Experience
-    = f.fields_for :experiences do |pf|
-      = render "experience_fields", f: pf
-    = link_to_add_fields "Add Experience", f, :experiences
-
   .schools
     %h2 Education
     = f.fields_for :schools do |sf|
       = render "school_fields", f: sf
     = link_to_add_fields "Add Education", f, :schools
+
+  .experiences
+    %h2 Experience
+    = f.fields_for :experiences do |pf|
+      = render "experience_fields", f: pf
+    = link_to_add_fields "Add Experience", f, :experiences
 
   .references
     %h2 References
