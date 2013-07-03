@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
   has_many :job_applications, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :scam_reports, dependent: :destroy
   has_one :resume, dependent: :destroy
   belongs_to :account

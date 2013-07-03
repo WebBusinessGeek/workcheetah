@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Article do
   describe "Assocations" do
-		
+		it { should have_many(:comments).dependent(:destroy) }
 	end
 
 	describe "Basics" do
