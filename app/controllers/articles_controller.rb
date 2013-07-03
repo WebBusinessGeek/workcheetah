@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  before_filter :authorize_admin!, except: [ :show, :index ]
+
   def index
     @articles = Article.scoped
   end
@@ -28,7 +30,13 @@ class ArticlesController < ApplicationController
     redirect_to @article
   end
 
-  private
+  def destroy
+    load_article
+    @article.destroy
+    redirect_to articles_path, notice: "Article destroyed successfully."
+  end
+
+private
 
   def article_params
     params.require(:article).permit(:body, :cover, :slug, :subtitle, :title)

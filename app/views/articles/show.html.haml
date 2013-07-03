@@ -24,6 +24,7 @@
 		.pull-right
 			- if user_signed_in? && current_user.admin?
 				= link_to "Edit Article", [:edit, @article], class: "btn"
+				= link_to "Destroy Article", @article, class: "btn btn-danger", method: :delete
 		%h1{style: "font-family: helvetica;"}= @article.title
 		%h2{style: "font-family: helvetica;"}= @article.subtitle
 		.article-cover{style: "margin-bottom: 20px; text-align: center;"}
