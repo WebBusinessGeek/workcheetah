@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20130703163124) do
     t.string   "phone"
     t.integer  "credits",    :default => 0
     t.boolean  "active",     :default => false
+    t.integer  "user_id"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
