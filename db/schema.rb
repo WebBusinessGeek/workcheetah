@@ -41,6 +41,16 @@ ActiveRecord::Schema.define(:version => 20130703163124) do
     t.datetime "updated_at",       :null => false
   end
 
+  create_table "advertiser_accounts", :force => true do |t|
+    t.string   "company"
+    t.string   "website"
+    t.string   "phone"
+    t.integer  "credits",    :default => 0
+    t.boolean  "active",     :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "applicant_accesses", :force => true do |t|
     t.integer  "job_application_id"
     t.integer  "account_id"
