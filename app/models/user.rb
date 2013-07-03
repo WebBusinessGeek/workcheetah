@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :scam_reports, dependent: :destroy
   has_one :resume, dependent: :destroy
   belongs_to :account
-  belongs_to :advertiser_account, inverse_of: :advertiser, foreign_key: "account_id"
+  has_one :advertiser_account
   has_many :requested_video_chats, class_name: "VideoChat", foreign_key: :requester_id, dependent: :destroy
   has_many :received_video_chats, class_name: "VideoChat", foreign_key: :recipient_id, dependent: :destroy
   has_many :video_chat_messages, foreign_key: :sender_id, dependent: :destroy

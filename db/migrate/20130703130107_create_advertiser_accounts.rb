@@ -6,6 +6,7 @@ class CreateAdvertiserAccounts < ActiveRecord::Migration
       t.string :phone
       t.integer :credits, default: 0
       t.boolean :active, default: false
+      t.integer :user_id
 
       t.timestamps
     end
