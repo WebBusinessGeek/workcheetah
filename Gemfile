@@ -52,6 +52,7 @@ gem "paperclip", "~> 3.0"
 gem 'pry-rails'
 gem 'pry'
 gem 'newrelic_rpm'
+gem 'pg'
 
 group :test do
   gem "factory_girl_rails"
@@ -66,9 +67,9 @@ group :test do
   gem 'rb-fsevent', '~> 0.9.1'
 end
 
-# group :production do
-  gem 'pg'
-# end
+group :production do
+  gem 'heroku-deflater'
+end
 
 group :development do
   # gem 'rack-mini-profiler'
