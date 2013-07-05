@@ -32,3 +32,5 @@ vendor/bundle
 # Ignore keys
 y
 y.pub
+
+/public/assets
