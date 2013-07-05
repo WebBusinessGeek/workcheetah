@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '1.9.3'
 gem 'rails', '3.2.13'
 gem 'thin'
 gem 'rmagick'
@@ -51,6 +51,7 @@ gem "paperclip", "~> 3.0"
 # So we get pry goodness on heroku
 gem 'pry-rails'
 gem 'pry'
+gem 'newrelic_rpm'
 
 group :test do
   gem "factory_girl_rails"
