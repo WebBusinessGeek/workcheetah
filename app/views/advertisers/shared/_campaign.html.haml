@@ -1,0 +1,7 @@
+%li.span3
+  .thumbnail.pagination-centered
+    %h3
+      = c.name.capitalize
+    %p
+      = number_to_currency c.budget
+    = link_to "Details", advertisers_campaign_path(c), class: "btn btn-primary"

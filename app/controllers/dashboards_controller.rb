@@ -8,6 +8,7 @@ class DashboardsController < ApplicationController
     @articles = Article.order('created_at desc').limit(10)
     @visitors_ip = Rails.env.development? ? "71.197.119.115" : request.remote_ip
 
+    #TODO: Cleanup this code, extract to service object
     @current_location = Geocoder.search(@visitors_ip).first
     if @current_location
       @current_location_clean = [@current_location.city, @current_location.state].map{ |x| x if x.present? }.join(", ")
@@ -20,7 +21,7 @@ class DashboardsController < ApplicationController
     @jobs = Job.order('created_at desc').limit(10)
     @resumes = Resume.order('created_at desc').limit(10)
     @jobs_count = Job.scoped.count
-
+    #TODO: Move this to a single query
     @applicant_accesses = ApplicantAccess.order('created_at desc').limit(10)
     @applicant_accesses_count = ApplicantAccess.order('created_at desc').count
     @applicant_accesses_today_count = ApplicantAccess.where(created_at: Date.today).order('created_at desc').count

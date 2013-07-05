@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   before_filter :hide_some_jobs_from_companies, only: [ :index ]
-
+  #TODO: Fix this ugly ass controller code
   # GET /jobs
   # GET /jobs.json
   def index
@@ -26,6 +26,7 @@ class JobsController < ApplicationController
     @articles = Article.order(:created_at).limit(10) if @jobs.empty?
 
     if @jobs.empty? && @query.present?
+      #TODO: Possible security whole here, fix symbol conversion from unsafe string 
       @session_variable = (@query.parameterize.gsub('-','_') + "_jobs_count").to_sym
       @jobs_count = session[@session_variable] ||= 28 + Random.rand(63)
     end

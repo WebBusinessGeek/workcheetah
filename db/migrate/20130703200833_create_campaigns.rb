@@ -4,6 +4,9 @@ class CreateCampaigns < ActiveRecord::Migration
       t.string :name
       t.integer :budget
       t.integer :advertiser_account_id
+      t.boolean :active, default: false
+      t.date :start_date
+      t.date :end_date
 
       t.timestamps
     end
