@@ -58,10 +58,10 @@ class ResumesController < ApplicationController
 
   def edit
     load_resume
-    @resume.addresses.build unless @resume.addresses.any?
-    @resume.schools.build unless @resume.schools.any?
-    @resume.references.build unless @resume.references.any?
-    @resume.experiences.build unless @resume.experiences.any?
+    # @resume.addresses.build
+    # @resume.schools.build
+    # @resume.references.build
+    # @resume.experiences.build
   end
 
   def update
