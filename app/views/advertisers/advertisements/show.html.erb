@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @advertisers_advertisement.title %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @advertisers_advertisement.url %>
+</p>
+
+<p>
+  <b>Campaign:</b>
+  <%= @advertisers_advertisement.campaign_id %>
+</p>
+
+<p>
+  <b>Text:</b>
+  <%= @advertisers_advertisement.text %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%= @advertisers_advertisement.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%= @advertisers_advertisement.end_time %>
+</p>
+
+<p>
+  <b>Priority:</b>
+  <%= @advertisers_advertisement.priority %>
+</p>
+
+<p>
+  <b>Confirmed:</b>
+  <%= @advertisers_advertisement.confirmed %>
+</p>
+
+<p>
+  <b>Width:</b>
+  <%= @advertisers_advertisement.width %>
+</p>
+
+<p>
+  <b>Height:</b>
+  <%= @advertisers_advertisement.height %>
+</p>
+
+
+<%= link_to 'Edit', edit_advertisers_advertisement_path(@advertisers_advertisement) %> |
+<%= link_to 'Back', advertisers_advertisements_path %>

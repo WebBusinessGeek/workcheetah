@@ -1,6 +1,11 @@
 CareerLoop::Application.routes.draw do
 
   namespace :advertisers do
+    resources :advertisements
+  end
+
+
+  namespace :advertisers do
     root to: "dashboard#home", via: :get, as: :advertisers
     get "sign_up" => "dashboard#sign_up", as: :advertisers_sign_up
     resources :accounts, except: [:destroy]
