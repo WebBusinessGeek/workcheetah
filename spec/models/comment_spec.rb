@@ -25,7 +25,7 @@ describe Comment do
   	end
 
   	describe "Presence" do
-  		[ :article_id, :user_id ].each do |attr|
+  		[ :article_id, :body, :user_id ].each do |attr|
   			it { should validate_presence_of attr }
   		end
   	end

@@ -1,4 +1,5 @@
 CareerLoop::Application.routes.draw do
+  resources :comments, only: [ :create ]
 
   namespace :advertisers do
     root to: "dashboard#home", via: :get, as: :advertisers
