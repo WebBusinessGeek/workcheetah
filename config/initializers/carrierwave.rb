@@ -5,8 +5,8 @@ if Rails.env.production?
   CarrierWave.configure do |config|
     config.fog_credentials = {
       :provider               => 'AWS',
-      :aws_access_key_id      => 'AKIAJMAFP7FPMMGMEOVA',
-      :aws_secret_access_key  => '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',
+      :aws_access_key_id      => ENV['AWS_CARRIERWAVE_ACCESS_KEY_ID'],
+      :aws_secret_access_key  => ENV['AWS_CARRIERWAVE_SECRET_ACCESS_KEY']
     }
     config.fog_directory  = 'ladderpro'
     config.fog_public     = false
@@ -22,8 +22,8 @@ elsif Rails.env.development?
   CarrierWave.configure do |config|
     config.fog_credentials = {
       :provider               => 'AWS',
-      :aws_access_key_id      => 'AKIAJMAFP7FPMMGMEOVA',
-      :aws_secret_access_key  => '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',
+      :aws_access_key_id      => ENV['AWS_CARRIERWAVE_ACCESS_KEY_ID'],
+      :aws_secret_access_key  => ENV['AWS_CARRIERWAVE_SECRET_ACCESS_KEY']
     }
     config.fog_directory  = 'ladderdev'
     config.fog_public     = false

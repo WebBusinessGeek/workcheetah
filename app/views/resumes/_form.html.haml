@@ -56,7 +56,7 @@
         / = f.select :status, options_for_select([ "Employed", "Unemployed", "Expecting Layoff" ]), { include_blank: true }
         = f.input :status, collection: [ "Employed", "Unemployed", "Expecting Layoff" ], prompt: true
 
-  #rest.hidden
+  #rest{ class: !user_signed_in? ? "hidden" : "" }
     .row
       .span5
         %h4 What Types Of Jobs Are You Looking For?

@@ -1,4 +1,5 @@
 CareerLoop::Application.routes.draw do
+  resources :comments, only: [ :create ]
 
   namespace :advertisers do
     resources :advertisements
