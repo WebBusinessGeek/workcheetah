@@ -9,6 +9,7 @@ gem "delayed_job", '3.0.5'
 gem 'delayed_job_active_record'
 gem "foreman"
 gem "auto_html"
+gem 'rake', '~> 10.1.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
