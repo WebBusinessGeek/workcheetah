@@ -9,8 +9,8 @@ development:
   encoding: unicode
   database: workcheetah_development
   pool: 5
-  username: adamrobbie
-  password:
+  # username: test
+  # password:
 
 # development:
 #   adapter: sqlite3
@@ -26,8 +26,8 @@ test:
   encoding: unicode
   database: workcheetah_test
   pool: 5
-  username: adamrobbie
-  password:
+  # username: test
+  # password:
 
 # production:
 #   adapter: sqlite3
@@ -40,5 +40,5 @@ production:
   encoding: unicode
   database: workcheetah_production
   pool: 5
-  username: adamrobbie
-  password:
+  # username: test
+  # password:

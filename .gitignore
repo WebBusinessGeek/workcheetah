@@ -34,3 +34,6 @@ y
 y.pub
 
 /public/assets
+
+# Ignore db config
+/config/database.yml
