@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   before_filter :hide_some_jobs_from_companies, only: [ :index ]
-
+  #TODO: Fix this ugly ass controller code
   # GET /jobs
   # GET /jobs.json
   def index
@@ -26,6 +26,7 @@ class JobsController < ApplicationController
     @articles = Article.order(:created_at).limit(10) if @jobs.empty?
 
     if @jobs.empty? && @query.present?
+      #TODO: Possible security whole here, fix symbol conversion from unsafe string 
       @session_variable = (@query.parameterize.gsub('-','_') + "_jobs_count").to_sym
       @jobs_count = session[@session_variable] ||= 28 + Random.rand(63)
     end
@@ -223,15 +224,13 @@ class JobsController < ApplicationController
 
     raise CanCan::AccessDenied if @job.invited? or @job.account_id != current_user.account.id
 
-    redirect_to :back, notice: "Job applicants invited."
-
     #### DEFINITELY PUT IN BACKGROUND TASK ####
 
     # Find resumes near job
     resumes = []
     Resume.all.each do |resume|
-      Invite.create(resume_id: resume, job_id: @job)
-      
+      Invite.create(resume_id: resume.id, job_id: @job.id)
+
       if resume.addresses.any?
         resumes << resume if Job.near(resume.addresses.first.city, 50).where("category_id = ? OR category_id = ? OR category_id = ?",  resume.category1_id, resume.category2_id, resume.category3_id).include? @job
       end
@@ -242,6 +241,8 @@ class JobsController < ApplicationController
 
     # Set job to invited so that no invitations can be sent out again for that job (handled in ability.rb)
     @job.update_attribute(:invited, true)
+
+    redirect_to :back, notice: "Job applicants invited."
   end
 
   def hide_some_jobs_from_companies

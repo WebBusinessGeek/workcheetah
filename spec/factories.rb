@@ -29,4 +29,25 @@ FactoryGirl.define do
     blocker_id 1
     blocked_id 2
   end
+
+  factory :advertiser, class: "User" do
+    email { FactoryGirl.next(:email) }
+    advertiser true
+    password "password"
+    password_confirmation "password"
+
+      factory :advertiser_with_account do
+        advertiser_account
+      end
+  end
+
+  factory :advertiser_account do
+    company "Ad Company"
+    url "http://www.example.com"
+    phone "5555555555"
+    budget 0
+    active false
+  end
+
+
 end

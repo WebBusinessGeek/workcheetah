@@ -34,3 +34,21 @@
 		.article-cover{style: "margin-bottom: 20px; text-align: center;"}
 			= image_tag @article.cover.url(:landscape) if @article.cover.present?
 		= @article.body.html_safe
+
+		%hr/ 
+
+		- if user_signed_in?
+			= simple_form_for @article.comments.build do |f|
+				.form-fields
+					= f.text_field :body, style: "width: 100%;", placeholder: "Comment here..."
+					= f.hidden_field :article_id, value: @article.id
+				.form-actions
+					= f.button :submit, class: "btn btn-primary"
+		
+		- @comments.each do |comment|
+			%hr/ 
+			%p
+				%b= comment.body
+			%p
+				= comment.user.name
+				= "#{time_ago_in_words comment.created_at} ago"

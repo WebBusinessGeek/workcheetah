@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '1.9.3'
 gem 'rails', '3.2.13'
 gem 'thin'
 gem 'rmagick'
@@ -49,6 +49,11 @@ gem 'aws-sdk'
 gem "geocoder"
 gem "unicorn"
 gem "paperclip", "~> 3.0"
+# So we get pry goodness on heroku
+gem 'pry-rails'
+gem 'pry'
+gem 'newrelic_rpm'
+gem 'pg'
 
 group :test do
   gem "factory_girl_rails"
@@ -63,19 +68,20 @@ group :test do
   gem 'rb-fsevent', '~> 0.9.1'
 end
 
-# group :production do
-  gem 'pg'
-# end
+group :production do
+  gem 'heroku-deflater'
+end
 
 group :development do
-  gem 'rack-mini-profiler'
-  gem "railroady"
-  gem 'brakeman'
+  # gem 'rack-mini-profiler'
+  # gem "railroady"
+  # gem 'brakeman'
   # gem 'sqlite3'
   gem 'therubyracer', "0.11.4", :platforms => :ruby
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
+  gem 'quiet_assets'
 end
 
 # To use ActiveModel has_secure_password

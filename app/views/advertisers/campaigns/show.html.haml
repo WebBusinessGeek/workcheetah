@@ -1,0 +1,12 @@
+.container
+  .row
+    .span2
+      = render 'advertisers/shared/sidebar_nav'
+    .span10
+      %h3 
+        = @campaign.name
+      %p
+        %b
+          = number_to_currency @campaign.budget
+        = @campaign.start_date
+        = @campaign.end_date

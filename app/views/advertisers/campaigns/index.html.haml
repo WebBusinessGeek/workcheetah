@@ -1,0 +1,13 @@
+.container
+  .row
+    .span2
+      = render 'advertisers/shared/sidebar_nav'
+    .span10
+      %h3 Current Active Campaigns
+      - if @campaigns.any?
+        - @campaigns.each do |c|
+          = render 'advertisers/shared/campaign', c: c
+      - else
+        .heroku-unit
+          %h4 You current have no active campaigns
+          = link_to "Start a Campaign", new_advertisers_campaign_path, class: "btn btn-primary"

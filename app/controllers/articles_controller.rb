@@ -13,6 +13,8 @@ class ArticlesController < ApplicationController
       @article.save
       session[:viewed_articles] << @article.id
     end
+
+    @comments = @article.comments.order('created_at DESC')
   end
 
   def new

@@ -22,7 +22,15 @@
 
 # Ignore application configuration
 /config/application.yml
+/config/database.yml
+.ruby-version
+vendor/bundle
 
+/config/database.yml
+.ruby-version
+vendor/bundle
 # Ignore keys
 y
 y.pub
+
+/public/assets

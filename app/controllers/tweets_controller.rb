@@ -60,10 +60,6 @@ class TweetsController < ApplicationController
   end
 
 private
-
-  # Use this method to whitelist the permissible parameters. Example:
-  # params.require(:person).permit(:name, :age)
-  # Also, you can specialize this method with per-user checking of permissible attributes.
   def tweet_params
     params.require(:tweet).permit(:body, :for_accounts, :for_public, :for_resumes)
   end

@@ -1,4 +1,13 @@
 CareerLoop::Application.routes.draw do
+  resources :comments, only: [ :create ]
+
+  namespace :advertisers do
+    root to: "dashboard#home", via: :get, as: :advertisers
+    get "sign_up" => "dashboard#sign_up", as: :advertisers_sign_up
+    resources :accounts, except: [:destroy]
+    resources :campaigns
+  end
+
   resources :blocks, only: [ :create ] do
     collection do
       delete :destroy

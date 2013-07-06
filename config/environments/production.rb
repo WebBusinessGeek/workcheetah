@@ -68,9 +68,9 @@ CareerLoop::Application.configure do
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
-      :bucket => 'Workcheetah',
-      :access_key_id => 'AKIAJMAFP7FPMMGMEOVA',
-      :secret_access_key => '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'
+      :bucket => ENV['AWS_PRODUCTION_BUCKET_NAME'],
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
 end

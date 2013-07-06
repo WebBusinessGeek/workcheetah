@@ -10,6 +10,8 @@ ActionMailer::Base.smtp_settings = {
 
 if Rails.env.development?
   ActionMailer::Base.default_url_options = {:host => "localhost:3000"}
+elsif Rails.env.staging?
+  ActionMailer::Base.default_url_options = {:host => "workcheetah-staging.herokuapp.com"}
 elsif Rails.env.production?
   ActionMailer::Base.default_url_options = {:host => "www.workcheetah.com"}
 end

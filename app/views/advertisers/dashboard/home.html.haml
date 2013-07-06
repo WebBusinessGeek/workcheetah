@@ -1,0 +1,16 @@
+.container
+  .row
+    - unless current_user.advertiser_account.nil?
+      .span2
+        = render 'advertisers/shared/sidebar_nav'
+      .span10
+        content
+    - else
+      .span8.offset2.pagination-centered
+        .hero-unit
+          %h2 Create an advetiser account
+          %p
+            Before you may start to take advantage of advertising on\
+            %b workcheetah.com
+            , you must create an account and recieve approval to start placing ads.
+          = link_to "Create an account", new_advertisers_account_path, class: "btn btn-large btn-primary"
