@@ -2,7 +2,7 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
   # GET /advertisers/advertisements
   # GET /advertisers/advertisements.json
   def index
-    @advertisers_advertisements = Advertisers::Advertisement.all
+    @advertisers_advertisements = Advertisement.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
   # GET /advertisers/advertisements/1
   # GET /advertisers/advertisements/1.json
   def show
-    @advertisers_advertisement = Advertisers::Advertisement.find(params[:id])
+    @advertisers_advertisement = Advertisement.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
   # GET /advertisers/advertisements/new
   # GET /advertisers/advertisements/new.json
   def new
-    @advertisers_advertisement = Advertisers::Advertisement.new
+    @advertisers_advertisement = Advertisement.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,7 +34,7 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
 
   # GET /advertisers/advertisements/1/edit
   def edit
-    @advertisers_advertisement = Advertisers::Advertisement.find(params[:id])
+    @advertisers_advertisement = Advertisement.find(params[:id])
   end
 
   # POST /advertisers/advertisements
@@ -56,7 +56,7 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
   # PATCH/PUT /advertisers/advertisements/1
   # PATCH/PUT /advertisers/advertisements/1.json
   def update
-    @advertisers_advertisement = Advertisers::Advertisement.find(params[:id])
+    @advertisers_advertisement = Advertisement.find(params[:id])
 
     respond_to do |format|
       if @advertisers_advertisement.update_attributes(advertisers_advertisement_params)
@@ -72,7 +72,7 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
   # DELETE /advertisers/advertisements/1
   # DELETE /advertisers/advertisements/1.json
   def destroy
-    @advertisers_advertisement = Advertisers::Advertisement.find(params[:id])
+    @advertisers_advertisement = Advertisement.find(params[:id])
     @advertisers_advertisement.destroy
 
     respond_to do |format|
