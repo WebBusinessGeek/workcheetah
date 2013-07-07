@@ -64,7 +64,5 @@ module CareerLoop
     config.assets.version = '1.0'
 
     config.action_controller.allow_forgery_protection = true
-
-    config.assets.initialize_on_precompile = false
   end
 end
