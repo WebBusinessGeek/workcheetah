@@ -6,6 +6,7 @@ CareerLoop::Application.routes.draw do
     get "sign_up" => "dashboard#sign_up", as: :advertisers_sign_up
     resources :accounts, except: [:destroy]
     resources :campaigns
+    resources :advertisements
   end
 
   resources :blocks, only: [ :create ] do
