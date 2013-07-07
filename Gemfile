@@ -67,10 +67,6 @@ group :test do
   gem 'rb-fsevent', '~> 0.9.1'
 end
 
-group :production do
-  gem 'heroku-deflater'
-end
-
 group :development do
   # gem 'rack-mini-profiler'
   # gem "railroady"
