@@ -1,5 +1,5 @@
 = simple_form_for(@job, html: { class: "form-vertical"}) do |f|
-  = tinymce :theme => "simple", :plugins => ["inlinepopups", "paste"]
+  / = tinymce :theme => "simple", :plugins => ["inlinepopups", "paste"]
   - if @job.errors.any?
     .errors
       = @job.errors.full_messages.each do |msg|

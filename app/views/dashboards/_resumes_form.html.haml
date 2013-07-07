@@ -4,7 +4,7 @@
       %li.error= msg
 
 = form_for @resume do |f|
-  = tinymce
+  / = tinymce
   .pull-right
     .video_label{ style: "width: 300px; padding: 20px; background: rgb(19, 95, 230); border: 1px solid rgb(16, 78, 172); border-radius: 10px; text-align: center; color: white;"} You can add video after building your resume
   - unless user_signed_in?

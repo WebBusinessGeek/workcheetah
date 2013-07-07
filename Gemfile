@@ -32,7 +32,9 @@ gem "figaro"
 gem 'libv8', '~> 3.11.8.3'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'tinymce-rails'
+# gem 'tinymce-rails'
+# put this in app.js when including tinymce-rails again
+# //= require tinymce-jquery
 gem 'haml', '~> 3.2.0.beta.1'
 gem 'devise'
 gem 'rspec-rails'
