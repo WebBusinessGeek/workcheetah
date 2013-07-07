@@ -10,6 +10,7 @@ gem 'delayed_job_active_record'
 gem "foreman"
 gem "auto_html"
 gem 'rake', '~> 10.1.0'
+gem "will_paginate"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

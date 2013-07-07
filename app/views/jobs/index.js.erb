@@ -1,0 +1,6 @@
+$('#jobs-table').append('<%= j render(@jobs) %>');
+<% if @jobs.next_page %>
+	$('.pagination').replaceWith('<%= j will_paginate(@jobs) %>');
+<% else %>
+	$('.pagination').remove();
+<% end %>

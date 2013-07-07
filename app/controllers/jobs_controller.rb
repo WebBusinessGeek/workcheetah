@@ -1,6 +1,8 @@
 class JobsController < ApplicationController
   before_filter :hide_some_jobs_from_companies, only: [ :index ]
-  #TODO: Fix this ugly ass controller code
+  
+  #TODO: Tidy up controller code
+
   # GET /jobs
   # GET /jobs.json
   def index
@@ -13,13 +15,13 @@ class JobsController < ApplicationController
     end
 
     if @query.present? || @location.present?
-      @jobs = Job.text_search(@query, @location).order("created_at DESC")
+      @jobs = Job.text_search(@query, @location).order("created_at DESC").page(params[:page]).per_page(8)
     else
-      @jobs = Job.scoped.order('created_at desc')
+      @jobs = Job.scoped.order('created_at desc').page(params[:page]).per_page(8)
     end
 
     if !@jobs.any? # if no jobs
-      @jobs = Job.scoped.order('created_at DESC')
+      @jobs = Job.scoped.order('created_at DESC').page(params[:page]).per_page(8)
       flash[:notice] = "There were no jobs near you or in your state, so here are all jobs."
     end
 
@@ -41,7 +43,7 @@ class JobsController < ApplicationController
           render "getting_faster"
         end
       end
-      format.json { render json: @jobs }
+      format.js { render "index" }
     end
   end
 
