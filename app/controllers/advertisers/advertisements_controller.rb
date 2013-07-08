@@ -30,7 +30,8 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
 
   def update
     if @advertisement.update_attributes(advertisement_params)
-      redirect_to advertisers_advertisement_path @advertisement, notice: 'Advertisement was successfully updated.'
+      respond_with @advertisement, location: advertisers_advertisement_path,
+        notice: 'Advertisement was successfully updated.'
     else
       render action: :edit
     end
@@ -53,6 +54,6 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
     # params.require(:person).permit(:name, :age)
     # Also, you can specialize this method with per-user checking of permissible attributes.
     def advertisement_params
-      params.require(:advertisement).permit(:campaign_id, :confirmed, :end_time, :height, :priority, :start_time, :text, :title, :url, :width)
+      params.require(:advertisement).permit(:campaign_id, :confirmed, :end_time, :height, :priority, :start_time, :content, :image, :title, :url, :width)
     end
 end
