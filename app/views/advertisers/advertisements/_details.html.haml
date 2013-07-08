@@ -1,0 +1,16 @@
+%td
+  = ad.title
+%td
+  = ad.url
+%td
+  "Test Target"
+%td
+  = ad.confirmed
+%td
+  = "Test Stats"
+%td
+  = link_to "Details", advertisers_advertisement_path(ad)
+  = link_to toggle_advertisers_advertisement_path(ad), method: :post do
+    = ad.active? ? "Deactivate" : "Activate"
+  = link_to "Edit", edit_advertisers_advertisement_path(ad)
+

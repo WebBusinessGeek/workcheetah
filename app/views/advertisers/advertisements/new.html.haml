@@ -1,0 +1,11 @@
+.container
+  .row
+    .span2
+      = render 'advertisers/shared/sidebar_nav'
+    .span10
+      %h1 New Advertisers
+      = simple_form_for(@advertisement, url: advertisers_advertisements_path) do |f|
+        = f.error_notification
+        = render 'form', f: f
+        .form-actions
+          = f.button :submit

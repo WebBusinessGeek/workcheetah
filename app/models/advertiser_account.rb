@@ -3,4 +3,5 @@ class AdvertiserAccount < ActiveRecord::Base
 
   belongs_to :user, conditions: { advertiser: true }
   has_many :campaigns, dependent: :destroy
+  
 end

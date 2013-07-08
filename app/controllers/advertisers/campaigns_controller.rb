@@ -1,10 +1,11 @@
 class Advertisers::CampaignsController < Advertisers::BaseController
-  before_filter :load_campaign, only: [:show, :edit, :update, :destroy]
+  before_filter :load_campaign, only: [:edit, :update, :destroy, :toggle]
   def index
     @campaigns = Advertisers::CurrentCampaigns.new(current_user.advertiser_account).active
   end
 
   def show
+    @campaign = Campaign.includes(:advertisements).find(params[:id])
   end
 
   def new
@@ -35,7 +36,11 @@ class Advertisers::CampaignsController < Advertisers::BaseController
 
   def destroy
     @campaign.update_attributes(active: false)
-    redirect_to 
+  end
+
+  def toggle
+    @campaign.toggle_status!
+    redirect_to :back
   end
 
   private
