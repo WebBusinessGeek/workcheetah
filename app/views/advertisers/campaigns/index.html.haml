@@ -5,8 +5,13 @@
     .span10
       %h3 Current Active Campaigns
       - if @campaigns.any?
-        - @campaigns.each do |c|
-          = render 'advertisers/shared/campaign', c: c
+        .campaigns
+          - @campaigns.each do |c|
+            = render 'advertisers/shared/campaign', c: c
+          %li.span2
+            .thumbnail.pagination-centered{style: "height:150px"}
+              %h4 Start a New Campaign
+              %p= link_to "Start", new_advertisers_campaign_path, class: "btn btn-primary"
       - else
         .heroku-unit
           %h4 You current have no active campaigns

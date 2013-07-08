@@ -1,6 +1,6 @@
 class CreateAdvertisersAdvertisements < ActiveRecord::Migration
   def change
-    create_table :advertisers_advertisements do |t|
+    create_table :advertisements do |t|
       t.string :title, null: false
       t.string :url
       t.integer :campaign_id

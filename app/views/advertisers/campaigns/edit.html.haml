@@ -1,0 +1,10 @@
+.container
+.container
+  .row
+    .span2
+      = render 'advertisers/shared/sidebar_nav'
+    .span8
+      %h3 Edit Campaign
+      = simple_form_for @campaign, url: advertisers_campaign_path(@campaign) do |f|
+        = render 'form', f: f
+        = f.submit class: "btn"

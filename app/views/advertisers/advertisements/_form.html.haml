@@ -1,0 +1,8 @@
+.form-inputs
+  = f.input :campaign_id, as: :hidden, value: @campaign.id
+  = f.input :title
+  = f.input :url
+  = f.input :content
+  = f.input :start_time, as: :string, input_html: {class: "date"}
+  = f.input :end_time, as: :string, input_html: {class: "date"}
+  = f.input :priority

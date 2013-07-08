@@ -2,11 +2,49 @@
   .row
     .span2
       = render 'advertisers/shared/sidebar_nav'
-    .span10
-      %h3 
+    .span8
+      %h3.pagination-centered
         = @campaign.name
-      %p
-        %b
-          = number_to_currency @campaign.budget
-        = @campaign.start_date
-        = @campaign.end_date
+      %p.lead.text-center
+        Below is a summary of the this campaign.
+      .row
+        .span3
+          %ul.unstyled
+            %li 
+              %b Budget 
+              = number_to_currency @campaign.budget
+            %li
+              %b Start Date 
+              = @campaign.start_date
+            %li
+              %b End Date 
+              = @campaign.end_date
+        .span2
+          = link_to "Add an Advertisement", new_advertisers_advertisement_path(campaign_id: @campaign.id), class: "btn btn-primary pull-right"
+        .span3
+          = link_to toggle_advertisers_campaign_path(@campaign), method: :post, class: "btn btn-primary pull-right" do
+            = @campaign.active? ? "Deactivate" : "Activate"
+          
+      %hr
+      %table.table.table-hover
+        %caption
+          Overview of your Advertisements for this campaign
+        %thead
+          %tr
+            %th 
+              %strong Title
+            %th
+              %strong URL
+            %th
+              %strong Target Audience
+            %th
+              %strong Confirmed
+            %th
+              %strong Stats
+            %th
+        %tbody
+          - @campaign.advertisements.each do |ad|
+            %tr
+              = render 'advertisers/advertisements/details', ad: ad
+      = link_to "Edit Campaign", edit_advertisers_campaign_path(@campaign)
+

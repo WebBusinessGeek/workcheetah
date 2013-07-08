@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130703200833) do
+ActiveRecord::Schema.define(:version => 20130706121009) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(:version => 20130703200833) do
     t.string   "role"
   end
 
+  create_table "ad_stats", :force => true do |t|
+    t.integer  "advertisement_id"
+    t.integer  "clicks",           :default => 0
+    t.integer  "impressions",      :default => 0
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
   create_table "addresses", :force => true do |t|
     t.string   "address_1"
     t.string   "address_2"
@@ -40,6 +48,26 @@ ActiveRecord::Schema.define(:version => 20130703200833) do
     t.integer  "addressable_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+  end
+
+  create_table "advertisements", :force => true do |t|
+    t.string   "title",                                 :null => false
+    t.string   "url"
+    t.integer  "campaign_id"
+    t.text     "content"
+    t.date     "start_time"
+    t.date     "end_time"
+    t.integer  "priority",           :default => 1
+    t.boolean  "confirmed",          :default => false
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.boolean  "active",             :default => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
   create_table "advertiser_accounts", :force => true do |t|

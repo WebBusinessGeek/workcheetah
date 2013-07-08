@@ -1,7 +1,7 @@
-%li.span3
-  .thumbnail.pagination-centered
-    %h3
-      = c.name.capitalize
+%li.span2
+  .thumbnail.pagination-centered{style: "height:150px"}
+    %h4
+      = c.name.humanize
     %p
       = number_to_currency c.budget
     = link_to "Details", advertisers_campaign_path(c), class: "btn btn-primary"
