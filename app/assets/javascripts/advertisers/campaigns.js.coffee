@@ -7,3 +7,9 @@ $ ->
 
     $('#campaign_end_date').datepicker
         dateFormat: 'yy-mm-dd'
+
+    $('#new_ad_selector').bind 'click', (e) ->
+        e.preventDefault()
+        $('#new_ad_selector').hide()
+        $('#text_ad_link').show()
+        $('#image_ad_link').show()

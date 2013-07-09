@@ -4,7 +4,8 @@
       = render 'advertisers/shared/sidebar_nav'
     .span10
       .row
-        .span4  
+        .span4
+          %legend Advertisement Overview
           %p
             %b Title:
             = @advertisement.title
@@ -23,5 +24,7 @@
           %p
             %b Confirmed:
             = @advertisement.confirmed
-          = image_tag @advertisement.image.url(:landscape), style: "visibility:visible", class: "test" if @advertisement.image.present?
-      = link_to "Back to Campaign", advertisers_campaign_path(@advertisement.campaign)
+          = image_tag @advertisement.image.url(:landscape) if @advertisement.image.present?
+      .whitebox
+        = link_to "Update Advertisement", edit_advertisers_advertisement_path(@advertisement)
+        = link_to "Back to Campaign", advertisers_campaign_path(@advertisement.campaign)

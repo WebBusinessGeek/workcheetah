@@ -19,7 +19,8 @@ class Advertisers::CampaignsController < Advertisers::BaseController
     @campaign = current_user.advertiser_account.campaigns.build(campaign_parms)
     @campaign.active = true # active for now
     if @campaign.save!
-      redirect_to advertisers_campaigns_path, notice: "Campaign Created Successfully."
+      flash[:notice] = "Campaign Created Successfully."
+      redirect_to advertisers_campaigns_path
     else
       render action: :new
     end
@@ -28,7 +29,8 @@ class Advertisers::CampaignsController < Advertisers::BaseController
   def update
     @campaign.assign_attributes(campaign_parms)
     if @campaign.save!
-      redirect_to advertisers_campaign_path @campaign, notice: "Campaign Updated Successfully"
+      flash[:notice] = "Campaign Updated Successfully"
+      redirect_to advertisers_campaign_path @campaign
     else
       render action: :edit
     end

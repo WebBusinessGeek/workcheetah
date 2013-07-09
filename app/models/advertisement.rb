@@ -1,6 +1,7 @@
 class Advertisement < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
+  AD_TYPES = %w(text image)
   belongs_to :campaign
   has_one :ad_stat
 

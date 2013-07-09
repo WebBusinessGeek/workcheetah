@@ -3,8 +3,8 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $ ->
-    $('#advertisement_start_date').datepicker
+    $('#advertisement_start_time').datepicker
         dateFormat: "yy-mm-dd"
 
-    $('#advertisement_end_date').datepicker
+    $('#advertisement_end_time').datepicker
         dateFormat: "yy-mm-dd"

@@ -10,6 +10,7 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
   end
 
   def new
+    @type = params[:type]
     @campaign = Campaign.find(params[:campaign_id])
     @advertisement = @campaign.advertisements.build
   end
@@ -22,7 +23,8 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
     @advertisement = Advertisement.new(advertisement_params)
 
     if @advertisement.save
-      redirect_to advertisers_advertisement_path @advertisement, notice: 'Advertisement was successfully created.'
+      flash[:notice] = 'Advertisement was successfully created.'
+      redirect_to advertisers_advertisement_path @advertisement
     else
       render action: :new
     end
@@ -30,8 +32,8 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
 
   def update
     if @advertisement.update_attributes(advertisement_params)
-      respond_with @advertisement, location: advertisers_advertisement_path,
-        notice: 'Advertisement was successfully updated.'
+      flash[:notice] = 'Advertisement was successfully updated.'
+      respond_with @advertisement, location: advertisers_advertisement_path
     else
       render action: :edit
     end
@@ -54,6 +56,7 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
     # params.require(:person).permit(:name, :age)
     # Also, you can specialize this method with per-user checking of permissible attributes.
     def advertisement_params
-      params.require(:advertisement).permit(:campaign_id, :confirmed, :end_time, :height, :priority, :start_time, :content, :image, :title, :url, :width)
+      params.require(:advertisement).permit(:campaign_id, :confirmed, :end_time, :height, :priority, :type,
+        :start_time, :content, :image, :title, :url, :width)
     end
 end
