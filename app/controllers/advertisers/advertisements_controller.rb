@@ -56,7 +56,7 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
     # params.require(:person).permit(:name, :age)
     # Also, you can specialize this method with per-user checking of permissible attributes.
     def advertisement_params
-      params.require(:advertisement).permit(:campaign_id, :confirmed, :end_time, :height, :priority, :type,
+      params.require(:advertisement).permit(:campaign_id, :confirmed, :end_time, :height, :priority, :ad_type,
         :start_time, :content, :image, :title, :url, :width)
     end
 end
