@@ -1,8 +1,25 @@
 .form-inputs
-  = f.input :campaign_id, as: :hidden, value: @campaign.id
-  = f.input :title
-  = f.input :url
-  = f.input :content
-  = f.input :start_time, as: :string, input_html: {class: "date"}
-  = f.input :end_time, as: :string, input_html: {class: "date"}
-  = f.input :priority
+  .row
+    .span4
+      .control-group
+        = f.input :campaign_id, as: :hidden, value: @campaign.id
+        = f.input :ad_type, as: :hidden, value: @type
+        = f.input :title
+    .span4
+      - unless @type == "text"
+        .control-group
+          = image_tag @advertisement.image.url(:original), alt: "Ad Image Original" if @advertisement.image?
+          = f.input :image
+    .span8
+      .control-group
+        = f.input :url
+      .control-group
+        = f.input :content, input_html: { cols: 50, rows: 3 }
+    .span4
+      .control-group
+        = f.input :start_time, as: :string, input_html: {class: "date"}
+      .control-group
+        = f.input :confirmed, label_html: {style: ((@advertisement.new_record? || @advertisement.confirmed?) ? '' : 'color: red; font-weight: bold')}
+    .span4
+      .control-group
+        = f.input :end_time, as: :string, input_html: {class: "date"}

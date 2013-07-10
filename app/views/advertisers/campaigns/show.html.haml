@@ -20,7 +20,9 @@
               %b End Date 
               = @campaign.end_date
         .span2
-          = link_to "Add an Advertisement", new_advertisers_advertisement_path(campaign_id: @campaign.id), class: "btn btn-primary pull-right"
+          = link_to "Add an Advertisement", "#", id: "new_ad_selector", class: "btn btn-primary btn-success pull-right"
+          = link_to "Text", new_advertisers_advertisement_path(campaign_id: @campaign.id, type: "text"),id: "text_ad_link", class: "btn btn-primary pull-left hide"
+          = link_to "Image", new_advertisers_advertisement_path(campaign_id: @campaign.id, type: "image"), id: "image_ad_link", class: "btn btn-primary pull-right hide"
         .span3
           = link_to toggle_advertisers_campaign_path(@campaign), method: :post, class: "btn btn-primary pull-right" do
             = @campaign.active? ? "Deactivate" : "Activate"

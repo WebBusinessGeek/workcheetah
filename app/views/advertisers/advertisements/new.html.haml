@@ -2,10 +2,9 @@
   .row
     .span2
       = render 'advertisers/shared/sidebar_nav'
-    .span10
-      %h1 New Advertisers
-      = simple_form_for(@advertisement, url: advertisers_advertisements_path) do |f|
+    .span8
+      %h1 New Advertiserment
+      = simple_form_for(@advertisement, url: advertisers_advertisements_path, html: {class: "form-horizontal"}) do |f|
         = f.error_notification
         = render 'form', f: f
-        .form-actions
-          = f.button :submit
+        = f.button :submit, class: "btn btn-large btn-primary"

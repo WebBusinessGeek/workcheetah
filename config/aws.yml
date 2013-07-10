@@ -15,6 +15,12 @@ test:
   bucket_name: laddertest
   # bucket_name: hammer-example
 
+staging:
+  <<: *base
+  bucket_name: ladderdev
+  # bucket_name: hammer-example
+
+
 production:
   <<: *base
   bucket_name: ladderpro
