@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery.ui.all
 //= require jquery_ujs
+//= require tinymce-jquery
 //= require bootstrap
 //= require bootstrap_setup
 //= require resume_builder
