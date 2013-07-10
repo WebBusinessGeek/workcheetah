@@ -18,6 +18,9 @@
             %span.city{ style: "font-weight: normal; font-size: 18px; color: #555"}
               &ndash;
               = @job.address
+          %br/ 
+        %h3 
+          = @job.yearly_compensation
         - if can? :manage, @job
           = link_to 'Edit Job', edit_job_path(@job), class: "btn"
           = link_to 'Deactivate Job', job_path(@job), method: :delete, class: "btn btn-danger"
