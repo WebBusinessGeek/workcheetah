@@ -19,11 +19,11 @@
           %ul
             %li Attract More Candidates
             %li Verifies All Your Job Listings
-            %li Access Advanced Recruiting Tools
-          %p
-            Becoming a Verified Employer on WorkCheetah is simple and easy! You will receive a Verification Seal upon completing the quick process. Please see
-            %strong NOTE
-            below button BEFORE clicking.
+            / %li Access Advanced Recruiting Tools
+          / %p
+          /   Becoming a Verified Employer on WorkCheetah is simple and easy! You will receive a Verification Seal upon completing the quick process. Please see
+          /   %strong NOTE
+          /   below button BEFORE clicking.
           - if @account.payment_profiles.any?
             .button= link_to "Become Verified - $ #{PaymentProfile::SAFE_SEAL_PRICE_IN_DOLLARS}", [:buy_seal, :account], method: :post
             .after_button

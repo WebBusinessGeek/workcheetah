@@ -76,7 +76,7 @@ class JobApplicationsController < ApplicationController
       end
     end
 
-    # Once the application purchase is not free anymore, comment in below code
+    # Once the application purchase is not free anymore, uncomment below code
 
     # if current_user.account.has_payment_profile?
     #   if can? :read, @job_application
