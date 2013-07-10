@@ -1,5 +1,5 @@
 = simple_form_for(@job, html: { class: "form-vertical"}) do |f|
-  / = tinymce :theme => "simple", :plugins => ["inlinepopups", "paste"]
+  = tinymce :theme => "simple", :plugins => ["inlinepopups", "paste"]
   - if @job.errors.any?
     .errors
       = @job.errors.full_messages.each do |msg|
@@ -21,6 +21,8 @@
     / .control-group
     = f.label :category3_id, "Job category 3"
     = f.collection_select(:category3_id, Category.scoped, :id, :name, :prompt => true)
+
+    = f.input :yearly_compensation, collection: Job::COMPENSATION_OPTIONS, prompt: true
 
     .control-group
       = f.label :description, raw("<abbr title=\"required\">*</abbr> Job description")
