@@ -15,4 +15,14 @@ namespace :db do
       AdTarget::ADVERTISER_TARGETS.each {|a| AdTarget.create(name: a, audience: "advertiser")}
     end
   end
+
+  desc "Load Users with target_params lookup cache"
+  task :load_user_targets => :environment do
+    ActiveRecord::Base.transaction do
+      User.all.each do |u|
+        u.target_params = u.targeting_params
+        u.save!
+      end
+    end
+  end
 end

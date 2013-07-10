@@ -95,6 +95,26 @@ ActiveRecord::Schema.define(:version => 20130710125200) do
     t.datetime "updated_at",                    :null => false
   end
 
+  create_table "advertisers_advertisements", :force => true do |t|
+    t.string   "title",                                 :null => false
+    t.string   "url"
+    t.integer  "campaign_id"
+    t.text     "content"
+    t.date     "start_time"
+    t.date     "end_time"
+    t.integer  "priority",           :default => 1
+    t.boolean  "confirmed",          :default => false
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.boolean  "active",             :default => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+  end
+
   create_table "applicant_accesses", :force => true do |t|
     t.integer  "job_application_id"
     t.integer  "account_id"
@@ -285,6 +305,21 @@ ActiveRecord::Schema.define(:version => 20130710125200) do
 
   add_index "payment_profiles", ["account_id"], :name => "index_payment_profiles_on_account_id"
 
+  create_table "profiles", :force => true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "website"
+    t.string   "status"
+    t.string   "growth_importance"
+    t.string   "distance_importance"
+    t.string   "freedom_importance"
+    t.string   "pay_importance"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "twitter"
+  end
+
   create_table "references", :force => true do |t|
     t.string   "name"
     t.string   "job_title"
@@ -382,6 +417,7 @@ ActiveRecord::Schema.define(:version => 20130710125200) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.boolean  "advertiser",             :default => false
+    t.text     "target_params"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

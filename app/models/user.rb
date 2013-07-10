@@ -23,7 +23,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   validates :terms_of_service, acceptance: true
-
+  serialize :target_params
+  
   def blocks? user
     self.blocks.where(blocked_id: user).any?
   end
@@ -46,5 +47,23 @@ class User < ActiveRecord::Base
     elsif self.resume
       self.resume.update_attribute(:name, name)
     end
+  end
+
+  def targeting_params
+    params = []
+    if moderator? or admin?
+      params << "all"
+    elsif advertiser?
+      params << "advertiser"
+    elsif account.present?
+      params << "business"
+      params << account.role unless account.role.nil?
+    elsif resume.present?
+      params << "user"
+      params << resume.status unless resume.status.nil?
+    else
+      params << "all"
+    end
+    return params
   end
 end

@@ -10,4 +10,9 @@ class AdTarget < ActiveRecord::Base
   ADVERTISER_TARGETS = ["Marketing to Users", "Marketing to Businesses"]
 
   scope :by_audience, lambda {|a| where(audience: a)}
+  scope :by_target, lambda {|t| where(name: t)}
+
+  def self.target_params(params)
+    
+  end
 end
