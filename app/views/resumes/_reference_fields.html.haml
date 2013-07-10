@@ -12,15 +12,15 @@
     = f.text_field :email
     = f.label :notes
     = f.text_area :notes, rows: "10", class: "tinymce"
-    / = tinymce
+    = tinymce
     = f.label :reference_type, "Reference type"
     = f.select :reference_type, options_for_select([ "Professional", "Personal", "Both" ], "Professional")
     = f.hidden_field :_destroy
     .remove
       = link_to "Remove Reference", '#', class: "remove_fields btn btn-mini btn-danger"
 
-    // :javascript
-    //   tinyMCE.init({
-    //     mode: 'textareas',
-    //     theme: 'advanced'
-    //   });
+    -# :javascript
+    -#   tinyMCE.init({
+    -#     mode: 'textareas',
+    -#     theme: 'advanced'
+    -#   });
