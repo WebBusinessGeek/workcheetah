@@ -31,10 +31,8 @@ describe Job do
 	end
 
 	describe "Validations" do
-		context "Presence" do
-			[ :title, :description, :address, :category_id ].each do |attr|
-				it { should validate_presence_of attr }
-			end
+		context "Inclusion" do
+			it { should ensure_inclusion_of(:yearly_compensation).in_array([ "15-25k",  "26-35k",  "36-45k",  "46-55k",  "66-75k",  "76-85k",  "86_95k",  "96k+",  "commission based",  "salary + commission",  "undisclosed" ]) }
 		end
 
 		context "Numericality" do
@@ -47,6 +45,12 @@ describe Job do
 			[ :category2_id, :category3_id ].each do |attr|
 				it { should validate_numericality_of(attr).only_integer }
 				it { should allow_value(nil).for(attr) }
+			end
+		end
+
+		context "Presence" do
+			[ :title, :description, :address, :category_id ].each do |attr|
+				it { should validate_presence_of attr }
 			end
 		end
 	end

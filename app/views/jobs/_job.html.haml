@@ -5,6 +5,7 @@
 		- if job.account.safe_job_seal?
 			= link_to(image_tag("safe-seal-small.png", alt: "Safe Job seal"), job) 
 	
+	%td= job.yearly_compensation or "n/a"
 	%td= job.address
 	%td= job.category ? job.category.name : "n/a"
 	%td
