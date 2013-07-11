@@ -1,4 +1,4 @@
-= @errors_toggle = @signup.errors.any? ? "" : "hide"
+- @errors_toggle = @signup.errors.any? ? "" : "hide"
 .white_box
   #how_it_works
     %p.lead
@@ -47,7 +47,10 @@
           %p Easily see how your ads perform with your Ads Manager dashboard. (a computer with statistics)
   %hr
   .row
-    = link_to "Sign Up", "#", class: "btn btn-large span4 btn-success trigger" unless @signup.errors.any?
+    .span2
+    .span4
+      = link_to "Sign Up", "#", class: "btn btn-large span4 btn-success trigger" unless @signup.errors.any?
+    .span2
   = form_for(@signup, url: create_advertiser_sign_up_path, html: {class: "new_advertiser_sign_up #{@errors_toggle} form-horizontal"}) do |f|
     %legend Sign up
     -if @signup.errors.any?
@@ -73,4 +76,12 @@
         = f.password_field :password_confirmation
     .control-group
       .controls
-        = f.submit "Sign up", class: "btn btn-large btn-success"
+        = f.submit "Start Creating a Campaign", class: "btn btn-large btn-success"
+:javascript
+  $(document).ready(function() {
+    $('a.trigger').click(function() {
+      $('a.trigger').hide();
+      $('#new_advertiser_sign_up').show();
+      return false;
+    });
+  });
