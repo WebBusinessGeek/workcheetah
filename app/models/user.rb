@@ -17,14 +17,14 @@ class User < ActiveRecord::Base
   has_many :blockings, class_name: "Block", foreign_key: :blocked_id, dependent: :destroy
 
   # Include default devise modules. Others available are:
-  # :token_authenticatable, 
+  # :token_authenticatable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   validates :terms_of_service, acceptance: true
   serialize :target_params
-  
+
   def blocks? user
     self.blocks.where(blocked_id: user).any?
   end

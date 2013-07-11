@@ -1,9 +1,10 @@
 CareerLoop::Application.routes.draw do
   resources :comments, only: [ :create ]
 
+  get "/how-it-works" => "advertisers/dashboard#new_sign_up", as: :advertisers_sign_up
+  post "/how-it-works" => "advertisers/dashboard#create_sign_up", as: :create_advertiser_sign_up
   namespace :advertisers do
     root to: "dashboard#home", via: :get, as: :advertisers
-    get "sign_up" => "dashboard#sign_up", as: :advertisers_sign_up
     resources :accounts, except: [:destroy]
     resources :campaigns do
       member do

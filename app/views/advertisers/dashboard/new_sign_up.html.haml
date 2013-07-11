@@ -1,0 +1,76 @@
+= @errors_toggle = @signup.errors.any? ? "" : "hide"
+.white_box
+  #how_it_works
+    %p.lead
+      How Advertising on Workcheetah Works
+    %ul.unstyled
+      %li.row
+        .span4
+          %h3 1. CPC or CPM??
+          %p
+            You pay when your ads perform. No upfront cost!
+        .span4
+          = image_tag "how-it-works1.jpg"
+      %li.row
+        .span4
+          = image_tag "http://placehold.it/350x150"
+        .span4
+          %h3 2. Target your Audience
+          %p
+            Pick who you want to see your ads. (4 pictures will work in the gap between the text and point 2 here- A picture of Business, a Person, a another Person holding an ad, and a crowd of people) There should be text labels under each one (Businesses, People Searching Jobs, Other Advertisers, All of WorkCheetah)
+      %li.row
+        .span4
+          %h3 3. Create your Ads
+          %p
+            Build customized image or text ads that brings you the traffic you want! (idk.. something like building a billboard or something)
+        .span4
+          = image_tag "http://placehold.it/350x150"
+      %li.row
+        .span4
+          = image_tag "http://placehold.it/350x150"
+        .span4
+          %h3 4. Set your budget
+          %p
+            Keep costs under control by setting a budget (some money references here)
+      %li.row
+        .span4
+          %h3 5. Launch your Campaign
+          %p
+            (make this a link to the sign up form)- Start getting some traffic (a rocket launching, or a big green start button)
+        .span4
+          = image_tag "http://placehold.it/350x150"
+      %li.row
+        .span4
+          = image_tag "http://placehold.it/350x150"
+        .span4
+          %h3 6. Manage Your Success
+          %p Easily see how your ads perform with your Ads Manager dashboard. (a computer with statistics)
+  %hr
+  .row
+    = link_to "Sign Up", "#", class: "btn btn-large span4 btn-success trigger" unless @signup.errors.any?
+  = form_for(@signup, url: create_advertiser_sign_up_path, html: {class: "new_advertiser_sign_up #{@errors_toggle} form-horizontal"}) do |f|
+    %legend Sign up
+    -if @signup.errors.any?
+      - @signup.errors.full_messages.each do |msg|
+        %li= msg
+
+
+    .control-group
+      = f.label :email, class: "control-label"
+      .controls
+        = f.email_field :email
+    .control-group
+      = f.label :email_confirmation, class: "control-label"
+      .controls
+        = f.email_field :email_confirmation
+    .control-group
+      = f.label :password, class: "control-label"
+      .controls
+        = f.password_field :password
+    .control-group
+      = f.label :password_confirmation, class: "control-label"
+      .controls
+        = f.password_field :password_confirmation
+    .control-group
+      .controls
+        = f.submit "Sign up", class: "btn btn-large btn-success"
