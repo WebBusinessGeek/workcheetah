@@ -22,7 +22,7 @@
     = f.label :category3_id, "Job category 3"
     = f.collection_select(:category3_id, Category.scoped, :id, :name, :prompt => true)
 
-    / # = f.input :yearly_compensation, collection: Job::COMPENSATION_OPTIONS, prompt: true
+    = f.input :yearly_compensation, collection: Job::COMPENSATION_OPTIONS, prompt: true
 
     .control-group
       = f.label :description, raw("<abbr title=\"required\">*</abbr> Job description")

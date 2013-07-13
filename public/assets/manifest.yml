@@ -43,6 +43,8 @@ hiring.jpg: hiring-5fef8cb30c906b9b231d7b85fec70102.jpg
 hiring/index.jpg: hiring-5fef8cb30c906b9b231d7b85fec70102.jpg
 home-employers-background.png: home-employers-background-af48abb32ea5ecb98e2d1cca69cc0c64.png
 home-employers-background/index.png: home-employers-background-af48abb32ea5ecb98e2d1cca69cc0c64.png
+how-it-works1.jpg: how-it-works1-b6f04e7abe40e24a28a996158377074e.jpg
+how-it-works1/index.jpg: how-it-works1-b6f04e7abe40e24a28a996158377074e.jpg
 logo-large.png: logo-large-860d0b6420e8b8c7e658fe3ecc952751.png
 logo-large/index.png: logo-large-860d0b6420e8b8c7e658fe3ecc952751.png
 logo-large2.png: logo-large2-9a9314cedaad4890e4827b1586cb024c.png
@@ -85,8 +87,8 @@ video-camera.jpg: video-camera-1a9301d0ae1e189576bc238faeec4f6e.jpg
 video-camera/index.jpg: video-camera-1a9301d0ae1e189576bc238faeec4f6e.jpg
 video-player.jpg: video-player-6ef72d1ee0bb3b60596501ff4986c52e.jpg
 video-player/index.jpg: video-player-6ef72d1ee0bb3b60596501ff4986c52e.jpg
-application.js: application-41a6ae6a26378c39d938a7369aa51b59.js
-application/index.js: application-41a6ae6a26378c39d938a7369aa51b59.js
+application.js: application-e7b3c883104680c75925ce95dd04f77d.js
+application/index.js: application-e7b3c883104680c75925ce95dd04f77d.js
 application.css: application-06a63465c64b5104ec7234f168273668.css
 application/index.css: application-06a63465c64b5104ec7234f168273668.css
 tinymce.js: tinymce-e48850b9cc30ee9a4e77b1ad8861ce4d.js

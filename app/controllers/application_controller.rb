@@ -17,6 +17,14 @@ class ApplicationController < ActionController::Base
     @account ||= current_user.account
   end
 
+  def current_target_params
+    if user_signed_in?
+      @current_target_params ||= current_user.target_params
+    else
+      @current_target_params = "all"
+    end
+  end
+
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception, with: lambda { |exception| Rails.logger.info(exception.to_s); render_error 500, exception; }
     rescue_from ActionController::RoutingError, ActionController::UnknownController, ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound, with: lambda { |exception|  Rails.logger.info(exception.to_s); render_error 404, exception; }
