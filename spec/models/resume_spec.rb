@@ -17,7 +17,7 @@ describe Resume do
 
 	describe "Basics" do
 		context "Attributes" do
-			[ :name, :phone, :email, :website, :twitter, :status, :category1_id, :category2_id, :category3_id ].each do |attr|
+			[ :name, :phone, :email, :website, :twitter, :status, :category1_id, :category2_id, :category3_id, :private ].each do |attr|
 				it { should respond_to attr }
 				it { should allow_mass_assignment_of attr }
 			end
