@@ -6,7 +6,9 @@ describe JobApplication do
 			it { should belong_to association_name }
 		end
 
-		it { should have_one(:applicant_access).dependent(:destroy) }
+		[ :applicant_access, :notifications ].each do |klasses|
+			it { should have_many(klasses).dependent(:destroy) }
+		end
 	end
 
 	describe "Basics" do

@@ -4,6 +4,7 @@ class ConversationItem < ActiveRecord::Base
   # Relations
   belongs_to :conversation
   belongs_to :sender, class_name: "User", foreign_key: "sender_id"
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   # Validations
   validates :body, presence: true

@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710125200) do
+ActiveRecord::Schema.define(:version => 20130714134513) do
+
   create_table "accounts", :force => true do |t|
     t.string   "name"
     t.string   "website"
@@ -93,26 +94,6 @@ ActiveRecord::Schema.define(:version => 20130710125200) do
     t.integer  "user_id"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
-  end
-
-  create_table "advertisers_advertisements", :force => true do |t|
-    t.string   "title",                                 :null => false
-    t.string   "url"
-    t.integer  "campaign_id"
-    t.text     "content"
-    t.date     "start_time"
-    t.date     "end_time"
-    t.integer  "priority",           :default => 1
-    t.boolean  "confirmed",          :default => false
-    t.integer  "width"
-    t.integer  "height"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.boolean  "active",             :default => false
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
   end
 
   create_table "applicant_accesses", :force => true do |t|
@@ -285,6 +266,15 @@ ActiveRecord::Schema.define(:version => 20130710125200) do
 
   add_index "jobs", ["quick_applicable"], :name => "index_jobs_on_quick_applicable"
 
+  create_table "notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "body"
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "participants", :force => true do |t|
     t.integer  "conversation_id"
     t.integer  "user_id"
@@ -304,21 +294,6 @@ ActiveRecord::Schema.define(:version => 20130710125200) do
   end
 
   add_index "payment_profiles", ["account_id"], :name => "index_payment_profiles_on_account_id"
-
-  create_table "profiles", :force => true do |t|
-    t.string   "name"
-    t.string   "phone"
-    t.string   "email"
-    t.string   "website"
-    t.string   "status"
-    t.string   "growth_importance"
-    t.string   "distance_importance"
-    t.string   "freedom_importance"
-    t.string   "pay_importance"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-    t.string   "twitter"
-  end
 
   create_table "references", :force => true do |t|
     t.string   "name"
@@ -343,8 +318,8 @@ ActiveRecord::Schema.define(:version => 20130710125200) do
     t.string   "distance_importance"
     t.string   "freedom_importance"
     t.string   "pay_importance"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "twitter"
     t.integer  "user_id"
     t.string   "web_video"
@@ -352,6 +327,7 @@ ActiveRecord::Schema.define(:version => 20130710125200) do
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"
+    t.boolean  "private",             :default => false
   end
 
   create_table "scam_reports", :force => true do |t|

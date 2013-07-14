@@ -4,6 +4,10 @@ describe ConversationItem do
   describe "Assocations" do
   	it { should belong_to :conversation }
   	it { should belong_to(:sender).class_name("User") }
+
+    [ :notifications ].each do |klasses|
+      it { should have_many(klasses).dependent(:destroy) }
+    end
   end
 
   describe "Basics" do
@@ -25,8 +29,8 @@ describe ConversationItem do
 
   	describe "Presence" do
   		[ :body, :conversation_id, :sender_id ].each do |attr|
-  				it { should validate_presence_of attr }
-  			end  		
+				it { should validate_presence_of attr }
+			end	
   	end
   end
 end

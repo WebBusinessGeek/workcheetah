@@ -6,7 +6,9 @@ describe VideoChat do
   		it { should belong_to association_name }
   	end
 
-  	it { should have_many(:video_chat_messages).dependent(:destroy) }
+  	[ :notifications, :video_chat_messages ].each do |klasses|
+  		it { should have_many(klasses).dependent(:destroy) }
+  	end
 	end
 
 	describe "Basics" do

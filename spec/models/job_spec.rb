@@ -12,8 +12,11 @@ describe Job do
 
 		it { should belong_to :category } # test both category and category1! both names are used in the code for backwards compatibility reasons
 
-		it { should have_many(:job_applications).dependent(:destroy) }
-		it { should have_many(:invites).dependent(:destroy) }
+		[ :invites, :job_applications, :notifications ].each do |klasses|
+			it { should have_many(:job_applications).dependent(:destroy) }
+			it { should have_many(:invites).dependent(:destroy) }
+			it { should have_many(klasses).dependent(:destroy) }			
+		end
 
 		it { should accept_nested_attributes_for :account }
 	end
