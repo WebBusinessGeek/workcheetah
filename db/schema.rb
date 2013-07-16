@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710125200) do
+ActiveRecord::Schema.define(:version => 20130716154404) do
+
   create_table "accounts", :force => true do |t|
     t.string   "name"
     t.string   "website"
@@ -95,26 +96,6 @@ ActiveRecord::Schema.define(:version => 20130710125200) do
     t.datetime "updated_at",                    :null => false
   end
 
-  create_table "advertisers_advertisements", :force => true do |t|
-    t.string   "title",                                 :null => false
-    t.string   "url"
-    t.integer  "campaign_id"
-    t.text     "content"
-    t.date     "start_time"
-    t.date     "end_time"
-    t.integer  "priority",           :default => 1
-    t.boolean  "confirmed",          :default => false
-    t.integer  "width"
-    t.integer  "height"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.boolean  "active",             :default => false
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
-  end
-
   create_table "applicant_accesses", :force => true do |t|
     t.integer  "job_application_id"
     t.integer  "account_id"
@@ -155,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20130710125200) do
     t.date     "end_date"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
+    t.boolean  "cpc",                   :default => true
   end
 
   create_table "categories", :force => true do |t|
@@ -354,6 +336,11 @@ ActiveRecord::Schema.define(:version => 20130710125200) do
     t.integer  "category3_id"
   end
 
+  create_table "resumes_skills", :id => false, :force => true do |t|
+    t.integer "resume_id"
+    t.integer "skill_id"
+  end
+
   create_table "scam_reports", :force => true do |t|
     t.string   "scammer_type"
     t.string   "name_used"
@@ -384,6 +371,19 @@ ActiveRecord::Schema.define(:version => 20130710125200) do
     t.integer  "amount"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "skill_groups", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "skills", :force => true do |t|
+    t.string   "name"
+    t.integer  "skill_group_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "tweets", :force => true do |t|

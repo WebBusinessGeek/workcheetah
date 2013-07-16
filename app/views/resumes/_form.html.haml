@@ -137,6 +137,10 @@
           = f.radio_button :pay_importance, "10"
           Very Important
 
+    .skills
+      %h2 Skills
+      = f.input :skill_ids, label: false, collection: SkillGroup.all, as: :grouped_select, group_method: :skills, group_label_method: :name, label_method: :name
+
     .schools
       %h2 Education
       = f.fields_for :schools do |sf|

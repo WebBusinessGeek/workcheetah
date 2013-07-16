@@ -25,4 +25,17 @@ namespace :db do
       end
     end
   end
+
+  desc "Load skills data"
+  task :load_skills => :environment do
+    ActiveRecord::Base.transaction do
+      Skill::GROUPED_SKILLS.each do |k,v|
+        x = SkillGroup.create name: k
+        v.each do |a|
+          Skill.create name: a, skill_group_id: x.id
+        end
+      end
+    end
+  end
+
 end
