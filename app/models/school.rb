@@ -1,5 +1,6 @@
 class School < ActiveRecord::Base
-  attr_accessible :name, :degree_type, :degree_name, :from, :till, :currently_attending, :highlights, :resume_id
+  attr_accessible :name, :degree_type, :degree_name, :from, :till, :currently_attending, :highlights,
+   :resume_id, :highest_merit, :course_of_study, :completion_year
 
   belongs_to :resume
   HIGHEST_MERIT = [
