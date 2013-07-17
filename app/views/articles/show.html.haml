@@ -1,54 +1,66 @@
 .articles_show
 	.white_box
 		.breadcrumbs
-			= link_to "All Articles", articles_path
+			.btn.btn-mini.previous
+				%i.icon-chevron-left 
+				= link_to "All articles", articles_path
 
-		.inline
-			%a{:href => "#", :onclick => "window.open('https://www.facebook.com/sharer/sharer.php?u=#{request.url}', 'facebook-share-dialog', 'width=626,height=436'); return false;"}
-				Share on Facebook
+		/ .pull-right
+		/ 	- if user_signed_in? && current_user.admin?
+		/ 		= link_to "Edit Article", [:edit, @article], class: "btn"
+		/ 		= link_to "Destroy Article", @article, class: "btn btn-danger", method: :delete
 
-			%a.twitter-share-button{:href => "https://twitter.com/share"} Tweet
-			:javascript
-				!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-			/ Place this tag where you want the share button to render.
-			.g-plus{"data-action" => "share"}
-			/ Place this tag after the last share tag.
-			:javascript
-				(function() {
-					var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-					po.src = 'https://apis.google.com/js/plusone.js';
-					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-				})();
-
-
-		.pull-right
-			- if user_signed_in? && current_user.admin?
-				= link_to "Edit Article", [:edit, @article], class: "btn"
-				= link_to "Destroy Article", @article, class: "btn btn-danger", method: :delete
-		%h1{style: "font-family: helvetica;"}= @article.title
-		%h2{style: "font-family: helvetica;"}= @article.subtitle
-		%p
+		%h1{class: 'post_title'}= @article.title
+		%h2{class: 'post_sub'}= @article.subtitle
+		%p{class: 'readers'}
 			= pluralize @article.view_count, "person"
 			= @article.view_count == 1 ? "has" : "have"
 			read this article.
+
+		.inline.social
+			.btn.btn-small.btn-social-facebook
+				%i.icon-facebook
+				%a{:href => "#", :onclick => "window.open('https://www.facebook.com/sharer/sharer.php?u=#{request.url}', 'facebook-share-dialog', 'width=626,height=436'); return false;"}
+				Share on Facebook
+
+			.btn.btn-small.btn-social-twitter
+				%i.icon-twitter
+				%a{:href => "https://twitter.com/share"} 
+				Tweet
+				:javascript
+					!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+
+			.btn.btn-small.btn-social-googleplus
+				%i.icon-google-plus
+				%a{:href => "https://plus.google.com/share?url=www.workcheetah.com"} 
+				Share on Googleplus
+				/ :javascript
+				/ 	(function() {
+				/ 		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+				/ 		po.src = 'https://apis.google.com/js/plusone.js';
+				/ 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				/ 	})();
+
+
+		
 		.article-cover{style: "margin-bottom: 20px; text-align: center;"}
 			= image_tag @article.cover.url(:landscape) if @article.cover.present?
-		= @article.body.html_safe
+		.article_body 
+			= @article.body.html_safe
 
-		%hr/ 
 
 		- if user_signed_in?
 			= simple_form_for @article.comments.build do |f|
-				.form-fields
+				.form-actions
 					= f.text_field :body, style: "width: 100%;", placeholder: "Comment here..."
 					= f.hidden_field :article_id, value: @article.id
-				.form-actions
 					= f.button :submit, class: "btn btn-primary"
 		
 		- @comments.each do |comment|
-			%hr/ 
-			%p
-				%b= comment.body
-			%p
-				= comment.user.name
-				= "#{time_ago_in_words comment.created_at} ago"
+			.comment
+				%hr/ 
+				%p.comment_body
+					%b= comment.body
+				%p.comment_user
+					= comment.user.name
+					= "#{time_ago_in_words comment.created_at} ago"
