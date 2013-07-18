@@ -1,4 +1,6 @@
 CareerLoop::Application.routes.draw do
+
+  get '/confirmations', to: 'confirmations#show', as: :confirmations_login
   resources :comments, only: [ :create ]
 
   get "/how-it-works" => "advertisers/dashboard#new_sign_up", as: :advertisers_sign_up

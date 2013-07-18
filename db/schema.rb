@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130717125303) do
+ActiveRecord::Schema.define(:version => 20130718123613) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -151,6 +151,19 @@ ActiveRecord::Schema.define(:version => 20130717125303) do
     t.text     "body"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "confirmations", :force => true do |t|
+    t.text     "message"
+    t.integer  "confirmed_for"
+    t.integer  "confirmed_by"
+    t.string   "confirmation_token"
+    t.datetime "confirmation_sent"
+    t.datetime "confirmated_at"
+    t.integer  "confirmable_id"
+    t.string   "confirmable_type"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "conversation_items", :force => true do |t|

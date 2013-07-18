@@ -95,11 +95,14 @@
           - @resume.references.each do |reference|
             .reference
               %h4.name{ style: "margin-bottom: 0"}= reference.name
+              -unless reference.confirmation
+                =link_to "Send Confirmation Request", "#", class: "btn btn-danger unconfirmed"
+              -else
+                %span.label.label-success "CONFIRMED"
               %em.job= reference.job_title
               .company= reference.company
               .phone= reference.phone
               .email= reference.email
               .notes= reference.notes
-
     - else
       %p This application doesn't have a resume
