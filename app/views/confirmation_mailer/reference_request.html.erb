@@ -1,0 +1,13 @@
+Dear <%= @confirmation.confirmable.name %>
+
+<br />
+
+<p><%= @confirmation.message %></p>
+
+<br />
+The provided link will log you in automatically into the site to verfiy the requested reference.
+<% if Rails.env == "development" %>
+  <%= link_to "Workcheetah.com", confirmation_url(confirmation_token: @confirmation.confirmation_token) %>
+<% else %>
+  <%= link_to "Workcheetah.com", "http://workcheetah-staging.herokuapp.com/confirmation?confirmation_token=#{@confirmation.confirmation_token}" %>
+<% end %>

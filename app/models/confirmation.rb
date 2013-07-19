@@ -1,14 +1,19 @@
 class Confirmation < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
   belongs_to :confirmable, polymorphic: true
-  belongs_to :confirmed_for, class_name: "User", foreign_key: "confirmed_for"
-  belongs_to :confirmed_by, class_name: "User", foreign_key: "confirmed_by"
+  belongs_to :confirm_for, class_name: "User", foreign_key: "confirm_for"
+  belongs_to :confirm_by, class_name: "User", foreign_key: "confirm_by"
 
   before_create :generate_confirmation_token
-  after_create :find_confirmable_by
 
   validate :reference_email_existance
+  validate :email, presence: true
 
+  def send_email
+    find_confirmable_by
+  end
+
+  handle_asynchronously :send_email
   private
   def generate_confirmation_token
     begin
@@ -17,8 +22,8 @@ class Confirmation < ActiveRecord::Base
   end
 
   def find_confirmable_by
-    confirmed_by = User.where(email: confirmable.email).first
-    unless confirmed_by
+    confirm_by = User.where(email: confirmable.email).pluck(:id).first
+    unless confirm_by
       user = User.new do |u|
         u.email = confirmable.email.downcase
         puts confirmation_token
@@ -27,14 +32,14 @@ class Confirmation < ActiveRecord::Base
       end
       user.confirm!
       user.save!
-      send_inapp_conversation(user.id, confirmable.resume.user_id)
-      update_column(:confirmed_by, user.id)
+      update_column(:confirm_by, user.id)
+    else
+      update_column(:confirm_by, confirm_by)
     end
-    #Send Confirmation email
   end
 
   def reference_email_existance
-    errors.add(:confirmable,"Confirmation can't be sent for a reference without an email") if
+    errors.add(:email,"Confirmation can't be sent for a reference without an email") if
     confirmable.email.blank?
   end
 end

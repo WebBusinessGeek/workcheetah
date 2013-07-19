@@ -52,7 +52,9 @@ class ResumesController < ApplicationController
   end
 
   def show
-    load_resume
+    @resume = Resume
+      .includes(:user, :addresses, :experiences, :schools, :category1, :category2, :category3, references: [:confirmation])
+      .where(id: params[:id]).first
     raise ActiveRecord::RecordNotFound unless user_signed_in? && (@resume.user == current_user || current_user.admin?)
   end
 
