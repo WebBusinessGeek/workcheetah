@@ -5,6 +5,10 @@ class Reference < ActiveRecord::Base
 
   attr_accessible :name, :job_title, :company, :phone, :email, :notes, :reference_type, :resume_id
 
-  def confirm
+  def confirm!
+    unless confirmed?
+      update_column(:confirmed, true)
+      confirmation.update_column(:confirmated_at, Time.now)
+    end
   end
 end
