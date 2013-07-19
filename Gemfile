@@ -11,6 +11,7 @@ gem "foreman"
 gem "auto_html"
 gem 'rake', '~> 10.1.0'
 gem "will_paginate"
+gem 'virtus'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -27,6 +28,7 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'uglifier', '>= 1.0.3'
   gem 'turbo-sprockets-rails3'
+  gem 'chosen-rails'
 end
 
 gem "figaro"

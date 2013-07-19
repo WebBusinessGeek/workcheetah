@@ -47,6 +47,8 @@ hiring.jpg: hiring-5fef8cb30c906b9b231d7b85fec70102.jpg
 hiring/index.jpg: hiring-5fef8cb30c906b9b231d7b85fec70102.jpg
 home-employers-background.png: home-employers-background-af48abb32ea5ecb98e2d1cca69cc0c64.png
 home-employers-background/index.png: home-employers-background-af48abb32ea5ecb98e2d1cca69cc0c64.png
+how-it-works1.jpg: how-it-works1-b6f04e7abe40e24a28a996158377074e.jpg
+how-it-works1/index.jpg: how-it-works1-b6f04e7abe40e24a28a996158377074e.jpg
 logo-large.png: logo-large-860d0b6420e8b8c7e658fe3ecc952751.png
 logo-large/index.png: logo-large-860d0b6420e8b8c7e658fe3ecc952751.png
 logo-large2.png: logo-large2-9a9314cedaad4890e4827b1586cb024c.png
@@ -298,6 +300,10 @@ jquery-ui/ui-icons_cd0a0a_256x240.png: jquery-ui/ui-icons_cd0a0a_256x240-d4a6221
 jquery-ui/ui-icons_cd0a0a_256x240/index.png: jquery-ui/ui-icons_cd0a0a_256x240-d4a62216bf6f0cd0071149890763a5ff.png
 jquery.min.map: jquery.min-1c0cf7b6a3425fbd9a3bfccab0a99a4e.map
 jquery/index.min.map: jquery.min-1c0cf7b6a3425fbd9a3bfccab0a99a4e.map
+chosen-sprite.png: chosen-sprite-0b638291e3ab1e89592983b5810b9b79.png
+chosen-sprite/index.png: chosen-sprite-0b638291e3ab1e89592983b5810b9b79.png
+chosen-sprite@2x.png: chosen-sprite@2x-8fa0fb1eb347c8dc10a5381b22383ac6.png
+chosen-sprite@2x/index.png: chosen-sprite@2x-8fa0fb1eb347c8dc10a5381b22383ac6.png
 FontAwesome.otf: FontAwesome-468f83b63df32064983141584a19ff17.otf
 FontAwesome/index.otf: FontAwesome-468f83b63df32064983141584a19ff17.otf
 fontawesome-webfont.eot: fontawesome-webfont-635909f146e208b3509acdf3b154bf0d.eot

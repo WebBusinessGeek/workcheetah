@@ -1,5 +1,7 @@
 class Resume < ActiveRecord::Base
-  attr_accessible :name, :phone, :email, :email_for_claim, :website, :twitter, :status, :addresses_attributes, :experiences_attributes, :schools_attributes, :references_attributes, :user_attributes, :category1_id, :category2_id, :category3_id
+  attr_accessible :name, :phone, :email, :email_for_claim, :website, :twitter, :status, 
+    :addresses_attributes, :experiences_attributes, :schools_attributes, :references_attributes, 
+    :user_attributes, :category1_id, :category2_id, :category3_id, :skill_ids
 
   has_many :addresses, as: :addressable, dependent: :destroy
   has_many :experiences, dependent: :destroy
@@ -10,6 +12,7 @@ class Resume < ActiveRecord::Base
   belongs_to :category1, class_name: "Category"
   belongs_to :category2, class_name: "Category"
   belongs_to :category3, class_name: "Category"
+  has_and_belongs_to_many :skills
 
   mount_uploader :video, VideoUploader
   mount_uploader :web_video, VideoUploader

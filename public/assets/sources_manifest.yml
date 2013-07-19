@@ -23,6 +23,7 @@ green-checkmark.png: 0308077a6dca744e4641795aa95bcfda
 header.png: f08c317855f52bc0243d9011baf8f739
 hiring.jpg: 5fef8cb30c906b9b231d7b85fec70102
 home-employers-background.png: af48abb32ea5ecb98e2d1cca69cc0c64
+how-it-works1.jpg: b6f04e7abe40e24a28a996158377074e
 logo-large.png: 860d0b6420e8b8c7e658fe3ecc952751
 logo-large2.png: 9a9314cedaad4890e4827b1586cb024c
 logo-large3.png: c72b1cdf83fdab76b0990dd215033af4
@@ -149,6 +150,8 @@ jquery-ui/ui-icons_454545_256x240.png: 68b2fe3268f7604fb0767a0372e2db85
 jquery-ui/ui-icons_888888_256x240.png: 8040cfcc88792375b7788feb59189eef
 jquery-ui/ui-icons_cd0a0a_256x240.png: d4a62216bf6f0cd0071149890763a5ff
 jquery.min.map: 1c0cf7b6a3425fbd9a3bfccab0a99a4e
+chosen-sprite.png: 0b638291e3ab1e89592983b5810b9b79
+chosen-sprite@2x.png: 8fa0fb1eb347c8dc10a5381b22383ac6
 FontAwesome.otf: 468f83b63df32064983141584a19ff17
 fontawesome-webfont.eot: 635909f146e208b3509acdf3b154bf0d
 fontawesome-webfont.ttf: 6a4e273908b7e43d9e479d38b8ae5957

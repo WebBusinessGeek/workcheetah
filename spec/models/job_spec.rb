@@ -32,7 +32,7 @@ describe Job do
 
 	describe "Validations" do
 		context "Inclusion" do
-			it { should ensure_inclusion_of(:yearly_compensation).in_array([ "15-25k",  "26-35k",  "36-45k",  "46-55k",  "66-75k",  "76-85k",  "86_95k",  "96k+",  "commission based",  "salary + commission",  "undisclosed" ]) }
+			it { should ensure_inclusion_of(:yearly_compensation).in_array([ "15-25k",  "26-35k",  "36-45k",  "46-55k",  "66-75k",  "76-85k",  "86-95k",  "96k+",  "commission based",  "salary + commission",  "undisclosed" ]) }
 		end
 
 		context "Numericality" do

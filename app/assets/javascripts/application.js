@@ -19,4 +19,5 @@
 //= require resume_builder
 //= require jquery.maskedinput
 //= require private_pub
+//= require chosen-jquery
 //= require_tree .

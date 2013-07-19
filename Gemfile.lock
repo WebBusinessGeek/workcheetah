@@ -37,6 +37,7 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
+    backports (3.3.3)
     bcrypt-ruby (3.1.0)
     better_errors (0.9.0)
       coderay (>= 1.0.0)
@@ -64,6 +65,10 @@ GEM
       carrierwave
       fog
       uuidtools
+    chosen-rails (0.12.0)
+      coffee-rails (>= 3.2)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
@@ -85,6 +90,7 @@ GEM
     delayed_job_active_record (0.4.4)
       activerecord (>= 2.1.0, < 4)
       delayed_job (~> 3.0)
+    descendants_tracker (0.0.1)
     devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -316,6 +322,9 @@ GEM
       rack
       raindrops (~> 0.7)
     uuidtools (2.1.4)
+    virtus (0.5.5)
+      backports (~> 3.3)
+      descendants_tracker (~> 0.0.1)
     warden (1.2.1)
       rack (>= 1.0)
     websocket-driver (0.2.1)
@@ -340,6 +349,7 @@ DEPENDENCIES
   capybara-webkit
   carrierwave
   carrierwave_direct
+  chosen-rails
   coffee-rails (~> 3.2.1)
   database_cleaner
   delayed_job (= 3.0.5)
@@ -384,5 +394,6 @@ DEPENDENCIES
   turbo-sprockets-rails3
   uglifier (>= 1.0.3)
   unicorn
+  virtus
   will_paginate
   zencoder
