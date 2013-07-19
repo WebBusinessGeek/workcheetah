@@ -80,7 +80,7 @@ module ApplicationHelper
     elsif user.moderator?
       false
     elsif user.advertiser?
-      false
+      true
     elsif user.account.nil?
       true
     end 

@@ -194,7 +194,6 @@ GEM
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.8)
-    newrelic_rpm (3.6.5.130)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     orm_adapter (0.4.0)
@@ -369,7 +368,6 @@ DEPENDENCIES
   launchy
   libv8 (~> 3.11.8.3)
   meta_request
-  newrelic_rpm
   paperclip (~> 3.0)
   pg
   private_pub

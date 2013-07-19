@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20130717125303) do
+=======
+ActiveRecord::Schema.define(:version => 20130719152558) do
+>>>>>>> 41494036f50bbb17f70faea2a7d14437da5e05b6
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -151,6 +155,20 @@ ActiveRecord::Schema.define(:version => 20130717125303) do
     t.text     "body"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "confirmations", :force => true do |t|
+    t.text     "message"
+    t.string   "email"
+    t.integer  "confirm_for"
+    t.integer  "confirm_by"
+    t.string   "confirmation_token"
+    t.datetime "confirmation_sent"
+    t.datetime "confirmated_at"
+    t.integer  "confirmable_id"
+    t.string   "confirmable_type"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "conversation_items", :force => true do |t|
@@ -310,9 +328,10 @@ ActiveRecord::Schema.define(:version => 20130717125303) do
     t.string   "email"
     t.text     "notes"
     t.string   "reference_type"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "resume_id"
+    t.boolean  "confirmed",      :default => false
   end
 
   create_table "resumes", :force => true do |t|

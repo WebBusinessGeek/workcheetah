@@ -1,0 +1,7 @@
+= simple_form_for @confirmation, url: confirmations_path, method: :post do |f|
+  .pagination-centered
+    = f.input :email, label: false
+    = f.input :confirmable_id, as: :hidden
+    = f.input :confirmable_type, as: :hidden
+    = f.input :message, label: false, placeholder:"Customize the message to your reference", input_html: {size: "80x4"}
+    = f.submit "Send Request", class: "btn btn-primary"

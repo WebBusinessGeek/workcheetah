@@ -95,11 +95,25 @@
           - @resume.references.each do |reference|
             .reference
               %h4.name{ style: "margin-bottom: 0"}= reference.name
+              -unless reference.confirmation
+                =link_to "Send Confirmation Request", new_confirmation_path(reference: reference, email: reference.email), remote: true, class: "btn btn-danger confirmation"
+              -else
+                -if reference.confirmed?
+                  %span.label.label-success.confirmation CONFIRMED
+                -else
+                  %span.label.label-warning.confirmation
+                    Confirmation sent on:
+                    = reference.confirmation.confirmation_sent.strftime("%B %d, %Y")
               %em.job= reference.job_title
               .company= reference.company
               .phone= reference.phone
               .email= reference.email
               .notes= reference.notes
-
     - else
       %p This application doesn't have a resume
+#myModal.modal.hide.fade
+  .modal-header
+    %button.close{type: "button", "data-dismiss" => "modal", "aria-hidden" => true} X
+    %h3#myModalLabel.pagination-centered Confirmation Request
+  .modal-body
+    Test

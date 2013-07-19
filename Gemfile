@@ -56,7 +56,6 @@ gem "paperclip", "~> 3.0"
 # So we get pry goodness on heroku
 gem 'pry-rails'
 gem 'pry'
-gem 'newrelic_rpm'
 gem 'pg'
 
 group :test do
