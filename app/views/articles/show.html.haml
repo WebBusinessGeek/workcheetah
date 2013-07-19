@@ -1,14 +1,14 @@
 .articles_show
 	.white_box
 		.breadcrumbs
-			.btn.btn-mini.previous
+			.btn1.btn1-mini.previous
 				%i.icon-chevron-left 
 				= link_to "All articles", articles_path
 
-		/ .pull-right
-		/ 	- if user_signed_in? && current_user.admin?
-		/ 		= link_to "Edit Article", [:edit, @article], class: "btn"
-		/ 		= link_to "Destroy Article", @article, class: "btn btn-danger", method: :delete
+		.pull-right
+			- if user_signed_in? && current_user.admin?
+				= link_to "Edit Article", [:edit, @article], class: "btn1"
+				= link_to "Destroy Article", @article, class: "btn1 btn1-danger", method: :delete
 
 		%h1{class: 'post_title'}= @article.title
 		%h2{class: 'post_sub'}= @article.subtitle
@@ -18,28 +18,27 @@
 			read this article.
 
 		.inline.social
-			.btn.btn-small.btn-social-facebook
-				%i.icon-facebook
-				%a{:href => "#", :onclick => "window.open('https://www.facebook.com/sharer/sharer.php?u=#{request.url}', 'facebook-share-dialog', 'width=626,height=436'); return false;"}
+			%a{:href => "#", :onclick => "window.open('https://www.facebook.com/sharer/sharer.php?u=#{request.url}', 'facebook-share-dialog', 'width=626,height=436'); return false;", :class => "btn1 btn1-small btn1-social-facebook"} 
+				%i.icon-facebook 
 				Share on Facebook
 
-			.btn.btn-small.btn-social-twitter
-				%i.icon-twitter
-				%a{:href => "https://twitter.com/share"} 
+		
+			%a{:href => "https://twitter.com/share",  :class => "btn1 btn1-small btn1-social-twitter"} 
+				%i.icon-twitter 
 				Tweet
-				:javascript
-					!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+			/ :javascript
+			/ 	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 
-			.btn.btn-small.btn-social-googleplus
-				%i.icon-google-plus
-				%a{:href => "https://plus.google.com/share?url=www.workcheetah.com"} 
+
+			%a{:href => "https://plus.google.com/share?url=www.workcheetah.com",  :class => "btn1 btn1-small btn1-social-googleplus"} 
+				%i.icon-google-plus 
 				Share on Googleplus
-				/ :javascript
-				/ 	(function() {
-				/ 		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-				/ 		po.src = 'https://apis.google.com/js/plusone.js';
-				/ 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-				/ 	})();
+			/ :javascript
+			/ 	(function() {
+			/ 		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			/ 		po.src = 'https://apis.google.com/js/plusone.js';
+			/ 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			/ 	})();
 
 
 		
@@ -54,7 +53,7 @@
 				.form-actions
 					= f.text_field :body, style: "width: 100%;", placeholder: "Comment here..."
 					= f.hidden_field :article_id, value: @article.id
-					= f.button :submit, class: "btn btn-primary"
+					= f.button :submit, class: "btn1 btn1-primary"
 		
 		- @comments.each do |comment|
 			.comment
