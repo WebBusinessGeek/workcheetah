@@ -25,6 +25,8 @@ brand.jpg: brand-ee4981abef8ce58ba4adbf32c36f5ec5.jpg
 brand/index.jpg: brand-ee4981abef8ce58ba4adbf32c36f5ec5.jpg
 competition.jpg: competition-043adc6cfdc566c46a3839160acbc7c1.jpg
 competition/index.jpg: competition-043adc6cfdc566c46a3839160acbc7c1.jpg
+facebook.svg: facebook-d30b52d1ad60fde6db097ab9e907a421.svg
+facebook/index.svg: facebook-d30b52d1ad60fde6db097ab9e907a421.svg
 favicon-briefcase.ico: favicon-briefcase-eb18859aca2d96edebe5742a02ddcf2b.ico
 favicon-briefcase/index.ico: favicon-briefcase-eb18859aca2d96edebe5742a02ddcf2b.ico
 favicon-claw1.ico: favicon-claw1-40ed0e423fd62e0b420d3a864215a3d7.ico
@@ -35,6 +37,8 @@ fresh.jpg: fresh-58bb1e53558d35736d93834de4bfd05f.jpg
 fresh/index.jpg: fresh-58bb1e53558d35736d93834de4bfd05f.jpg
 getting-faster.jpg: getting-faster-3d5c715e25cb75d133b323159680c28f.jpg
 getting-faster/index.jpg: getting-faster-3d5c715e25cb75d133b323159680c28f.jpg
+googleplus.svg: googleplus-52ce3f24012b552b508527e2c9e1b1f6.svg
+googleplus/index.svg: googleplus-52ce3f24012b552b508527e2c9e1b1f6.svg
 green-checkmark.png: green-checkmark-0308077a6dca744e4641795aa95bcfda.png
 green-checkmark/index.png: green-checkmark-0308077a6dca744e4641795aa95bcfda.png
 header.png: header-f08c317855f52bc0243d9011baf8f739.png
@@ -83,14 +87,16 @@ safe-seal-small.png: safe-seal-small-efcf9aca9324255742321b746171883e.png
 safe-seal-small/index.png: safe-seal-small-efcf9aca9324255742321b746171883e.png
 seal.jpg: seal-1e28a5648dbcfced2cc2fd8770d03f05.jpg
 seal/index.jpg: seal-1e28a5648dbcfced2cc2fd8770d03f05.jpg
+twitter.svg: twitter-bd48b44ccab3248a7680c3cccf88ba01.svg
+twitter/index.svg: twitter-bd48b44ccab3248a7680c3cccf88ba01.svg
 video-camera.jpg: video-camera-1a9301d0ae1e189576bc238faeec4f6e.jpg
 video-camera/index.jpg: video-camera-1a9301d0ae1e189576bc238faeec4f6e.jpg
 video-player.jpg: video-player-6ef72d1ee0bb3b60596501ff4986c52e.jpg
 video-player/index.jpg: video-player-6ef72d1ee0bb3b60596501ff4986c52e.jpg
 application.js: application-d56e556db623aba861ca7f5c31eef623.js
 application/index.js: application-d56e556db623aba861ca7f5c31eef623.js
-application.css: application-13610004a4ce540772d1c09b6dc73ef2.css
-application/index.css: application-13610004a4ce540772d1c09b6dc73ef2.css
+application.css: application-3861e78c8e497c0ce51eee1a0015ddf6.css
+application/index.css: application-3861e78c8e497c0ce51eee1a0015ddf6.css
 tinymce.js: tinymce-e48850b9cc30ee9a4e77b1ad8861ce4d.js
 tinymce/license.txt: tinymce/license.txt
 tinymce/license/index.txt: tinymce/license/index.txt

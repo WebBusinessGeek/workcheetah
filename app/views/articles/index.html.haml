@@ -1,12 +1,14 @@
 .articles_index
   .white_box
-    - if user_signed_in? && current_user.admin?
-      .pull-right
-        = link_to "Add Article", [:new, :article], class: "btn"
-    %h1 Career Stuff 101
+    / - if user_signed_in? && current_user.admin?
+    /   .pull-right
+    /     = link_to "Add Article", [:new, :article], class: "btn"
+    %h1#careerstuff Career Stuff 101
+    %h2#careersub Powered by WorkCheetah.com
     - if @articles.any?
       - @articles.each do |article|
         %h3.title= link_to article.title, article
         .teaser= ActionView::Base.full_sanitizer.sanitize(article.body).truncate(200)
+        = link_to "Show more", article, class: "show_more"
     - else
       %p No articles added yet.
