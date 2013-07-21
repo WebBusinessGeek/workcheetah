@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130719152558) do
+ActiveRecord::Schema.define(:version => 20130721185731) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -349,7 +349,10 @@ ActiveRecord::Schema.define(:version => 20130719152558) do
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"
+    t.integer  "rating"
   end
+
+  add_index "resumes", ["rating"], :name => "index_resumes_on_rating"
 
   create_table "resumes_skills", :id => false, :force => true do |t|
     t.integer "resume_id"

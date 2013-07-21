@@ -35,6 +35,7 @@ class Resume < ActiveRecord::Base
   validates :category3_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
 
   # after_save :enqueue_video
+  after_save :update_rating
 
   def invited_to_job?(job)
     Invite.where(resume_id: self, job_id: job).any?
@@ -51,6 +52,11 @@ class Resume < ActiveRecord::Base
   def enough_for_employers?
     name.present? and phone.present? and addresses.any? and category1_id.present?
   end
+
+  private
+    def update_rating
+      update_column(:rating, Resumes::Rating.new(self).get_score)
+    end
 end
 
 # class VideoWorker
