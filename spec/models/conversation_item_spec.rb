@@ -17,6 +17,12 @@ describe ConversationItem do
   			it { should allow_mass_assignment_of attr }
   		end
   	end
+
+    describe "Methods" do
+      [ :creation_notification ].each do |method|
+        it { should respond_to method }
+      end
+    end
   end
 
   describe "Validations" do

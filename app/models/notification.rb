@@ -6,7 +6,6 @@ class Notification < ActiveRecord::Base
 
   # Validations
   validates :body,				presence: true
-  validates :notifiable_id, 	numericality: { only_integer: true, greater_than: 0 }, allow_blank: false
-  validates :notifiable_type, 	presence: true
-  validates :user_id, 			numericality: { only_integer: true, greater_than: 0 }, allow_blank: false
+  validates :notifiable_id, 	numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
+  validates :user_id, 			numericality: { only_integer: true, greater_than: 0 }
 end

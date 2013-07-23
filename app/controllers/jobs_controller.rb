@@ -232,6 +232,7 @@ class JobsController < ApplicationController
     resumes = []
     Resume.all.each do |resume|
       Invite.create(resume_id: resume.id, job_id: @job.id)
+      @job.notifications.create(body: "You have been invited to a job.", user_id: resume.user.id)
 
       if resume.addresses.any?
         resumes << resume if Job.near(resume.addresses.first.city, 50).where("category_id = ? OR category_id = ? OR category_id = ?",  resume.category1_id, resume.category2_id, resume.category3_id).include? @job

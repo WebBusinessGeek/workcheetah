@@ -24,13 +24,14 @@ describe Notification do
   	describe "Numericality" do
   		[ :notifiable_id, :user_id ].each do |attr|
   			it { should validate_numericality_of(attr).only_integer }
-  			it { should_not allow_value(nil).for(attr) }
   			it { should_not allow_value(0).for(attr) }
   		end
+
+      it { should_not allow_value(nil).for(:user_id) }
   	end
 
   	describe "Presence" do
-  		[ :body, :notifiable_type ].each do |attr|
+  		[ :body ].each do |attr|
   			it { should validate_presence_of attr }
   		end
   	end

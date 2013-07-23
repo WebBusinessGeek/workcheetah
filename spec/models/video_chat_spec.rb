@@ -20,7 +20,9 @@ describe VideoChat do
 		end
 
 		context "Methods" do
-			
+			[ :change_notification, :creation_notification, :destruction_notification ].each do |method|
+				it { should respond_to method }
+			end
 		end
 	end
 

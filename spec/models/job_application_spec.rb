@@ -19,7 +19,7 @@ describe JobApplication do
 		end
 
 		context "Methods" do
-			[ :reject!, :rejected? ].each do |method|
+			[ :reject!, :rejected?, :change_notification, :creation_notification, :destruction_notification ].each do |method|
 				it { should respond_to method }
 			end
 		end
