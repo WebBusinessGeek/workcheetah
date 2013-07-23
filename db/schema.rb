@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130721185731) do
+ActiveRecord::Schema.define(:version => 20130723145123) do
+
   create_table "accounts", :force => true do |t|
     t.string   "name"
     t.string   "website"
@@ -278,6 +279,8 @@ ActiveRecord::Schema.define(:version => 20130721185731) do
     t.string   "yearly_compensation"
   end
 
+  add_index "jobs", ["account_id"], :name => "index_jobs_on_account_id"
+  add_index "jobs", ["active"], :name => "index_jobs_on_active"
   add_index "jobs", ["quick_applicable"], :name => "index_jobs_on_quick_applicable"
 
   create_table "participants", :force => true do |t|
