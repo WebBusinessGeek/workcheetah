@@ -3,16 +3,15 @@
 		- if job.title.present?
 			= link_to job.title, job
 		- if job.account.safe_job_seal?
-			= link_to(image_tag("safe-seal-small.png", alt: "Safe Job seal"), job) 
-	
+			= link_to(image_tag("safe-seal-small.png", alt: "Safe Job seal"), job)
 	%td= job.yearly_compensation or "n/a"
 	%td= job.address
 	%td= job.category ? job.category.name : "n/a"
 	%td
-		- if user_signed_in? and current_user.resume
-			= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
-		- else
-			%a#invite-popover{"data-content" => "You have to have a resume to view your competition.", "data-original-title" => "#{link_to "Build a resume", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left"} ? applicants
+		-# - if user_signed_in? and current_user.resume
+		= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
+		-# - else
+		-# 	%a#invite-popover{"data-content" => "You have to have a resume to view your competition.", "data-original-title" => "#{link_to "Build a resume", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left"} ? applicants
 	%td
 		- if job.quick_applicable?
 			- if user_signed_in? and current_user.job_applications.where(job_id: job).empty?
