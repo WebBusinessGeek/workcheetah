@@ -40,6 +40,7 @@ class Resume < ActiveRecord::Base
     a = schools.pluck(:highest_merit).map {|x| School::HIGHEST_MERIT.rindex(x)}
     return School::HIGHEST_MERIT[a.max]
   end
+
   def invited_to_job?(job)
     Invite.where(resume_id: self, job_id: job).any?
   end

@@ -1,5 +1,5 @@
 class DashboardsController < ApplicationController
-  layout "home"
+  layout "home", only: [:home, :admin, :moderator]
 
   before_filter :authorize_admin!, only: [ :admin ]
   before_filter :authorize_moderator!, only: [ :moderator ]
@@ -38,5 +38,14 @@ class DashboardsController < ApplicationController
   def moderator
     @job = Job.new
     @resume = Resume.new
+  end
+
+  def job_info
+  end
+  def ad_info
+    @signup = AdvertiserSignUp.new
+    # render layout: "application"
+  end
+  def resume_info
   end
 end

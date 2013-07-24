@@ -9,8 +9,11 @@ CareerLoop::Application.routes.draw do
 
   resources :comments, only: [ :create ]
 
-  get "/how-it-works" => "advertisers/dashboard#new_sign_up", as: :advertisers_sign_up
-  post "/how-it-works" => "advertisers/dashboard#create_sign_up", as: :create_advertiser_sign_up
+  get "/how-ads-work" => "dashboards#ad_info", as: :ad_info
+  get "/how-jobs-work" => "dashboards#job_info", as: :job_info
+  get "how-resumes-work" => "dashboards#resume_info", as: :resume_info
+  post "/how-ads-work" => "advertisers/dashboard#create_sign_up", as: :create_advertiser_sign_up
+
   namespace :advertisers do
     root to: "dashboard#home", via: :get, as: :advertisers
     resources :accounts, except: [:destroy]
