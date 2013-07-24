@@ -25,7 +25,7 @@ module Resumes
         @score += 10 if @resume.video.present?
         @score += @resume.references.where(confirmed: true).count
         merits = @resume.schools.pluck(:highest_merit)
-        merits.each {|m| @score += MERIT_VALUE[m]}
+        merits.each {|m| @score += MERIT_VALUE[m] unless m.nil?}
       end
   end
 end
