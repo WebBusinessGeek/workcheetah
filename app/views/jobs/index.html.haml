@@ -7,22 +7,22 @@
 			.alert.alert-info.alert-block
 				%button.close{"data-dismiss" => "alert", :type => "button"} &times;
 				All listings on WorkCheetah are current. You can view available positions, apply in seconds and see who you're competing against if you have a resume. Don't forget to look for the Validation Seal to identify employers that have been verified by WorkCheetah. Happy job hunting!
-			%br/ 
-			%br/ 
+			%br/
+			%br/
 		.pull-left.span4
 			- unless @portal || @category
 				= render "jobs/search_form"
 		.pull-right.span6
 			= image_tag("look-for-safe-seal.png")
-			%br/ 
+			%br/
 			%em
-				WorkCheetah validates all employers holding the WorkCheetah Seal by confirming company information. WorkCheetah WILL NOT tolerate abuse of its website or its users and asks that any individuals who experience suspicious activity to 
+				WorkCheetah validates all employers holding the WorkCheetah Seal by confirming company information. WorkCheetah WILL NOT tolerate abuse of its website or its users and asks that any individuals who experience suspicious activity to
 				= link_to "report it", new_scam_report_path
 				immediately. Please do your research before entertaining offers from ANY organizations learned about online. WorkCheetah expresses its right to disclaim liability for scams, hoaxes, or otherwise illegal activities on the WorkCheetah website. – WorkCheetah Team
 			- if @category && user_signed_in? && current_user.admin?
 				= link_to "Edit Category", [:edit, @category], class: "btn"
-	
-		%br{clear: :all}/ 
+
+		%br{clear: :all}/
 		%h3
 			Open positions for
 			= @location || @current_location_clean
@@ -32,8 +32,8 @@
 					= submit_tag "Quick apply", class: "btn btn-primary"
 				- else
 					%a#invite-popover.btn.btn-primary{"data-content" => "Please build a resume to apply to jobs.", "data-original-title" => "#{link_to "Build a resume", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left"} Quick apply
-			%br{clear: :all}/ 
-			%br/ 
+			%br{clear: :all}/
+			%br/
 			%fieldset
 				%table.table#jobs-table
 					%tr
@@ -46,7 +46,7 @@
 							Quick apply to all
 							= check_box_tag "check_all", false
 					= render @jobs
-						
+
 			.pull-right
 				- if user_signed_in? and current_user.resume.present?
 					= submit_tag "Quick apply", class: "btn btn-primary"
