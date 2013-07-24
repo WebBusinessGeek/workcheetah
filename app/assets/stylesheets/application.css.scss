@@ -3,7 +3,7 @@
 @import "bootstrap-responsive";
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,800italic,400,300,800);
 @import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow);
-
+@import "chosen";
 
 // Override bootstrap
 
@@ -51,7 +51,6 @@ h2#careersub {
 	margin-top: 30px;
 	margin-bottom: 20px;
 	border-bottom: 3px solid #f3e032;
-	
 }
 
 .title a, .show_more {

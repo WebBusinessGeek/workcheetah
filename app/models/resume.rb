@@ -17,7 +17,7 @@ class Resume < ActiveRecord::Base
   belongs_to :category2, class_name: "Category"
   belongs_to :category3, class_name: "Category"
   has_and_belongs_to_many :skills
-  has_one :confirmation, as: :confirmable
+  has_one :confirmation, as: :confirmable, dependent: :destroy
 
   mount_uploader :video, VideoUploader
   mount_uploader :web_video, VideoUploader
@@ -36,6 +36,7 @@ class Resume < ActiveRecord::Base
   validates :category2_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
   validates :category3_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
 
+  scope :ranked, -> {order("rating DESC")}
   def highest_merit_earned
     a = schools.pluck(:highest_merit).map {|x| School::HIGHEST_MERIT.rindex(x)}
     return School::HIGHEST_MERIT[a.max]
