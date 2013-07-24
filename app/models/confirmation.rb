@@ -1,6 +1,6 @@
 class Confirmation < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Rails.application.routes.url_helpers
+  # include Rails.application.routes.url_helpers
   before_create :generate_confirmation_token
 
   belongs_to :confirmable, polymorphic: true
@@ -31,7 +31,7 @@ class Confirmation < ActiveRecord::Base
 
   def confirmation_message
     "#{confirm_for.name} has requested a reference confirmation. Please click the following link " +
-    "to complete the request. <a href='#{reference_confirmation_path(id)}'>Confirm</a>"
+    "to complete the request. <a href='/confirmations/#{id}/reference'>Confirm</a>"
   end
 
   handle_asynchronously :send_email

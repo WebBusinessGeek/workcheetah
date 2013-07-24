@@ -2,10 +2,10 @@ CareerLoop::Application.routes.draw do
 
   resources :confirmations, only: [:new, :create] do
     member do
-      get :reference
+      get :reference, as: :reference_confirm
     end
   end
-  get "/confirmation" => "confirmations#show"
+  get "/confirmation" => "confirmations#show", as: :reference_confirmation
 
   resources :comments, only: [ :create ]
 
