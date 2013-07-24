@@ -16,7 +16,9 @@ describe Notification do
   	end
 
   	describe "Methods" do
-  		
+  		[ :has_notifiable? ].each do |method|
+        it { should respond_to method }
+      end
   	end
   end
 
