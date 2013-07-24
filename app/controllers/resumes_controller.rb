@@ -102,6 +102,14 @@ class ResumesController < ApplicationController
     render action: "new"
   end
 
+  def search
+    unless params[:search]
+      @resumes = []
+    else
+      @resumes = Resume.search(params[:search][:skill_ids])
+    end
+  end
+
   private
 
   def resume_params

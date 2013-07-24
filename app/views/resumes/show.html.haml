@@ -70,7 +70,8 @@
               data-setup="{}">
               <source src="<%= @resume.web_video.url %>" type='video/mp4'>
             </video>
-
+      %h3 Rating
+      = resume_rating_display(@resume.rating)
       - if @resume.experiences.any?
         %h3 Experience
         - @resume.experiences.each do |experience|

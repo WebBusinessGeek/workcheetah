@@ -16,3 +16,6 @@ jQuery ->
     allow_single_deselect: true
     no_results_text: 'No results matched'
     width: '300px'
+
+  $('#search_skill_ids').chosen
+    theme: 'facebook'

@@ -60,6 +60,9 @@ CareerLoop::Application.routes.draw do
       get :update_video
       get :claim
     end
+    collection do
+      get :search
+    end
   end
 
   resources :articles
