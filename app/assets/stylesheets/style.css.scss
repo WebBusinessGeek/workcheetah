@@ -590,3 +590,17 @@ img.align-left{
     font-weight: bold;
     color: $white;
 }
+
+#how_it_works {
+  padding: 40px;
+  h1 {
+    text-align: center;
+    font-weight: normal;
+    text-decoration: underline;
+    color: $blue;
+    margin-bottom: 30px;
+  }
+  li {
+    padding: 20px;
+  }
+}
