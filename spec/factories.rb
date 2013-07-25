@@ -17,6 +17,7 @@ FactoryGirl.define do
     address "MyString"
     description "MyText"
     about_company "MyText"
+    yearly_compensation "26-35k"
   end
 
   factory :account do
