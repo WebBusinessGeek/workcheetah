@@ -283,6 +283,15 @@ ActiveRecord::Schema.define(:version => 20130723145123) do
   add_index "jobs", ["active"], :name => "index_jobs_on_active"
   add_index "jobs", ["quick_applicable"], :name => "index_jobs_on_quick_applicable"
 
+  create_table "notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "body"
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "participants", :force => true do |t|
     t.integer  "conversation_id"
     t.integer  "user_id"
@@ -337,6 +346,7 @@ ActiveRecord::Schema.define(:version => 20130723145123) do
     t.integer  "category2_id"
     t.integer  "category3_id"
     t.boolean  "private",             :default => false
+<<<<<<< HEAD
     t.integer  "rating"
   end
 
@@ -345,6 +355,8 @@ ActiveRecord::Schema.define(:version => 20130723145123) do
   create_table "resumes_skills", :id => false, :force => true do |t|
     t.integer "resume_id"
     t.integer "skill_id"
+=======
+>>>>>>> notifications
   end
 
   create_table "scam_reports", :force => true do |t|

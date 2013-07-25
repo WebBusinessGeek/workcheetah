@@ -6,7 +6,9 @@ describe JobApplication do
 			it { should belong_to association_name }
 		end
 
-		it { should have_one(:applicant_access).dependent(:destroy) }
+		[ :applicant_access, :notifications ].each do |klasses|
+			it { should have_many(klasses).dependent(:destroy) }
+		end
 	end
 
 	describe "Basics" do
@@ -17,7 +19,7 @@ describe JobApplication do
 		end
 
 		context "Methods" do
-			[ :reject!, :rejected? ].each do |method|
+			[ :reject!, :rejected?, :change_notification, :creation_notification, :destruction_notification ].each do |method|
 				it { should respond_to method }
 			end
 		end
