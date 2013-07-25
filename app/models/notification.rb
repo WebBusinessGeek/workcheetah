@@ -3,6 +3,7 @@ class Notification < ActiveRecord::Base
 
   # Associations
   belongs_to :notifiable, polymorphic: true
+  belongs_to :user
 
   # Validations
   validates :body,				presence: true
