@@ -10,5 +10,8 @@
     .field
       = f.label :password_confirmation, "New Password Confirmation"
       = f.password_field :password_confirmation
+    .field
+      Unhappy?
+      = link_to "Cancel my account", registration_path(@user), :confirm => "Are you sure?", :method => :delete
     .action_container
       = f.submit "Update Password", class: "btn btn-success"

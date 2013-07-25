@@ -1,5 +1,11 @@
 class Resume < ActiveRecord::Base
-  attr_accessible :name, :phone, :email, :email_for_claim, :website, :twitter, :status, :addresses_attributes, :experiences_attributes, :schools_attributes, :references_attributes, :user_attributes, :category1_id, :category2_id, :category3_id, :private
+  # after_save :enqueue_video
+  after_save :update_rating
+
+  attr_accessible :name, :phone, :email, :email_for_claim, :website, :twitter, :status,
+    :addresses_attributes, :experiences_attributes, :schools_attributes, :references_attributes,
+    :user_attributes, :category1_id, :category2_id, :category3_id, :skill_ids
+  attr_accessor :email_for_claim
 
   has_many :addresses, as: :addressable, dependent: :destroy
   has_many :experiences, dependent: :destroy
@@ -10,6 +16,8 @@ class Resume < ActiveRecord::Base
   belongs_to :category1, class_name: "Category"
   belongs_to :category2, class_name: "Category"
   belongs_to :category3, class_name: "Category"
+  has_and_belongs_to_many :skills
+  has_one :confirmation, as: :confirmable, dependent: :destroy
 
   mount_uploader :video, VideoUploader
   mount_uploader :web_video, VideoUploader
@@ -20,8 +28,6 @@ class Resume < ActiveRecord::Base
   accepts_nested_attributes_for :experiences, reject_if: proc { |attributes| attributes['company_name'].blank? || attributes['job_title'].blank? }
   accepts_nested_attributes_for :user
 
-  attr_accessor :email_for_claim
-
   validates :terms_of_service, acceptance: { accept: 1 }
   validates :name, presence: true
   validates :phone, presence: true
@@ -30,7 +36,11 @@ class Resume < ActiveRecord::Base
   validates :category2_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
   validates :category3_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
 
-  # after_save :enqueue_video
+  scope :ranked, -> {order("rating DESC")}
+  def highest_merit_earned
+    a = schools.pluck(:highest_merit).map {|x| School::HIGHEST_MERIT.rindex(x)}
+    return School::HIGHEST_MERIT[a.max]
+  end
 
   def invited_to_job?(job)
     Invite.where(resume_id: self, job_id: job).any?
@@ -47,6 +57,11 @@ class Resume < ActiveRecord::Base
   def enough_for_employers?
     name.present? and phone.present? and addresses.any? and category1_id.present?
   end
+
+  private
+    def update_rating
+      update_column(:rating, Resumes::Rating.new(self).get_score)
+    end
 end
 
 # class VideoWorker

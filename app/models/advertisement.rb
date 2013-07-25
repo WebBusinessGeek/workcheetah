@@ -3,7 +3,7 @@ class Advertisement < ActiveRecord::Base
 
   AD_TYPES = %w(text image)
   belongs_to :campaign
-  has_one :ad_stat
+  has_one :ad_stat, dependent: :destroy
 
   has_attached_file :image,
     styles: { landscape: "250x250#", thumb: "100x100#" },

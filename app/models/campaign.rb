@@ -2,8 +2,8 @@ class Campaign < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :advertiser_account
-  has_many :advertisements
-  has_many :ad_targetings
+  has_many :advertisements, dependent: :destroy
+  has_many :ad_targetings, dependent: :destroy
   has_many :ad_targets, through: :ad_targetings
 
   scope :by_audience, lambda {|a| 

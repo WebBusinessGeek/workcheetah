@@ -28,6 +28,7 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'uglifier', '>= 1.0.3'
   gem 'turbo-sprockets-rails3'
+  gem 'chosen-rails'
 end
 
 gem "figaro"
@@ -55,7 +56,6 @@ gem "paperclip", "~> 3.0"
 # So we get pry goodness on heroku
 gem 'pry-rails'
 gem 'pry'
-gem 'newrelic_rpm'
 gem 'pg'
 
 group :test do

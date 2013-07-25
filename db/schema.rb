@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130713152759) do
+ActiveRecord::Schema.define(:version => 20130723145123) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20130713152759) do
     t.date     "end_date"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
+    t.boolean  "cpc",                   :default => true
   end
 
   create_table "categories", :force => true do |t|
@@ -150,6 +151,20 @@ ActiveRecord::Schema.define(:version => 20130713152759) do
     t.text     "body"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "confirmations", :force => true do |t|
+    t.text     "message"
+    t.string   "email"
+    t.integer  "confirm_for"
+    t.integer  "confirm_by"
+    t.string   "confirmation_token"
+    t.datetime "confirmation_sent"
+    t.datetime "confirmated_at"
+    t.integer  "confirmable_id"
+    t.string   "confirmable_type"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "conversation_items", :force => true do |t|
@@ -264,6 +279,8 @@ ActiveRecord::Schema.define(:version => 20130713152759) do
     t.string   "yearly_compensation"
   end
 
+  add_index "jobs", ["account_id"], :name => "index_jobs_on_account_id"
+  add_index "jobs", ["active"], :name => "index_jobs_on_active"
   add_index "jobs", ["quick_applicable"], :name => "index_jobs_on_quick_applicable"
 
   create_table "participants", :force => true do |t|
@@ -294,9 +311,10 @@ ActiveRecord::Schema.define(:version => 20130713152759) do
     t.string   "email"
     t.text     "notes"
     t.string   "reference_type"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "resume_id"
+    t.boolean  "confirmed",      :default => false
   end
 
   create_table "resumes", :force => true do |t|
@@ -319,6 +337,14 @@ ActiveRecord::Schema.define(:version => 20130713152759) do
     t.integer  "category2_id"
     t.integer  "category3_id"
     t.boolean  "private",             :default => false
+    t.integer  "rating"
+  end
+
+  add_index "resumes", ["rating"], :name => "index_resumes_on_rating"
+
+  create_table "resumes_skills", :id => false, :force => true do |t|
+    t.integer "resume_id"
+    t.integer "skill_id"
   end
 
   create_table "scam_reports", :force => true do |t|
@@ -344,6 +370,9 @@ ActiveRecord::Schema.define(:version => 20130713152759) do
     t.integer  "resume_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.string   "course_of_study"
+    t.string   "highest_merit"
+    t.integer  "completion_year"
   end
 
   create_table "seal_purchases", :force => true do |t|
@@ -351,6 +380,19 @@ ActiveRecord::Schema.define(:version => 20130713152759) do
     t.integer  "amount"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "skill_groups", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "skills", :force => true do |t|
+    t.string   "name"
+    t.integer  "skill_group_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "tweets", :force => true do |t|

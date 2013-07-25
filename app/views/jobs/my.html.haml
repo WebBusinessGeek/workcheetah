@@ -16,23 +16,23 @@
 							= link_to "Verify Your Account", [:add_seal, :account]
 							.small_text
 								You are not yet a verified employer.
-								%br/ 
+								%br/
 								Please Verify your account now.
 		%table.table
 			%tr
 				%th Position
 				%th Applicants
 				%th Date Posted
-				%th 
+				%th
 			- @jobs.each do |job|
 				%tr
 					%td
 						- if job.title.present?
 							= link_to job.title, job
 					%td
-						= link_to pluralize(job.job_applications.count, "Applicant"), [job, :job_applications]
+						= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
 					%td= job.created_at.strftime("%m/%d/%Y")
-					%td 
+					%td
 						- if current_user.account.safe_job_seal?
 							- if !job.invited?
 								= link_to 'Invite job seekers', invite_job_seekers_to_job_path(job), method: :post, class: "btn btn-success"

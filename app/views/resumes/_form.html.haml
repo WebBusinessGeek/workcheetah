@@ -138,6 +138,11 @@
           = f.radio_button :pay_importance, "10"
           Very Important
 
+    .skills
+      %h4 Skills
+      %p Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.
+      = f.input :skill_ids, label: false, collection: SkillGroup.all, as: :grouped_select, group_method: :skills, group_label_method: :name, label_method: :name, input_html: { multiple: true, class: ".chzn-select" }
+
     .schools
       %h2 Education
       = f.fields_for :schools do |sf|

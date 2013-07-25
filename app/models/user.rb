@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :scam_reports, dependent: :destroy
   has_one :resume, dependent: :destroy
   belongs_to :account
-  has_one :advertiser_account
+  has_one :advertiser_account, dependent: :destroy
   has_many :requested_video_chats, class_name: "VideoChat", foreign_key: :requester_id, dependent: :destroy
   has_many :received_video_chats, class_name: "VideoChat", foreign_key: :recipient_id, dependent: :destroy
   has_many :video_chat_messages, foreign_key: :sender_id, dependent: :destroy
@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :conversation_items, through: :conversations, dependent: :destroy
   has_many :blocks, class_name: "Block", foreign_key: :blocker_id, dependent: :destroy
   has_many :blockings, class_name: "Block", foreign_key: :blocked_id, dependent: :destroy
+  has_many :confirmed_references, class_name: "Confirmation", foreign_key: "confirm_for"
+  has_many :confirmation_requests, class_name: "Confirmation", foreign_key: "confirm_by"
 
   # Include default devise modules. Others available are:
   # :token_authenticatable,

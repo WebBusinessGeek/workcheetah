@@ -6,7 +6,7 @@
 			%p
 				= conversation_item.sender.name
 				= "-"
-				= conversation_item.body
+				= raw conversation_item.body
 			%hr/ 
 		= simple_form_for @conversation do |f|
 			.form-fields

@@ -25,4 +25,40 @@ namespace :db do
       end
     end
   end
+
+  desc "Load skills data"
+  task :load_skills => :environment do
+    ActiveRecord::Base.transaction do
+      Skill::GROUPED_SKILLS.each do |k,v|
+        x = SkillGroup.create name: k
+        v.each do |a|
+          Skill.create name: a, skill_group_id: x.id
+        end
+      end
+    end
+  end
+
+  desc "Utility task that converts old education table to new format (delete me when done)"
+  task :convert_education => :environment do
+    School.all.each do |s|
+      puts "Before:"
+      puts s.inspect
+      s.completion_year = s.till.year unless s.till.nil?
+      case s.degree_type
+      when "Bachelors"
+        s.highest_merit = School::HIGHEST_MERIT[7]
+      when "Associates"
+        s.highest_merit = School::HIGHEST_MERIT[5]
+      when "Masters"
+        s.highest_merit = School::HIGHEST_MERIT[9]
+      when "Ph. D"
+        s.highest_merit = School::HIGHEST_MERIT[10]
+      else
+        s.highest_merit = School::HIGHEST_MERIT[0]
+      end
+      s.save!
+      puts "After:"
+      puts s.inspect
+    end
+  end
 end

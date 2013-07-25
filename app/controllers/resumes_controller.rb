@@ -52,7 +52,9 @@ class ResumesController < ApplicationController
   end
 
   def show
-    load_resume
+    @resume = Resume
+      .includes(:user, :addresses, :experiences, :schools, :category1, :category2, :category3, references: [:confirmation])
+      .where(id: params[:id]).first
     raise ActiveRecord::RecordNotFound unless user_signed_in? && (@resume.user == current_user || current_user.admin?)
   end
 
@@ -107,9 +109,10 @@ class ResumesController < ApplicationController
       :twitter, :status, :growth_importance, :distance_importance,
       :category1_id, :category2_id, :category3_id,
       :freedom_importance, :pay_importance, :private,
+      :freedom_importance, :pay_importance, skill_ids: [], :private,
       addresses_attributes: [ :id, :address_1, :address_2, :city, :state, :zip, :_destroy ],
       experiences_attributes: [ :id, :company_name, :job_title, :from, :till, :highlights, :_destroy ],
-      schools_attributes: [ :id, :name, :degree_type, :degree_name, :from, :till, :highlights, :_destroy],
+      schools_attributes: [ :id, :name, :degree_type, :degree_name, :from, :till, :highlights, :_destroy, :highest_merit, :course_of_study, :completion_year],
       references_attributes: [ :id, :name, :job_title, :company, :phone, :email, :notes, :reference_type, :_destroy ],
       user_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] )
   end

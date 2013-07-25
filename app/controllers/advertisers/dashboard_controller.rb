@@ -5,10 +5,6 @@ class Advertisers::DashboardController < Advertisers::BaseController
   def home
   end
 
-  def new_sign_up
-    @signup = AdvertiserSignUp.new
-  end
-
   def create_sign_up
     @signup = AdvertiserSignUp.new(params[:advertiser_sign_up])
 

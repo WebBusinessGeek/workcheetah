@@ -582,3 +582,25 @@ img.align-left{
 .resume_detail_label{
   margin-right: 5px;
 }
+
+.confirmation {
+    float: right;
+    margin-right: 400px;
+    font-size: 16px;
+    font-weight: bold;
+    color: $white;
+}
+
+#how_it_works {
+  padding: 40px;
+  h1 {
+    text-align: center;
+    font-weight: normal;
+    text-decoration: underline;
+    color: $blue;
+    margin-bottom: 30px;
+  }
+  li {
+    padding: 20px;
+  }
+}
