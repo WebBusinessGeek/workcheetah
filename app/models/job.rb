@@ -15,6 +15,7 @@ class Job < ActiveRecord::Base
   belongs_to :category3, class_name: "Category"
   has_many :invites, dependent: :destroy
   has_many :job_applications, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   accepts_nested_attributes_for :account
   geocoded_by :address

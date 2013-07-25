@@ -116,7 +116,7 @@ class ResumesController < ApplicationController
     params.require(:resume).permit( :name, :phone, :email, :email_for_claim, :website,
       :twitter, :status, :growth_importance, :distance_importance,
       :category1_id, :category2_id, :category3_id,
-      :freedom_importance, :pay_importance, skill_ids: [],
+      :freedom_importance, :pay_importance, :private, #skill_ids: [], 
       addresses_attributes: [ :id, :address_1, :address_2, :city, :state, :zip, :_destroy ],
       experiences_attributes: [ :id, :company_name, :job_title, :from, :till, :highlights, :_destroy ],
       schools_attributes: [ :id, :name, :degree_type, :degree_name, :from, :till, :highlights, :_destroy, :highest_merit, :course_of_study, :completion_year],

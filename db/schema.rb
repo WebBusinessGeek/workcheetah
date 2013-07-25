@@ -136,7 +136,6 @@ ActiveRecord::Schema.define(:version => 20130723145123) do
     t.date     "end_date"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
-    t.boolean  "cpc",                   :default => true
   end
 
   create_table "categories", :force => true do |t|
@@ -283,6 +282,15 @@ ActiveRecord::Schema.define(:version => 20130723145123) do
   add_index "jobs", ["active"], :name => "index_jobs_on_active"
   add_index "jobs", ["quick_applicable"], :name => "index_jobs_on_quick_applicable"
 
+  create_table "notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "body"
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "participants", :force => true do |t|
     t.integer  "conversation_id"
     t.integer  "user_id"
@@ -302,21 +310,6 @@ ActiveRecord::Schema.define(:version => 20130723145123) do
   end
 
   add_index "payment_profiles", ["account_id"], :name => "index_payment_profiles_on_account_id"
-
-  create_table "profiles", :force => true do |t|
-    t.string   "name"
-    t.string   "phone"
-    t.string   "email"
-    t.string   "website"
-    t.string   "status"
-    t.string   "growth_importance"
-    t.string   "distance_importance"
-    t.string   "freedom_importance"
-    t.string   "pay_importance"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-    t.string   "twitter"
-  end
 
   create_table "references", :force => true do |t|
     t.string   "name"
@@ -342,8 +335,8 @@ ActiveRecord::Schema.define(:version => 20130723145123) do
     t.string   "distance_importance"
     t.string   "freedom_importance"
     t.string   "pay_importance"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "twitter"
     t.integer  "user_id"
     t.string   "web_video"
@@ -351,6 +344,7 @@ ActiveRecord::Schema.define(:version => 20130723145123) do
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"
+    t.boolean  "private",             :default => false
     t.integer  "rating"
   end
 

@@ -75,6 +75,7 @@
       .span6
         = f.fields_for :addresses do |af|
           = render "address_fields", f: af
+        = f.input :private, label: "Keep phone and address private"
     .hidden
       %h2 What's Important To You?
       .question

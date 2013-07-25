@@ -37,7 +37,7 @@
               %li= @resume.category3.name
 
       .contact_details
-        - if !@resume.phone.blank?
+        - if !@resume.phone.blank? and !@resume.private?
           .phone
             %span.resume_detail_label Phone:
             = @resume.phone
@@ -54,7 +54,7 @@
             %span.resume_detail_label Twitter:
             = link_to "@#{@resume.twitter.gsub("@", "")}", "http://www.twitter.com/#{@resume.twitter.gsub("@", "")}"
 
-        - if @resume.addresses.any?
+        - if @resume.addresses.any? and !@resume.private?
           - @resume.addresses.each do |address|
             .address
               %span.resume_detail_label Address:

@@ -49,3 +49,8 @@
       - if user_signed_in?
         = link_to "Interviews", video_chats_path
         = link_to "Messages", conversations_path
+        = link_to "javascript: return false;", title: "Notifications", id: "notifications" do
+          %i.icon-globe
+
+        :javascript
+          $('#notifications').popover({content: "#{j render current_user.notifications.order('created_at DESC')}", placement: "bottom", html: true});

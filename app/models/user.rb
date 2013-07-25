@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :blockings, class_name: "Block", foreign_key: :blocked_id, dependent: :destroy
   has_many :confirmed_references, class_name: "Confirmation", foreign_key: "confirm_for"
   has_many :confirmation_requests, class_name: "Confirmation", foreign_key: "confirm_by"
+  has_many :notifications, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :token_authenticatable,
