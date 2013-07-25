@@ -14,25 +14,30 @@ span.error {
 }
 
 .navbar {
-	h3.popover-title {
-		color: black;
-	}
-
-	.popover-content {
-		p.notification {
-			color: black !important;
-			margin: 8px 0 8px 0;
-
-			a {
-				color: black !important;
-				text-align: left !important;
-				margin: 0 !important;
-				padding: 0 !important;
-			}
+	.popover {
+		max-height: 300px;
+		overflow: auto;
+		
+		h3.popover-title {
+			color: black;
 		}
 
-		hr {
-			margin: 2px 0 2px 0;
+		.popover-content {
+			p.notification {
+				color: black !important;
+				margin: 8px 0 8px 0;
+
+				a {
+					color: black !important;
+					text-align: left !important;
+					margin: 0 !important;
+					padding: 0 !important;
+				}
+			}
+
+			hr {
+				margin: 2px 0 2px 0;
+			}
 		}
 	}
 }
