@@ -1,25 +1,32 @@
 .experience.fields_for_set
   %fieldset{ style: "border: 1px solid #ddd; padding: 20px;"}
-    = f.label :company_name
-    = f.text_field :company_name
-    = f.label :job_title
-    = f.text_field :job_title
-    .row
-      .span3
-        = f.label :from
-        = f.text_field :from, class: "date"
-      .span3
-        = f.label :till
-        = f.text_field :till, class: "date"
-    = f.label :highlights
-    = f.text_area :highlights, rows: "15", class: "tinymce"
-    = tinymce
+    .controls-row
+      .control-group.span3
+        = f.label "Previous Job Title", class: "control-label"
+        .controls
+          = f.input :job_title, label: false
+      .control-group.span3
+        = f.label "Industry", class: "control-label"
+        .controls
+          = f.input :industry, label: false, collection: Category.pluck(:name)
+      .control-group.span3
+        = f.label "Company", class: "control-label"
+        .controls
+          = f.input :company_name, label: false
+      .control-group.span3
+        = f.label "Start Date", class: "control-label"
+        .controls
+          = f.input :from, as: :string, label: false, input_html: {class: "date"}
+      .control-group.span3
+        = f.label "End Date", class: "control-label"
+        .controls
+          = f.input :till, as: :string, label: false, input_html: {class: "date"}
+      .control-group.span1
+        = f.label "Currently Employed", class: "control-label"
+        .controls
+          = f.input :current_employer, label: false
     = f.hidden_field :_destroy
     .remove
       = link_to "Remove Experience", '#', class: "remove_fields btn btn-mini btn-danger"
-
-    -# :javascript
-    -#   tinyMCE.init({
-    -#     mode: 'textareas',
-    -#     theme: 'advanced'
-    -#   });
+    :javascript
+      $('input.date').datepicker();

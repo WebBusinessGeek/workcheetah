@@ -19,3 +19,5 @@ jQuery ->
 
   $('#search_skill_ids').chosen
     theme: 'facebook'
+
+  $('input.date_picker').datepicker
