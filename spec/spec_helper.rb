@@ -35,4 +35,5 @@ RSpec.configure do |config|
 
   # Paperclip
   config.include Paperclip::Shoulda::Matchers
+  config.include Capybara::DSL
 end

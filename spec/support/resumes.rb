@@ -43,12 +43,10 @@ def remove_experience_from_profile
 end
 
 def fill_in_school
+  select "Bachelor of Science", from: "Merit Recieved"
+  select "Plant Sciences", from: "Course of Study"
   fill_in "School name", with: "Yale"
-  select "Bachelors", from: "Degree type"
-  fill_in "Degree name", with: "Business Administration"
-  fill_in "From", with: "01/01/#{Date.today.year - 6}"
-  fill_in "Till", with: "01/01/#{Date.today.year - 2}"
-  fill_in "Highlights", with: lorem_ipsum
+  select "2009", from: "Year Of Completion"
 end
 
 def add_school_to_profile

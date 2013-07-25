@@ -12,7 +12,7 @@ describe Notification do
   		[ :body, :notifiable_id, :notifiable_type, :user_id ].each do |attr|
   			it { should respond_to attr }
   			it { should allow_mass_assignment_of attr }
-  		end  		
+  		end
   	end
 
   	describe "Methods" do
