@@ -4,7 +4,7 @@ class Resume < ActiveRecord::Base
 
   attr_accessible :name, :phone, :email, :email_for_claim, :website, :twitter, :status,
     :addresses_attributes, :experiences_attributes, :schools_attributes, :references_attributes,
-    :user_attributes, :category1_id, :category2_id, :category3_id, :skill_ids
+    :user_attributes, :category1_id, :category2_id, :category3_id, :skill_ids, :private
   attr_accessor :email_for_claim
 
   has_many :addresses, as: :addressable, dependent: :destroy
@@ -65,10 +65,9 @@ class Resume < ActiveRecord::Base
     name.present? and phone.present? and addresses.any? and category1_id.present?
   end
 
-  private
-    def update_rating
+  def update_rating
       update_column(:rating, Resumes::Rating.new(self).get_score)
-    end
+  end
 end
 
 # class VideoWorker
