@@ -65,6 +65,10 @@ class Resume < ActiveRecord::Base
     name.present? and phone.present? and addresses.any? and category1_id.present?
   end
 
+  def recommended
+    [category1_id, category2_id, category3_id]
+  end
+
   def update_rating
       update_column(:rating, Resumes::Rating.new(self).get_score)
   end

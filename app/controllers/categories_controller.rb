@@ -16,6 +16,22 @@ class CategoriesController < ApplicationController
 
   end
 
+  def index_new
+    @category_list = Category.scoped.order(:name)
+    # args = {params: params, user: current_user, location: human_readable_current_location}
+    # @jobs = Jobs::JobSearch.new(args, session).call
+    if params[:categories]
+      @category = params[:categories]
+    elsif user_signed_in? && current_user.resume.present?
+      @category = current_user.resume.recommended
+    end
+    if @category
+      @jobs = Job.job_search(@category, human_readable_current_location)
+    else
+      @jobs = Job.near(human_readable_current_location, 50).order("created_at DESC")
+    end
+  end
+
   def new
     @category = Category.new
   end
@@ -32,12 +48,12 @@ class CategoriesController < ApplicationController
 
     if !@jobs.any? # if no jobs within next 50 miles
       @jobs = @category.jobs.near(current_location.state_code).order("created_at DESC").page(params[:page]).per_page(8)
-      flash[:notice] = "There were no jobs near you, so here are some inside your state."
+      flash.now[:notice] = "There were no jobs near you, so here are some inside your state."
     end
 
     if !@jobs.any? # if still no jobs
       @jobs = @category.jobs.order("created_at DESC").page(params[:page]).per_page(8)
-      flash[:notice] = "There were no jobs near you or in your state, so here are all jobs."
+      flash.now[:notice] = "There were no jobs near you or in your state, so here are all jobs."
     end
 
     if @jobs.any?

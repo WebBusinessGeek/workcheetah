@@ -46,6 +46,14 @@ class Job < ActiveRecord::Base
     end
   end
 
+  def self.job_search(query, location)
+    if query.present?
+      where('category_id IN (?) OR category2_id IN (?) OR category3_id IN (?)', query, query, query).limit(15).near(location)
+    else
+      scoped.near(location).limit(15)
+    end
+  end
+
   def to_param
     "#{self.id}-#{self.title.parameterize}"
   end
