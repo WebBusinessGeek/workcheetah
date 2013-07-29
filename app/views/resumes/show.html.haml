@@ -73,23 +73,35 @@
       %hr{style: "width:300px"}
       %p.lead Rating
       = resume_rating_display(@resume.rating)
+      = link_to "#", data: {toggle:"tooltip"},title: "test", rel: "tooltip" do
+        %em Whats This?
+      - if @resume.skills.any?
+        %p.lead Skills
+        %ul.skills{style: "margin-left:15px"}
+          -@resume.skills.each do |skill|
+            %li=skill.name
       - if @resume.experiences.any?
         %p.lead Experience
         - @resume.experiences.each do |experience|
           .experience{style: "margin-left:15px"}
-            %h4.company
-              = experience.company_name
-              %span.title{ style: "font-weight: normal; margin-left: 10px;" }= experience.job_title
-              %span.range{ style: "font-weight: normal; margin-left: 10px; font-size: 14px;" }
-                = experience.from
-                = " - "
-                = experience.till
+            = experience.job_title
+            = " @ "
+            %strong= experience.company_name
+            %span.range{ style: "font-weight: normal; margin-left: 10px; font-size: 14px;" }
+              = experience.from
+              = " - "
+              = experience.till
       - if @resume.schools.any?
-        .schools
-          %p.lead Schools
-          - @resume.schools.each do |school|
-            .school{style: "margin-left:15px"}
-              %h4.school_name= school.name
+        .row
+          .schools.span6
+            %p.lead{style: "margin-top:20px"} Schools
+            - @resume.schools.each do |school|
+              .school{style: "margin-left:15px"}
+                %span{style: "font-weight:bold; font-size:18px;"}= school.name
+                %span{style: "margin-left:10px"}= school.course_of_study
+                %p
+                  = school.highest_merit
+                  = school.completion_year
       - if @resume.references.any?
         .row
           .references.span4
