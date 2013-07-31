@@ -1,5 +1,16 @@
-= simple_form_for :search, url: search_resumes_path, method: :get, html: {class: "form-search"} do |f|
-  = f.input :skill_ids, label: false, collection: SkillGroup.includes(:skills).all, as: :grouped_select, group_method: :skills, group_label_method: :name, label_method: :name, input_html: { multiple: true, class: ".chzn-select search-query" }
-  = f.submit "Search", name: nil
+#resume_search
+  .row
+    .span10
+      = search_form_for @search, url: search_resumes_path, method: :get, html: {class: "form-search"}, remote: true do |f|
+        = f.select :skills_name_eq, Skill::GROUPED_SKILLS, {include_blank: 'None'}
+        = f.select :schools_highest_merit_eq, School::HIGHEST_MERIT, {include_blank: 'None'}
+        = button_tag "Reset", type: "reset", class: "reset", id: "search_reset"
+        = f.submit "Search"
+      %hr
+  %ul#resumes.unstyled{style: "margin-left:50px"}
+    =render partial: "resumes/resume", collection: @resumes
+:javascript
+  $('#search_reset').on('click', function() {
+    $.get($("#resumes_search").attr("action"), $("#resumes_search").serialize(), null, "script");
+  });
 
-= @resumes.inspect

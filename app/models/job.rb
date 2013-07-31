@@ -32,7 +32,7 @@ class Job < ActiveRecord::Base
   validates :yearly_compensation, inclusion: { in: COMPENSATION_OPTIONS }
 
   attr_accessor :email_for_claim
-
+  scope :cat_search, ->(query) {where('category_id IN (?) OR category2_id IN (?) OR category3_id IN (?)', query, query, query)}
   def self.text_search(query, location)
     if query.present?
       # where("title @@ :q or description @@ :q or about_company @@ :q", q: query)
@@ -46,11 +46,14 @@ class Job < ActiveRecord::Base
     end
   end
 
-  def self.job_search(query, location)
+  def self.search(query)
     if query.present?
-      where('category_id IN (?) OR category2_id IN (?) OR category3_id IN (?)', query, query, query).limit(15).near(location)
-    else
-      scoped.near(location).limit(15)
+      # where("title @@ :q or description @@ :q or about_company @@ :q", q: query)
+      rank = <<-RANK
+        ts_rank(to_tsvector(title), plainto_tsquery(#{sanitize(query)})) +
+        ts_rank(to_tsvector(description), plainto_tsquery(#{sanitize(query)}))
+      RANK
+      where("title @@ :q or description @@ :q", q: query).order("#{rank} desc")
     end
   end
 

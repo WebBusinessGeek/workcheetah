@@ -103,11 +103,8 @@ class ResumesController < ApplicationController
   end
 
   def search
-    unless params[:search]
-      @resumes = []
-    else
-      @resumes = Resume.search(params[:search][:skill_ids])
-    end
+    @search = Resume.includes(:user, :skills, :schools).search(params[:q])
+    @resumes = @search.result(:distinct => true).order("rating DESC").limit(20)
   end
 
   private

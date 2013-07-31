@@ -1,2 +1,18 @@
 %li
-  =job.title
+  - if job.title.present?
+    %h4= link_to job.title, job
+  - if job.account.safe_job_seal?
+    = link_to(image_tag("safe-seal-small.png", alt: "Safe Job seal"), job)
+  = job.yearly_compensation or "n/a"
+  = job.address
+  = job.category ? job.category.name : "n/a"
+  = link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
+  - if job.quick_applicable?
+    - if user_signed_in? and job.job_applications.where(user_id: current_user.id).empty?
+      - if job.invite_only?
+        - if current_user.resume.present? and current_user.resume.invited_to_job?(job)
+          = check_box_tag 'job_ids[]', job.id, false
+      - else
+        = check_box_tag 'job_ids[]', job.id, false
+    - else
+      = check_box_tag 'job_ids[]', job.id, false

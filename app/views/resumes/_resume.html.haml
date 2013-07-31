@@ -1,0 +1,28 @@
+%li
+  -# .clearfix
+  -#   .pull-left= resume_rating_display resume.rating
+  -#   %h3{style:"margin-left:80px"}= resume.user.name.titleize if resume.user
+
+  .row
+    .span1
+      =resume_rating_display resume.rating
+    .span3
+      %p.lead= resume.user.name.titleize if resume.user
+    .span3
+      %ul.unstyled
+        %li
+          %strong Skills:
+          - if resume.skills.any?
+            = resume.skills.map(&:name)*", "
+          - else
+            None
+        %li
+          %strong Highest Education Level:
+          -if resume.schools.any?
+            = resume.highest_merit_earned
+          - else
+            None
+        %li
+          %strong Status:
+          = resume.status
+  %hr/

@@ -3,7 +3,7 @@ class JobApplication < ActiveRecord::Base
 
   belongs_to :job, counter_cache: true
   belongs_to :user
-  has_one :applicant_access, dependent: :destroy
+  has_many :applicant_access, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
   # attr_accessible :status
 

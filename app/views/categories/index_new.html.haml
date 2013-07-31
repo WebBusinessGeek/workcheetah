@@ -1,5 +1,8 @@
 .categories_index_new
   .row
+    - if user_signed_in? and current_user.resume and !current_user.resume.enough_for_employers?
+      .alert.alert-danger
+        Looks like your resume isn't complete. Having a completed resume increases the likelihood of a company becoming interested in hiring you. You should provide your name, phone number, at least one address and at least one category that's of interest.
     .span6.offset2
       =form_tag search_categories_path, method: :get, class: "form-search", remote: true do
         .input-append

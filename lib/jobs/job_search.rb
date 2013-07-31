@@ -1,21 +1,16 @@
 module Jobs
   class JobSearch
-    def initialize(params, session)
-      @params = params
-      @session = session
+    def initialize(relation = Job.scoped, query = {})
+      @relation = relation
+      @query = query
     end
 
     def call
-      if @params[:categories]
-        category = @params[:categories]
-      elsif @params[:user]
-        category = User.find(@params[:user][:id]).resume.recommended
-      end
-      if category
-        return Job.job_search(category, @params[:location])
-      else
-        return Job.near(@params[:location], 50).order("created_at DESC")
-      end
+      puts @query[:categories]
+      @relation = @relation.cat_search(@query[:categories]) if @query[:categories]
+      # @relation = text_search(@query[:query]) if @query[:query]
+      @relation = @relation.near(@query[:location],50)
+      @relation
     end
   end
 end

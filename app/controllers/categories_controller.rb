@@ -18,18 +18,19 @@ class CategoriesController < ApplicationController
 
   def index_new
     @category_list = Category.scoped.order(:name)
-    # args = {params: params, user: current_user, location: human_readable_current_location}
-    # @jobs = Jobs::JobSearch.new(args, session).call
-    if params[:categories]
-      @category = params[:categories]
-    elsif user_signed_in? && current_user.resume.present?
-      @category = current_user.resume.recommended
-    end
-    if @category
-      @jobs = Job.job_search(@category, human_readable_current_location)
-    else
-      @jobs = Job.near(human_readable_current_location, 50).order("created_at DESC")
-    end
+    check_session
+    # @jobs = Jobs::JobSearch.new(
+    #   Job.includes(:account,:category),
+    #   {categories: @categories, query: @query, location: human_readable_current_location})
+    #   .call
+    #   .order("created_at DESC").page(params[:page]).per_page(8)
+    @jobs = Job.scoped
+    @jobs = @jobs.cat_search(@category) if @category
+    @jobs = @jobs.search(@query) if @query
+    @jobs = @jobs.near(human_readable_current_location, 50).includes(:account, :category).order("created_at DESC").page(params[:page]).per_page(8)
+
+    logger.debug session.inspect
+    logger.debug params.inspect
   end
 
   def new
@@ -85,5 +86,21 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:name)
+  end
+
+  def check_session
+    @query = params[:search] unless params[:search].blank?
+    if params[:categories]
+      session[:categories] = params[:categories]
+      @category = session[:categories]
+    elsif user_signed_in? && current_user.resume.present? &&
+      if session[:categories]
+        @category = session[:categories]
+      else
+        @category = current_user.resume.recommended
+      end
+    else
+      @category = session[:categories]
+    end
   end
 end
