@@ -7,10 +7,17 @@
         = button_tag "Reset", type: "reset", class: "reset", id: "search_reset"
         = f.submit "Search"
       %hr
-  %ul#resumes.unstyled{style: "margin-left:50px"}
+  .row{style: "margin-bottom:20px"}
+    .span1
+      %span.lead{style:"margin-left:50px"} Rating
+    .span3
+      %span.lead{style:"margin-left:50px"} Name
+    .span2
+      %span.lead{style:"margin-left:50px"} Overview
+  %ul#resumes.clearfix.unstyled{style: "margin-left:50px"}
     =render partial: "resumes/resume", collection: @resumes
 :javascript
   $('#search_reset').on('click', function() {
-    $.get($("#resumes_search").attr("action"), $("#resumes_search").serialize(), null, "script");
+    $.get($("#resumes_search").attr("action"), $("#products_search").serialize(), null, "script");
   });
 

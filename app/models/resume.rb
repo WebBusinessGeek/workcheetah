@@ -37,13 +37,7 @@ class Resume < ActiveRecord::Base
   validates :category3_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
 
   scope :ranked, -> {order("rating DESC")}
-  # def self.search(search)
-  #   if search
-  #     joins(:skills).where(skills: {id: search.map(&:to_i)})
-  #   else
-  #     scoped
-  #   end
-  # end
+
   def highest_merit_earned
     a = schools.pluck(:highest_merit).map {|x| School::HIGHEST_MERIT.rindex(x)}
     return School::HIGHEST_MERIT[a.max]

@@ -1,40 +1,46 @@
 .job_applicants_show
   .white_box
     - if @resume.present?
-      - if can? :manage, @job
-        .pull-right{ style: "text-align: center;" }
-          = link_to "Save applicant", [:buy, @job, @job_application], class: "btn btn-large btn-success", method: :post
-          %br/
-          or
-          %br/
-          = link_to "Not Interested", [:reject, @job, @job_application], class: "btn btn-danger", method: :post
-          %br/
-          %br/
-          %p Please pick one
+      -if @job && @job_application
+        - if can? :manage, @job
+          .pull-right{ style: "text-align: center;" }
+            = link_to "Save applicant", [:buy, @job, @job_application], class: "btn btn-large btn-success", method: :post
+            %br/
+            or
+            %br/
+            = link_to "Not Interested", [:reject, @job, @job_application], class: "btn btn-danger", method: :post
+            %br/
+            %br/
+            %p Please pick one
       %h1.pagination-centered Preview
       - if user_signed_in? and current_user.resume.present?
         .alert.alert-block.alert-info
           %button.close{"data-dismiss" => "alert", :type => "button"} &times;
         Due to privacy, you can see limited information about your competition.
-
-      %h3 Resume Score
-      %p.lead= @resume.rating
-      %h3 Name
-      %p.lead= @resume.user.name
-      %h3 Skills
-      %p.lead
-        - if @resume.skills.any?
-          = @resume.skills
-        - else
-          None
-      %h3 Highest Merit Earned
-      %p.lead
-        - if @resume.schools.any?
-          = @resume.highest_merit_earned
-        - else
-          None
-      %h3 Current Employment Status
-      %p.lead= @resume.status
+      %dl.dl-horizontal
+        %dt Resume Score
+        %dd{style:"padding-left:30px"}
+          = resume_rating_display @resume.rating
+        %dt Name
+        %dd{style:"padding-left:30px"}
+          %p.lead= @resume.user.name
+        %dt Skills
+        %dd{style:"padding-left:30px"}
+          %p.lead
+            - if @resume.skills.any?
+              = @resume.skills.map(&:name)*", "
+            - else
+              None
+        %dt Highest Merit Earned
+        %dd{style:"padding-left:30px"}
+          %p.lead
+            - if @resume.schools.any?
+              = @resume.highest_merit_earned
+            - else
+              None
+        %dt Employment Status
+        %dd{style:"padding-left:30px"}
+          %p.lead= @resume.status
 
     -#   .contact_details
     -#     .phone Phone: (XXX) XXX-XXXX

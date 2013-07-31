@@ -55,7 +55,7 @@ class ResumesController < ApplicationController
     @resume = Resume
       .includes(:user, :addresses, :experiences, :schools, :category1, :category2, :category3, references: [:confirmation])
       .where(id: params[:id]).first
-    raise ActiveRecord::RecordNotFound unless user_signed_in? && (@resume.user == current_user || current_user.admin?)
+    render 'resumes/preview_resume' unless user_signed_in? && (@resume.user == current_user || current_user.admin?)
   end
 
   def edit
@@ -104,7 +104,7 @@ class ResumesController < ApplicationController
 
   def search
     @search = Resume.includes(:user, :skills, :schools).search(params[:q])
-    @resumes = @search.result(:distinct => true).order("rating DESC").limit(20)
+    @resumes = @search.result(:distinct => true).ranked.limit(20)
   end
 
   private
