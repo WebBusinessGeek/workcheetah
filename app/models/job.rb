@@ -23,7 +23,6 @@ class Job < ActiveRecord::Base
   after_validation :geocode, :if => :address_changed?
 
   validates :title, presence: true
-  validates :description, presence: true
   validates :account_id, numericality: { only_integer: true, greather_than: 0 }, allow_blank: true
   validates :address, presence: true
   validates :category_id, presence: true, numericality: { only_integer: true, greather_than: 0 }
