@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130725142310) do
+ActiveRecord::Schema.define(:version => 20130806132816) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -283,6 +283,11 @@ ActiveRecord::Schema.define(:version => 20130725142310) do
   add_index "jobs", ["account_id"], :name => "index_jobs_on_account_id"
   add_index "jobs", ["active"], :name => "index_jobs_on_active"
   add_index "jobs", ["quick_applicable"], :name => "index_jobs_on_quick_applicable"
+
+  create_table "jobs_skills", :id => false, :force => true do |t|
+    t.integer "job_id"
+    t.integer "skill_id"
+  end
 
   create_table "notifications", :force => true do |t|
     t.integer  "user_id"
