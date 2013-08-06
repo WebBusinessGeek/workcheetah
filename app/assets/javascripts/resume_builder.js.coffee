@@ -21,3 +21,10 @@ jQuery ->
     theme: 'facebook'
 
   $('input.date_picker').datepicker
+
+  $('#job_skill_ids').chosen
+    theme: 'facebook'
+    max_selected_options: 10
+    allow_single_deselect: true
+    no_results_text: 'No results matched'
+    width: '300px'

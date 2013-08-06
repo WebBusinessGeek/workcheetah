@@ -23,6 +23,10 @@
     = f.collection_select(:category3_id, Category.scoped, :id, :name, :prompt => true)
 
     = f.input :yearly_compensation, collection: Job::COMPENSATION_OPTIONS, prompt: true
+    .skills
+      %h4 Skills Requested
+      %p Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.
+      = f.input :skill_ids, label: false, collection: SkillGroup.includes(:skills).all, as: :grouped_select, group_method: :skills, group_label_method: :name, label_method: :name, input_html: { multiple: true, class: ".chzn-select" }
 
     .control-group
       = f.label :description, raw("<abbr title=\"required\">*</abbr> Job description")

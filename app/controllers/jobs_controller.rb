@@ -255,6 +255,6 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:yearly_compensation, :title, :invite_only, :description, :category_id, :email_for_claim, :about_company, :address, account_attributes: [ :name, :website, :phone, :slug, :role, users_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] ])
+    params.require(:job).permit(:skill_ids, :yearly_compensation, :title, :invite_only, :description, :category_id, :email_for_claim, :about_company, :address, account_attributes: [ :name, :website, :phone, :slug, :role, users_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] ])
   end
 end
