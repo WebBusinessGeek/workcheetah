@@ -1,5 +1,8 @@
 CareerLoop::Application.routes.draw do
 
+  resources :blog_categories
+
+
   resources :confirmations, only: [:new, :create] do
     member do
       get :reference, as: :reference_confirm
