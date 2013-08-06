@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130806215946) do
+ActiveRecord::Schema.define(:version => 20130806222028) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20130806215946) do
     t.datetime "cover_updated_at"
     t.string   "subtitle"
     t.integer  "view_count",         :default => 0
+    t.integer  "blog_category_id"
   end
 
   create_table "blocks", :force => true do |t|
