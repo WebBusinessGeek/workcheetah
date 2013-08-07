@@ -35,6 +35,8 @@
             = " - "
             Total Accounts:
             = @accounts.count
+
+        %h3= link_to "Blog categories", blog_categories_path
       .span5
         %h3 Latest Seal Purchases
         - if @seal_purchases.any?

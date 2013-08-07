@@ -36,4 +36,8 @@ RSpec.configure do |config|
   # Paperclip
   config.include Paperclip::Shoulda::Matchers
   config.include Capybara::DSL
+
+  # Devise
+  config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::TestHelpers, :type => :view
 end

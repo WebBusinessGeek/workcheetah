@@ -47,6 +47,9 @@
 		.article_body 
 			= @article.body.html_safe
 
+		.article_category
+			= "Category: #{@article.blog_category.name}"
+
 
 		- if user_signed_in?
 			= simple_form_for @article.comments.build do |f|

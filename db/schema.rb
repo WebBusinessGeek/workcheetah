@@ -12,7 +12,6 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20130807143214) do
-
   create_table "accounts", :force => true do |t|
     t.string   "name"
     t.string   "website"
@@ -118,11 +117,18 @@ ActiveRecord::Schema.define(:version => 20130807143214) do
     t.datetime "cover_updated_at"
     t.string   "subtitle"
     t.integer  "view_count",         :default => 0
+    t.integer  "blog_category_id"
   end
 
   create_table "blocks", :force => true do |t|
     t.integer  "blocker_id"
     t.integer  "blocked_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "blog_categories", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -136,7 +142,6 @@ ActiveRecord::Schema.define(:version => 20130807143214) do
     t.date     "end_date"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
-    t.boolean  "cpc",                   :default => true
   end
 
   create_table "categories", :force => true do |t|
@@ -321,21 +326,6 @@ ActiveRecord::Schema.define(:version => 20130807143214) do
 
   add_index "payment_profiles", ["account_id"], :name => "index_payment_profiles_on_account_id"
 
-  create_table "profiles", :force => true do |t|
-    t.string   "name"
-    t.string   "phone"
-    t.string   "email"
-    t.string   "website"
-    t.string   "status"
-    t.string   "growth_importance"
-    t.string   "distance_importance"
-    t.string   "freedom_importance"
-    t.string   "pay_importance"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-    t.string   "twitter"
-  end
-
   create_table "references", :force => true do |t|
     t.string   "name"
     t.string   "job_title"
@@ -369,8 +359,8 @@ ActiveRecord::Schema.define(:version => 20130807143214) do
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"
-    t.integer  "rating"
     t.boolean  "private",             :default => false
+    t.integer  "rating"
   end
 
   add_index "resumes", ["rating"], :name => "index_resumes_on_rating"

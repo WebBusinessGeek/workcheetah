@@ -1,0 +1,16 @@
+.white_box
+  %h1 Listing blog_categories
+  %table
+    %tr
+      %th Name
+      %th
+      %th
+      %th
+    - @blog_categories.each do |blog_category|
+      %tr
+        %td= blog_category.name
+        %td= link_to 'Show', blog_category
+        %td= link_to 'Edit', edit_blog_category_path(blog_category)
+        %td= link_to 'Destroy', blog_category, method: :delete, data: { confirm: 'Are you sure?' }
+  %br/
+  = link_to 'New Blog category', new_blog_category_path
