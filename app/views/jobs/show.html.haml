@@ -18,8 +18,10 @@
             %span.city{ style: "font-weight: normal; font-size: 18px; color: #555"}
               &ndash;
               = @job.address
-          %br/ 
-        %h3 
+          %br/
+        %h3 Job Rating
+        = render_rating_display (@job.rating.nil? or @job.rating == 0) ? 0 : @job.rating
+        %h3
           = @job.yearly_compensation
         - if can? :manage, @job
           = link_to 'Edit Job', edit_job_path(@job), class: "btn"
@@ -63,4 +65,3 @@
           .span8
             This job description is Invite Only. You have to have been invited by the employer in order to see this job listing. To get job invites start by
             = link_to "building a resume.", new_resume_path
-        

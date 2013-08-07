@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130806132816) do
+ActiveRecord::Schema.define(:version => 20130807143214) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -278,11 +278,14 @@ ActiveRecord::Schema.define(:version => 20130806132816) do
     t.integer  "category3_id"
     t.boolean  "invited",                :default => false
     t.string   "yearly_compensation"
+    t.string   "merit_requested"
+    t.integer  "rating"
   end
 
   add_index "jobs", ["account_id"], :name => "index_jobs_on_account_id"
   add_index "jobs", ["active"], :name => "index_jobs_on_active"
   add_index "jobs", ["quick_applicable"], :name => "index_jobs_on_quick_applicable"
+  add_index "jobs", ["rating"], :name => "index_jobs_on_rating"
 
   create_table "jobs_skills", :id => false, :force => true do |t|
     t.integer "job_id"

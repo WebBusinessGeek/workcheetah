@@ -20,7 +20,7 @@
       %dl.dl-horizontal
         %dt Resume Score
         %dd{style:"padding-left:30px"}
-          = resume_rating_display @resume.rating
+          = render_rating_display @resume.rating
         %dt Name
         %dd{style:"padding-left:30px"}
           %p.lead= @resume.user.name

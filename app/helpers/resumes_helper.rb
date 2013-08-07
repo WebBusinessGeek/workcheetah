@@ -1,5 +1,5 @@
 module ResumesHelper
-  def resume_rating_display(rating)
+  def render_rating_display(rating)
     case rating
     when 0..30 then @rating_class = "label-important"
     when 31..50 then @rating_class = "label-warning"

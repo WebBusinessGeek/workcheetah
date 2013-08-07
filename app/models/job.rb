@@ -1,6 +1,8 @@
 class Job < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
+  after_save :update_rating
+
   default_scope where("active = true AND account_id IS NOT null")
 
   # Later more categories where added; category1_id == category_id so that we don't have to change this name everywhere in the code
@@ -57,7 +59,17 @@ class Job < ActiveRecord::Base
     end
   end
 
+  #stubbed for ratings for now
+  def questionaire
+    false
+  end
+
   def to_param
     "#{self.id}-#{self.title.parameterize}"
   end
+
+  private
+    def update_rating
+      update_column(:rating, Jobs::Rating.new(self).get_score)
+    end
 end

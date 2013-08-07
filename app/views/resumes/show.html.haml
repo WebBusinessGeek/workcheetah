@@ -72,7 +72,7 @@
             </video>
       %hr{style: "width:300px"}
       %p.lead Rating
-      = resume_rating_display(@resume.rating)
+      = render_rating_display(@resume.rating)
       = link_to "#", data: {toggle:"tooltip"},title: "test", rel: "tooltip" do
         %em Whats This?
       - if @resume.skills.any?
