@@ -19,9 +19,11 @@ class Job < ActiveRecord::Base
   has_many :job_applications, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
   has_and_belongs_to_many :skills
-  has_one :questionaire
+  has_many :questions
 
-  accepts_nested_attributes_for :account, :questionaire
+  accepts_nested_attributes_for :account
+  accepts_nested_attributes_for :questions
+
   geocoded_by :address
   after_validation :geocode, :if => :address_changed?
 

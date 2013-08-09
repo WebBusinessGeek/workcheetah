@@ -24,6 +24,14 @@
     .control-group
       %h4 Job Description
       .control= f.text_area :description, label: false, style: "height: 200px; width: 100%; font-size: 16px;", class: "tinymce"
+    .questionaire
+      %h4 Questionaire
+      %p Workcheetah provides the option to construct a short survey that all job applicants would need to fill out before successfully applying for a job.
+      = link_to "Create a questionaire", "#", id: "create_questionaire", class: "btn"
+      #questions.hide
+        = f.fields_for :questions do |question|
+          = render 'question_fields', f: question
+        = link_to_add_fields "Add A Question", f, :questions
     %br/
     = f.input :address, label: "City, State (ex. Los Angeles, CA)", input_html: { style: "width: 100%; max-width: 400px; font-size: 16px;" }
     .control-group

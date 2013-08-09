@@ -1,0 +1,6 @@
+.question.fields_for_set
+  %fieldset
+    = f.input :text, label: "Question Text"
+    = f.hidden_field :_destroy
+    .remove
+      = link_to "Remove Question", '#', class: "remove_fields btn btn-mini btn-danger"

@@ -74,6 +74,7 @@ class JobsController < ApplicationController
   # GET /jobs/new.json
   def new
     @job = Job.new
+    @job.questions.build
 
     if user_signed_in?
       unless current_user.account
@@ -255,6 +256,9 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:skill_ids, :yearly_compensation, :title, :invite_only, :description, :category_id, :email_for_claim, :about_company, :address, account_attributes: [ :name, :website, :phone, :slug, :role, users_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] ])
+    params.require(:job).permit(:merit_requested, :yearly_compensation, :title, :invite_only, :description, :category_id, :category2_id, :category3_id,
+                                :email_for_claim, :about_company, :address, :quick_applicable, skill_ids: [],
+                                questions_attributes:[:text, :_destroy ],
+                                account_attributes: [ :name, :website, :phone, :slug, :role, users_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] ])
   end
 end

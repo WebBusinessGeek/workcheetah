@@ -354,22 +354,14 @@ ActiveRecord::Schema.define(:version => 20130808135312) do
     t.string   "twitter"
   end
 
-  create_table "questionaires", :force => true do |t|
+  create_table "questions", :force => true do |t|
+    t.string   "text"
     t.integer  "job_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "questionaires", ["job_id"], :name => "index_questionaires_on_job_id"
-
-  create_table "questions", :force => true do |t|
-    t.string   "text"
-    t.integer  "questionaire_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  add_index "questions", ["questionaire_id"], :name => "index_questions_on_questionaire_id"
+  add_index "questions", ["job_id"], :name => "index_questions_on_job_id"
 
   create_table "references", :force => true do |t|
     t.string   "name"

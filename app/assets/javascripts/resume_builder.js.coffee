@@ -28,3 +28,8 @@ jQuery ->
     allow_single_deselect: true
     no_results_text: 'No results matched'
     width: '300px'
+
+  $('#create_questionaire').on 'click', (e) ->
+    e.preventDefault()
+    $('#create_questionaire').hide()
+    $('#questions').show()
