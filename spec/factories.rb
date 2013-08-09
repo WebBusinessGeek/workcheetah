@@ -18,6 +18,7 @@ FactoryGirl.define do
     description "MyText"
     about_company "MyText"
     yearly_compensation "26-35k"
+    rating 0
   end
 
   factory :account do

@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :confirmed_references, class_name: "Confirmation", foreign_key: "confirm_for"
   has_many :confirmation_requests, class_name: "Confirmation", foreign_key: "confirm_by"
   has_many :notifications, dependent: :destroy
+  has_many :questionaire_answers, class_name: "Answer"
 
   # Include default devise modules. Others available are:
   # :token_authenticatable,

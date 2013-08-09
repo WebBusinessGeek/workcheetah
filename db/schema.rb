@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130807143214) do
+ActiveRecord::Schema.define(:version => 20130808135312) do
+
   create_table "accounts", :force => true do |t|
     t.string   "name"
     t.string   "website"
@@ -95,6 +96,17 @@ ActiveRecord::Schema.define(:version => 20130807143214) do
     t.datetime "updated_at",                    :null => false
   end
 
+  create_table "answers", :force => true do |t|
+    t.string   "text"
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+  add_index "answers", ["user_id"], :name => "index_answers_on_user_id"
+
   create_table "applicant_accesses", :force => true do |t|
     t.integer  "job_application_id"
     t.integer  "account_id"
@@ -142,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20130807143214) do
     t.date     "end_date"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
+    t.boolean  "cpc",                   :default => true
   end
 
   create_table "categories", :force => true do |t|
@@ -326,6 +339,38 @@ ActiveRecord::Schema.define(:version => 20130807143214) do
 
   add_index "payment_profiles", ["account_id"], :name => "index_payment_profiles_on_account_id"
 
+  create_table "profiles", :force => true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "website"
+    t.string   "status"
+    t.string   "growth_importance"
+    t.string   "distance_importance"
+    t.string   "freedom_importance"
+    t.string   "pay_importance"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "twitter"
+  end
+
+  create_table "questionaires", :force => true do |t|
+    t.integer  "job_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "questionaires", ["job_id"], :name => "index_questionaires_on_job_id"
+
+  create_table "questions", :force => true do |t|
+    t.string   "text"
+    t.integer  "questionaire_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "questions", ["questionaire_id"], :name => "index_questions_on_questionaire_id"
+
   create_table "references", :force => true do |t|
     t.string   "name"
     t.string   "job_title"
@@ -359,8 +404,8 @@ ActiveRecord::Schema.define(:version => 20130807143214) do
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"
-    t.boolean  "private",             :default => false
     t.integer  "rating"
+    t.boolean  "private",             :default => false
   end
 
   add_index "resumes", ["rating"], :name => "index_resumes_on_rating"
