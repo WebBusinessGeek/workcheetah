@@ -94,6 +94,7 @@ class JobsController < ApplicationController
   # GET /jobs/1/edit
   def edit
     @job = Job.find(params[:id])
+    @job.questions.build unless @job.questions.count > 1
     raise CanCan::AccessDenied if user_signed_in? && current_user.account && cannot?(:edit, @job)
   end
 
@@ -163,7 +164,7 @@ class JobsController < ApplicationController
 
         sign_in @job.account.users.first unless user_signed_in?
 
-        format.html { redirect_to (@job.account.safe_job_seal? ? @job : [:add_seal, :account]), notice: 'Job was successfully created.' }
+        format.html { redirect_to (@job.account.safe_job_seal? ? @job : [:add_seal, :account]), notice: 'Job was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

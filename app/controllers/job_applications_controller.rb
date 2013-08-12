@@ -1,6 +1,6 @@
 class JobApplicationsController < ApplicationController
   before_filter :load_job
-  before_filter :authorize_user, except: [:index, :show, :create, :new]
+  before_filter :authorize_user, except: [:index, :show, :create, :new, :apply_with_questionaire]
 
   def index
     if !user_signed_in? || (!current_user.resume and current_user.account != @job.account)
@@ -60,6 +60,17 @@ class JobApplicationsController < ApplicationController
         redirect_to @job
       end
     end
+  end
+
+  def apply_with_questionaire
+    params[:job][:answers_attributes].each do |a|
+      Answer.create!(
+        question_id: a.first,
+        user_id: a.last[:user_id],
+        text: a.last[:text]
+      )
+    end
+    redirect_to new_job_job_application_path(@job)
   end
 
   def buy

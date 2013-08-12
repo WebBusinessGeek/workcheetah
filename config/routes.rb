@@ -91,6 +91,7 @@ CareerLoop::Application.routes.draw do
       member do
         post :buy
         post :reject
+        post :apply_with_questionaire
       end
     end
   end
