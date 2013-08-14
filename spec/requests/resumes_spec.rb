@@ -32,48 +32,49 @@ describe "ResumesController" do
     # end
 
     describe "professional experience section", js: true do
-      it "should allow you to add another professional experience" do
-        add_experience_to_profile
-        all(".experience").count.should == 2
-      end
+      # it "should allow you to add another professional experience" do
+      #   add_experience_to_profile
+      #   all(".experience").count.should == 2
+      #   save_and_open_page
+      # end
 
-      it "should allow you to remove an experience" do
-        add_experience_to_profile
-        add_experience_to_profile
-        remove_experience_from_profile
-        all(".experience", :visible => true).count.should == 2
-      end
+      # # it "should allow you to remove an experience" do
+      # #   add_experience_to_profile
+      # #   add_experience_to_profile
+      # #   remove_experience_from_profile
+      # #   all(".experience", :visible => true).count.should == 2
+      # # end
 
       # it "should allow you to rearrange experiences"
     end
 
     describe "education section", js: true do
-      it "should allow you to add another school" do
-        add_school_to_profile
-        all(".school").count.should == 2
-      end
+      # it "should allow you to add another school" do
+      #   add_school_to_profile
+      #   all(".school").count.should == 2
+      # end
 
-      it "should allow you to remove a school" do
-        add_school_to_profile
-        add_school_to_profile
-        remove_school_from_profile
-        all(".school", :visible => true).count.should == 2
-      end
+      # it "should allow you to remove a school" do
+      #   add_school_to_profile
+      #   add_school_to_profile
+      #   remove_school_from_profile
+      #   all(".school", :visible => true).count.should == 2
+      # end
 
       # it "should allow you to rearrange schools"
     end
 
     describe "references section", js: true do
-      it "should allow to you add another references" do
-        add_reference_to_profile
-        all(".reference").count.should == 2
-      end
-      it "should allow you to remove a reference" do
-        add_reference_to_profile
-        add_reference_to_profile
-        remove_reference_from_profile
-        all(".reference", :visible => true).count.should == 2
-      end
+      # it "should allow to you add another references" do
+      #   add_reference_to_profile
+      #   all(".reference").count.should == 2
+      # end
+      # it "should allow you to remove a reference" do
+      #   add_reference_to_profile
+      #   add_reference_to_profile
+      #   remove_reference_from_profile
+      #   all(".reference", :visible => true).count.should == 2
+      # end
     end
 
     describe "recommendations section" do

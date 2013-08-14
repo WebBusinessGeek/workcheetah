@@ -42,7 +42,7 @@ describe Job do
 			[ :account_id, :category_id ].each do |attr|
 				it { should validate_numericality_of(attr).only_integer }				
 			end
-			
+
 			it { should allow_value(nil).for(:account_id) }
 
 			[ :category2_id, :category3_id ].each do |attr|
@@ -52,7 +52,7 @@ describe Job do
 		end
 
 		context "Presence" do
-			[ :title, :description, :address, :category_id ].each do |attr|
+			[ :title, :address, :category_id ].each do |attr|
 				it { should validate_presence_of attr }
 			end
 		end
