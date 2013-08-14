@@ -1,7 +1,7 @@
 %li
   .row
     .span1
-      =resume_rating_display resume.rating
+      =render_rating_display resume.rating
     .span3{style:"text-decoration:none"}
       =link_to resume_path(resume) do
         %p.lead= resume.user.name.titleize if resume.user
