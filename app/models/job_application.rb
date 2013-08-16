@@ -7,6 +7,9 @@ class JobApplication < ActiveRecord::Base
   has_many :notifications, as: :notifiable, dependent: :destroy
   # attr_accessible :status
 
+  NOTES = ["Interview Scheduled","Had Interview", "Have not spoken to",
+    "Contact made", "Not Interested", "Interested"]
+
   after_create :creation_notification
   after_update :change_notification
   after_destroy :destruction_notification

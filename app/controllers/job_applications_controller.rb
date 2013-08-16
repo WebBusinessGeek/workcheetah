@@ -1,6 +1,6 @@
 class JobApplicationsController < ApplicationController
   before_filter :load_job
-  before_filter :authorize_user, except: [:index, :show, :create, :new, :apply_with_questionaire]
+  before_filter :authorize_user, except: [:index, :show, :create, :new, :update, :apply_with_questionaire]
 
   def index
     if !user_signed_in? || (!current_user.resume and current_user.account != @job.account)
@@ -73,6 +73,11 @@ class JobApplicationsController < ApplicationController
     redirect_to new_job_job_application_path(@job)
   end
 
+  def update
+    @job_application = JobApplication.find(params[:id])
+    @job_application.update_attributes(job_application_params)
+  end
+
   def buy
     @job_application = @job.job_applications.find(params[:id])
 
@@ -119,5 +124,9 @@ class JobApplicationsController < ApplicationController
 
   def load_job
     @job = Job.find(params[:job_id]) if params[:job_id]
+  end
+
+  def job_application_params
+    params.require(:job_application).permit(:note)
   end
 end
