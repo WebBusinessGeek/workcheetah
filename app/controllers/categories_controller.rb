@@ -17,13 +17,9 @@ class CategoriesController < ApplicationController
   end
 
   def index_new
+    logger.debug human_readable_current_location
     @category_list = Category.scoped.order(:name)
     check_session
-    # @jobs = Jobs::JobSearch.new(
-    #   Job.includes(:account,:category),
-    #   {categories: @categories, query: @query, location: human_readable_current_location})
-    #   .call
-    #   .order("created_at DESC").page(params[:page]).per_page(8)
     @jobs = Job.scoped
     @jobs = @jobs.cat_search(@category) if @category
     @jobs = @jobs.search(@query) if @query
@@ -90,10 +86,16 @@ class CategoriesController < ApplicationController
 
   def check_session
     @query = params[:search] unless params[:search].blank?
+    if params[:location]
+      @location = params[:location]
+    else
+      @current_location = current_location
+      @location ||= human_readable_current_location
+    end
     if params[:categories]
       session[:categories] = params[:categories]
       @category = session[:categories]
-    elsif user_signed_in? && current_user.resume.present? &&
+    elsif user_signed_in? && current_user.resume.present?
       if session[:categories]
         @category = session[:categories]
       else

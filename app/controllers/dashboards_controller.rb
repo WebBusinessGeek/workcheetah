@@ -42,10 +42,11 @@ class DashboardsController < ApplicationController
 
   def job_info
   end
+
   def ad_info
     @signup = AdvertiserSignUp.new
-    # render layout: "application"
   end
+
   def resume_info
   end
 end
