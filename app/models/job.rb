@@ -22,9 +22,11 @@ class Job < ActiveRecord::Base
   has_many :questions
 
   accepts_nested_attributes_for :account
-  accepts_nested_attributes_for :questions
+  accepts_nested_attributes_for :questions, allow_destroy: true, limit: 5, reject_if: proc { |attributes| attributes['text'].blank? }
 
   geocoded_by :address
+
+  before_save :check_question_count
   after_validation :geocode, :if => :address_changed?
 
   validates :title, presence: true
@@ -72,6 +74,10 @@ class Job < ActiveRecord::Base
   end
 
   private
+    def check_question_count
+      return false if self.questions.count > 5
+    end
+
     def update_rating
       update_column(:rating, Jobs::Rating.new(self).get_score)
     end

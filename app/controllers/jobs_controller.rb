@@ -101,8 +101,6 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.json
   def create
-    # raise params.inspect
-
     @job = Job.new(job_params)
     @job.email_for_claim = params[:job][:email_for_claim]
 
@@ -117,16 +115,6 @@ class JobsController < ApplicationController
         end
       end
     end
-
-    # if user_signed_in? && current_user.moderator?
-    #   @job.account = nil
-    # elsif user_signed_in? && !current_user.moderator?
-    #   if current_user.account
-    #     @job.account = current_user.account
-    #   else
-    #     @job.account.users << current_user
-    #   end
-    # end
 
     respond_to do |format|
       if @job.save
@@ -158,18 +146,21 @@ class JobsController < ApplicationController
   def update
     @job = Job.unscoped.where(id: params[:id], active: true).first
     raise CanCan::AccessDenied if user_signed_in? && current_user.account && cannot?(:update, @job)
+    begin respond_to do |format|
+        if @job.update_attributes(job_params)
 
-    respond_to do |format|
-      if @job.update_attributes(job_params)
+          sign_in @job.account.users.first unless user_signed_in?
 
-        sign_in @job.account.users.first unless user_signed_in?
-
-        format.html { redirect_to (@job.account.safe_job_seal? ? @job : [:add_seal, :account]), notice: 'Job was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @job.errors, status: :unprocessable_entity }
+          format.html { redirect_to (@job.account.safe_job_seal? ? @job : [:add_seal, :account]), notice: 'Job was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @job.errors, status: :unprocessable_entity }
+        end
       end
+    rescue ActiveRecord::NestedAttributes::TooManyRecords
+      @job.errors.add :questions, "Only 5 questions can be created."
+      render 'edit'
     end
   end
 
@@ -259,7 +250,7 @@ class JobsController < ApplicationController
   def job_params
     params.require(:job).permit(:merit_requested, :yearly_compensation, :title, :invite_only, :description, :category_id, :category2_id, :category3_id,
                                 :email_for_claim, :about_company, :address, :quick_applicable, skill_ids: [],
-                                questions_attributes:[:text, :_destroy ],
+                                questions_attributes: [:text, :_destroy ],
                                 account_attributes: [ :name, :website, :phone, :slug, :role, users_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] ])
   end
 end

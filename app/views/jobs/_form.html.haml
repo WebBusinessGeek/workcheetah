@@ -2,7 +2,7 @@
   = tinymce :theme => "simple", :plugins => ["inlinepopups", "paste"]
   - if @job.errors.any?
     .errors
-      = @job.errors.full_messages.each do |msg|
+      - @job.errors.full_messages.each do |msg|
         %li= msg
 
   = f.error_notification
@@ -28,8 +28,9 @@
     .questionaire
       %h4 Questionaire
       %p Workcheetah provides the option to construct a short survey that all job applicants would need to fill out before successfully applying for a job. Note: creating a questionaire will negate the quick applicable feature.
-      = link_to "Create a questionaire", "#", id: "create_questionaire", class: "btn" unless @job.questions.any? or @job.new_record?
-      #questions{class: (@job.questions.any? or @job.new_record?) ? "" : "hide"}
+      -# = link_to "Create a questionaire", "#", id: "create_questionaire", class: "btn" unless @job.questions.any? or @job.new_record?
+      -# #questions{class: (@job.questions.any? or @job.new_record?) ? "" : "hide"}
+      #questions
         = f.fields_for :questions do |question|
           = render 'question_fields', f: question
         = link_to_add_fields "Add A Question", f, :questions

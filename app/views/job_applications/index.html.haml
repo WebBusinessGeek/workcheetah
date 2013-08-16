@@ -14,11 +14,11 @@
           - if job_application.user.resume.present?
             %tr
               %td.actions
-                -# - if !job_application.rejected?
-                -#   - if can?(:read, job_application)
-                -#     = link_to "View", [@job, job_application], class: "btn"
-                -#   - else
-                -#     = link_to "Preview", [@job, job_application], class: "btn btn-primary"
+                - if !job_application.rejected?
+                  - if can?(:read, job_application)
+                    = link_to "View", [@job, job_application], class: "btn"
+                  - else
+                    = link_to "Preview", [@job, job_application], class: "btn btn-primary"
               %td.applicant
                 - if can?(:read, job_application)
                   = job_application.user.resume.name
