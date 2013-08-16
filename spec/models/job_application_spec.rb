@@ -6,7 +6,7 @@ describe JobApplication do
 			it { should belong_to association_name }
 		end
 		# applicant_access should be has_one maybe?
-		[ :applicant_access, :notifications ].each do |klasses|
+		[ :applicant_accesses, :notifications ].each do |klasses|
 			it { should have_many(klasses).dependent(:destroy) }
 		end
 	end

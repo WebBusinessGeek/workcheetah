@@ -23,7 +23,7 @@ class Ability
     if user.account.present?
       can :manage, Job, account_id: user.account.id
       can :invite_job_seekers, Job, user.account.safe_job_seal == true
-      can :read, JobApplication, applicant_access: { account_id: user.account.id }
+      can :read, JobApplication, applicant_accesses: { account_id: user.account.id }
     end
 
     can :create, JobApplication do |job_application| job_applicable?(job_application, user) end
