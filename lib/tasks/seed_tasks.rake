@@ -26,6 +26,25 @@ namespace :db do
     end
   end
 
+  desc "Load default categories"
+  task :load_categories => :environment do
+    ActiveRecord::Base.transaction do
+      ["accounting / finance", "admin / office", "arch / engineering",
+       "art / media / design", "biotech / science", "business / mgmt",
+       "customer service", "education", "food / bev", "hospitality",
+       "general labor", "government", "human resources", "internet engineers",
+       "legal / paralegal", "manufacturing", "marketing", "public relations",
+       "advertising", "medical / health", "nonprofits", "real estate",
+       "retail", "wholesale", "sales", "business development", "salon / spa",
+       "fitness", "freelance work", "security", "skilled trade / craft",
+       "software / qa / dba", "systems / network", "tech support",
+       "transport", "tv / film / media", "web design",
+       "computer programming", "writing / editing", "ETC"].each do |c|
+          Category.create! name: c
+        end
+    end
+  end
+
   desc "Load skills data"
   task :load_skills => :environment do
     ActiveRecord::Base.transaction do
@@ -38,7 +57,7 @@ namespace :db do
     end
   end
 
-  desc "Utility task that converts old education table to new format (delete me when done)"
+  desc "Utility task that converts old education table to new format (delete me when used in production)"
   task :convert_education => :environment do
     School.all.each do |s|
       puts "Before:"

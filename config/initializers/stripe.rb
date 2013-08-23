@@ -1,4 +1,4 @@
-if Rails.env.development? || Rails.env.test?
+if Rails.env.development? || Rails.env.test? || Rails.env.staging?
   Stripe.api_key = "sk_test_wPMSw7QQnYZkjWBKvq0hUxFn"
   STRIPE_PUBLIC_KEY = "pk_test_h80n7D2FsGImlQj8pt8ddBHB"
 end

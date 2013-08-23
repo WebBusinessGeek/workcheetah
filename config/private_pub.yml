@@ -4,6 +4,9 @@ development:
 test:
   server: "http://localhost:9292/faye"
   secret_token: "secret"
+staging:
+  secret_token: "38746ewishfdsknfuzr23zr923uefosidlcn2378weihkjdhsgf2389q8wigdjsgweg823899234729837ieuwjdhs"
+  signature_expiration: 3600 # one hour
 production:
   server: "http://workcheetah-fayeserver.herokuapp.com/faye"
   secret_token: "38746ewishfdsknfuzr23zr923uefosidlcn2378weihkjdhsgf2389q8wigdjsgweg823899234729837ieuwjdhs"
