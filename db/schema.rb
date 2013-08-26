@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130816133732) do
+ActiveRecord::Schema.define(:version => 20130826185023) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20130816133732) do
     t.date     "end_date"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
+    t.boolean  "cpc",                   :default => true
   end
 
   create_table "categories", :force => true do |t|
@@ -258,6 +259,11 @@ ActiveRecord::Schema.define(:version => 20130816133732) do
     t.string   "industry"
   end
 
+  create_table "industry_targets_campaigns", :force => true do |t|
+    t.integer "category_id"
+    t.integer "campaign_id"
+  end
+
   create_table "invites", :force => true do |t|
     t.integer  "job_id"
     t.integer  "resume_id"
@@ -276,6 +282,11 @@ ActiveRecord::Schema.define(:version => 20130816133732) do
 
   add_index "job_applications", ["job_id"], :name => "index_job_applications_on_job_id"
   add_index "job_applications", ["user_id"], :name => "index_job_applications_on_user_id"
+
+  create_table "job_targets_campaigns", :force => true do |t|
+    t.integer "category_id"
+    t.integer "campaign_id"
+  end
 
   create_table "jobs", :force => true do |t|
     t.string   "title"
@@ -339,6 +350,21 @@ ActiveRecord::Schema.define(:version => 20130816133732) do
 
   add_index "payment_profiles", ["account_id"], :name => "index_payment_profiles_on_account_id"
 
+  create_table "profiles", :force => true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "website"
+    t.string   "status"
+    t.string   "growth_importance"
+    t.string   "distance_importance"
+    t.string   "freedom_importance"
+    t.string   "pay_importance"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "twitter"
+  end
+
   create_table "questions", :force => true do |t|
     t.string   "text"
     t.integer  "job_id"
@@ -381,8 +407,8 @@ ActiveRecord::Schema.define(:version => 20130816133732) do
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"
-    t.boolean  "private",             :default => false
     t.integer  "rating"
+    t.boolean  "private",             :default => false
   end
 
   add_index "resumes", ["rating"], :name => "index_resumes_on_rating"

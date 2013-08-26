@@ -4,5 +4,16 @@ class Category < ActiveRecord::Base
   has_many :jobs, dependent: :destroy
   has_many :resumes, dependent: :destroy
 
+  has_and_belongs_to_many :industry_target_campaigns,
+    class_name: "Campaign",
+    foreign_key: "category_id",
+    association_foreign_key: "campaign_id",
+    join_table: "industry_targets_campaigns"
+  has_and_belongs_to_many :job_target_campaigns,
+    class_name: "Campaign",
+    foreign_key: "category_id",
+    association_foreign_key: "campaign_id",
+    join_table: "job_targets_campaigns"
+
   validates :name, presence: true
 end
