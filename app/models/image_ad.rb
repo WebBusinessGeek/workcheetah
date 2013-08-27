@@ -1,0 +1,3 @@
+class ImageAd < Advertisement
+
+end

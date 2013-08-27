@@ -1,0 +1,2 @@
+class TextAd < Advertisement
+end

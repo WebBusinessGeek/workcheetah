@@ -3,6 +3,8 @@ class Campaign < ActiveRecord::Base
 
   belongs_to :advertiser_account
   has_many :advertisements, dependent: :destroy
+  has_many :image_ads, class_name: "ImageAd", conditions: {ad_type: "image"}
+  has_many :text_ads, class_name: "TextAd", conditions: {ad_type: "text"}
   has_many :ad_targetings, dependent: :destroy
   has_many :ad_targets, through: :ad_targetings
   has_and_belongs_to_many :industry_targets,

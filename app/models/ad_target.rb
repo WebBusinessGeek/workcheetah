@@ -4,7 +4,6 @@ class AdTarget < ActiveRecord::Base
   has_many :ad_targetings
   has_many :campaigns, through: :ad_targetings
 
-  AUDIENCES = ["user", "business", "advertiser", "freelancer"]
   EMPLOYEE_TARGETS = ["Employed", "Unemployed", "Expecting Layoff"]
   ADVERTISER_TARGETS = ["Marketing to Users", "Marketing to Businesses"]
   EDUCATION_TARGETS = School::HIGHEST_MERIT
