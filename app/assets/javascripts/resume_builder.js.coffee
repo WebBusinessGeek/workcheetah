@@ -7,7 +7,7 @@ jQuery ->
 
   $('form').on 'click', '.remove_fields', (event) ->
     $(this).prev('input[type=hidden]').val('1')
-    $(this).closest('.fields_for_set').hide()
+    $(this).closest('fieldset').hide()
     event.preventDefault()
 
   $('#resume_skill_ids').chosen
