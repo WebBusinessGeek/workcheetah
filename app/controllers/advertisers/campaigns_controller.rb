@@ -16,7 +16,7 @@ class Advertisers::CampaignsController < Advertisers::BaseController
   end
 
   def create
-    @campaign = current_user.advertiser_account.campaigns.build(campaign_parms)
+    @campaign = current_user.advertiser_account.campaigns.build(campaign_params)
     @campaign.active = true # active for now
     if @campaign.save!
       flash[:notice] = "Campaign Created Successfully."
@@ -27,7 +27,7 @@ class Advertisers::CampaignsController < Advertisers::BaseController
   end
 
   def update
-    @campaign.assign_attributes(campaign_parms)
+    @campaign.assign_attributes(campaign_params)
     if @campaign.save!
       flash[:notice] = "Campaign Updated Successfully"
       redirect_to advertisers_campaign_path @campaign
@@ -50,7 +50,11 @@ class Advertisers::CampaignsController < Advertisers::BaseController
       @campaign = Campaign.find(params[:id])
     end
 
-    def campaign_parms
-      params.require(:campaign).permit(:name, :budget, :start_date, :end_date)
+    def campaign_params
+      params.require(:campaign).permit(:name, :cpc, :audience_target_ids,
+        :industry_target_ids, :job_target_ids, :employee_target_ids, :education_target_ids,
+        :advertiser_target_ids,
+        image_ads_attributes: [:title],
+        text_ads_attributes: [:title])
     end
 end

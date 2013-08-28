@@ -1,4 +1,26 @@
-= f.input :name, label_html: {class: "control-label"}
-= f.input :budget, label_html: {class: "control-label"}
-= f.input :start_date, as: :string
-= f.input :end_date, as: :string
+.row
+  .span6
+    %legend Targeting
+    %h5 Class A
+    = f.input :audience_target_ids, label: "Target Audience", collection: AdTarget.by_audience("A"), input_html: { include_blank: false, multiple: false}
+    %h5 Class B
+    = f.input :industry_target_ids, label: "Target Industry", collection: AdTarget.by_audience("B1"), input_html: { multiple: false }
+    = f.input :job_target_ids, label: "Target Job", collection: AdTarget.by_audience("B2"), input_html: { multiple: false }
+    = f.input :employee_target_ids, label: "Target Employee Status", collection: AdTarget.by_audience("B3"), input_html: { multiple: false }
+    = f.input :education_target_ids, label: "Target Education Level", collection: AdTarget.by_audience("B4"), input_html: { multiple: false}
+    = f.input :advertiser_target_ids, label: "Target Advertiser", collection: AdTarget.by_audience("B5"), input_html: { multiple: false }
+    %hr/
+    %legend Ad's
+    = f.fields_for :image_ads do |i|
+      = render "image_ad_fields", f: i
+    = link_to_add_fields "Add an Image Advertisement", f, :image_ads
+    = f.fields_for :text_ads do |t|
+      = render "text_ad_fields", f: t
+    = link_to_add_fields "Add an Text Advertisement", f, :text_ads
+    %hr/
+    = f.input :name, label_html: {class: "control-label"}
+  .span2
+    -# = render 'advertisers/campaigns/shared/estimates', f: f
+    Campaign Budget Estimates
+    = f.input :cpc, label: false, collection: [["CPC", :true], ["CPM",:false]], as: :radio_buttons
+

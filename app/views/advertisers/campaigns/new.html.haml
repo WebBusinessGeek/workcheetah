@@ -3,4 +3,5 @@
     .span8
       = simple_form_for @campaign, url: advertisers_campaigns_path do |f|
         = render 'form', f: f
-        = f.submit class: "btn"
+        .span2
+          = f.submit class: "btn"

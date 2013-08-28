@@ -8,10 +8,15 @@ namespace :db do
   task :load_targets => :environment do
     ActiveRecord::Base.transaction do
       puts "Loading User Target Words"
-      AdTarget::EMPLOYEE_TARGETS.each {|u| AdTarget.create(name: u, audience: "employee")}
-      AdTarget::EDUCATION_TARGETS.each{|u| AdTarget.create(name: u, audience: "education")}
+      AdTarget::AUDIENCES.each {|u| AdTarget.create(name: u, audience: "A")}
+      Category.order(:name).pluck(:name).each do |u|
+        AdTarget.create( name: u, audience: "B1")
+        AdTarget.create( name: u, audience: "B2")
+      end
+      AdTarget::EMPLOYEE_TARGETS.each {|u| AdTarget.create(name: u, audience: "B3")}
+      AdTarget::EDUCATION_TARGETS.each{|u| AdTarget.create(name: u, audience: "B4")}
       puts "Loading Advertiser Target Words"
-      AdTarget::ADVERTISER_TARGETS.each {|a| AdTarget.create(name: a, audience: "advertiser")}
+      AdTarget::ADVERTISER_TARGETS.each {|a| AdTarget.create(name: a, audience: "B5")}
     end
   end
 

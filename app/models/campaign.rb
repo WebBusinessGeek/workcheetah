@@ -6,19 +6,34 @@ class Campaign < ActiveRecord::Base
   has_many :image_ads, class_name: "ImageAd", conditions: {ad_type: "image"}
   has_many :text_ads, class_name: "TextAd", conditions: {ad_type: "text"}
   has_many :ad_targetings, dependent: :destroy
-  has_many :ad_targets, through: :ad_targetings
-  has_and_belongs_to_many :industry_targets,
-    class_name: "Category",
-    foreign_key: "campaign_id",
-    association_foreign_key: "category_id",
-    join_table: "industry_targets_campaigns"
-  has_and_belongs_to_many :job_target,
-    class_name: "Category",
-    foreign_key: "category_id",
-    association_foreign_key: "campaign_id",
-    join_table: "job_targets_campaigns"
+  # Whacky assocations to make forms work the Rails way as the client needs custom forms
+  has_many :audience_targets, through: :ad_targetings,
+                              class_name: "AdTarget",
+                              source: :ad_target,
+                              conditions: ["audience = ?", "A"]
+  has_many :industry_targets, through: :ad_targetings,
+                              class_name: "AdTarget",
+                              source: :ad_target,
+                              conditions: ["audience = ?", "B1"]
+  has_many :job_targets, through: :ad_targetings,
+                              class_name: "AdTarget",
+                              source: :ad_target,
+                              conditions: ["audience = ?", "B2"]
+  has_many :employee_targets, through: :ad_targetings,
+                              class_name: "AdTarget",
+                              source: :ad_target,
+                              conditions: ["audience = ?", "B3"]
+  has_many :education_targets, through: :ad_targetings,
+                              class_name: "AdTarget",
+                              source: :ad_target,
+                              conditions: ["audience = ?", "B4"]
+  has_many :advertiser_targets, through: :ad_targetings,
+                              class_name: "AdTarget",
+                              source: :ad_target,
+                              conditions: ["audience = ?", "B5"]
 
-  AUDIENCES = ["user", "business", "advertiser", "freelancer"]
+  accepts_nested_attributes_for :image_ads, allow_destroy: true
+  accepts_nested_attributes_for :text_ads, allow_destroy: true
 
   scope :by_audience, lambda {|a|
     joins(:ad_targets)
@@ -30,5 +45,13 @@ class Campaign < ActiveRecord::Base
   def toggle_status!
     return update_attribute(:active, false) if active?
     return update_attribute(:active, true) unless active?
+  end
+
+  def cpm?
+    return !cpc?
+  end
+
+  def audience
+    ad_targets.by_audience("A")
   end
 end
