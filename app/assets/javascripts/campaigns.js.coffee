@@ -2,14 +2,32 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
-    $('#campaign_start_date').datepicker
-        dateFormat: 'yy-mm-dd'
+    if $('#new_campaign').length or $('#edit_campaign').length
+      toggle_target_selects $('#campaign_audience_target_ids option:selected').text()
+      $('#campaign_audience_target_ids').change ->
+        toggle_target_selects $('#campaign_audience_target_ids option:selected').text()
 
-    $('#campaign_end_date').datepicker
-        dateFormat: 'yy-mm-dd'
+toggle_target_selects = (select) ->
+  hide_all_select()
+  switch select
+    when 'employee'
+      $('#job_targets').toggle()
+      $('#employee_targets').toggle()
+      $('#education_targets').toggle()
+    when 'freelancer'
+      $('#job_targets').toggle()
+      $('#education_targets').toggle()
+    when 'business'
+      $('#industry_targets').toggle()
+      $('#job_targets').toggle()
+    when 'advertiser'
+      $('#advertiser_targets').toggle()
+    else
+      return
 
-    $('#new_ad_selector').bind 'click', (e) ->
-        e.preventDefault()
-        $('#new_ad_selector').hide()
-        $('#text_ad_link').show()
-        $('#image_ad_link').show()
+hide_all_select = ->
+  $('#industry_targets').hide()
+  $('#job_targets').hide()
+  $('#employee_targets').hide()
+  $('#education_targets').hide()
+  $('#advertiser_targets').hide()

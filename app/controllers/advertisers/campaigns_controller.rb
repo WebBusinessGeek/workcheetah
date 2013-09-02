@@ -54,7 +54,7 @@ class Advertisers::CampaignsController < Advertisers::BaseController
       params.require(:campaign).permit(:name, :cpc, :audience_target_ids,
         :industry_target_ids, :job_target_ids, :employee_target_ids, :education_target_ids,
         :advertiser_target_ids,
-        image_ads_attributes: [:title],
-        text_ads_attributes: [:title])
+        image_ads_attributes: [:title, :url, :content, :image, :_destroy],
+        text_ads_attributes: [:title, :url, :content, :_destroy])
     end
 end
