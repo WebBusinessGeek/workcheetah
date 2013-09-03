@@ -17,9 +17,4 @@
         = f.input :content, input_html: { cols: 50, rows: 3 }
     .span4
       .control-group
-        = f.input :start_time, as: :string, input_html: {class: "date"}
-      .control-group
         = f.input :confirmed, label_html: {style: ((@advertisement.new_record? || @advertisement.confirmed?) ? '' : 'color: red; font-weight: bold')}
-    .span4
-      .control-group
-        = f.input :end_time, as: :string, input_html: {class: "date"}

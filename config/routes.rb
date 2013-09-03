@@ -28,6 +28,7 @@ CareerLoop::Application.routes.draw do
     resources :advertisements do
       member do
         post :toggle
+        get :click_through
       end
     end
   end
@@ -132,6 +133,8 @@ CareerLoop::Application.routes.draw do
   post "/moderators" => "users#create_moderator", as: :create_moderator
   delete "/moderators/:id" => "users#destroy_moderator", as: :destroy_moderator
 
+  get "/image_ad" => "advertisers/advertisements#image_ad"
+  get "/text_ad" => "advertisers/advertisements#text_ad"
   root :to => 'dashboards#home'
   match '/contact' => "pages#contact", as: "contact"
   match '/admin' => "dashboards#admin", as: "admin"

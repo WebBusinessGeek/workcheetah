@@ -212,6 +212,8 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
+    paperclip-meta (0.4.3)
+      paperclip
     pg (0.15.1)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
@@ -384,6 +386,7 @@ DEPENDENCIES
   libv8 (~> 3.11.8.3)
   meta_request
   paperclip (~> 3.0)
+  paperclip-meta
   pg
   private_pub
   pry

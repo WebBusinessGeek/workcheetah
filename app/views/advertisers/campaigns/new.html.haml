@@ -1,7 +1,7 @@
 .container
   .row
-    .span8
-      = simple_form_for @campaign, url: advertisers_campaigns_path do |f|
+    .span10
+      = simple_form_for @campaign, url: advertisers_campaigns_path, html: { multipart: true } do |f|
         = render 'form', f: f
         .span2
           = f.submit class: "btn"

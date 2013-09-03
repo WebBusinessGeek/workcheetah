@@ -1,5 +1,5 @@
 class Advertisers::AdvertisementsController < Advertisers::BaseController
-  before_filter :load_advertisement, only: [:show, :edit, :update, :destroy, :toggle]
+  before_filter :load_advertisement, only: [:show, :edit, :update, :destroy, :toggle, :click_through]
 
   respond_to :html, :js
   def index
@@ -46,6 +46,19 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
   def toggle
     @advertisement.toggle!
     redirect_to :back
+  end
+
+  def click_through
+    redirect_to @advertisement.url
+  end
+
+  def image_ad
+    @advertisement = ImageAd.first
+    render layout: false
+  end
+  def text_ad
+    @advertisement = TextAd.first
+    render layout: false
   end
 
   private

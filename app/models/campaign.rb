@@ -34,6 +34,7 @@ class Campaign < ActiveRecord::Base
 
   accepts_nested_attributes_for :image_ads, allow_destroy: true
   accepts_nested_attributes_for :text_ads, allow_destroy: true
+  accepts_nested_attributes_for :advertiser_account
 
   scope :by_audience, lambda {|a|
     joins(:ad_targets)

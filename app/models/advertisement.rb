@@ -6,7 +6,7 @@ class Advertisement < ActiveRecord::Base
   has_one :ad_stat, dependent: :destroy
 
   has_attached_file :image,
-    styles: { landscape: "250x250#", thumb: "100x100#" },
+    styles: { square: "250x250#", thumb: "100x100#", banner: "468x60#" },
     path: "advertising/:attachment/:id/:style.:extension",
     bucket: Figaro.env.aws_bucket
 

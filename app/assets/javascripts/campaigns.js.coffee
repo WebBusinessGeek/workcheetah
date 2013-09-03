@@ -7,6 +7,27 @@ $ ->
       $('#campaign_audience_target_ids').change ->
         toggle_target_selects $('#campaign_audience_target_ids option:selected').text()
 
+    $('#campaign_audience_target_ids').chosen
+        allow_single_deselect: true
+        no_results_text: 'No results matched'
+        width: '200px'
+    $('#campaign_industry_target_ids').chosen
+        allow_single_deselect: true
+        no_results_text: 'No results matched'
+        width: '200px'
+    $('#campaign_job_target_ids').chosen
+        allow_single_deselect: true
+        no_results_text: 'No results matched'
+        width: '200px'
+    $('#campaign_education_target_ids').chosen
+        allow_single_deselect: true
+        no_results_text: 'No results matched'
+        width: '200px'
+    $('#campaign_advertiser_target_ids').chosen
+        allow_single_deselect: true
+        no_results_text: 'No results matched'
+        width: '200px'
+
 toggle_target_selects = (select) ->
   hide_all_select()
   switch select

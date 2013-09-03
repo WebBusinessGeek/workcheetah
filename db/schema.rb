@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130816133732) do
+ActiveRecord::Schema.define(:version => 20130903125543) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -73,8 +73,6 @@ ActiveRecord::Schema.define(:version => 20130816133732) do
     t.date     "end_time"
     t.integer  "priority",           :default => 1
     t.boolean  "confirmed",          :default => false
-    t.integer  "width"
-    t.integer  "height"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -83,6 +81,7 @@ ActiveRecord::Schema.define(:version => 20130816133732) do
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
     t.string   "ad_type"
+    t.text     "image_meta"
   end
 
   create_table "advertiser_accounts", :force => true do |t|
