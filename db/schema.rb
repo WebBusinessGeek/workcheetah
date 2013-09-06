@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130903125543) do
+ActiveRecord::Schema.define(:version => 20130906152502) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20130903125543) do
     t.integer  "impressions",      :default => 0
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
+    t.date     "date"
   end
 
   create_table "ad_targetings", :force => true do |t|
@@ -82,6 +83,8 @@ ActiveRecord::Schema.define(:version => 20130903125543) do
     t.datetime "updated_at",                            :null => false
     t.string   "ad_type"
     t.text     "image_meta"
+    t.integer  "impression_count"
+    t.integer  "click_count"
   end
 
   create_table "advertiser_accounts", :force => true do |t|
