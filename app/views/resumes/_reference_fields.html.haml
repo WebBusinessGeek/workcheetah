@@ -15,6 +15,8 @@
     = tinymce
     = f.label :reference_type, "Reference type"
     = f.select :reference_type, options_for_select([ "Professional", "Personal", "Both" ], "Professional")
+    = f.label :reference_type, "Which best describes your business?", class: 'hidden'
+    = f.select :business_types, Reference::BUSINESS_TYPES_COLLECTION, {}, { class: 'hidden' }
     = f.hidden_field :_destroy
     .remove
       = link_to "Remove Reference", '#', class: "remove_fields btn btn-mini btn-danger"

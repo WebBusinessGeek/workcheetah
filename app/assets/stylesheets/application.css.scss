@@ -21,7 +21,7 @@ span.error {
 	.popover {
 		max-height: 300px;
 		overflow: auto;
-		
+
 		h3.popover-title {
 			color: black;
 		}
@@ -250,7 +250,7 @@ p.readers {
 	text-align: center;
 }
 
-.social > a.btn1.btn1-small.btn1-social-facebook > i, 
+.social > a.btn1.btn1-small.btn1-social-facebook > i,
 .social > .btn1.btn1-small.btn1-social-twitter > i,
 .social > .btn1.btn1-small.btn1-social-googleplus > i {
 	margin-right: 0.5em !important;
@@ -340,14 +340,7 @@ input[type="text"]::-webkit-input-placeholder {
 	font-size: 1.2em;
 }
 
-
-
-
-
-
-
-
-@media screen and (max-width: 760px) {  
+@media screen and (max-width: 760px) {
 
     h1#careerstuff {
     	font-size: 3em;
@@ -369,11 +362,7 @@ input[type="text"]::-webkit-input-placeholder {
   }
 
 }
-  
 
-
-
-
-
-
-
+.carousel-inner > .active {
+  left: 5em !important;
+}

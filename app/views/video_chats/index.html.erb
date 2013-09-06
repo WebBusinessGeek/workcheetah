@@ -1,7 +1,7 @@
 <div class="video_chats_index">
     <div class="white_box">
         <h1>Interviews</h1>
-        <% if current_user.account %>
+        <% if ['Business', 'Freelancer'].include?(current_user.role?) && ((Business.find_by_id(current_user.id).present? && Business.find_by_id(current_user.id).account.present?) || (Freelancer.find_by_id(current_user.id).present? && Freelancer.find_by_id(current_user.id).account.present?)) %>
             <div class="alert alert-success alert-block alert-info">
                 <button class="close" data-dismiss="alert" type="button">&times;</button>
                 With our Online Interviewing system you can hire more effectively and way faster! Pick your best <%= link_to "recruits", [:recruits, current_user.account] %> to interview now.
@@ -44,7 +44,7 @@
             <% end %>
             </table>
         <% else %>
-            <% if current_user.account %>
+            <% if ['Business', 'Freelancer'].include?(current_user.role?) && ((Business.find_by_id(current_user.id).present? && Business.find_by_id(current_user.id).account.present?) || (Freelancer.find_by_id(current_user.id).present? && Freelancer.find_by_id(current_user.id).account.present?)) %>
                 You have not scheduled any interviews. You can request an interview for your <%= link_to "recruits", [:recruits, current_user.account] %>.
             <% else %>
                 There are no scheduled interviews for you.

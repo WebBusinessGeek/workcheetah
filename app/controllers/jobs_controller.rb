@@ -77,12 +77,12 @@ class JobsController < ApplicationController
     @job.questions.build
 
     if user_signed_in?
-      unless current_user.account
+      unless ['Freelancer', 'Business'].include?(current_user.role?) # current_user.account
         @account = @job.build_account
       end
-    else
-      @account = @job.build_account
-      @account.users.build
+    # else
+    #   @account = @job.build_account
+    #   @account.users.build
     end
 
     respond_to do |format|
@@ -200,7 +200,7 @@ class JobsController < ApplicationController
   end
 
   def quick_apply
-    return redirect_to new_resume_path, notice: "Please build a resume to apply to jobs." if !user_signed_in?
+    return redirect_to new_resume_path, notice: "Please Build Work Profile to apply to jobs." if !user_signed_in?
 
     job_ids = params[:job_ids]
     return redirect_to :back, notice: "Please check some jobs you want to quick apply for." if job_ids.nil?

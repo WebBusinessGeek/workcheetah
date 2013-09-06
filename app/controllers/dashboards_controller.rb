@@ -15,6 +15,8 @@ class DashboardsController < ApplicationController
     else
       @current_location_clean = ""
     end
+
+    @ads_group = Advertisement.order('priority').offset(0).take(10)
   end
 
   def admin
@@ -48,5 +50,10 @@ class DashboardsController < ApplicationController
   end
 
   def resume_info
+  end
+
+  def fetch_ads_group
+    @ads_group = Advertisement.order('priority').offset(params[:offset]).take(10) if params[:offset].present?
+    render nothing: true
   end
 end

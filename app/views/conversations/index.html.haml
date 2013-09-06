@@ -1,7 +1,7 @@
 .conversations_index
 	.white_box
 		%h1 Conversations
-		- if current_user.account.present?
+		- if ['Business', 'Freelancer'].include?(current_user.role?) && ((Business.find_by_id(current_user.id).present? && Business.find_by_id(current_user.id).account.present?) || (Freelancer.find_by_id(current_user.id).present? && Freelancer.find_by_id(current_user.id).account.present?))
 			%p
 				Message your
 				= link_to "recruits", recruits_account_path(current_user.account)

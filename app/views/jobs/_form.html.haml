@@ -17,8 +17,10 @@
     = f.collection_select(:category3_id, Category.scoped, :id, :name, :prompt => true)
     = f.input :yearly_compensation, collection: Job::COMPENSATION_OPTIONS, prompt: true
     = f.input :merit_requested, collection: School::HIGHEST_MERIT, prompt: true
+    = f.input :business_types, label: 'Which best describes your business?', collection: business_types_collection, prompt: true
+    = f.input :job_types, label: 'What are you looking for', collection: job_types_collection, prompt: true
     .skills
-      %h4 Skills Requested
+      %h4 Service/Skills Requested
       %p Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.
       = f.input :skill_ids, label: false, collection: SkillGroup.includes(:skills).all, as: :grouped_select, group_method: :skills, group_label_method: :name, label_method: :name, input_html: { multiple: true, class: ".chzn-select" }
     .control-group
@@ -48,7 +50,7 @@
         = f.check_box :invite_only, html: { checked: true }
         %a#invite-popover.btn.btn-primary{"data-content" => "Protect yourself from spam. Your job only shows to those that you invite to your listing.", "data-original-title" => "Invite Only", html: true, :href => "javascript: void(0);", :rel => "popover"} ?
     %hr/
-    - unless user_signed_in? && current_user.account
+    - unless user_signed_in? && ['Freelancer', 'Business'].include?(current_user.role?)
       = f.fields_for :account do |af|
         %h2 Account Info
         = af.input :name, label: "Company name", placeholder: "ABC Company"
@@ -69,7 +71,7 @@
             = uf.input :password_confirmation, placeholder: "************", required: true
             = uf.input :terms_of_service, as: :boolean, label: raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}"), required: :true
   .form-actions
-    - if user_signed_in? && current_user.account.present?
+    - if user_signed_in? && ['Freelancer', 'Business'].include?(current_user.role?)
       = f.submit class: "btn btn-large btn-success"
     - else
       = f.submit "Create Account & Save Job Listing", class: "btn btn-large btn-success"

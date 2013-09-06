@@ -62,7 +62,7 @@
                 = link_to "Apply", new_job_job_application_path(@job), class: "btn btn-primary btn-large", style: "width: 86%"
               = link_to "Flag This Job", [:flag, @job], method: :post, style: "width: 100%; margin: 20px auto; display: block; text-align: center;"
           - else
-            %a#invite-popover.btn.btn-primary.btn-large{"data-content" => "Please build a resume to apply to jobs.", "data-original-title" => "#{link_to "Build a resume", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left", style: "width: 86%;"} Apply
+            %a#invite-popover.btn.btn-primary.btn-large{"data-content" => "Please build a resume to apply to jobs.", "data-original-title" => "#{link_to "Build Work Profile", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left", style: "width: 86%;"} Apply
       - else
         - if (user_signed_in? and current_user.resume.present? and !current_user.resume.invited_to_job?(@job)) or !user_signed_in?
           .span8

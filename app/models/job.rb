@@ -38,8 +38,12 @@ class Job < ActiveRecord::Base
   COMPENSATION_OPTIONS = [ "15-25k",  "26-35k",  "36-45k",  "46-55k",  "66-75k",  "76-85k",  "86-95k",  "96k+",  "commission based",  "salary + commission",  "undisclosed" ]
   validates :yearly_compensation, inclusion: { in: COMPENSATION_OPTIONS }
 
+  attr_accessor :business_types
+  attr_accessor :job_types
   attr_accessor :email_for_claim
+
   scope :cat_search, ->(query) {where('category_id IN (?) OR category2_id IN (?) OR category3_id IN (?)', query, query, query)}
+
   def self.text_search(query, location)
     if query.present?
       # where("title @@ :q or description @@ :q or about_company @@ :q", q: query)

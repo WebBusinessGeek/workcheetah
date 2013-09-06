@@ -81,9 +81,9 @@ module ApplicationHelper
       false
     elsif user.advertiser?
       true
-    elsif user.account.nil?
+    elsif ['Employee', nil].include?(current_user.role?)# user.account.nil?
       true
-    end 
+    end
     # user.nil? || user.account.nil? || user.moderator?
   end
 
