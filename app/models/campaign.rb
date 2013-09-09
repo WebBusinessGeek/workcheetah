@@ -1,6 +1,21 @@
 class Campaign < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
+  BASE = {cpc: 0.30, cpm: 0.05}
+  AUDIENCE = {
+    all: 0.09,
+    employee: 0.12,
+    freelancer: 0.14,
+    business: 0.15,
+    advertiser: 0.15
+  }
+  INDUSTRY = 0.08
+  JOB = 0.08
+  EMPLOYEE = 0.08
+  EDUCATION = 0.07
+  ADVERTISER = 0.08
+
+
   belongs_to :advertiser_account
   has_many :advertisements, dependent: :destroy
   has_many :image_ads, class_name: "ImageAd", conditions: {ad_type: "image"}
