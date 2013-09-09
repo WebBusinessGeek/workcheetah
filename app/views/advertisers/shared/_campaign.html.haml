@@ -1,7 +1,15 @@
 %li.span2
   .thumbnail.pagination-centered{style: "height:150px"}
-    %h4
-      = c.name.humanize
-    %p
-      = number_to_currency c.budget
+    %h5
+      = c.name.blank? ? "Campaign not titled" : c.name.humanize
+    %ol.unstyled
+      %li
+        %b Budget
+        = number_to_currency c.budget
+      %li
+        %b Impressions Today
+        = c.daily_total_impressions
+      %li
+        %b Clicks Today
+        = c.daily_total_clicks
     = link_to "Details", advertisers_campaign_path(c), class: "btn btn-primary"

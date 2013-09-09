@@ -1,7 +1,7 @@
 class Campaign < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  BASE = {cpc: 0.30, cpm: 0.05}
+  BASE = { cpc: 0.30, cpm: 0.05}
   AUDIENCE = {
     all: 0.09,
     employee: 0.12,
@@ -15,6 +15,10 @@ class Campaign < ActiveRecord::Base
   EDUCATION = 0.07
   ADVERTISER = 0.08
 
+  monetize :budget_cents, allow_nil: false
+    # numericality: { greater_than_or_equal_to: 2500, message: "Budget must be greater than or equal to $25.00" }
+  monetize :max_bid_cents, allow_nil: false
+    # numericality: { greater_than_or_equal_to: 5, message: "Max Bid must be greater than or equal to $0.05" }
 
   belongs_to :advertiser_account
   has_many :advertisements, dependent: :destroy
@@ -58,6 +62,14 @@ class Campaign < ActiveRecord::Base
     joins(:ad_targets)
     .where(ad_targets: {name: t})}
 
+  def daily_total_impressions
+    advertisements.sum(:impression_count)
+  end
+
+  def daily_total_clicks
+    advertisements.sum(:click_count)
+  end
+
   def toggle_status!
     return update_attribute(:active, false) if active?
     return update_attribute(:active, true) unless active?
@@ -67,7 +79,7 @@ class Campaign < ActiveRecord::Base
     return !cpc?
   end
 
-  def audience
-    ad_targets.by_audience("A")
+  def minimumBid
+    Advertisers::CampaignBid.new(self).getPrice
   end
 end

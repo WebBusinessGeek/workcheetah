@@ -26,6 +26,7 @@
     %hr/
     %legend Budget
     %h5 Max Bid
+    = f.input :max_bid, input_html: { value: @campaign.minimumBid }
     %h5 Max Budget
     %h6 (Minimum $25)
     = f.input :budget

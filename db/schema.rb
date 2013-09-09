@@ -149,7 +149,6 @@ ActiveRecord::Schema.define(:version => 20130909160747) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
-    t.integer  "budget"
     t.integer  "advertiser_account_id"
     t.boolean  "active",                :default => false
     t.date     "start_date"
@@ -157,7 +156,10 @@ ActiveRecord::Schema.define(:version => 20130909160747) do
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
     t.boolean  "cpc",                   :default => true
-    t.integer  "max_bid"
+    t.integer  "max_bid_cents",         :default => 0,     :null => false
+    t.string   "max_bid_currency",      :default => "USD", :null => false
+    t.integer  "budget_cents",          :default => 0,     :null => false
+    t.string   "budget_currency",       :default => "USD", :null => false
   end
 
   create_table "categories", :force => true do |t|

@@ -13,6 +13,7 @@ gem 'rake', '~> 10.1.0'
 gem "will_paginate"
 gem 'virtus'
 gem 'ransack'
+gem 'money-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
