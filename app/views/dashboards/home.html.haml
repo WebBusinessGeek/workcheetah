@@ -14,30 +14,59 @@
   - if user_signed_in?
     - if ['Business'].include?(current_user.role?)
       %span.post_a_job= link_to "Post a Job", job_info_path, class: (new_job_path == request.path ? "current btn" : "btn" )
-      %h2{ style: 'color: #fff;' } Recruiting Advice
+      %h2{ style: 'color: #fff;' }
+        Recruiting Advice
+        - if @business_articles.present?
+          - @business_articles.each do |article|
+            = article.title
       %h2{ style: 'color: #fff;' } Our Partners want you to know…
       .carousel.slide#adsCarousel
         %a.carousel-control.left{ :href => '#adsCarousel', :'data-slide' => 'prev' } &lsaquo;
         .carousel-inner
           .active.item{ style: 'color: #fff; margin-left: 2em;' }
             %ul.thumbnails
-              - @ads_group[0..(@ads_group.size/2)-1].each do |ad|
+              - @business_ads_group[0..(@business_ads_group.size/2)-1].each do |ad|
                 %li.span2
                   %a.thumbnail{ href: 'javascript:void(0);' }
                     = ad.content
             %ul.thumbnails
-              - @ads_group[@ads_group.size/2..@ads_group.size-1].each do |ad|
+              - @business_ads_group[@business_ads_group.size/2..@business_ads_group.size-1].each do |ad|
                 %li.span2
                   %a.thumbnail{ href: 'javascript:void(0);' }
                     = ad.content
-        %a.carousel-control.right{ :href => '#adsCarousel', :'data-slide' => 'next' } &rsaquo;
+        %a.carousel-control.right{ :href => root_path(offset: @business_ads_group.size), :'data-slide' => 'next' } &rsaquo;
       %h2{ style: 'color: #fff;' } Calender will appear here...
     - elsif ['Freelancer'].include?(current_user.role?)
-      %h2{ style: 'color: #fff;' } Freelancing tips
+      = render partial: 'search_form'
+      %h2{ style: 'color: #fff;' }
+        Freelancing tips
+        - if @freelancing_articles.present?
+          - @freelancing_articles.each do |article|
+            = article.title
       %h2{ style: 'color: #fff;' } Our Partners want you to know…
+      .carousel.slide#adsCarousel
+        %a.carousel-control.left{ :href => '#adsCarousel', :'data-slide' => 'prev' } &lsaquo;
+        .carousel-inner
+          .active.item{ style: 'color: #fff; margin-left: 8em;' }
+            %ul.thumbnails
+              - @freelancer_ads_group[0..(@freelancer_ads_group.size/2)-1].each do |ad|
+                %li.span2
+                  %a.thumbnail{ href: 'javascript:void(0);' }
+                    = ad.content
+            %ul.thumbnails
+              - @freelancer_ads_group[@freelancer_ads_group.size/2..@freelancer_ads_group.size-1].each do |ad|
+                %li.span2
+                  %a.thumbnail{ href: 'javascript:void(0);' }
+                    = ad.content
+        %a.carousel-control.right{ :href => root_path(offset: @freelancer_ads_group.size), :'data-slide' => 'next' } &rsaquo;
       %h2{ style: 'color: #fff;' } Calender will appear here...
     - else
-      %h2{ style: 'color: #fff;' } Job Hunting tips
+      = render partial: 'search_form'
+      %h2{ style: 'color: #fff;' }
+        Job Hunting tips
+        - if @employee_articles.present?
+          - @employee_articles.each do |article|
+            = article.title
 
   .search_content.row
     .search_box.span12

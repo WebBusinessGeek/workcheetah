@@ -242,7 +242,7 @@ class JobsController < ApplicationController
   end
 
   def hide_some_jobs_from_companies
-    raise CanCan::AccessDenied if user_signed_in? && current_user.account
+    raise CanCan::AccessDenied if user_signed_in? && ['Business', 'Freelancer'].include?(current_user.role?)
   end
 
   private
