@@ -8,7 +8,7 @@ class Advertisement < ActiveRecord::Base
   delegate :cpc?, :cpm?, to: :campaign
 
   has_attached_file :image,
-    styles: { square: "250x250#", thumb: "100x100#", banner: "468x60#" },
+    styles: { sidebar: "110x70#", thumb: "75x75#", banner: "468x60#" },
     path: "advertising/:attachment/:id/:style.:extension",
     bucket: Figaro.env.aws_bucket
 

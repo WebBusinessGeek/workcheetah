@@ -1,4 +1,7 @@
-= link_to click_through_advertisers_advertisement_path @advertisement, {style: "text-decoration:none;"} do
-  = image_tag @advertisement.image.url(:thumb)
-  = @advertisement.title
-  = @advertisement.content
+.adsection
+  = link_to click_through_advertisers_advertisement_path @advertisement, { class: "advert"} do
+    %h1
+      = @advertisement.title
+    = image_tag @advertisement.image.url(:sidebar)
+    %p
+      = @advertisement.content

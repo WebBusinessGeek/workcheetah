@@ -56,12 +56,10 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
   def image_ad
     @advertisement = ImageAd.first
     @advertisement.stat_incrementor "impression"
-    render layout: false
   end
   def text_ad
     @advertisement = TextAd.first
     @advertisement.stat_incrementor "impression"
-    render layout: false
   end
 
   private

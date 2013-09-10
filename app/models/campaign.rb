@@ -59,7 +59,7 @@ class Campaign < ActiveRecord::Base
 
   validates :name, presence: true
   validate :validate_minimum_bid
-  validates :audience_target_ids, numericality: {greater_than_or_equal_to: 1, message: "cannot be blank"}
+  # validates :audience_target_ids, numericality: {greater_than_or_equal_to: 1, message: "cannot be blank"}
 
   scope :by_audience, lambda {|a|
     joins(:audience_targets)
