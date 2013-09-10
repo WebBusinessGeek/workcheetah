@@ -1,8 +1,8 @@
 %fieldset
   = f.input :title
   = f.input :url
-  = f.input :content
-  = image_tag f.object.image.url(:square), alt: "Ad Image Original" if f.object.image?
-  = f.input :image
+  = f.input :content, input_html: { cols: 50, rows: 2 }
+  = image_tag f.object.image.url(:thumb), alt: "Ad Image Original" if f.object.image?
+  = f.input :image, label: false
   = f.hidden_field :_destroy
   = link_to "remove", '#', class: "remove_fields"

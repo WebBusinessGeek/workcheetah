@@ -1,6 +1,7 @@
 .container
   .row
     .span10
+      %p.lead Start creating your campaign. Workcheetah offers a cost-per-impression (CPM) and a cost-per-click(CPC) pricing structure. The different pricing structures will update live as you customize your campaign.
       = simple_form_for @campaign, url: advertisers_campaigns_path, html: { multipart: true } do |f|
         = render 'form', f: f
         .span2

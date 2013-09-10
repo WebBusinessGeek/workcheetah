@@ -6,6 +6,7 @@ module Advertisers
       @campaign = campaign
       @cpcPrice = 0
       @cpmPrice = 0
+      @audience = @campaign.audience_targets.map(&:name).first.to_s
     end
 
     def getPrice
@@ -21,13 +22,13 @@ module Advertisers
     private
       def calculateCPC
         @cpcPrice += getBase(:cpc)
-        @cpcPrice += getAudience(@campaign.audience_targets.map(&:name).first.to_s)
+        @cpcPrice += getAudience(@audience)
         @cpcPrice += getIndustry + getJob + getEmployee + getEducation + getAdvertiser
       end
 
       def calculateCPM
         @cpmPrice += getBase(:cpm)
-        @cpmPrice += getAudience(@campaign.audience_targets.map(&:name).first.to_s)
+        @cpmPrice += getAudience(@audience)
         @cpmPrice += getIndustry + getJob + getEmployee + getEducation + getAdvertiser
       end
 
@@ -36,7 +37,7 @@ module Advertisers
       end
 
       def getAudience(audience)
-        Campaign::AUDIENCE[audience.to_sym]
+        Campaign::AUDIENCE.fetch(audience.to_sym,0)
       end
 
       def getIndustry

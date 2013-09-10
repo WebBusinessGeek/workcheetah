@@ -16,7 +16,6 @@ class Campaign < ActiveRecord::Base
   ADVERTISER = 0.08
 
   monetize :budget_cents, allow_nil: false
-    # numericality: { greater_than_or_equal_to: 2500, message: "Budget must be greater than or equal to $25.00" }
   monetize :max_bid_cents, allow_nil: false
     # numericality: { greater_than_or_equal_to: 5, message: "Max Bid must be greater than or equal to $0.05" }
 
@@ -55,6 +54,10 @@ class Campaign < ActiveRecord::Base
   accepts_nested_attributes_for :text_ads, allow_destroy: true
   accepts_nested_attributes_for :advertiser_account
 
+  validates :name, presence: true
+  validate :validate_minimum_bid
+  validates :audience_target_ids, numericality: {greater_than_or_equal_to: 1, message: "cannot be blank"}
+
   scope :by_audience, lambda {|a|
     joins(:ad_targets)
     .where(ad_targets: {audience: a})}
@@ -80,6 +83,18 @@ class Campaign < ActiveRecord::Base
   end
 
   def minimumBid
-    Advertisers::CampaignBid.new(self).getPrice
+    return Advertisers::CampaignBid.new(self).getPrice if max_bid.nil? || max_bid == 0
+    return max_bid
   end
+
+  private
+    def validate_minimum_bid
+      minimumBid = Advertisers::CampaignBid.new(self).getPrice
+      if max_bid < minimumBid
+        errors.add(:max_bid, " must be greater than or equal to $#{minimumBid}")
+      end
+      if budget < 25.00
+        errors.add(:budget,  " must be greater than or equal to $25.00")
+      end
+    end
 end

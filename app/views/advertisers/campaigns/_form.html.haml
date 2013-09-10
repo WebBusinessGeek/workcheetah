@@ -1,36 +1,53 @@
 .row
   .span6
     %legend Targeting
+    %p
+      Workcheetah offers Advertisers the ability to target their advertisements at a Campaign level.
+      Below you will find two levels of advertising keywords that best fit our users. First begin by choosing
+      a target audience, all audiences besides the all option have secondary keywords that can be utilized.
     %h5 Class A
     #audience_targets{data: {base: Campaign::BASE, audience: Campaign::AUDIENCE}}
       = f.input :audience_target_ids, label: "Target Audience", collection: AdTarget.by_audience("A"), input_html: { include_blank: false, multiple: false, }
+  .span4{style: "margin-top:20px"}
+    %h4 Campaign Budget Estimates
+    = f.input :cpc, label: false, collection: [["CPC", :true], ["CPM",:false]], as: :radio_buttons, item_wrapper_class: "inline span1"
+    .clearfix
+    %span#cpm.span1{style: "font-size:200%"} $0.00
+    %span#cpc.span1{style: "font-size:200%"} $0.00
+.row
+  .span10
     %h5 Class B
-    #industry_targets{data: {industry: Campaign::INDUSTRY}}
+    #industry_targets.span3{data: {industry: Campaign::INDUSTRY}}
       = f.input :industry_target_ids, label: "Target Industry", collection: AdTarget.by_audience("B1"), input_html: { multiple: false, class: ".chzn-select" }
-    #job_targets{data: {job: Campaign::JOB}}
+    #job_targets.span3{data: {job: Campaign::JOB}}
       = f.input :job_target_ids, label: "Target Job", collection: AdTarget.by_audience("B2"), input_html: { multiple: false, class: ".chzn-select" }
-    #employee_targets{data: {employee: Campaign::EMPLOYEE}}
+    #employee_targets.span3{data: {employee: Campaign::EMPLOYEE}}
       = f.input :employee_target_ids, label: "Target Employee Status", collection: AdTarget.by_audience("B3"), input_html: { multiple: false, class: ".chzn-select" }
-    #education_targets{data: {education: Campaign::EDUCATION}}
+    #education_targets.span3{data: {education: Campaign::EDUCATION}}
       = f.input :education_target_ids, label: "Target Education Level", collection: AdTarget.by_audience("B4"), input_html: { multiple: false, class: ".chzn-select"}
-    #advertiser_targets{data: {advertiser: Campaign::ADVERTISER}}
+    #advertiser_targets.span3{data: {advertiser: Campaign::ADVERTISER}}
       = f.input :advertiser_target_ids, label: "Target Advertiser", collection: AdTarget.by_audience("B5"), input_html: { multiple: false, class: ".chzn-select" }
-    %hr/
+.row
+  .span10
     %legend Ad's
-    = f.fields_for :image_ads do |i|
-      = render "image_ad_fields", f: i
-    = link_to_add_fields "Add an Image Advertisement", f, :image_ads
-    = f.fields_for :text_ads do |t|
-      = render "text_ad_fields", f: t
-    = link_to_add_fields "Add an Text Advertisement", f, :text_ads
-    %hr/
+    %p
+
+    .span4
+      = f.fields_for :image_ads do |i|
+        = render "image_ad_fields", f: i
+      = link_to_add_fields "Add an Image Advertisement", f, :image_ads
+    .span4
+      = f.fields_for :text_ads do |t|
+        = render "text_ad_fields", f: t
+      = link_to_add_fields "Add an Text Advertisement", f, :text_ads
+.row
+  .span10
     %legend Budget
     %h5 Max Bid
-    = f.input :max_bid, input_html: { value: @campaign.minimumBid }
+    = f.input :max_bid, label: false
     %h5 Max Budget
     %h6 (Minimum $25)
-    = f.input :budget
-    %hr/
+    = f.input :budget, label: false
     %legend Campaign
     = f.input :name, label_html: {class: "control-label"}
     %hr/
@@ -39,10 +56,4 @@
       = a.input :company
       = a.input :website
       = a.input :phone
-  .span4
-    -# = render 'advertisers/campaigns/shared/estimates', f: f
-    Campaign Budget Estimates
-    = f.input :cpc, label: false, collection: [["CPC", :true], ["CPM",:false]], as: :radio_buttons, item_wrapper_class: "inline"
-    %span#cpm{style: "font-size:200%"} $0.00
-    %span#cpc{style: "font-size:200%"} $0.00
 
