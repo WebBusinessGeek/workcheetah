@@ -2,16 +2,31 @@
   .row
     .span2
       = render 'advertisers/shared/sidebar_nav'
-    .span10
-      %h3 Current Active Campaigns
+    .span8
+      %h3 Campaigns
       - if @campaigns.any?
         .campaigns
-          - @campaigns.each do |c|
-            = render 'advertisers/shared/campaign', c: c
-          %li.span2
-            .thumbnail.pagination-centered{style: "height:150px"}
-              %h4 Start a New Campaign
-              %p= link_to "Start", new_advertisers_campaign_path, class: "btn btn-primary"
+          %table.table
+            %caption
+              Overview of your Campaigns
+            %thead
+              %tr
+                %th
+                  %strong Title
+                %th
+                  %strong Budget
+                %th
+                  %strong Target Audience
+                %th
+                  %strong Status
+                %th
+                  %strong Stats
+                %th
+            %tbody
+              - @campaigns.each do |c|
+                = render 'advertisers/shared/campaign', c: c
+          %h4 Start a New Campaign
+          %p= link_to "Start", new_advertisers_campaign_path, class: "btn btn-primary"
       - else
         .heroku-unit
           %h4 You current have no active campaigns

@@ -1,6 +1,6 @@
 class Advertisement < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-
+  # The priority column is unused atm but is a placeholder for future weighted ads system.
   AD_TYPES = %w(text image)
   belongs_to :campaign
   has_many :ad_stats, dependent: :destroy

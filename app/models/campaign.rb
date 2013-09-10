@@ -25,6 +25,9 @@ class Campaign < ActiveRecord::Base
   has_many :text_ads, class_name: "TextAd", conditions: {ad_type: "text"}
   has_many :ad_targetings, dependent: :destroy
   # Whacky assocations to make forms work the Rails way as the client needs custom forms
+  has_many :targets, through: :ad_targetings,
+                    class_name: "AdTarget",
+                    source: :ad_target
   has_many :audience_targets, through: :ad_targetings,
                               class_name: "AdTarget",
                               source: :ad_target,
@@ -59,11 +62,15 @@ class Campaign < ActiveRecord::Base
   validates :audience_target_ids, numericality: {greater_than_or_equal_to: 1, message: "cannot be blank"}
 
   scope :by_audience, lambda {|a|
-    joins(:ad_targets)
-    .where(ad_targets: {audience: a})}
+    joins(:audience_targets)
+    .where(audience_targets: {audience: a})}
   scope :by_target, lambda {|t|
-    joins(:ad_targets)
-    .where(ad_targets: {name: t})}
+    joins(:targets)
+    .where(targets: {name: t})}
+
+  def target_audience
+    targets.pluck(:name)
+  end
 
   def daily_total_impressions
     advertisements.sum(:impression_count)

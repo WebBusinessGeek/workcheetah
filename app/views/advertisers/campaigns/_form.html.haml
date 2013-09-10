@@ -31,7 +31,7 @@
   .span10
     %legend Ad's
     %p
-
+      Create any combination of text and/or image advertisements for your campaign.
     .span4
       = f.fields_for :image_ads do |i|
         = render "image_ad_fields", f: i
@@ -43,6 +43,15 @@
 .row
   .span10
     %legend Budget
+    - if @campaign.new_record?
+      %p
+        Workcheetah believes in results first for its advertising partners. The pricing model we use is simple. You only pay for results. Begin by setting a max bid and a budget %below.
+        %br/
+        The max bid is how much you are willing to pay per tracking type, whether you've chosen Cost-Per-Impressions or Cost-Per-Click.
+        %br/
+        Setting the budget for this campaign effectively serves two purpose: it acts as a metric of time for how long your campaign remains active and it is also intended to save you more money.
+        %br/
+        We bill on a weekly basis.
     %h5 Max Bid
     = f.input :max_bid, label: false
     %h5 Max Budget
@@ -52,6 +61,8 @@
     = f.input :name, label_html: {class: "control-label"}
     %hr/
     %legend Billing Information
+    - if @campaign.new_record?
+      %p Tell Us about your company.
     = f.fields_for :advertiser_account do |a|
       = a.input :company
       = a.input :website
