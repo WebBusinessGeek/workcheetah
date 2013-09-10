@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :scam_reports, dependent: :destroy
   has_one :resume, dependent: :destroy
-  belongs_to :account
+  # belongs_to :account
   has_one :advertiser_account, dependent: :destroy
   has_many :requested_video_chats, class_name: "VideoChat", foreign_key: :requester_id, dependent: :destroy
   has_many :received_video_chats, class_name: "VideoChat", foreign_key: :recipient_id, dependent: :destroy
@@ -38,18 +38,36 @@ class User < ActiveRecord::Base
   end
 
   def name
-    if self.account
-      self.account.name
-    elsif self.resume
-      self.resume.name
+    # if self.account
+    #   self.account.name
+    # elsif self.resume
+    #   self.resume.name
+    # end
+    if self.role? == 'Freelancer'
+      user = Freelancer.find_by_id(self.id)
+      user.account.name if user.account.present?
+    elsif self.role? == 'Business'
+      user = Business.find_by_id(self.id)
+      user.account.name if user.account.present?
+    else
+      self.resume.name if self.resume.present?
     end
   end
 
   def name=(name)
-    if self.account
-      self.account.update_attribute(:name, name)
-    elsif self.resume
-      self.resume.update_attribute(:name, name)
+    # if self.account
+    #   self.account.update_attribute(:name, name)
+    # elsif self.resume
+    #   self.resume.update_attribute(:name, name)
+    # end
+    if self.role? == 'Freelancer'
+      user = Freelancer.find_by_id(self.id)
+      user.account.update_attribute(:name, name) if user.account.present?
+    elsif self.role? == 'Business'
+      user = Business.find_by_id(self.id)
+      user.account.update_attribute(:name, name) if user.account.present?
+    else
+      self.resume.update_attribute(:name, name) if self.resume.present?
     end
   end
 
@@ -69,5 +87,9 @@ class User < ActiveRecord::Base
       params << "all"
     end
     return params
+  end
+
+  def role?
+    self.type
   end
 end

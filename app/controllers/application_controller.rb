@@ -4,12 +4,24 @@ class ApplicationController < ActionController::Base
   before_filter :get_tweet
 
   def get_tweet
-    if user_signed_in? and current_user.account.present?
-      @tweet = Tweet.where(for_accounts: true).order("id DESC").first
-    elsif user_signed_in? and current_user.resume.present?
-      @tweet = Tweet.where(for_resumes: true).order("id DESC").first
-    else
-      @tweet = Tweet.where(for_public: true).order("id DESC").first
+    # if user_signed_in? and current_user.account.present?
+    if user_signed_in?
+      if @current_user.role? == 'Freelancer'
+        current_user = Freelancer.find_by_id(@current_user.id)
+        @tweet = Tweet.where(for_accounts: true).order("id DESC").first if current_user.account.present?
+      elsif @current_user.role? == 'Business'
+        current_user = Business.find_by_id(@current_user.id)
+        @tweet = Tweet.where(for_accounts: true).order("id DESC").first if current_user.account.present?
+      elsif @current_user.role? == 'Employee'
+        current_user = Employee.find_by_id(@current_user.id)
+        @tweet = Tweet.where(for_resumes: true).order("id DESC").first
+      else
+        @tweet = Tweet.where(for_public: true).order("id DESC").first
+      end
+    # elsif user_signed_in? and current_user.resume.present?
+    #   @tweet = Tweet.where(for_resumes: true).order("id DESC").first
+    # else
+    #   @tweet = Tweet.where(for_public: true).order("id DESC").first
     end
   end
 

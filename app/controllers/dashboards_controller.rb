@@ -15,6 +15,32 @@ class DashboardsController < ApplicationController
     else
       @current_location_clean = ""
     end
+
+    if ['Business'].include?(current_user.role?)
+      if params[:offset].present?
+        @business_ads_group = Advertisement.order('priority').offset(params[:offset]).take(10)
+      else
+        @business_ads_group = Advertisement.order('priority').offset(0).take(10)
+      end
+    elsif ['Freelancer'].include?(current_user.role?)
+      if params[:offset].present?
+        @freelancer_ads_group = Advertisement.order('priority').offset(params[:offset]).take(8)
+      else
+        @freelancer_ads_group = Advertisement.order('priority').offset(0).take(8)
+      end
+    end
+
+    if ['Business'].include?(current_user.role?)
+      cat = BlogCategory.find_by_name('For Businesses')
+      @business_articles = cat.articles if cat.present?
+    elsif ['Freelancer'].include?(current_user.role?)
+      cat = @freelancing_articles = BlogCategory.find_by_name('For Freelancers')
+      @freelancing_articles = cat.articles if cat.present?
+    else
+      cat = BlogCategory.find_by_name('For Employees')
+      @employee_articles = cat.articles if cat.present?
+    end
+
   end
 
   def admin
@@ -48,5 +74,10 @@ class DashboardsController < ApplicationController
   end
 
   def resume_info
+  end
+
+  def fetch_ads_group
+    @ads_group = Advertisement.order('priority').offset(params[:offset]).take(10) if params[:offset].present?
+    render nothing: true
   end
 end

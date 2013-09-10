@@ -493,6 +493,7 @@ ActiveRecord::Schema.define(:version => 20130909160747) do
     t.string   "unconfirmed_email"
     t.boolean  "advertiser",             :default => false
     t.text     "target_params"
+    t.string   "type"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

@@ -37,7 +37,7 @@ module Advertisers
       end
 
       def getAudience(audience)
-        Campaign::AUDIENCE.fetch(audience.to_sym,0)
+        Campaign::AUDIENCE.fetch(audience.to_sym, 0)
       end
 
       def getIndustry

@@ -15,6 +15,7 @@ CareerLoop::Application.routes.draw do
   get "/how-ads-work" => "dashboards#ad_info", as: :ad_info
   get "/how-jobs-work" => "dashboards#job_info", as: :job_info
   get "how-resumes-work" => "dashboards#resume_info", as: :resume_info
+  get '/fetch_ads_group' => 'dashboards#fetch_ads_group', as: :next_ads_group
   post "/how-ads-work" => "advertisers/dashboard#create_sign_up", as: :create_advertiser_sign_up
 
   namespace :advertisers do
