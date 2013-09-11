@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130909160747) do
+ActiveRecord::Schema.define(:version => 20130911132656) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -155,11 +155,11 @@ ActiveRecord::Schema.define(:version => 20130909160747) do
     t.date     "end_date"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
-    t.boolean  "cpc",                   :default => true
     t.integer  "max_bid_cents",         :default => 0,     :null => false
     t.string   "max_bid_currency",      :default => "USD", :null => false
     t.integer  "budget_cents",          :default => 0,     :null => false
     t.string   "budget_currency",       :default => "USD", :null => false
+    t.boolean  "cpc",                   :default => false
   end
 
   create_table "categories", :force => true do |t|
