@@ -15,6 +15,7 @@ class DashboardsController < ApplicationController
     else
       @current_location_clean = ""
     end
+
     if user_signed_in?
       if ['Business'].include?(current_user.role?)
         if params[:offset].present?
@@ -41,7 +42,6 @@ class DashboardsController < ApplicationController
         @employee_articles = cat.articles if cat.present?
       end
     end
-
   end
 
   def admin

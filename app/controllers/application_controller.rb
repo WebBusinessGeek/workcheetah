@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  # Disabling this for performance reasons and up for possible feature removal.
   # before_filter :get_tweet
 
   def get_tweet
