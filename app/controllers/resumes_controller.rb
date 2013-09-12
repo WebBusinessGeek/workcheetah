@@ -21,18 +21,11 @@ class ResumesController < ApplicationController
         @resume = Resume.new(resume_params)
       elsif !current_user.moderator?
         @resume = current_user.build_resume(resume_params)
+        current_user.update_attribute(:type, "Employee")
       end
     else
       @resume = Resume.new(resume_params)
     end
-
-    # if user_signed_in? && current_user.moderator
-    #   @resume = Resume.new(resume_params)
-    # elsif user_signed_in? && !current_user.moderator?
-    #   @resume = current_user.build_resume(resume_params)
-    # else
-    #   @resume = Resume.new(resume_params)
-    # end
 
     if @resume.save
       if current_user

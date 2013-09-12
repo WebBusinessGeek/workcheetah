@@ -67,77 +67,23 @@
         - if @employee_articles.present?
           - @employee_articles.each do |article|
             = article.title
-
-  .search_content.row
-    .search_box.span12
-      - if user_signed_in? && ['Freelancer', 'Business'].include?(current_user.role?) # and current_user.account
-        .logo
-          %img{:src => "assets/logo-large5.png", :alt => "large logo", style: "width: 70%;"}/
-          / = image_tag "logo-large5.png"
-      - else
-        .logo= image_tag("logo-large5.png")
-
-      - if current_user
-        - if ['Employee', nil].include?(current_user.role?) # !current_user.account
+  - else
+    .search_content.row
+      .search_box.span12
+        - if user_signed_in? && ['Freelancer', 'Business'].include?(current_user.role?) # and current_user.account
+          .logo
+            %img{:src => "assets/logo-large5.png", :alt => "large logo", style: "width: 70%;"}/
+            / = image_tag "logo-large5.png"
+        - else
+          .logo= image_tag("logo-large5.png")
+        - if current_user
+          - if ['Employee', nil].include?(current_user.role?) # !current_user.account
+            .search_form= render "jobs/search_form"
+        - else
           .search_form= render "jobs/search_form"
-      - else
-        .search_form= render "jobs/search_form"
 
-  %a{ name: "how"}
-  .content
-    %h2{ style: "font-style: italic; font-size: 36px" } How Is WorkCheetah The Fastest Job Network?
-    .columns.columns_two
-      .column.c1
-        %h3 Job Seekers
-        .difference
-          = image_tag "radar.jpg", class: "align-left"
-          %h4 Track Your Application
-          %p Know when your application has been viewed, shortlisted or declined instantly.
-        .difference
-          = image_tag "competition.jpg", class: "align-left"
-          %h4 Know Your Competition
-          %p See who's applying to jobs you're interested in and how you stack up against them.
-        .difference
-          = image_tag "fresh.jpg", class: "align-left"
-          %h4 Fresh Job Inventory
-          %p No more stale jobs. If it's on WorkCheetah, it's still available.
-        .difference
-          = image_tag "video-player.jpg", class: "align-left"
-          %h4 Bring Your Resume To Life
-          %p Add a video to your resume to show employers what your resume can't.
-        .difference
-          = image_tag "seal.jpg", class: "align-left"
-          %h4 Safe Job Search
-          %p Look for the Validation Seal to know it’s a legitimate employer and not a scammer.
-        .action
-          = link_to "Post Your Resume", new_resume_path, class: "btn btn-success btn-large"
-          or
-          = link_to "Browse jobs", categories_path
-      .column.c2
-        %h3 Employers
-        .difference
-          = image_tag "hiring.jpg", class: "align-left"
-          %h4= link_to "Post Your Job For Free", new_job_path
-          %p Reach qualified candidates in your area without paying a penny.
-        .difference
-          = image_tag "video-camera.jpg", class: "align-left"
-          %h4 Receive Applications with Video
-          %p See what the resume doesn't show you and know who you're hiring faster.
-        .difference
-          = image_tag "brand.jpg", class: "align-left"
-          %h4 Manage Your Applicants Easily
-          %p Manage recruits from your customized dashboard. Compare applicants effortlessly.
-        .difference
-          = image_tag "seal.jpg", class: "align-left"
-          %h4 Attract Better Candidates
-          %p Validate your company with WorkCheetah to gain the trust of qualified applicants.
-        .difference
-          = image_tag "ppa.jpg", class: "align-left"
-          %h4 Modernize Your Recruiting
-          %p Use WorkCheetah to schedule and conduct interviews right from your computer. Free
-        .action
-          = link_to "Post Your Job", new_job_path, class: "btn btn-primary btn-large"
-          it's free
+    = link_to "Post Your Resume", new_resume_path, class: "btn btn-success btn-large"
+    = link_to "Post Your Job", new_job_path, class: "btn btn-primary btn-large"
 
     - if @articles.any?
       %hr.divider
