@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130911132656) do
+ActiveRecord::Schema.define(:version => 20130912133419) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -404,6 +404,7 @@ ActiveRecord::Schema.define(:version => 20130911132656) do
     t.integer  "category3_id"
     t.integer  "rating"
     t.boolean  "private",             :default => false
+    t.string   "resume_type"
   end
 
   add_index "resumes", ["rating"], :name => "index_resumes_on_rating"
@@ -493,7 +494,6 @@ ActiveRecord::Schema.define(:version => 20130911132656) do
     t.string   "unconfirmed_email"
     t.boolean  "advertiser",             :default => false
     t.text     "target_params"
-    t.string   "type"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

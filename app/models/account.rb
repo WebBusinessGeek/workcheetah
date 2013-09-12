@@ -2,7 +2,7 @@ class Account < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
   has_many :jobs, dependent: :destroy
-  # has_many :users, dependent: :destroy
+  has_many :users, dependent: :destroy
   has_many :freelancers, dependent: :destroy
   has_many :businesses, dependent: :destroy
   has_many :applicant_accesses, dependent: :destroy

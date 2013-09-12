@@ -4,7 +4,7 @@ class Resume < ActiveRecord::Base
 
   attr_accessible :name, :phone, :email, :email_for_claim, :website, :twitter, :status,
     :addresses_attributes, :experiences_attributes, :schools_attributes, :references_attributes,
-    :user_attributes, :category1_id, :category2_id, :category3_id, :skill_ids, :private
+    :user_attributes, :category1_id, :category2_id, :category3_id, :skill_ids, :private, :resume_type
 
   attr_accessor :email_for_claim
   attr_accessor :employee_types
@@ -37,7 +37,7 @@ class Resume < ActiveRecord::Base
   validates :category1_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :category2_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
   validates :category3_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
-
+  validates :resume_type, presence: true
   scope :ranked, -> {order("rating DESC")}
 
   def highest_merit_earned

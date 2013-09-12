@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :scam_reports, dependent: :destroy
   has_one :resume, dependent: :destroy
-  # belongs_to :account
+  belongs_to :account
   has_one :advertiser_account, dependent: :destroy
   has_many :requested_video_chats, class_name: "VideoChat", foreign_key: :requester_id, dependent: :destroy
   has_many :received_video_chats, class_name: "VideoChat", foreign_key: :recipient_id, dependent: :destroy
@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :questionaire_answers, class_name: "Answer"
 
+  delegate :resume_type, :name, to: :resume
   # Include default devise modules. Others available are:
   # :token_authenticatable,
   # :lockable, :timeoutable and :omniauthable
@@ -37,52 +38,51 @@ class User < ActiveRecord::Base
     self.job_applications.where(job_id: job.id).any?
   end
 
-  def name
-    # if self.account
-    #   self.account.name
-    # elsif self.resume
-    #   self.resume.name
-    # end
-    if self.role? == 'Freelancer'
-      user = Freelancer.find_by_id(self.id)
-      user.account.name if user.account.present?
-    elsif self.role? == 'Business'
-      user = Business.find_by_id(self.id)
-      user.account.name if user.account.present?
-    else
-      self.resume.name if self.resume.present?
-    end
-  end
+  # def name
+  #   # if self.account
+  #   #   self.account.name
+  #   # elsif self.resume
+  #   #   self.resume.name
+  #   # end
+  #   if self.role? == 'Freelancer'
+  #     user = Freelancer.find_by_id(self.id)
+  #     user.account.name if user.account.present?
+  #   elsif self.role? == 'Business'
+  #     user = Business.find_by_id(self.id)
+  #     user.account.name if user.account.present?
+  #   else
+  #     self.resume.name if self.resume.present?
+  #   end
+  # end
 
-  def name=(name)
-    # if self.account
-    #   self.account.update_attribute(:name, name)
-    # elsif self.resume
-    #   self.resume.update_attribute(:name, name)
-    # end
-    if self.role? == 'Freelancer'
-      user = Freelancer.find_by_id(self.id)
-      user.account.update_attribute(:name, name) if user.account.present?
-    elsif self.role? == 'Business'
-      user = Business.find_by_id(self.id)
-      user.account.update_attribute(:name, name) if user.account.present?
-    else
-      self.resume.update_attribute(:name, name) if self.resume.present?
-    end
-  end
+  # def name=(name)
+  #   # if self.account
+  #   #   self.account.update_attribute(:name, name)
+  #   # elsif self.resume
+  #   #   self.resume.update_attribute(:name, name)
+  #   # end
+  #   if self.role? == 'Freelancer'
+  #     user = Freelancer.find_by_id(self.id)
+  #     user.account.update_attribute(:name, name) if user.account.present?
+  #   elsif self.role? == 'Business'
+  #     user = Business.find_by_id(self.id)
+  #     user.account.update_attribute(:name, name) if user.account.present?
+  #   else
+  #     self.resume.update_attribute(:name, name) if self.resume.present?
+  #   end
+  # end
 
   def targeting_params
     params = []
-    if moderator? or admin?
-      params << "all"
-    elsif advertiser?
+    if advertiser?
       params << "advertiser"
-    elsif account.present?
+    elsif role? == "Business"
       params << "business"
-      params << account.role unless account.role.nil?
-    elsif resume.present?
-      params << "user"
+    elsif role? == "Freelancer"
+      params << "freelancer"
       params << resume.status unless resume.status.nil?
+    elsif role? == "Employee"
+      params << "employee"
     else
       params << "all"
     end
@@ -90,6 +90,6 @@ class User < ActiveRecord::Base
   end
 
   def role?
-    self.type
+    resume_type
   end
 end
