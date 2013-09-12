@@ -15,7 +15,7 @@ if Rails.env.production?
     config.max_file_size     = 120.megabytes
   end
 
-elsif Rails.env.development?
+elsif Rails.env.development? || Rails.env.staging?
 
   PIPELINE_ID = '1365374876412-009ad6'
 
