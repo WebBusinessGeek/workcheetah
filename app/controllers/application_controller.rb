@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :get_tweet
+  # before_filter :get_tweet
 
   def get_tweet
     # if user_signed_in? and current_user.account.present?

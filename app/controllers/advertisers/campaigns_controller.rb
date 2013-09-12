@@ -1,7 +1,7 @@
 class Advertisers::CampaignsController < Advertisers::BaseController
   before_filter :load_campaign, only: [:edit, :update, :destroy, :toggle]
   def index
-    @campaigns = Advertisers::CurrentCampaigns.new(current_user.advertiser_account).active
+    @campaigns = current_user.advertiser_account.campaigns
   end
 
   def show
