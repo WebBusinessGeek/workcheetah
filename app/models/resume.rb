@@ -5,7 +5,7 @@ class Resume < ActiveRecord::Base
   attr_accessible :name, :phone, :email, :email_for_claim, :website, :twitter, :status,
     :addresses_attributes, :experiences_attributes, :schools_attributes, :references_attributes,
     :user_attributes, :category1_id, :category2_id, :category3_id, :skill_ids, :private, :resume_type
-
+  TYPES = %w(employee freelancer business)
   attr_accessor :email_for_claim
   attr_accessor :employee_types
 

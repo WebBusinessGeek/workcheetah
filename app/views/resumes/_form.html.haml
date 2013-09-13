@@ -9,68 +9,31 @@
   - unless user_signed_in?
     %h3 Account Details
     = f.fields_for :user do |uf|
-      / .control-group
-      /   = uf.label :email do
-      /     Email
-      /     %span.explanation (used to login)
-
-      /   .control= uf.email_field :email
-
       = uf.input :email, label: "Email (used to log in)", required: :true
-      / .control-group
-      /   = uf.label :password
-      /   .control= uf.password_field :password
       = uf.input :password, required: :true
-      / .control-group
-      /   = uf.label :password_confirmation
-      /   .control= uf.password_field :password_confirmation
       = uf.input :password_confirmation, required: :true
-      / .checkbox
-      /   = uf.check_box :terms_of_service
-      /   = uf.label :terms_of_service, raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}")
       = uf.input :terms_of_service, as: :boolean, label: raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}"), required: :true
-
   #contact-details{ class: !user_signed_in? ? "hidden" : "" }
+    = f.input :resume_type, label: 'Which best describes you?', collection: Resume::TYPES, prompt: false, required: :true
     %h3 Contact Details
     %p You choose what information you want to share with employers.
     .row
       .span5
-        / = f.label :name, "Full name"
-        / = f.text_field :name, style: "width: 100%"
         = f.input :name, label: "Full name", input_html: { style: "width: 100%;" }
-        / = f.label :phone, "Phone (This number is the number shown to employers who want to contact you)"
-        / = f.text_field :phone, style: "width: 100%", class: "phone"
         = f.input :phone, label: "Phone (This number is the number shown to employers who want to contact you)", input_html: { style: "width: 100%", class: "phone" }
-        / = f.label :email do
-        /   Email
-        /   %span.explanation (professional email if different)
-        / = f.email_field :email, style: "width: 100%"
         = f.input :email, label: false, label: "Email (professional email if different)", input_html: { style: "width: 100%;" }
-        / = f.label :website
-        / = f.text_field :website, style: "width: 100%", class: "website"
         = f.input :website, input_html: { style: "width: 100%;", class: "website" }
-        / = f.label :twitter
-        / = f.text_field :twitter, style: "width: 100%", class: "twitter"
         = f.input :twitter, input_html: { style: "width: 100%;", class: "twitter" }
-        / = f.label :status, "Current Employment Status"
-        / = f.select :status, options_for_select([ "Employed", "Unemployed", "Expecting Layoff" ]), { include_blank: true }
         = f.input :status, collection: [ "Employed", "Unemployed", "Expecting Layoff" ], prompt: true
-        = f.input :employee_types, label: 'Which best describes you?', collection: employee_types_collection, prompt: false, required: :true
 
   #rest{ class: !user_signed_in? ? "hidden" : "" }
     .row
       .span5
         %h4 What Types Of Jobs Are You Looking For?
-        / = f.label :category1, "Preference 1:"
-        / = f.collection_select(:category1_id, Category.all, :id, :name, :prompt => true)
         = f.label :category1, "Preference 1:"
         = f.collection_select(:category1_id, Category.all, :id, :name, prompt: true)
-        / = f.label :category1, "Preference 2:"
-        / = f.collection_select(:category2_id, Category.all, :id, :name, :prompt => true)
         = f.label :category2, "Preference 2:"
         = f.collection_select(:category2_id, Category.all, :id, :name, prompt: true)
-        / = f.label :category1, "Preference 3:"
-        / = f.collection_select(:category3_id, Category.all, :id, :name, :prompt => true)
         = f.label :category3, "Preference 3:"
         = f.collection_select(:category3_id, Category.all, :id, :name, prompt: true)
       .span6
@@ -84,12 +47,9 @@
         = f.label :growth_importance_0, class: "radio inline", style: "width: 150px" do
           = f.radio_button :growth_importance, "0"
           Not Important
-
-
         = f.label :growth_importance_5, class: "radio inline", style: "width: 150px" do
           = f.radio_button :growth_importance, "5"
           Important
-
         = f.label :growth_importance_10, class: "radio inline", style: "width: 150px" do
           = f.radio_button :growth_importance, "10"
           Very Important
@@ -99,12 +59,9 @@
         = f.label :distance_importance_0, class: "radio inline", style: "width: 150px" do
           = f.radio_button :distance_importance, "0"
           Not Important
-
-
         = f.label :distance_importance_5, class: "radio inline", style: "width: 150px" do
           = f.radio_button :distance_importance, "5"
           Important
-
         = f.label :distance_importance_10, class: "radio inline", style: "width: 150px" do
           = f.radio_button :distance_importance, "10"
           Very Important
@@ -114,12 +71,9 @@
         = f.label :freedom_importance_0, class: "radio inline", style: "width: 150px" do
           = f.radio_button :freedom_importance, "0"
           Not Important
-
-
         = f.label :freedom_importance_5, class: "radio inline", style: "width: 150px" do
           = f.radio_button :freedom_importance, "5"
           Important
-
         = f.label :freedom_importance_10, class: "radio inline", style: "width: 150px" do
           = f.radio_button :freedom_importance, "10"
           Very Important
@@ -129,18 +83,15 @@
         = f.label :pay_importance_0, class: "radio inline", style: "width: 150px" do
           = f.radio_button :pay_importance, "0"
           Not Important
-
-
         = f.label :pay_importance_5, class: "radio inline", style: "width: 150px" do
           = f.radio_button :pay_importance, "5"
           Important
-
         = f.label :pay_importance_10, class: "radio inline", style: "width: 150px" do
           = f.radio_button :pay_importance, "10"
           Very Important
 
     .skills
-      %h4 Skills
+      %h2 Skills
       %p Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.
       = f.input :skill_ids, label: false, collection: SkillGroup.includes(:skills).all, as: :grouped_select, group_method: :skills, group_label_method: :name, label_method: :name, input_html: { multiple: true, class: ".chzn-select" }
 
@@ -162,7 +113,7 @@
         = render "reference_fields", f: rf
       = link_to_add_fields "Add Reference", f, :references
 
-    = f.submit((f.object.new_record? ? "Create Resume" : "Update Resume" ), class: "btn btn-success")
+    = f.submit((f.object.new_record? ? "Create Profile" : "Update Profile" ), class: "btn btn-success")
 
 :javascript
   $('#resume_user_attributes_terms_of_service').change(function() {
@@ -179,7 +130,7 @@
     $('#rest').show(200).css('visibility', 'visible');
   });
 
-  $('#resume_employee_types').change(function() {
+  $('#resume_resume_type').change(function() {
     if($(this).val().trim() == 'employee') {
       $('#rest').find('.skills').find('h4').text('Skills');
       $('#rest').find('.skills').find('p').text('Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.');
@@ -188,7 +139,7 @@
       $('#rest').show(200).css('visibility', 'visible');
     }
     else if($(this).val().trim() == 'freelancer') {
-      $('#rest').find('.skills').find('h4').text('SERVICES');
+      $('#rest').find('.skills').find('h2').text('Services');
       $('#rest').find('.skills').find('p').text('What services do you offer?');
       $('#rest').find('.references').find('h2').text('Referrals');
       $('#rest').find('.reference').find('fieldset').find('.hidden').hide().css('visibility', 'hidden');
@@ -200,5 +151,8 @@
       $('#rest').find('.references').find('h2').text('Referrals');
       $('#rest').find('.reference').find('fieldset').find('.hidden').show().css('visibility', 'visible');
       $('#rest').show(200).css('visibility', 'visible');
+      $('.resume_status').hide();
+      $('.schools').hide();
+      $('.experiences').hide();
     }
   });
