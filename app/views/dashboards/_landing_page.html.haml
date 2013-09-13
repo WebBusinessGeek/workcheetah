@@ -1,0 +1,30 @@
+-# .search_content.row
+-#   .search_box.span12
+-#     - if user_signed_in? && ['Freelancer', 'Business'].include?(current_user.role?) # and current_user.account
+-#       .logo
+-#         %img{:src => "assets/logo-large5.png", :alt => "large logo", style: "width: 70%;"}/
+-#         / = image_tag "logo-large5.png"
+-#     - else
+-#       .logo= image_tag("logo-large5.png")
+-#     - if current_user
+-#       - if ['Employee', nil].include?(current_user.role?) # !current_user.account
+-#         .search_form= render "jobs/search_form"
+-#     - else
+-#       .search_form= render "jobs/search_form"
+
+= link_to "Post Your Resume", new_resume_path, class: "btn btn-success btn-large"
+= link_to "Post Your Job", new_job_path, class: "btn btn-primary btn-large"
+
+- if @articles.any?
+  %hr.divider
+  %h2 News &amp; Resources
+  .articles
+    - @articles.each do |article|
+      - @side = cycle("left", "right")
+      .article_box
+        .article{ class: @side }
+          %h3= link_to article.title, article
+          %p.teaser= strip_tags(article.body).truncate(200).html_safe
+      - if @side == "right"
+        .clearfix
+    .clearfix

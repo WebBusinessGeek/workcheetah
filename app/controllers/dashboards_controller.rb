@@ -1,5 +1,5 @@
 class DashboardsController < ApplicationController
-  layout "home", only: [:home, :admin, :moderator]
+  layout "home", only: [:admin, :moderator]
 
   before_filter :authorize_admin!, only: [ :admin ]
   before_filter :authorize_moderator!, only: [ :moderator ]

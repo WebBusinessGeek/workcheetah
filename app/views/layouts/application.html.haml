@@ -29,19 +29,6 @@
     .container
       .header_box
         = render "shared/header_nav"
-        .header{ style: "background: white;" }
-          .logo.pull-left= link_to image_tag("logo4-small.png"), root_path
-          .clearfix
-          - if @tweet.present?
-            #tweet.alert.alert-info.alert-block{ style: "color: rgb(65, 105, 225); background: none; border: 5px solid black;" }
-              %p
-                %h3
-                  = to_auto_html @tweet.subject
-                  = to_auto_html @tweet.body
-              %p{ style: "text-align: right;" }
-                = link_to "Your Voice Here", "/K-voice.pdf"
-            %br/
-            %br/
       .content
         - if flash.any?
           .flash
