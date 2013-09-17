@@ -80,11 +80,10 @@ module ApplicationHelper
     elsif user.moderator?
       false
     elsif user.advertiser?
-      true
+      false
     elsif ['Employee', nil].include?(current_user.role?)# user.account.nil?
       true
     end
-    # user.nil? || user.account.nil? || user.moderator?
   end
 
   def should_have_job_link?(user)
@@ -96,7 +95,7 @@ module ApplicationHelper
       false
     elsif user.admin?
       true
-    elsif user.resume.nil?
+    elsif ['freelancer', 'business'].include?(current_user.role?)
       true
     else
       false

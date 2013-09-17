@@ -20,4 +20,5 @@
 //= require jquery.maskedinput
 //= require private_pub
 //= require chosen-jquery
+//= require jquery.calculator.min
 //= require_tree .

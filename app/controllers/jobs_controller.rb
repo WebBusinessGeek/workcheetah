@@ -77,12 +77,12 @@ class JobsController < ApplicationController
     @job.questions.build
 
     if user_signed_in?
-      unless ['Freelancer', 'Business'].include?(current_user.role?) # current_user.account
+      unless current_user.account
         @account = @job.build_account
       end
-    # else
-    #   @account = @job.build_account
-    #   @account.users.build
+    else
+      @account = @job.build_account
+      @account.users.build
     end
 
     respond_to do |format|
@@ -126,7 +126,8 @@ class JobsController < ApplicationController
           NotificationMailer.new_job(@job).deliver
         end
 
-        sign_in @job.account.users.first unless user_signed_in?
+        @job.account.owner.update_attribute user_type: "Business"
+        sign_in @job.account.owner unless user_signed_in?
 
         if current_user.moderator?
           format.html { redirect_to :back, notice: "Job created successfully." }
@@ -249,7 +250,7 @@ class JobsController < ApplicationController
 
   def job_params
     params.require(:job).permit(:merit_requested, :yearly_compensation, :title, :invite_only, :description, :category_id, :category2_id, :category3_id,
-                                :email_for_claim, :about_company, :address, :quick_applicable, skill_ids: [],
+                                :email_for_claim, :about_company, :address, :quick_applicable, :job_type, :business_type, skill_ids: [],
                                 questions_attributes: [:text, :_destroy ],
                                 account_attributes: [ :name, :website, :phone, :slug, :role, users_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] ])
   end

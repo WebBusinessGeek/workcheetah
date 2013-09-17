@@ -1,5 +1,46 @@
-%h2{ style: 'color: #fff;' }
-Job Hunting tips
-- if @employee_articles.present?
-  - @employee_articles.each do |article|
-    = article.title
+.row
+  .span1
+    Sidebar Ads
+  .span8
+    .row
+      .span4
+        %h3 Activity Feed
+      .span4
+        %h3
+          To Do
+          = Date.today
+    .row
+      .span8
+        #adcarousel.hero-unit
+          %h2 Our Partners want you to know…
+          .carousel.slide#adsCarousel
+            %a.carousel-control.left{ :href => '#adsCarousel', :'data-slide' => 'prev' } &lsaquo;
+            .carousel-inner
+              .active.item{ style: 'color: #fff; margin-left: 2em;' }
+                %ul.thumbnails
+                  -# - @business_ads_group[0..(@business_ads_group.size/2)-1].each do |ad|
+                  -#   %li.span2
+                  -#     %a.thumbnail{ href: 'javascript:void(0);' }
+                  -#       = ad.content
+                -# %ul.thumbnails
+                -#   - @business_ads_group[@business_ads_group.size/2..@business_ads_group.size-1].each do |ad|
+                -#     %li.span2
+                -#       %a.thumbnail{ href: 'javascript:void(0);' }
+                -#         = ad.content
+            -# %a.carousel-control.right{ :href => root_path(offset: @business_ads_group.size), :'data-slide' => 'next' }
+            %a.carousel-control.right{ :href => root_path, :'data-slide' => 'next' } &lsaquo;
+    .row
+      .span3.well
+        %h3 Calender
+      .span3.well
+        = render 'shared/calculator'
+    .row
+      .span8
+        %h2 Freelancing tips
+        - if @employee_articles.present?
+          - @employee_articles.each do |article|
+            = article.title
+        - else
+          No new articles
+  .span1
+    Sidebar Ads

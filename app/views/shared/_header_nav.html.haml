@@ -43,7 +43,6 @@
         - else
           = link_to "Find Work", categories_path, class: (root_path == request.path ? "current" : "" )
           = link_to "Task Mgr", "javascript:void(0);"
-          = link_to "My Resume", "javascript:void(0);"
           = link_to "Messages", "javascript:void(0);"
           = link_to "Contacts", "javascript:void(0);"
 
@@ -64,7 +63,7 @@
           - if current_user.resume.present?
             %span.my_resume= link_to "My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
           - else
-            %span.create_my_resume= link_to "Get Hired", resume_info_path, class: (new_resume_path == request.path ? "current" : "" )
+            %span.create_my_resume= link_to "Find Work", resume_info_path, class: (new_resume_path == request.path ? "current" : "" )
 
         = link_to "Interviews", video_chats_path
         = link_to "Messages", conversations_path

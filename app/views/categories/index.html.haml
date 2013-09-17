@@ -1,14 +1,30 @@
-.categories_index
-  .white_box
-    - if user_signed_in? && current_user.admin?
-      .pull-right
-        = link_to "Add Category", [:new, :category], class: "btn"
-    %h1 Browse Jobs by Categories
-    - if @location && @jobs_count > 40
-      %h3{ style: "margin-bottom: 20px; font-weight: normal; color: #ee6003; text-transform: capitalize;"}
-        = @jobs_count
-        jobs available in
-        = @location
-    .row.categories
-      - @categories.each do |category|
-        .span3.category= link_to category.name, category
+.categories_index_new
+  .row
+    - if user_signed_in? and current_user.resume and !current_user.resume.enough_for_employers?
+      .alert.alert-danger
+        Looks like your resume isn't complete. Having a completed resume increases the likelihood of a company becoming interested in hiring you. You should provide your name, phone number, at least one address and at least one category that's of interest.
+    .span6.offset2
+      =form_tag search_categories_path, method: :get, class: "form-search", remote: true do
+        .input-append
+          =text_field_tag :search, @search || nil, placeholder: "Ex. Sales Manager", autofocus: true, style: "height:25px", class: "search-query span4"
+          =text_field_tag :location, @location || @current_location_clean, style: "height:25px", class: "search-query span2"
+          %button.btn.btn-large{type: "submit"}
+            %i.icon-search
+      .pull-right{style: "margin-right:-60px"}= link_to "Get Hired", new_resume_path, class: "btn btn-large btn-success"
+  %hr/
+  .row
+    .span8.offset2
+      JOBS AVAILABLE COPY
+  .row
+    .span2
+      %ul.nav.nav-list
+        %li.nav-header Categories
+        -if user_signed_in? && current_user.resume.present?
+          %li{style:"margin-left:10px"}
+            = link_to "Recommended", search_categories_path(categories: current_user.resume.recommended), remote: true
+        -@category_list.each do |category|
+          %li{style:"margin-left:10px"}
+            = link_to category.name, search_categories_path(categories: category.id), remote: true
+    .span8
+      %ul#jobs.unstyled
+        =render partial: "categories/job", collection: @jobs

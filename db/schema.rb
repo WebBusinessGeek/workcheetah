@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130912133419) do
+ActiveRecord::Schema.define(:version => 20130917144146) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20130912133419) do
     t.boolean  "safe_job_seal", :default => false
     t.boolean  "active",        :default => true
     t.string   "role"
+    t.string   "business_type"
   end
 
   create_table "ad_stats", :force => true do |t|
@@ -304,6 +305,7 @@ ActiveRecord::Schema.define(:version => 20130912133419) do
     t.string   "yearly_compensation"
     t.string   "merit_requested"
     t.integer  "rating"
+    t.string   "job_type"
   end
 
   add_index "jobs", ["account_id"], :name => "index_jobs_on_account_id"
@@ -359,6 +361,15 @@ ActiveRecord::Schema.define(:version => 20130912133419) do
     t.datetime "updated_at",          :null => false
     t.string   "twitter"
   end
+
+  create_table "projects", :force => true do |t|
+    t.string   "title"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "projects", ["user_id"], :name => "index_projects_on_user_id"
 
   create_table "questions", :force => true do |t|
     t.string   "text"
@@ -462,6 +473,15 @@ ActiveRecord::Schema.define(:version => 20130912133419) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "tasks", :force => true do |t|
+    t.string   "title"
+    t.integer  "project_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tasks", ["project_id"], :name => "index_tasks_on_project_id"
+
   create_table "tweets", :force => true do |t|
     t.text     "body"
     t.boolean  "for_accounts"
@@ -494,6 +514,7 @@ ActiveRecord::Schema.define(:version => 20130912133419) do
     t.string   "unconfirmed_email"
     t.boolean  "advertiser",             :default => false
     t.text     "target_params"
+    t.string   "role"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

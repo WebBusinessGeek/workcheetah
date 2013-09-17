@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
   has_many :confirmation_requests, class_name: "Confirmation", foreign_key: "confirm_by"
   has_many :notifications, dependent: :destroy
   has_many :questionaire_answers, class_name: "Answer"
+  has_many :projects
 
-  delegate :resume_type, :name, to: :resume
   # Include default devise modules. Others available are:
   # :token_authenticatable,
   # :lockable, :timeoutable and :omniauthable
@@ -38,39 +38,29 @@ class User < ActiveRecord::Base
     self.job_applications.where(job_id: job.id).any?
   end
 
-  # def name
-  #   # if self.account
-  #   #   self.account.name
-  #   # elsif self.resume
-  #   #   self.resume.name
-  #   # end
-  #   if self.role? == 'Freelancer'
-  #     user = Freelancer.find_by_id(self.id)
-  #     user.account.name if user.account.present?
-  #   elsif self.role? == 'Business'
-  #     user = Business.find_by_id(self.id)
-  #     user.account.name if user.account.present?
-  #   else
-  #     self.resume.name if self.resume.present?
-  #   end
-  # end
+  def name
+    if self.role? == 'Freelancer'
+      # user = Freelancer.find_by_id(self.id)
+      user.account.name if user.account.present?
+    elsif self.role? == 'Business'
+      # user = Business.find_by_id(self.id)
+      user.account.name if user.account.present?
+    else
+      self.resume.name if self.resume.present?
+    end
+  end
 
-  # def name=(name)
-  #   # if self.account
-  #   #   self.account.update_attribute(:name, name)
-  #   # elsif self.resume
-  #   #   self.resume.update_attribute(:name, name)
-  #   # end
-  #   if self.role? == 'Freelancer'
-  #     user = Freelancer.find_by_id(self.id)
-  #     user.account.update_attribute(:name, name) if user.account.present?
-  #   elsif self.role? == 'Business'
-  #     user = Business.find_by_id(self.id)
-  #     user.account.update_attribute(:name, name) if user.account.present?
-  #   else
-  #     self.resume.update_attribute(:name, name) if self.resume.present?
-  #   end
-  # end
+  def name=(name)
+    if self.role? == 'Freelancer'
+      # user = Freelancer.find_by_id(self.id)
+      user.account.update_attribute(:name, name) if user.account.present?
+    elsif self.role? == 'Business'
+      # user = Business.find_by_id(self.id)
+      user.account.update_attribute(:name, name) if user.account.present?
+    else
+      self.resume.update_attribute(:name, name) if self.resume.present?
+    end
+  end
 
   def targeting_params
     params = []
@@ -90,6 +80,6 @@ class User < ActiveRecord::Base
   end
 
   def role?
-    resume_type
+    role
   end
 end

@@ -2,6 +2,7 @@ jQuery ->
   $("a[rel=popover]").popover({html: true})
   $(".tooltip").tooltip()
   $("a[rel=tooltip]").tooltip()
+  $("#calculator").calculator()
 
   $(".dropdown").hover (->
     $(this).find(".dropdown-menu").stop(true, true).delay(200).fadeIn()

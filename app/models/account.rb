@@ -1,10 +1,10 @@
 class Account < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
+  ROLE_OPTIONS = [ "Hiring Manager", "CEO", "Business Owner", "Human Resource Manager", "Entrepreneur", "General Manager", "Independent Distributor", "Marketing Manager", "Sales Manager", "District Manager", "Regional Manager", "Account Executive", "Vice President", "President", "Director", "Partner" ]
+
   has_many :jobs, dependent: :destroy
   has_many :users, dependent: :destroy
-  has_many :freelancers, dependent: :destroy
-  has_many :businesses, dependent: :destroy
   has_many :applicant_accesses, dependent: :destroy
   has_many :job_applications, through: :applicant_accesses
   has_many :payment_profiles, dependent: :destroy
@@ -12,18 +12,17 @@ class Account < ActiveRecord::Base
 
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
-  ROLE_OPTIONS = [ "Hiring Manager", "CEO", "Business Owner", "Human Resource Manager", "Entrepreneur", "General Manager", "Independent Distributor", "Marketing Manager", "Sales Manager", "District Manager", "Regional Manager", "Account Executive", "Vice President", "President", "Director", "Partner" ]
   validates :role,
-    presence: true,
     inclusion: { in: ROLE_OPTIONS },
     on: :create
 
   mount_uploader :logo, LogoUploader
-  # attr_accessible :name, :phone, :website
 
-  # accepts_nested_attributes_for :users
-  accepts_nested_attributes_for :freelancers
-  accepts_nested_attributes_for :businesses
+  accepts_nested_attributes_for :users
+
+  def owner
+    users.first
+  end
 
   def has_credits?
     self.credits && self.credits > 0

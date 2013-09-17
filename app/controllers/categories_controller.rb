@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   before_filter :hide_categories_from_companies
 
-  def index
+  def index_new
     @categories = Category.scoped.order(:name)
 
     @visitors_ip = Rails.env.development? ? "71.197.119.115" : request.remote_ip
@@ -16,17 +16,13 @@ class CategoriesController < ApplicationController
 
   end
 
-  def index_new
-    logger.debug human_readable_current_location
+  def index
     @category_list = Category.scoped.order(:name)
     check_session
     @jobs = Job.scoped
     @jobs = @jobs.cat_search(@category) if @category
     @jobs = @jobs.search(@query) if @query
     @jobs = @jobs.near(human_readable_current_location, 50).includes(:account, :category).order("created_at DESC").page(params[:page]).per_page(8)
-
-    logger.debug session.inspect
-    logger.debug params.inspect
   end
 
   def new

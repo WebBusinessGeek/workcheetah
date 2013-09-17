@@ -2,7 +2,7 @@
 	.white_box
 		.breadcrumbs
 			.btn1.btn1-mini.previous
-				%i.icon-chevron-left 
+				%i.icon-chevron-left
 				= link_to "All articles", articles_path
 
 		.pull-right
@@ -18,20 +18,20 @@
 			read this article.
 
 		.inline.social
-			%a{:href => "#", :onclick => "window.open('https://www.facebook.com/sharer/sharer.php?u=#{request.url}', 'facebook-share-dialog', 'width=626,height=436'); return false;", :class => "btn1 btn1-small btn1-social-facebook"} 
-				%i.icon-facebook 
+			%a{:href => "#", :onclick => "window.open('https://www.facebook.com/sharer/sharer.php?u=#{request.url}', 'facebook-share-dialog', 'width=626,height=436'); return false;", :class => "btn1 btn1-small btn1-social-facebook"}
+				%i.icon-facebook
 				Share on Facebook
 
-		
-			%a{:href => "https://twitter.com/share",  :class => "btn1 btn1-small btn1-social-twitter"} 
-				%i.icon-twitter 
+
+			%a{:href => "https://twitter.com/share",  :class => "btn1 btn1-small btn1-social-twitter"}
+				%i.icon-twitter
 				Tweet
 			/ :javascript
 			/ 	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 
 
 			%a{:href => "https://plus.google.com/share?url=www.workcheetah.com",  :class => "btn1 btn1-small btn1-social-googleplus"} 
-				%i.icon-google-plus 
+				%i.icon-google-plus
 				Share on Googleplus
 			/ :javascript
 			/ 	(function() {
@@ -41,10 +41,10 @@
 			/ 	})();
 
 
-		
+
 		.article-cover{style: "margin-bottom: 20px; text-align: center;"}
 			= image_tag @article.cover.url(:landscape) if @article.cover.present?
-		.article_body 
+		.article_body
 			= @article.body.html_safe
 
 		.article_category
@@ -57,10 +57,10 @@
 					= f.text_field :body, style: "width: 100%;", placeholder: "Comment here..."
 					= f.hidden_field :article_id, value: @article.id
 					= f.button :submit, class: "btn1 btn1-primary"
-		
+
 		- @comments.each do |comment|
 			.comment
-				%hr/ 
+				%hr/
 				%p.comment_body
 					%b= comment.body
 				%p.comment_user

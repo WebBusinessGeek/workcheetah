@@ -17,8 +17,7 @@
     = f.collection_select(:category3_id, Category.scoped, :id, :name, :prompt => true)
     = f.input :yearly_compensation, collection: Job::COMPENSATION_OPTIONS, prompt: true
     = f.input :merit_requested, collection: School::HIGHEST_MERIT, prompt: true
-    = f.input :business_types, label: 'Which best describes your business?', collection: business_types_collection, prompt: true
-    = f.input :job_types, label: 'What are you looking for', collection: job_types_collection, prompt: true
+    = f.input :job_type, label: 'What are you looking for', collection: job_types_collection, prompt: true
     .skills
       %h4 Service/Skills Requested
       %p Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.
@@ -50,10 +49,11 @@
         = f.check_box :invite_only, html: { checked: true }
         %a#invite-popover.btn.btn-primary{"data-content" => "Protect yourself from spam. Your job only shows to those that you invite to your listing.", "data-original-title" => "Invite Only", html: true, :href => "javascript: void(0);", :rel => "popover"} ?
     %hr/
-    - unless user_signed_in? && ['Freelancer', 'Business'].include?(current_user.role?)
+    - unless @job.account.nil?
       = f.fields_for :account do |af|
         %h2 Account Info
         = af.input :name, label: "Company name", placeholder: "ABC Company"
+        = af.input :business_type, label: 'Which best describes your business?', collection: business_types_collection, prompt: true
         = af.label :role, "Which describes your role best?"
         = af.input :role, collection: Account::ROLE_OPTIONS, prompt: true
         = af.input :website, label: "Company website", input_html: { class: "website" }, placeholder: "http://www.yourdomain.com"
