@@ -12,9 +12,7 @@
           %ul#dashboard_tasks
             - @tasks.each do |task|
               %li = task.title
-          = simple_form_for Task.new, remote: true do |f|
-            = f.input :title, label: false
-            = f.submit "Create"
+          = render 'tasks/form'
     .row
       .span8
         #adcarousel.hero-unit

@@ -4,3 +4,9 @@ if ($('#dashboard_tasks').length > 0) {
         this.reset();
     });
 }
+if ($("#tasks-to-do").length > 0) {
+    $('#tasks-to-do').prepend("<%= j render(@task) %>");
+    $('#new_task').each(function() {
+        this.reset();
+    });
+}

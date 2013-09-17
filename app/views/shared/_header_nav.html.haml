@@ -28,7 +28,7 @@
       - if user_signed_in?
         - if ['Business'].include?(current_user.role?)
           = link_to "Get Business", "javascript:void(0);"
-          = link_to "Project Mgr", "javascript:void(0);"
+          = link_to "Project Mgr", tasks_path
           = link_to "Recruiting", "javascript:void(0);"
           = link_to "Staff", "javascript:void(0);"
           = link_to "Accounting", "javascript:void(0);"
@@ -36,13 +36,13 @@
           = link_to "My Business", "javascript:void(0);"
         - elsif ['Freelancer'].include?(current_user.role?)
           = link_to "Find Clients", "javascript:void(0);"
-          = link_to "Project Mgr", "javascript:void(0);"
+          = link_to "Project Mgr", tasks_path
           = link_to "Accounting", "javascript:void(0);"
           = link_to "Contacts", "javascript:void(0);"
           = link_to "My Profile", "javascript:void(0);"
         - else
           = link_to "Find Work", categories_path, class: (root_path == request.path ? "current" : "" )
-          = link_to "Task Mgr", "javascript:void(0);"
+          = link_to "Task Mgr", tasks_path
           = link_to "Messages", "javascript:void(0);"
           = link_to "Contacts", "javascript:void(0);"
 

@@ -14,6 +14,7 @@ gem "will_paginate"
 gem 'virtus'
 gem 'ransack'
 gem 'money-rails'
+gem 'state_machine'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
