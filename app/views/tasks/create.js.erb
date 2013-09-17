@@ -1,0 +1,6 @@
+if ($('#dashboard_tasks').length > 0) {
+    $('#dashboard_tasks').prepend("<li><%= @task.title %></li>");
+    $('#new_task').each(function() {
+        this.reset();
+    });
+}

@@ -1,7 +1,7 @@
 CareerLoop::Application.routes.draw do
 
+  resources :tasks
   resources :blog_categories
-
 
   resources :confirmations, only: [:new, :create] do
     member do

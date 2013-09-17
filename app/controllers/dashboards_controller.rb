@@ -17,6 +17,7 @@ class DashboardsController < ApplicationController
     end
 
     if user_signed_in?
+      @tasks = current_user.tasks.order(:due_date).limit(10)
       if ['Business'].include?(current_user.role?)
         if params[:offset].present?
           @business_ads_group = Advertisement.order('priority').offset(params[:offset]).take(10)

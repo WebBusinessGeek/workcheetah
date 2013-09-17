@@ -9,6 +9,12 @@
         %h3
           To Do
           = Date.today
+          %ul#dashboard_tasks
+            - @tasks.each do |task|
+              %li = task.title
+          = simple_form_for Task.new, remote: true do |f|
+            = f.input :title, label: false
+            = f.submit "Add a Task"
     .row
       #adcarousel.span8.hero-unit
         %h2 Our Partners want you to know…
