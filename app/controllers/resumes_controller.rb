@@ -21,7 +21,6 @@ class ResumesController < ApplicationController
         @resume = Resume.new(resume_params)
       elsif !current_user.moderator?
         @resume = current_user.build_resume(resume_params)
-        current_user.update_attribute(:type, "Employee")
       end
     else
       @resume = Resume.new(resume_params)
@@ -36,6 +35,7 @@ class ResumesController < ApplicationController
           redirect_to resume_path(@resume), notice: "Resume created successfully. Now go hunt your job!"
         end
       else
+        @resume.user.update_attribute(:role, params[:resume][:resume_type])
         sign_in @resume.user unless user_signed_in?
         redirect_to resume_path(@resume), notice: "Resume created successfully. Now go hunt your job!"
       end
@@ -105,7 +105,7 @@ class ResumesController < ApplicationController
   def resume_params
     params.require(:resume).permit( :name, :phone, :email, :email_for_claim, :website,
       :twitter, :status, :growth_importance, :distance_importance,
-      :category1_id, :category2_id, :category3_id,
+      :category1_id, :category2_id, :category3_id, :resume_type, :current_employer,
       :freedom_importance, :pay_importance, :private, skill_ids: [],
       addresses_attributes: [ :id, :address_1, :address_2, :city, :state, :zip, :_destroy ],
       experiences_attributes: [ :id, :company_name, :job_title, :from, :till, :highlights, :_destroy ],

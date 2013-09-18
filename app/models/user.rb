@@ -52,10 +52,10 @@ class User < ActiveRecord::Base
   end
 
   def name=(name)
-    if self.role? == 'Freelancer'
+    if self.role? == 'freelancer'
       # user = Freelancer.find_by_id(self.id)
       user.account.update_attribute(:name, name) if user.account.present?
-    elsif self.role? == 'Business'
+    elsif self.role? == 'business'
       # user = Business.find_by_id(self.id)
       user.account.update_attribute(:name, name) if user.account.present?
     else

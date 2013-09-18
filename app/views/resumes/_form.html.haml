@@ -14,7 +14,7 @@
       = uf.input :password_confirmation, required: :true
       = uf.input :terms_of_service, as: :boolean, label: raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}"), required: :true
   #contact-details{ class: !user_signed_in? ? "hidden" : "" }
-    = f.input :resume_type, label: 'Which best describes you?', collection: Resume::TYPES, prompt: false, required: :true
+    = f.input :resume_type, label: 'Which best describes you?', collection: Resume::TYPES, prompt: false, required: :true, input_html: { value: (user_signed_in? && current_user.role) ? current_user.role : "employee"}
     %h3 Contact Details
     %p You choose what information you want to share with employers.
     .row

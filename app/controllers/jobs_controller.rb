@@ -126,7 +126,7 @@ class JobsController < ApplicationController
           NotificationMailer.new_job(@job).deliver
         end
 
-        @job.account.owner.update_attribute user_type: "Business"
+        @job.account.owner.update_attribute :role, "business"
         sign_in @job.account.owner unless user_signed_in?
 
         if current_user.moderator?
