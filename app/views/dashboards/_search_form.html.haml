@@ -1,5 +1,0 @@
-= form_tag jobs_path, method: :get, class: "job-search"  do |f|
-  .field
-    = text_field_tag :search, @query || nil, tabindex: "1", placeholder: "Start Hunting...", class: "search-field", style: 'width: 100%;', autofocus: true
-  .action
-    = submit_tag "Search", class: "btn btn-success btn-large"

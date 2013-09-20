@@ -57,7 +57,7 @@ CareerLoop::Application.routes.draw do
 
   resources :categories, only: [:index, :show, :create, :new, :edit, :update] do
     collection do
-      get :index_new, as: :search
+      get :index, as: :search
     end
   end
   resources :validation_requests, only: [:new, :create]

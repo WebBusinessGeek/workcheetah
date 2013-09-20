@@ -1,24 +1,25 @@
 class CategoriesController < ApplicationController
   before_filter :hide_categories_from_companies
 
-  def index_new
-    @categories = Category.scoped.order(:name)
+  # def index_new
+  #   @categories = Category.scoped.order(:name)
 
-    @visitors_ip = Rails.env.development? ? "71.197.119.115" : request.remote_ip
-    @current_location = Geocoder.search(@visitors_ip).first
-    if @current_location
-      @location = [@current_location.city, @current_location.state].map{ |x| x if x.present? }.join(", ")
-    else
-      @location = ""
-    end
+  #   @visitors_ip = Rails.env.development? ? "71.197.119.115" : request.remote_ip
+  #   @current_location = Geocoder.search(@visitors_ip).first
+  #   if @current_location
+  #     @location = [@current_location.city, @current_location.state].map{ |x| x if x.present? }.join(", ")
+  #   else
+  #     @location = ""
+  #   end
 
-    @jobs_count = Job.text_search("", @location).count
+  #   @jobs_count = Job.text_search("", @location).count
 
-  end
+  # end
 
   def index
     @category_list = Category.scoped.order(:name)
     check_session
+    logger.debug @category
     @jobs = Job.scoped
     @jobs = @jobs.cat_search(@category) if @category
     @jobs = @jobs.search(@query) if @query
@@ -100,5 +101,6 @@ class CategoriesController < ApplicationController
     else
       @category = session[:categories]
     end
+    @category = @category.reject(&:blank?) if @category.class == Array
   end
 end

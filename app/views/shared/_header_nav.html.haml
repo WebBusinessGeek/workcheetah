@@ -8,7 +8,7 @@
               = current_user.resume.present? && current_user.resume.name.present? && !current_user.resume.new_record? ? current_user.resume.name : current_user.email
               %b.caret
             %ul.dropdown-menu{ style: "background: black;"}
-              - if ['Employee', nil].include?(current_user.role?) # && current_user.account.nil?
+              - if ['employee', nil].include?(current_user.role?) # && current_user.account.nil?
                 - if current_user.resume.present?
                   %li= link_to "Edit My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
                 - else
@@ -26,7 +26,7 @@
     .links-top-right
       %span.home= link_to "Home", root_path
       - if user_signed_in?
-        - if ['Business'].include?(current_user.role?)
+        - if ['business'].include?(current_user.role?)
           = link_to "Get Business", "javascript:void(0);"
           = link_to "Project Mgr", tasks_path
           = link_to "Recruiting", "javascript:void(0);"
@@ -34,7 +34,7 @@
           = link_to "Accounting", "javascript:void(0);"
           = link_to "Contacts", "javascript:void(0);"
           = link_to "My Business", "javascript:void(0);"
-        - elsif ['Freelancer'].include?(current_user.role?)
+        - elsif ['freelancer'].include?(current_user.role?)
           = link_to "Find Clients", "javascript:void(0);"
           = link_to "Project Mgr", tasks_path
           = link_to "Accounting", "javascript:void(0);"

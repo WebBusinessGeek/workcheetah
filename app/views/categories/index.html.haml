@@ -27,4 +27,7 @@
             = link_to category.name, search_categories_path(categories: category.id), remote: true
     .span8
       %ul#jobs.unstyled
-        =render partial: "categories/job", collection: @jobs
+        - unless @jobs.empty?
+          =render partial: "categories/job", collection: @jobs
+        - else
+          %h2 No Jobs match your search criteria

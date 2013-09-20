@@ -1,11 +1,9 @@
 - if user_signed_in?
-  - if ['Business'].include?(current_user.role?)
+  - if ['business'].include?(current_user.role?)
     = render partial: 'business_dashboard'
-  - elsif ['Freelancer'].include?(current_user.role?)
-    = render partial: 'search_form'
+  - elsif ['freelancer'].include?(current_user.role?)
     = render partial: 'freelancer_dashboard'
   - else
-    = render partial: 'search_form'
     = render partial: 'employee_dashboard'
 - else
   = render partial: 'landing_page'
