@@ -1,20 +1,4 @@
 class CategoriesController < ApplicationController
-  before_filter :hide_categories_from_companies
-
-  # def index_new
-  #   @categories = Category.scoped.order(:name)
-
-  #   @visitors_ip = Rails.env.development? ? "71.197.119.115" : request.remote_ip
-  #   @current_location = Geocoder.search(@visitors_ip).first
-  #   if @current_location
-  #     @location = [@current_location.city, @current_location.state].map{ |x| x if x.present? }.join(", ")
-  #   else
-  #     @location = ""
-  #   end
-
-  #   @jobs_count = Job.text_search("", @location).count
-
-  # end
 
   def index
     @category_list = Category.scoped.order(:name)
@@ -71,36 +55,32 @@ class CategoriesController < ApplicationController
     redirect_to categories_path, notice: "Category created"
   end
 
-  def hide_categories_from_companies
-    raise CanCan::AccessDenied if user_signed_in? && current_user.account
-  end
-
   private
 
-  def category_params
-    params.require(:category).permit(:name)
-  end
+    def category_params
+      params.require(:category).permit(:name)
+    end
 
-  def check_session
-    @query = params[:search] unless params[:search].blank?
-    if params[:location]
-      @location = params[:location]
-    else
-      @current_location = current_location
-      @location ||= human_readable_current_location
-    end
-    if params[:categories]
-      session[:categories] = params[:categories]
-      @category = session[:categories]
-    elsif user_signed_in? && current_user.resume.present?
-      if session[:categories]
-        @category = session[:categories]
+    def check_session
+      @query = params[:search] unless params[:search].blank?
+      if params[:location]
+        @location = params[:location]
       else
-        @category = current_user.resume.recommended
+        @current_location = current_location
+        @location ||= human_readable_current_location
       end
-    else
-      @category = session[:categories]
+      if params[:categories]
+        session[:categories] = params[:categories]
+        @category = session[:categories]
+      elsif user_signed_in? && current_user.resume.present?
+        if session[:categories]
+          @category = session[:categories]
+        else
+          @category = current_user.resume.recommended
+        end
+      else
+        @category = session[:categories]
+      end
+      @category = @category.reject(&:blank?) if @category.class == Array
     end
-    @category = @category.reject(&:blank?) if @category.class == Array
-  end
 end

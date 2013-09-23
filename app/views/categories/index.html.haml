@@ -10,7 +10,11 @@
           =text_field_tag :location, @location || @current_location_clean, style: "height:25px", class: "search-query span2"
           %button.btn.btn-large{type: "submit"}
             %i.icon-search
-      .pull-right{style: "margin-right:-60px"}= link_to "Get Hired", new_resume_path, class: "btn btn-large btn-success"
+      .pull-right{style: "margin-right:-60px"}
+        - if ['business'].include?(current_user.role?)
+          = link_to "Market your Services", ad_info_path, class: "btn btn-large btn-success"
+        - elsif !current_user.resume.present?
+          = link_to "Get Hired", new_resume_path, class: "btn btn-large btn-success"
   %hr/
   .row
     .span8.offset2

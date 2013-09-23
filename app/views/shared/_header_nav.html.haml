@@ -8,7 +8,7 @@
               = current_user.resume.present? && current_user.resume.name.present? && !current_user.resume.new_record? ? current_user.resume.name : current_user.email
               %b.caret
             %ul.dropdown-menu{ style: "background: black;"}
-              - if ['employee', nil].include?(current_user.role?) # && current_user.account.nil?
+              - if ['employee', nil].include?(current_user.role?)
                 - if current_user.resume.present?
                   %li= link_to "Edit My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
                 - else
@@ -27,19 +27,25 @@
       %span.home= link_to "Home", root_path
       - if user_signed_in?
         - if ['business'].include?(current_user.role?)
-          = link_to "Get Business", "javascript:void(0);"
+          = link_to "Get Business", categories_path, class: (root_path == request.path ? "current" : "" )
           = link_to "Project Mgr", tasks_path
-          = link_to "Recruiting", "javascript:void(0);"
+          = link_to "Recruiting", my_jobs_path, class: (root_path == request.path ? "current" : "" )
           = link_to "Staff", "javascript:void(0);"
           = link_to "Accounting", "javascript:void(0);"
           = link_to "Contacts", "javascript:void(0);"
-          = link_to "My Business", "javascript:void(0);"
+          - if current_user.resume.present?
+            = link_to "My Business", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
+          - else
+            = link_to "My Business", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
         - elsif ['freelancer'].include?(current_user.role?)
           = link_to "Find Clients", "javascript:void(0);"
           = link_to "Project Mgr", tasks_path
           = link_to "Accounting", "javascript:void(0);"
           = link_to "Contacts", "javascript:void(0);"
-          = link_to "My Profile", "javascript:void(0);"
+          - if current_user.resume.present?
+            = link_to "My Profile", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
+          - else
+            = link_to "My Profile", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
         - else
           = link_to "Find Work", categories_path, class: (root_path == request.path ? "current" : "" )
           = link_to "Task Mgr", tasks_path

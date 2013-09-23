@@ -63,7 +63,7 @@ CareerLoop::Application.routes.draw do
   resources :validation_requests, only: [:new, :create]
   resources :scam_reports, only: [:new, :create]
 
-  resources :resumes do
+  resources :resumes, except: [:index] do
     member do
       get :add_video
       get :update_video
