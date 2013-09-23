@@ -20,6 +20,7 @@ CareerLoop::Application.routes.draw do
 
   namespace :advertisers do
     root to: "dashboard#home", via: :get, as: :advertisers
+    resources :payment_profiles, only: [:new, :create, :destroy]
     resources :accounts, except: [:destroy]
     resources :campaigns do
       member do

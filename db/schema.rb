@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130917201634) do
+ActiveRecord::Schema.define(:version => 20130923173307) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -335,7 +335,6 @@ ActiveRecord::Schema.define(:version => 20130917201634) do
   end
 
   create_table "payment_profiles", :force => true do |t|
-    t.integer  "account_id"
     t.string   "stripe_customer_token"
     t.string   "nickname"
     t.string   "expiration"
@@ -343,9 +342,11 @@ ActiveRecord::Schema.define(:version => 20130917201634) do
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
     t.string   "status"
+    t.integer  "accountable_id"
+    t.string   "accountable_type"
   end
 
-  add_index "payment_profiles", ["account_id"], :name => "index_payment_profiles_on_account_id"
+  add_index "payment_profiles", ["accountable_id", "accountable_type"], :name => "index_payment_profiles_on_accountable_id_and_accountable_type"
 
   create_table "profiles", :force => true do |t|
     t.string   "name"

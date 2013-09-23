@@ -1,7 +1,7 @@
 class PaymentProfile < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  belongs_to :account
+  belongs_to :accountable, polymorphic: true
   # attr_accessible :cc_number_preview, :expiration, :nickname, :stripe_customer_token
 
   attr_accessor :stripe_card_token

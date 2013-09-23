@@ -1,0 +1,4 @@
+= form_for @payment_profile, url: advertisers_payment_profiles_path, method: :post do |f|
+  = f.hidden_field :stripe_card_token
+  = render "shared/credit_card_fields"
+  = f.submit "Submit", class: "btn btn-large btn-success"

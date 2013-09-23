@@ -60,11 +60,10 @@
     %legend Campaign
     = f.input :name, label_html: {class: "control-label"}
     %hr/
-    %legend Billing Information
     - if @campaign.new_record?
+      %legend Company Information
       %p Tell Us about your company.
-    = f.fields_for :advertiser_account do |a|
-      = a.input :company
-      = a.input :website
-      = a.input :phone
-
+      = f.fields_for :advertiser_account do |a|
+        = a.input :company
+        = a.input :website
+        = a.input :phone

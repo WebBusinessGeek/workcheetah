@@ -10,6 +10,7 @@ class Advertisers::CampaignsController < Advertisers::BaseController
 
   def new
     @campaign = current_user.advertiser_account.campaigns.build
+    @campaign.advertiser_account.payment_profiles.build
   end
 
   def edit
