@@ -1,3 +1,0 @@
-== WorkCheetah
-
-WorkCheetah is a jobs website with the mission of reducing umemployment by connecting companies that need people with people looking for new opportunities.

@@ -62,18 +62,19 @@ class User < ActiveRecord::Base
       self.resume.update_attribute(:name, name) if self.resume.present?
     end
   end
-
+  before_save {self.target_params = self.targeting_params}
   def targeting_params
     params = []
     if advertiser?
       params << "advertiser"
-    elsif role? == "Business"
+    elsif role? == "business"
       params << "business"
-    elsif role? == "Freelancer"
+    elsif role? == "freelancer"
       params << "freelancer"
       params << resume.status unless resume.status.nil?
-    elsif role? == "Employee"
+    elsif role? == "employee"
       params << "employee"
+      params << resume.status unless resume.status.nil?
     else
       params << "all"
     end

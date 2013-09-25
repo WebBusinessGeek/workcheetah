@@ -5,19 +5,22 @@ class DashboardsController < ApplicationController
   before_filter :authorize_moderator!, only: [ :moderator ]
 
   def home
-    @articles = Article.order('created_at desc').limit(10)
     @visitors_ip = Rails.env.development? ? "71.197.119.115" : request.remote_ip
 
     #TODO: Cleanup this code, extract to service object
-    @current_location = Geocoder.search(@visitors_ip).first
-    if @current_location
-      @current_location_clean = [@current_location.city, @current_location.state].map{ |x| x if x.present? }.join(", ")
-    else
-      @current_location_clean = ""
-    end
+    # @current_location = Geocoder.search(@visitors_ip).first
+    # if @current_location
+    #   @current_location_clean = [@current_location.city, @current_location.state].map{ |x| x if x.present? }.join(", ")
+    # else
+    #   @current_location_clean = ""
+    # end
 
     if user_signed_in?
       @tasks = current_user.tasks.order(:due_date).limit(10)
+
+      @sidebar_ads = Advertisement.by_target current_user.target_params
+      Advertisement.batch_stat_incrementor "impression", @sidebar_ads.pluck(:id)
+
       if ['Business'].include?(current_user.role?)
         if params[:offset].present?
           @business_ads_group = Advertisement.order('priority').offset(params[:offset]).take(10)
@@ -42,6 +45,8 @@ class DashboardsController < ApplicationController
         cat = BlogCategory.find_by_name('For Employees')
         @employee_articles = cat.articles if cat.present?
       end
+    else
+      @articles = Article.order('created_at desc').limit(10)
     end
   end
 

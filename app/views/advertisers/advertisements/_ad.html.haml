@@ -1,0 +1,7 @@
+.adSection
+  = link_to click_through_advertisers_advertisement_path ad, { class: "advert"} do
+    %h1
+      = ad.title
+    = image_tag ad.image.url(:sidebar) if ad.ad_type == "Image"
+    %p
+      = ad.content

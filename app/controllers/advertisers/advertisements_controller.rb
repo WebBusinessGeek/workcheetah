@@ -1,5 +1,6 @@
 class Advertisers::AdvertisementsController < Advertisers::BaseController
   before_filter :load_advertisement, only: [:show, :edit, :update, :destroy, :toggle, :click_through]
+  skip_before_filter :authorize_advertiser!, only: [:click_through]
 
   respond_to :html, :js
   def index
@@ -51,15 +52,6 @@ class Advertisers::AdvertisementsController < Advertisers::BaseController
   def click_through
     @advertisement.stat_incrementor "click"
     redirect_to @advertisement.url
-  end
-
-  def image_ad
-    @advertisement = ImageAd.first
-    @advertisement.stat_incrementor "impression"
-  end
-  def text_ad
-    @advertisement = TextAd.first
-    @advertisement.stat_incrementor "impression"
   end
 
   private

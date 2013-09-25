@@ -7,15 +7,15 @@ class Advertisement < ActiveRecord::Base
 
   delegate :cpc?, :cpm?, to: :campaign
 
+  scope :by_target, ->(t) {
+    joins(campaign: [:ad_targets])
+    .where(ad_targets: {name: t})
+  }
+
   has_attached_file :image,
     styles: { sidebar: "110x70#", thumb: "75x75#", banner: "468x60#" },
     path: "advertising/:attachment/:id/:style.:extension",
     bucket: Figaro.env.aws_bucket
-
-  def toggle!
-    return update_attribute(:active, false) if active?
-    return update_attribute(:active, true) unless active?
-  end
 
   def total_impression_count
     ad_stats.sum(:impressions)
@@ -35,6 +35,10 @@ class Advertisement < ActiveRecord::Base
     # type: impression || click
     current = send("#{type}_count") || 0
     update_column("#{type}_count".to_sym, current + 1)
+  end
+
+  def self.batch_stat_incrementor(type, collection)
+    Advertisement.update_all("#{type}_count = #{type}_count + 1", {id: collection})
   end
 
   private

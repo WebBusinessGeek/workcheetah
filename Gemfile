@@ -86,6 +86,7 @@ group :development do
   gem 'meta_request'
   gem 'quiet_assets'
   gem "letter_opener"
+  gem 'web-console-rails3'
 end
 
 # To use ActiveModel has_secure_password

@@ -4,5 +4,4 @@ class AdTargeting < ActiveRecord::Base
   belongs_to :ad_target
   belongs_to :campaign
 
-  delegate :name, to: :ad_target
 end
