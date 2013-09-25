@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130925160015) do
+ActiveRecord::Schema.define(:version => 20130925202111) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -94,10 +94,32 @@ ActiveRecord::Schema.define(:version => 20130925160015) do
     t.string   "website"
     t.string   "phone"
     t.integer  "credits",    :default => 0
-    t.boolean  "active",     :default => false
     t.integer  "user_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  create_table "advertiser_charges", :force => true do |t|
+    t.integer  "advertiser_invoice_id"
+    t.integer  "amount_cents",          :default => 0,     :null => false
+    t.string   "amount_currency",       :default => "USD", :null => false
+    t.string   "description"
+    t.integer  "quantity"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+  end
+
+  create_table "advertiser_invoices", :force => true do |t|
+    t.string   "guid"
+    t.string   "stripe_charge_id"
+    t.integer  "advertiser_account_id"
+    t.integer  "amount_cents",          :default => 0,     :null => false
+    t.string   "amount_currency",       :default => "USD", :null => false
+    t.string   "description"
+    t.string   "state"
+    t.string   "error"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
   create_table "answers", :force => true do |t|

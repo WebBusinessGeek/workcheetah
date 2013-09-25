@@ -4,6 +4,7 @@ class AdvertiserAccount < ActiveRecord::Base
   belongs_to :user, conditions: { advertiser: true }
   has_many :campaigns, dependent: :destroy
   has_many :payment_profiles, as: :accountable, dependent: :destroy
+  has_many :advertiser_invoices, dependent: :destroy
 
   def has_payment_profile?
     self.payment_profiles.any?

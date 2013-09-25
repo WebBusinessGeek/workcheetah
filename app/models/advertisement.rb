@@ -18,11 +18,11 @@ class Advertisement < ActiveRecord::Base
     bucket: Figaro.env.aws_bucket
 
   def total_impression_count
-    ad_stats.sum(:impressions)
+    ad_stats.unbilled.sum(:impressions)
   end
 
   def total_click_count
-    ad_stats.sum(:clicks)
+    ad_stats.unbilled.sum(:clicks)
   end
 
   def generate_daily_stats
