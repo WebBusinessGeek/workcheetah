@@ -5,7 +5,7 @@ class Advertisement < ActiveRecord::Base
   belongs_to :campaign
   has_many :ad_stats, dependent: :destroy
 
-  delegate :cpc?, :cpm?, to: :campaign
+  delegate :max_bid, :cpc?, :cpm?, to: :campaign
 
   scope :by_target, ->(t) {
     joins(campaign: [:ad_targets])

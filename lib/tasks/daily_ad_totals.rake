@@ -16,16 +16,19 @@ namespace :ads do
         if campaign.cpc?
           quantity = campaign.advertisements.sum(&:total_click_count)
           description = "#{quantity} clicks accounted for #{campaign.name}"
+          amount = campaign.max_bid * quantity
         else
           quantity = campaign.advertisements.sum(&:total_impression_count)
-          description = "#{quantity} clicks accounted for #{campaign.name}"
+          description = "#{quantity} impressions accounted for #{campaign.name}"
+          amount = campaign.max_bid * (quantity / 100)
         end
-        amount = campaign.max_bid
         @ad_invoice.advertiser_charges.create(
           amount: amount,
           description: description,
-          quantity: quantity
+          quantity: quantity,
+          campaign_id: campaign.id
         )
+        campaign.advertisements.each {|a| a.ad_stats.unbilled.update_all(status: "billed")}
         @ad_invoice.amount = @ad_invoice.total_charge
         @ad_invoice.save!
       end

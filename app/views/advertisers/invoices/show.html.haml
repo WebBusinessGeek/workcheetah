@@ -1,0 +1,29 @@
+.container
+  .row
+    .span10
+      .invoices_show
+        %h2
+          Invoice:
+          = @invoice.guid
+        %h4 Description
+        %p= @invoice.description
+        %h4 Amount
+        %p= @invoice.amount
+        %h4 Status
+        %p= @invoice.state
+        %h4 Date Generated
+        %p= @invoice.created_at.to_date.to_formatted_s(:long_ordinal)
+        %table.table
+          %caption
+            Summary of Charges on this Invoice
+          %thead
+            %tr
+              %th
+                %strong Description
+              %th
+                %strong Amount
+          %tbody
+            - @invoice.advertiser_charges.each do |charge|
+              %tr
+                %td= charge.description
+                %td= charge.amount

@@ -1,12 +1,12 @@
 .container
   .row
-    .span2
-      = render 'advertisers/shared/sidebar_nav'
     .span10
-      .accounts_edit.span5
-        %h3 Edit Advertising Account
+      %h3 Edit Advertising Account
+    .span5
+      .accounts_edit
         = simple_form_for @account, url: advertisers_account_path(@account) do |f|
           = render "form", f: f
           = f.submit class: "btn"
-      - unless @account.has_payment_profile?
-        = link_to "Update Billing Info", new_advertisers_payment_profile_path, class: "btn btn-primary"
+    .span5
+      %p Workcheetah for security reasons does not keep credit card information. We use a secure third party to handle all transactions. If you need to update or change your credit, all you need to do is enter a new credit card. The one will be deleted.
+      = link_to "Update Billing Info", new_advertisers_payment_profile_path, class: "btn btn-primary"

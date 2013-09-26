@@ -1,7 +1,5 @@
 .container
   .row
-    .span2
-      = render 'advertisers/shared/sidebar_nav'
     .span10
       %h1 Editing Advertisers
       = simple_form_for(@advertisement, url: advertisers_advertisement_path(@advertisement)) do |f|

@@ -1,0 +1,32 @@
+.container
+  .row
+    .span10
+      %h3 Invoices
+      - if @invoices.any?
+        .invoices
+          %table.table
+            %caption
+              Overview of your Campaigns
+            %thead
+              %tr
+                %th
+                  %strong Identifier
+                %th
+                  %strong Description
+                %th
+                  %strong Amount
+                %th
+                  %strong Status
+                %th
+                  %strong Date Generated
+                %th
+                  %strong Notes
+            %tbody
+              - @invoices.each do |invoice|
+                %tr
+                  %td= link_to "#{invoice.guid}", advertisers_invoice_path(invoice.guid)
+                  %td= invoice.description
+                  %td= invoice.amount
+                  %td= invoice.state
+                  %td= invoice.created_at.to_date.to_formatted_s(:long_ordinal)
+                  %td= invoice.error if invoice.error?

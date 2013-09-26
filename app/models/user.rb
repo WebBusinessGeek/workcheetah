@@ -72,12 +72,11 @@ class User < ActiveRecord::Base
     elsif role? == "freelancer"
       params << "freelancer"
       params << resume.status unless resume.status.nil?
-    elsif role? == "employee"
+    else role? == "employee"
       params << "employee"
       params << resume.status unless resume.status.nil?
-    else
-      params << "all"
     end
+    params << "all"
     return params
   end
 

@@ -18,7 +18,7 @@ class DashboardsController < ApplicationController
     if user_signed_in?
       @tasks = current_user.tasks.order(:due_date).limit(10)
 
-      @sidebar_ads = Advertisement.by_target current_user.target_params
+      @sidebar_ads = Advertisement.by_target(current_user.target_params)
       Advertisement.batch_stat_incrementor "impression", @sidebar_ads.pluck(:id)
 
       if ['Business'].include?(current_user.role?)

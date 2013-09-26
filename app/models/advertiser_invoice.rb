@@ -26,7 +26,7 @@ class AdvertiserInvoice < ActiveRecord::Base
   end
 
   def total_charge
-    advertiser_charges.sum(&:total)
+    advertiser_charges.sum(&:amount)
   end
 
   def charge_card

@@ -21,6 +21,7 @@ class Campaign < ActiveRecord::Base
 
   belongs_to :advertiser_account
   has_many :advertisements, dependent: :destroy
+  has_many :advertiser_chargers
   has_many :image_ads, class_name: "ImageAd", conditions: {ad_type: "image"}
   has_many :text_ads, class_name: "TextAd", conditions: {ad_type: "text"}
   has_many :ad_targetings, dependent: :destroy
@@ -67,7 +68,7 @@ class Campaign < ActiveRecord::Base
     .where(ad_targets: {name: t})}
 
   def target_audience
-    targets.pluck(:name)
+    ad_targets.pluck(:name)
   end
 
   def daily_total_impressions

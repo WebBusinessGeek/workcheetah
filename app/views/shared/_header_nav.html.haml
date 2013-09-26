@@ -8,7 +8,7 @@
               = current_user.resume.present? && current_user.resume.name.present? && !current_user.resume.new_record? ? current_user.resume.name : current_user.email
               %b.caret
             %ul.dropdown-menu{ style: "background: black;"}
-              - if ['employee', nil].include?(current_user.role?)
+              - if ['employee'].include?(current_user.role?)
                 - if current_user.resume.present?
                   %li= link_to "Edit My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
                 - else
@@ -46,6 +46,10 @@
             = link_to "My Profile", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
           - else
             = link_to "My Profile", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
+        - elsif current_user.advertiser?
+          = link_to "campaigns", advertisers_campaigns_path
+          = link_to "invoices", advertisers_invoices_path
+          = link_to "manage my account", edit_advertisers_account_path(current_user.advertiser_account)
         - else
           = link_to "Find Work", categories_path, class: (root_path == request.path ? "current" : "" )
           = link_to "Task Mgr", tasks_path
@@ -56,8 +60,6 @@
           = link_to "Admin", admin_path
         - elsif current_user.moderator?
           = link_to "Moderator", moderator_path
-        - elsif current_user.advertiser?
-          = link_to "Advertiser", advertisers_advertisers_path
 
         - if current_user.job_applications.any?
           %span.my_job_apps= link_to "My Job Applications", job_applications_path
@@ -71,7 +73,7 @@
           - else
             %span.create_my_resume= link_to "Find Work", resume_info_path, class: (new_resume_path == request.path ? "current" : "" )
 
-        = link_to "Interviews", video_chats_path
+        = link_to "Interviews", video_chats_path unless current_user.advertiser?
         = link_to "Messages", conversations_path
         = link_to "javascript: return false;", title: "Notifications", id: "notifications" do
           %i.icon-globe
