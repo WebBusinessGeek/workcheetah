@@ -30,6 +30,8 @@
       .header_box
         = render "shared/header_nav"
       .content
+        - if user_signed_in?
+          = render "shared/sub_nav_header"
         - if flash.any?
           .flash
             - flash.each do |name, msg|
