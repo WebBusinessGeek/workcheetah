@@ -4,11 +4,16 @@ class CategoriesController < ApplicationController
     @category_list = Category.scoped.order(:name)
     check_session
     logger.debug @category
-    @jobs = Job.scoped
-    @jobs = @jobs.cat_search(@category) if @category
-    @jobs = @jobs.search(@query) if @query
-    @jobs = @jobs.near(human_readable_current_location, 50).includes(:account, :category).order("created_at DESC").page(params[:page]).per_page(8)
+    if @category == 'all'
+      @jobs = Job.order('created_at').limit(8)
+    else
+      @jobs = Job.scoped
+      @jobs = @jobs.cat_search(@category) if @category
+      @jobs = @jobs.search(@query) if @query
+      @jobs = @jobs.near(human_readable_current_location, 50).includes(:account, :category).order("created_at DESC").page(params[:page]).per_page(8)
+    end
   end
+
 
   def new
     @category = Category.new
@@ -82,5 +87,6 @@ class CategoriesController < ApplicationController
         @category = session[:categories]
       end
       @category = @category.reject(&:blank?) if @category.class == Array
+      @category = 'all' if @category.blank?
     end
 end

@@ -39,6 +39,10 @@ class User < ActiveRecord::Base
     self.job_applications.where(job_id: job.id).any?
   end
 
+  def has_been_invited?(job)
+    self.resume.invites.where(job_id: job.id).any?
+  end
+
   def name
     if self.role? == 'Freelancer'
       # user = Freelancer.find_by_id(self.id)

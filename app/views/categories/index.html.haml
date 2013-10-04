@@ -23,6 +23,8 @@
     .span2
       %ul.nav.nav-list
         %li.nav-header Categories
+        %li{style:"margin-left:10px"}
+          = link_to "All", search_categories_path(categories: 'all'), remote: true
         -if user_signed_in? && current_user.resume.present?
           %li{style:"margin-left:10px"}
             = link_to "Recommended", search_categories_path(categories: current_user.resume.recommended), remote: true
