@@ -1,10 +1,10 @@
 .row
-  .span8.offset3
-    .ul.nav.nav-pills.nav-inverse
+  .span10.offset1.text-center
+    .ul.nav.nav-pills
       - if ['business'].include?(current_user.role?)
         %li= link_to "Get Business", categories_path, class: (root_path == request.path ? "current" : "" )
         %li= link_to "Project Mgr", tasks_path
-        %li= link_to "Recruiting", my_jobs_path, class: (root_path == request.path ? "current" : "" )
+        %li= link_to "Recruiting", search_resumes_path, class: (root_path == request.path ? "current" : "" )
         %li= link_to "Staff", "javascript:void(0);"
         %li= link_to "Accounting", "javascript:void(0);"
         %li= link_to "Contacts", "javascript:void(0);"
@@ -13,7 +13,8 @@
         - else
           %li= link_to "My Business", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
       - elsif ['freelancer'].include?(current_user.role?)
-        %li= link_to "Find Clients", "javascript:void(0);"
+        %li= link_to "Find Clients", categories_path, class: (root_path == request.path ? "current" : "" )
+        %li= link_to "Recruiting", search_resumes_path, class: (root_path == request.path ? "current" : "")
         %li= link_to "Project Mgr", tasks_path
         %li= link_to "Accounting", "javascript:void(0);"
         %li= link_to "Contacts", "javascript:void(0);"
@@ -32,6 +33,10 @@
       - else
         %li= link_to "Find Work", categories_path, class: (root_path == request.path ? "current" : "" )
         %li= link_to "Task Mgr", tasks_path
+        - if current_user.resume.present?
+          %li= link_to "My Profile", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
+        - else
+          %li= link_to "My Profile", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
         %li= link_to "Messages", "javascript:void(0);"
         %li= link_to "Contacts", "javascript:void(0);"
       %li= link_to "Interviews", video_chats_path unless current_user.advertiser?

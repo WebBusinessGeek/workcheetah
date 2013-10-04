@@ -12,6 +12,16 @@
             %br/
             %br/
             %p Please pick one
+      - if ['freelancer','business'].include?(current_user.role?)
+        - if current_user.account.present? and !current_user.account.jobs.empty?
+          %lead Invite to a job
+          = form_tag invite_job_seekers_to_job_path do |f|
+            = hidden_field_tag :resume_id, @resume.id
+            = select_tag 'job', options_from_collection_for_select(current_user.account.jobs, 'id', 'title')
+            = submit_tag 'invite'
+        - else
+          %p You must post a job before inviting applicants.
+          = link_to "post a job", new_job_path
       %h1.pagination-centered Preview
       - if user_signed_in? and current_user.resume.present?
         .alert.alert-block.alert-info

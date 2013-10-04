@@ -5,6 +5,7 @@
     .span3{style:"text-decoration:none"}
       =link_to resume_path(resume) do
         %p.lead= resume.user.name.titleize if resume.user
+      %span= resume.user.role.titleize
     .span3
       %ul.unstyled
         %li

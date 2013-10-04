@@ -11,10 +11,7 @@ class Account < ActiveRecord::Base
   has_many :seal_purchases, dependent: :destroy
 
   validates :name, presence: true
-  validates :slug, presence: true, uniqueness: true
-  validates :role,
-    inclusion: { in: ROLE_OPTIONS },
-    on: :create
+  # validates :slug, presence: true, uniqueness: true
 
   mount_uploader :logo, LogoUploader
 

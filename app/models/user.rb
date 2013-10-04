@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
       self.resume.update_attribute(:name, name) if self.resume.present?
     end
   end
-  before_save {self.target_params = self.targeting_params}
+
   def targeting_params
     params = []
     if advertiser?

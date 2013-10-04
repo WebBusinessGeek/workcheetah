@@ -62,7 +62,7 @@ class JobsController < ApplicationController
   def show
     @job = Job.find(params[:id])
 
-    raise CanCan::AccessDenied if user_signed_in? && current_user.account && cannot?(:show, @job)
+    # raise CanCan::AccessDenied if user_signed_in? && current_user.account && cannot?(:show, @job)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -126,7 +126,7 @@ class JobsController < ApplicationController
           NotificationMailer.new_job(@job).deliver
         end
 
-        @job.account.owner.update_attribute :role, "business"
+        @job.account.owner.update_attribute :role, "business" unless user_signed_in?
         sign_in @job.account.owner unless user_signed_in?
 
         if current_user.moderator?
@@ -216,30 +216,17 @@ class JobsController < ApplicationController
   end
 
   def invite_job_seekers
-    @job = Job.find(params[:id])
+    @job = Job.find(params[:job])
+    @resume = Resume.find(params[:resume_id])
 
-    raise CanCan::AccessDenied if @job.invited? or @job.account_id != current_user.account.id
+    raise CanCan::AccessDenied if @job.account_id != current_user.account.id
 
-    #### DEFINITELY PUT IN BACKGROUND TASK ####
+    Invite.create(resume_id: @resume.id, job_id: @job.id)
+    @job.notifications.create(body: "You have been invited to a job.", user_id: @resume.user.id)
 
-    # Find resumes near job
-    resumes = []
-    Resume.all.each do |resume|
-      Invite.create(resume_id: resume.id, job_id: @job.id)
-      @job.notifications.create(body: "You have been invited to a job.", user_id: resume.user.id)
+    NotificationMailer.new_job_invite(@job, [@resume]).deliver
 
-      if resume.addresses.any?
-        resumes << resume if Job.near(resume.addresses.first.city, 50).where("category_id = ? OR category_id = ? OR category_id = ?",  resume.category1_id, resume.category2_id, resume.category3_id).include? @job
-      end
-    end
-
-    # Send out invites (all in bcc so that it only has to send one email)
-    NotificationMailer.new_job_invite(@job, resumes).deliver
-
-    # Set job to invited so that no invitations can be sent out again for that job (handled in ability.rb)
-    @job.update_attribute(:invited, true)
-
-    redirect_to :back, notice: "Job applicants invited."
+    redirect_to :back, notice: "Job applicant invited."
   end
 
   def hide_some_jobs_from_companies

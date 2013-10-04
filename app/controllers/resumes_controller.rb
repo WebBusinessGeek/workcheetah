@@ -32,12 +32,17 @@ class ResumesController < ApplicationController
           NotificationMailer.new_claimable_resume(@resume).deliver
           redirect_to :back, notice: "Claimable resume created successfully."
         else
-          redirect_to resume_path(@resume), notice: "Resume created successfully. Now go hunt your job!"
+          redirect_to resume_path(@resume), notice: "Resume created successfully."
         end
       else
         @resume.user.update_attribute(:role, params[:resume][:resume_type])
+        if ['freelancer', 'business'].include? @resume.resume_type
+          a = Account.create name: @resume.name, business_type: @resume.resume_type
+          a.users << @resume.user
+        end
+
         sign_in @resume.user unless user_signed_in?
-        redirect_to resume_path(@resume), notice: "Resume created successfully. Now go hunt your job!"
+        redirect_to resume_path(@resume), notice: "Resume created successfully."
       end
     else
       render "new"
@@ -53,10 +58,6 @@ class ResumesController < ApplicationController
 
   def edit
     load_resume
-    # @resume.addresses.build
-    # @resume.schools.build
-    # @resume.references.build
-    # @resume.experiences.build
   end
 
   def update
