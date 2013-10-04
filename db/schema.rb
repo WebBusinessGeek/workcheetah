@@ -11,21 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130926151316) do
+ActiveRecord::Schema.define(:version => 20131004142911) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
     t.string   "website"
     t.string   "phone"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.integer  "credits"
     t.string   "logo"
     t.string   "slug"
-    t.boolean  "safe_job_seal", :default => false
-    t.boolean  "active",        :default => true
+    t.boolean  "safe_job_seal",    :default => false
+    t.boolean  "active",           :default => true
     t.string   "role"
     t.string   "business_type"
+    t.integer  "invite_credits",   :default => 25
+    t.integer  "estimate_credits", :default => 100
   end
 
   create_table "ad_stats", :force => true do |t|

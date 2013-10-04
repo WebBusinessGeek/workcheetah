@@ -25,6 +25,14 @@ class Account < ActiveRecord::Base
     self.credits && self.credits > 0
   end
 
+  def has_invite_credits?
+    self.invite_credits && self.invite_credits > 0
+  end
+
+  def has_estimate_credits?
+    self.estimate_credits && self.estimate_credits > 0
+  end
+
   def has_payment_profile?
     self.payment_profiles.any?
   end
