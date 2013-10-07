@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   end
 
   def has_been_invited?(job)
+    return false if !resume
     self.resume.invites.where(job_id: job.id).any?
   end
 

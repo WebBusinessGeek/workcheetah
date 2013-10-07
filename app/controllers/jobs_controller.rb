@@ -215,6 +215,7 @@ class JobsController < ApplicationController
     redirect_to root_path, notice: "Successfully applied for #{view_context.pluralize job_ids.count, "job"}."
   end
 
+# Maybe move these to their own invites_controller
   def invite_job_seekers
     @job = Job.find(params[:job])
     @resume = Resume.find(params[:resume_id])
@@ -223,10 +224,19 @@ class JobsController < ApplicationController
 
     Invite.create(resume_id: @resume.id, job_id: @job.id)
     @job.notifications.create(body: "You have been invited to a job.", user_id: @resume.user.id)
+    @job.account.decrement_credit('invite')
 
     NotificationMailer.new_job_invite(@job, [@resume]).deliver
 
     redirect_to :back, notice: "Job applicant invited."
+  end
+
+  def buy_invites
+    @account = current_user.account
+    @to_buy = Invite::PRICE.send(params[:selection])
+    @response = @account.buy_credits('invite', @to_buy)
+    logger.debug @response
+    redirect_to request.referer
   end
 
   def hide_some_jobs_from_companies

@@ -2,6 +2,7 @@ class PaymentProfilesController < ApplicationController
   def new
     @payment_profile = current_user.account.payment_profiles.new
     @payment_profile.product = params[:product]
+    session[:return_to] ||= request.referer
   end
 
   def create
@@ -15,7 +16,11 @@ class PaymentProfilesController < ApplicationController
       elsif product == "seal"
         redirect_to [:add_seal, :account], notice: "Your billing information has been saved and you're ready to now verify your company."
       else
-        redirect_to account_path
+        if session[:return_to]
+          redirect_to session.delete(:return_to)
+        else
+          redirect_to root_path
+        end
       end
 
     else

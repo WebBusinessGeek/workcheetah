@@ -84,6 +84,7 @@ CareerLoop::Application.routes.draw do
     collection do
       get :my
       post :quick_apply, as: :quick_apply_to
+      post :buy_invites
     end
 
     member do

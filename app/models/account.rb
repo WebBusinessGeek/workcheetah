@@ -33,8 +33,31 @@ class Account < ActiveRecord::Base
     self.estimate_credits && self.estimate_credits > 0
   end
 
+  def decrement_credit(type)
+    current = send "#{type.to_sym}_credits"
+    update_column("#{type.to_sym}_credits", current - 1)
+  end
+
   def has_payment_profile?
     self.payment_profiles.any?
+  end
+
+  def buy_credits(type, price_array)
+    if has_payment_profile?
+      @payment_profile = self.payment_profiles.first
+      @response = Stripe::Charge.create(
+        :amount      => price_array.last,
+        :currency    => "usd",
+        :customer    => @payment_profile.stripe_customer_token,
+        :description => "Charge for #{price_array.first} #{type.pluralize}"
+      )
+      if @response.failure_message.nil?
+        current = send "#{type.to_sym}_credits"
+        self.update_attribute("#{type.to_sym}_credits", current + price_array.first)
+        # TODO add record of transaction to a more central transaction model
+      end
+      @response
+    end
   end
 
   def buy_applicant(job_applicant)

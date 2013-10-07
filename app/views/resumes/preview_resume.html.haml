@@ -17,11 +17,14 @@
           - if @available_jobs.empty?
             You have already invited this user to this job.
           - else
-            %lead Invite to a job
-            = form_tag invite_job_seekers_to_job_path do |f|
-              = hidden_field_tag :resume_id, @resume.id
-              = select_tag 'job', options_from_collection_for_select(@available_jobs, 'id', 'title')
-              = submit_tag 'invite'
+            - if current_user.account.has_invite_credits?
+              %lead Invite to a job
+              = form_tag invite_job_seekers_to_job_path do |f|
+                = hidden_field_tag :resume_id, @resume.id
+                = select_tag 'job', options_from_collection_for_select(@available_jobs, 'id', 'title')
+                = submit_tag 'invite'
+            - else
+              = render "resumes/shared/invites_credits"
         - else
           %p You must post a job before inviting applicants.
           = link_to "post a job", new_job_path
