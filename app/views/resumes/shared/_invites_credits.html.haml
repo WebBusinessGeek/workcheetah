@@ -4,6 +4,6 @@
   = link_to "Update your billing info or enter a new one", new_payment_profile_path
 #invite-credit-modal.modal.span6.hide.fade{"role" => "dialog", "aria-hidden" => "true"}
   %ul.thumbnails
-    %li.span2= link_to "15", buy_invites_jobs_path(selection: "first"), class: "btn btn-large thumnail", method: :post
-    %li.span2= link_to "75", buy_invites_jobs_path(selection: "second"), class: "btn btn-large thumnail", method: :post
-    %li.span2= link_to "300", buy_invites_jobs_path(selection: "third"), class: "btn btn-large thumnail", method: :post
+    %li.span2= link_to "#{number_to_currency(Invite::PRICE[0].first)}", buy_invites_jobs_path(selection: "first"), class: "btn btn-large thumnail", method: :post
+    %li.span2= link_to "#{number_to_currency(Invite::PRICE[1].first)}", buy_invites_jobs_path(selection: "second"), class: "btn btn-large thumnail", method: :post
+    %li.span2= link_to "#{number_to_currency(Invite::PRICE[2].first)}", buy_invites_jobs_path(selection: "third"), class: "btn btn-large thumnail", method: :post

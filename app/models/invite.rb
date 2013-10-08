@@ -1,5 +1,5 @@
 class Invite < ActiveRecord::Base
-  PRICE = [[15, 500],[75, 2000],[50, 30000]]
+  PRICE = [[15, 500],[75, 2000],[300, 5000]]
 
   attr_accessible :job_id, :resume_id
 

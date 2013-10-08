@@ -4,12 +4,10 @@
       Looks like your resume isn't complete. Having a completed resume increases the likelihood of a company becoming interested in hiring you. You should provide your name, phone number, at least one address and at least one category that's of interest.
   .white_box
     .row
-      .span11
+      .span6
         - if !@job.account.safe_job_seal?
           %center{ style: "color: red;" }
             Company Not Verified.
-    .row
-      .span2{ style: "width: 72%"}
         - if @job.account.logo.present?
           = image_tag @job.account.logo.medium.url
         %h2
@@ -23,6 +21,7 @@
         = render_rating_display (@job.rating.nil? or @job.rating == 0) ? 0 : @job.rating
         %h3
           = @job.yearly_compensation
+      .span4
         = render 'jobs/shared/job_links'
 #questionaire-modal.modal.hide.fade{"role" => "dialog", "aria-hidden" => "true"}
   = simple_form_for @job, url: apply_with_questionaire_job_job_application_path(@job), method: :post do |f|

@@ -1,5 +1,10 @@
 CareerLoop::Application.routes.draw do
 
+  resources :estimates do
+    member do
+      post :buy_credits
+    end
+  end
   resources :tasks
   resources :blog_categories
 

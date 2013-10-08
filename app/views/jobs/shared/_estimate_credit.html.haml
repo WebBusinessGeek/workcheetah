@@ -1,0 +1,9 @@
+- if current_user.account.has_payment_profile?
+  = link_to "Buy Credits", "#estimate-credit-modal", {"role" => "button", "data-toggle" => "modal", class: "btn btn-primary btn-large"}
+- else
+  = link_to "Update your billing info or enter a new one", new_payment_profile_path
+#estimate-credit-modal.modal.span6.hide.fade{"role" => "dialog", "aria-hidden" => "true"}
+  %ul.thumbnails
+    %li.span2= link_to "#{number_to_currency(Estimate::PRICE[0].first)}", buy_credits_estimate_path(selection: "first"), class: "btn btn-large thumnail", method: :post
+    %li.span2= link_to "#{number_to_currency(Estimate::PRICE[1].first)}", buy_credits_estimate_path(selection: "second"), class: "btn btn-large thumnail", method: :post
+    %li.span2= link_to "#{number_to_currency(Estimate::PRICE[2].first)}", buy_credits_estimate_path(selection: "third"), class: "btn btn-large thumnail", method: :post
