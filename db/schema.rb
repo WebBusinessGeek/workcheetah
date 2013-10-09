@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131004142911) do
+ActiveRecord::Schema.define(:version => 20131009121539) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -277,6 +277,36 @@ ActiveRecord::Schema.define(:version => 20131004142911) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "estimate_items", :force => true do |t|
+    t.integer  "estimate_id"
+    t.string   "task"
+    t.integer  "hours"
+    t.integer  "total_cents",    :default => 0,     :null => false
+    t.string   "total_currency", :default => "USD", :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "estimate_items", ["estimate_id"], :name => "index_estimate_items_on_estimate_id"
+
+  create_table "estimates", :force => true do |t|
+    t.integer  "job_id"
+    t.integer  "account_id"
+    t.text     "terms"
+    t.text     "notes"
+    t.string   "state"
+    t.date     "due_date"
+    t.date     "start_date"
+    t.boolean  "pre_fund"
+    t.integer  "total_cents",    :default => 0,     :null => false
+    t.string   "total_currency", :default => "USD", :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "estimates", ["account_id"], :name => "index_estimates_on_account_id"
+  add_index "estimates", ["job_id"], :name => "index_estimates_on_job_id"
 
   create_table "experiences", :force => true do |t|
     t.string   "company_name"

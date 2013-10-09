@@ -1,0 +1,8 @@
+.estimate_item.fields_for_set
+  %fieldset
+    = f.input :task
+    = f.input :hours
+    = f.input :total
+    = f.hidden_field :_destroy
+    %span.add-on.remove
+      = link_to "Remove Item", '#', class: "remove_fields btn btn-mini btn-danger"

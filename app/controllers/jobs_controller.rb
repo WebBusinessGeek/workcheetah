@@ -200,6 +200,7 @@ class JobsController < ApplicationController
     render action: "new"
   end
 
+# TODO: up for future deletion
   def quick_apply
     return redirect_to new_resume_path, notice: "Please Build Work Profile to apply to jobs." if !user_signed_in?
 

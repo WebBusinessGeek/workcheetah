@@ -20,7 +20,7 @@
   - elsif current_user.account != @job.account
     - if ['business','freelancer'].include? current_user.role?
       - if current_user.account.has_estimate_credits?
-        = link_to "Send Estimate", new_estimate_path, class: "btn btn-success btn-large"
+        = link_to "Send Estimate", new_estimate_path(job_id: @job.id), class: "btn btn-success btn-large"
       - else
         = render 'jobs/shared/estimate_credit'
     - else
