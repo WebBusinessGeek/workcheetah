@@ -41,6 +41,10 @@ class Estimate < ActiveRecord::Base
   scope :rejected, with_state("rejected")
 
   def proposed_total
-    estimate_items.sum(&:line_total) unless total
+    unless total or total <= 0
+      estimate_items.sum(&:line_total)
+    else
+      total
+    end
   end
 end

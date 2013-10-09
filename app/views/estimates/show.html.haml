@@ -1,1 +1,17 @@
 = @estimate.inspect
+%h1
+  Estimate for
+  = @estimate.job.title
+- if @estimate.estimate_items.any?
+  %table.table
+    %tr
+      %th Task
+      %th Estimated Hours
+      %th Price
+      %th Total
+  - @estimate.estimate_items.each do |item|
+    %tr
+      %td= item.task
+      %td= item.hours
+      %td= item.total
+      %td= item.line_total

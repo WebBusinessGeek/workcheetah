@@ -5,6 +5,6 @@ class EstimateItem < ActiveRecord::Base
   monetize :total_cents
 
   def line_total
-    hours * total
+    hours * total_cents
   end
 end
