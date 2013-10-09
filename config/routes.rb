@@ -7,6 +7,10 @@ CareerLoop::Application.routes.draw do
     end
     member do
       post :buy_credits
+      post :propose
+      post :accept
+      post :reject
+      post :negotiate
     end
   end
   resources :tasks

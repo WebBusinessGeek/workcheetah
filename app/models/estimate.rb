@@ -10,7 +10,7 @@ class Estimate < ActiveRecord::Base
 
   accepts_nested_attributes_for :estimate_items
   state_machine initial: :drafting do
-    event :send do
+    event :send_proposal do
       transition :drafting => :reviewing
     end
     event :accept do

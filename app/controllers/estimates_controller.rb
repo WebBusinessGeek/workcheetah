@@ -1,5 +1,5 @@
 class EstimatesController < ApplicationController
-  before_filter :load_estimate, only: [:show, :edit, :update, :destroy]
+  before_filter :load_estimate, only: [:show, :propose, :accept, :reject, :negotiate, :edit, :update, :destroy]
   def index
     @estimates = current_user.resume.sent_estimates
   end
@@ -36,6 +36,9 @@ class EstimatesController < ApplicationController
   end
 
   def update
+    if @estimate.update_attributes(estimate_params)
+      redirect_to :back
+    end
   end
 
   def destroy
@@ -49,6 +52,26 @@ class EstimatesController < ApplicationController
     end
     logger.debug @response
     redirect_to request.referer
+  end
+
+  def propose
+    @estimate.send_proposal
+    redirect_to :back, notice: "Estimate has been sent."
+  end
+
+  def accept
+    @estimate.accept
+    redirect_to :back, notice: "Estimate has been sent."
+  end
+
+  def reject
+    @estimate.reject
+    redirect_to :back, notice: "Estimate has been sent."
+  end
+
+  def negotiate
+    @estimate.negotiate
+    redirect_to my_jobs_path, notice: "Estimate has been sent."
   end
 
   private

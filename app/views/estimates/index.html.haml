@@ -13,7 +13,7 @@
         %tr
           %td.actions
             = link_to "Review Applicant", resume_path(estimate.sent_by)
-            = link_to "Preview Estimate"
+            = link_to "Preview Estimate", estimate_path(estimate)
           %td.applicant
             = estimate.sent_by.name
           %td= estimate.state

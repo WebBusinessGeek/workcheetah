@@ -1,17 +1,44 @@
-= @estimate.inspect
-%h1
+%h2
   Estimate for
   = @estimate.job.title
+%h5= link_to "Preview Job", job_path(@estimate.job)
+%h5 Status
+=@estimate.state
+%h5 Due Date
+=@estimate.due_date ? @estimate.due_date : "None Given"
+%h5 Terms
+=@estimate.terms.blank? ? @estimate.terms : "None Given"
+%h5 Notes
+=@estimate.notes.blank? ? @estimate.notes : "None Given"
 - if @estimate.estimate_items.any?
-  %table.table
-    %tr
-      %th Task
-      %th Estimated Hours
-      %th Price
-      %th Total
-  - @estimate.estimate_items.each do |item|
-    %tr
-      %td= item.task
-      %td= item.hours
-      %td= item.total
-      %td= item.line_total
+  %hr/
+  .row
+    .span8.offset2
+      %table.table
+        %tr
+          %th Task
+          %th Estimated Hours
+          %th Price
+          %th Total
+      - @estimate.estimate_items.each do |item|
+        %tr
+          %td= item.task
+          %td= item.hours
+          %td= item.total
+          %td= item.line_total
+%hr/
+.row
+  .span2.offset6
+    %h5 Proposed Total
+    = number_to_currency @estimate.proposed_total
+.row
+  .span8
+    -if @estimate.sent_by == current_user.resume
+      = link_to "Edit", edit_estimate_path(@estimate), class: "btn btn-primary"
+      - if ['drafting', "reviewing"].include? @estimate.state
+        = link_to "Send", propose_estimate_path(@estimate), method: :post, class: "btn btn-primary btn-success"
+    -if @estimate.job.account == current_user.account
+      = link_to "Send Back", negotiate_estimate_path(@estimate), method: :post, class: "btn btn-primary"
+      = link_to "Reject", reject_estimate_path(@estimate), method: :post, class: "btn btn-primary"
+      = link_to "Accept", accept_estimate_path(@estimate), method: :post, class: "btn btn-primary btn-success"
+
