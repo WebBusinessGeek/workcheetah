@@ -292,7 +292,7 @@ ActiveRecord::Schema.define(:version => 20131009121539) do
 
   create_table "estimates", :force => true do |t|
     t.integer  "job_id"
-    t.integer  "account_id"
+    t.integer  "resume_id"
     t.text     "terms"
     t.text     "notes"
     t.string   "state"
@@ -305,8 +305,8 @@ ActiveRecord::Schema.define(:version => 20131009121539) do
     t.datetime "updated_at",                        :null => false
   end
 
-  add_index "estimates", ["account_id"], :name => "index_estimates_on_account_id"
   add_index "estimates", ["job_id"], :name => "index_estimates_on_job_id"
+  add_index "estimates", ["resume_id"], :name => "index_estimates_on_resume_id"
 
   create_table "experiences", :force => true do |t|
     t.string   "company_name"

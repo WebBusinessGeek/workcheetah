@@ -1,5 +1,5 @@
 = f.input :job_id, as: :hidden, input_html: {value: @job.id}
-= f.input :due_date, as: :string
+= f.input :due_date, as: :string, input_html: {class: "date"}
 #estimate_items
   = f.simple_fields_for :estimate_items do |i|
     = render 'estimate_item_fields', f: i

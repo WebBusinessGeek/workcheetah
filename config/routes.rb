@@ -1,6 +1,21 @@
 CareerLoop::Application.routes.draw do
 
+  get "project/index"
+
+  get "project/show"
+
+  get "project/create"
+
+  get "project/edit"
+
+  get "project/update"
+
+  get "project/destroy"
+
   resources :estimates do
+    collection do
+      get :for_job
+    end
     member do
       post :buy_credits
     end

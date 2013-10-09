@@ -1,1 +1,42 @@
-= @estimates.inspect
+.white_box
+  %br/
+  - if @job
+    %h1= @job ? "Who's Applying to '#{@job.title}'" : "My Job Applications"
+    %table.table
+      %tr
+        %th{ style: "width: 60px"} Actions
+        %th Applicant
+        %th Status
+        %th Applied Date
+
+      - @estimates.each_with_index do |estimate, i|
+        %tr
+          %td.actions
+            - if !estimate.rejected?
+              - if can?(:read, estimate)
+                = link_to "View", [@job, estimate], class: "btn"
+              - else
+                = link_to "Preview", [@job, estimate], class: "btn btn-primary"
+          %td.applicant
+            - if can?(:read, estimate)
+              = estimate.user.resume.name
+            - else
+              = link_to [@job, estimate] do
+                Applicant
+                = i + 1
+          %td
+          %td= estimate.created_at.strftime("%m/%d/%Y")
+
+  - else
+    %table.table
+      %tr
+        %th Job
+        %th Company
+        %th Applied Date
+        %th Status
+      - @job_applications.each do |job_application|
+        %tr
+          %td= link_to job_application.job.title, job_application.job
+          %td= job_application.job.account.name
+          %td= job_application.created_at.strftime("%m/%d/%Y")
+          %td= job_application.status

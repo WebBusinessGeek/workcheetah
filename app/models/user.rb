@@ -39,6 +39,10 @@ class User < ActiveRecord::Base
     self.job_applications.where(job_id: job.id).any?
   end
 
+  def has_sent_estimate_to?(job)
+    self.resume.sent_estimates.where(job_id: job.id).any?
+  end
+
   def has_been_invited?(job)
     return false if !resume
     self.resume.invites.where(job_id: job.id).any?

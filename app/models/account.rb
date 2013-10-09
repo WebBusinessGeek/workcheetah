@@ -9,7 +9,6 @@ class Account < ActiveRecord::Base
   has_many :job_applications, through: :applicant_accesses
   has_many :payment_profiles, as: :accountable, dependent: :destroy
   has_many :seal_purchases, dependent: :destroy
-  has_many :sent_estimates, class_name: "Estimate", foreign_key: "account_id", dependent: :destroy
 
   validates :name, presence: true
   # validates :slug, presence: true, uniqueness: true

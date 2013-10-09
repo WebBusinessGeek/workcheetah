@@ -21,6 +21,7 @@
 		%table.table
 			%tr
 				%th Position
+				%th Estimates Recieved
 				%th Applicants
 				%th Date Posted
 				%th
@@ -29,6 +30,8 @@
 					%td
 						- if job.title.present?
 							= link_to job.title, job
+					%td
+						= link_to pluralize(job.recieved_estimates.count, "Estimates"), for_job_estimates_path(job_id: job.id)
 					%td
 						= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
 					%td= job.created_at.strftime("%m/%d/%Y")

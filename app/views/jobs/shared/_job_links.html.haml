@@ -17,6 +17,8 @@
 - if current_user.has_been_invited?(@job) or !@job.invite_only? or (current_user and current_user.account.present? and current_user.account != @job.account)
   - if current_user.has_applied_to?(@job)
     .applied You've already applied.
+  - elsif current_user.has_sent_estimate_to?(@job)
+    .applied You've already sent an estimate.
   - elsif current_user.account != @job.account
     - if ['business','freelancer'].include? current_user.role?
       - if current_user.account.has_estimate_credits?

@@ -1,7 +1,13 @@
 class EstimatesController < ApplicationController
   before_filter :load_estimate, only: [:show, :edit, :update, :destroy]
   def index
-    @estimates = current_user.account.estimates
+    @estimates = current_user.resume.sent_estimates
+  end
+
+  def for_job
+    @job = Job.find(params[:job_id])
+    @estimates = @job.recieved_estimates.sent
+    render 'index'
   end
 
   def show
@@ -9,12 +15,12 @@ class EstimatesController < ApplicationController
 
   def new
     @job = Job.find(params[:job_id])
-    @estimate = current_user.account.sent_estimates.build
+    @estimate = current_user.resume.sent_estimates.build
     @estimate.estimate_items.build
   end
 
   def create
-    @estimate = current_user.account.sent_estimate.build(estimate_params)
+    @estimate = current_user.resume.sent_estimates.build(estimate_params)
 
     if @estimate.save!
       if params[:submit] == "Send Estimate"
@@ -51,6 +57,6 @@ class EstimatesController < ApplicationController
     end
 
     def estimate_params
-      params.require(:estimate).permit(:job_id, :due_date, :terms, :notes)
+      params.require(:estimate).permit(:job_id, :due_date, :terms, :notes, estimate_items_attributes: [:title, :hours, :total])
     end
 end

@@ -20,6 +20,8 @@ class Resume < ActiveRecord::Base
   belongs_to :category3, class_name: "Category"
   has_and_belongs_to_many :skills
   has_one :confirmation, as: :confirmable, dependent: :destroy
+  has_many :sent_estimates, class_name: "Estimate", foreign_key: "resume_id", dependent: :destroy
+
 
   mount_uploader :video, VideoUploader
   mount_uploader :web_video, VideoUploader
