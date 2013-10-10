@@ -1,7 +1,7 @@
-class ProjectController < ApplicationController
+class ProjectsController < ApplicationController
   before_filter :load_project, only: [:show, :edit, :update, :destroy]
   def index
-    @projects = current_user.projects.include(:tasks)
+    @projects = current_user.projects.includes(:tasks)
   end
 
   def show
@@ -22,6 +22,7 @@ class ProjectController < ApplicationController
 
   def update
     if @project.update_attributes(project_params)
+    end
   end
 
   def destroy

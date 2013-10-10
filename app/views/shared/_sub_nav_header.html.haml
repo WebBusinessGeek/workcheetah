@@ -3,7 +3,7 @@
     .ul.nav.nav-pills
       - if ['business'].include?(current_user.role?)
         %li= link_to "Get Business", categories_path, class: (root_path == request.path ? "current" : "" )
-        %li= link_to "Project Mgr", tasks_path
+        %li= link_to "Project Mgr", projects_path
         %li= link_to "Recruiting", search_resumes_path, class: (root_path == request.path ? "current" : "" )
         %li= link_to "Staff", my_jobs_path
         %li= link_to "Accounting", "javascript:void(0);"
@@ -15,7 +15,7 @@
       - elsif ['freelancer'].include?(current_user.role?)
         %li= link_to "Find Clients", categories_path, class: (root_path == request.path ? "current" : "" )
         %li= link_to "Recruiting", search_resumes_path, class: (root_path == request.path ? "current" : "")
-        %li= link_to "Project Mgr", tasks_path
+        %li= link_to "Project Mgr", projects_path
         %li= link_to "Staff", my_jobs_path
         %li= link_to "Accounting", "javascript:void(0);"
         %li= link_to "Contacts", "javascript:void(0);"

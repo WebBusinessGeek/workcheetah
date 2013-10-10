@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :questionaire_answers, class_name: "Answer"
   has_many :tasks
-  has_many :projects, through: :tasks
+  has_many :projects, through: :tasks, class_name: "Project"
 
   # Include default devise modules. Others available are:
   # :token_authenticatable,
