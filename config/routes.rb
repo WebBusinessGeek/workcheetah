@@ -1,5 +1,8 @@
 CareerLoop::Application.routes.draw do
 
+  resources :staffs
+
+
   resources :projects
   resources :estimates do
     collection do

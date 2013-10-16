@@ -21,6 +21,12 @@ class User < ActiveRecord::Base
   has_many :questionaire_answers, class_name: "Answer"
   has_many :tasks
   has_many :projects, through: :tasks, class_name: "Project"
+  has_many :staffings, class_name: "Staff", foreign_key: "client_id", dependent: :destroy
+  has_many :staffed_users, through: :staffings, source: :staffer
+  has_many :reverse_staffings, foreign_key: "staffer_id",
+                                   class_name:  "Staff",
+                                   dependent:   :destroy
+  has_many :clients, through: :reverse_staffings, source: :client
 
   # Include default devise modules. Others available are:
   # :token_authenticatable,
@@ -91,5 +97,17 @@ class User < ActiveRecord::Base
 
   def role?
     role
+  end
+
+  def client_of?(user)
+    reverse_staffings.where(client_id: user.id).any?
+  end
+
+  def add_staffer!(user)
+    staffings.create!(staffer_id: user.id)
+  end
+
+  def remove_staffer!(user)
+    staffings.find_by_staffer_id(user.id).destroy
   end
 end

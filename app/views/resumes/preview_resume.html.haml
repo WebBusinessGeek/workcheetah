@@ -12,7 +12,7 @@
             %br/
             %br/
             %p Please pick one
-      -elsif ['freelancer','business'].include?(current_user.role?)
+      - elsif ['freelancer','business'].include?(current_user.role?)
         - if current_user.account.present? and !current_user.account.jobs.empty?
           - if @available_jobs.empty?
             You have already invited this user to this job.
