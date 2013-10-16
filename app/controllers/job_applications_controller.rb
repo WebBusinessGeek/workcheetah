@@ -24,6 +24,9 @@ class JobApplicationsController < ApplicationController
 
     @job_application = @job.job_applications.find(params[:id])
     @resume = @job_application.user.resume
+    if ['freelancer', 'business'].include? current_user.role?
+      @available_jobs = Job.find(current_user.account.job_ids - @resume.invites.map(&:job_id))
+    end
     if can? :read, @job_application
       @job_application.status = "Company Interested"
       @job_application.save if @job_application.changed?

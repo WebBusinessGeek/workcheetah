@@ -1,8 +1,8 @@
 class Task < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  belongs_to :projects
-  belongs_to :users
+  belongs_to :user
+  belongs_to :project
 
   scope :due, ->(date) { where(due_date: date) }
   scope :to_do, -> { with_state :to_do }

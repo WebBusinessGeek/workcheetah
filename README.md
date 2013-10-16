@@ -1,6 +1,29 @@
 # WorkCheetah
 WorkCheetah is a jobs website with the mission of reducing umemployment by connecting companies that need people with people looking for new opportunities.
 
+## Activities Stream
+
+### (To be done)
+
+Client requests and activities stream for the each users dashboard. I've held off implementing this as we need the other stuff in first and these type of streams can be taxing on a database as they generate alot of queries. We'll definitely need some type of cache or use redis to help and keep the system performant.
+
+## Chat System
+
+### (To be done)
+
+Currently Workcheetah has a in-app messaging system that is homegrown. They are nder "Conversations" and "Notifications". The client wishes to expand upon this. He wishes a central page where one recieves notifacations and messages and client wishes for an inbox setup approach with "inbox", "draft", "sent" etc, currently implementing this functionality may require more work than necassary and the interface to send a message currently is tedious and error prone. 
+
+I've researched this and like the "https://github.com/ging/mailboxer" gem, it will give us all the functionality we desire and keep things cleaner, we'll have to remove a couple tables in a migration before installing this gem as existing tables would conflict with the gem. I recommend the following:
+
+* Create this migration
+
+* remove all chat and notification code (leave notes where you'd delete so we can come back and update with new messaging)
+
+* Install the gem
+
+* create the views for the gem
+
+* hook up the new messaging code in old places
 
 ## Ad System
 
