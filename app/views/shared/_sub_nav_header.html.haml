@@ -33,7 +33,7 @@
         %li= link_to "Moderator", moderator_path
       - else
         %li= link_to "Find Work", categories_path, class: (root_path == request.path ? "current" : "" )
-        %li= link_to "Task Mgr", tasks_path
+        %li= link_to "Task Mgr", projects_path
         - if current_user.resume.present?
           %li= link_to "My Profile", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
         - else

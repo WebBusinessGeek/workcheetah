@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
   has_many :confirmation_requests, class_name: "Confirmation", foreign_key: "confirm_by"
   has_many :notifications, dependent: :destroy
   has_many :questionaire_answers, class_name: "Answer"
-  has_many :tasks
-  has_many :projects, through: :tasks, class_name: "Project"
+  has_and_belongs_to_many :projects
+  has_many :tasks, through: :projects
   has_many :staffings, class_name: "Staff", foreign_key: "client_id", dependent: :destroy
   has_many :staffed_users, through: :staffings, source: :staffer
   has_many :reverse_staffings, foreign_key: "staffer_id",
@@ -97,6 +97,15 @@ class User < ActiveRecord::Base
 
   def role?
     role
+  end
+
+  def default_project
+    projects.first
+  end
+
+  def add_task(task)
+    projects.create!(title: "Default") if default_project.nil?
+    default_project.tasks << task
   end
 
   def client_of?(user)

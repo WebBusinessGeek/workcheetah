@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131016142455) do
+ActiveRecord::Schema.define(:version => 20131016175503) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -428,6 +428,11 @@ ActiveRecord::Schema.define(:version => 20131016142455) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "projects_users", :force => true do |t|
+    t.integer "project_id"
+    t.integer "user_id"
+  end
+
   create_table "questions", :force => true do |t|
     t.string   "text"
     t.integer  "job_id"
@@ -542,14 +547,12 @@ ActiveRecord::Schema.define(:version => 20131016142455) do
     t.integer  "project_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "user_id"
     t.date     "due_date"
     t.string   "state"
   end
 
   add_index "tasks", ["project_id"], :name => "index_tasks_on_project_id"
   add_index "tasks", ["state"], :name => "index_tasks_on_state"
-  add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
 
   create_table "tweets", :force => true do |t|
     t.text     "body"

@@ -2,8 +2,10 @@ CareerLoop::Application.routes.draw do
 
   resources :staffs
 
+  resources :projects do
+    resources :tasks
+  end
 
-  resources :projects
   resources :estimates do
     collection do
       get :for_job
@@ -16,7 +18,7 @@ CareerLoop::Application.routes.draw do
       post :negotiate
     end
   end
-  resources :tasks
+
   resources :blog_categories
 
   resources :confirmations, only: [:new, :create] do
