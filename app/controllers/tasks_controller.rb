@@ -3,7 +3,8 @@ class TasksController < ApplicationController
 
   respond_to :html, :js
   def index
-    @tasks = current_user.tasks
+    @project = Project.find(params[:project_id])
+    @tasks = @project.tasks
   end
 
   def show
@@ -14,7 +15,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = current_user.tasks.build(task_params)
+    @project = Project.find(params[:project_id])
+    @task = @project.tasks.build(task_params)
     if @task.save
       respond_with @task
     end

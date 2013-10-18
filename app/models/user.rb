@@ -21,8 +21,10 @@ class User < ActiveRecord::Base
   has_many :questionaire_answers, class_name: "Answer"
   has_and_belongs_to_many :projects
   has_many :tasks, through: :projects
+  # Associations for staffing feature
   has_many :staffings, class_name: "Staff", foreign_key: "client_id", dependent: :destroy
   has_many :staffed_users, through: :staffings, source: :staffer
+  # Associations for the contact/client feature
   has_many :reverse_staffings, foreign_key: "staffer_id",
                                    class_name:  "Staff",
                                    dependent:   :destroy
@@ -36,6 +38,8 @@ class User < ActiveRecord::Base
 
   validates :terms_of_service, acceptance: true
   serialize :target_params
+
+  after_create :generate_default_project
 
   def blocks? user
     self.blocks.where(blocked_id: user).any?
@@ -104,8 +108,7 @@ class User < ActiveRecord::Base
   end
 
   def add_task(task)
-    projects.create!(title: "Default") if default_project.nil?
-    default_project.tasks << task
+     default_project.tasks << task
   end
 
   def client_of?(user)
@@ -119,4 +122,9 @@ class User < ActiveRecord::Base
   def remove_staffer!(user)
     staffings.find_by_staffer_id(user.id).destroy
   end
+
+  private
+    def create_default_project
+      projects.create! title: "Default" if default
+    end
 end

@@ -1,0 +1,6 @@
+%h1 Projects
+.row
+  %ul#projects.unstyled
+    - @projects.each do |project|
+      = content_tag :li, project do
+        = render project
