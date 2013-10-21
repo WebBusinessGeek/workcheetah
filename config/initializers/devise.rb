@@ -5,6 +5,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
   config.mailer_sender = "support@workcheetah.com"
+  config.secret_key = '31b3ebe840ffe7d6ae5dcceb227612374e45742d2abb468871770db0510b81efbfdfee3daf29d369a661ecaab8130adcb41cdf14596300f7af3a6d23efaf90bd'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
