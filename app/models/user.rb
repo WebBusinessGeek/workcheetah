@@ -122,7 +122,7 @@ class User < ActiveRecord::Base
   end
 
   private
-    def create_default_project
+    def generate_default_project
       projects.create! title: "Default" if default
     end
 end
