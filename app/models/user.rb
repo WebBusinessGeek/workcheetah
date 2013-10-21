@@ -59,15 +59,13 @@ class User < ActiveRecord::Base
   end
 
   def name
-    if self.role? == 'Freelancer'
-      # user = Freelancer.find_by_id(self.id)
-      user.account.name if user.account.present?
-    elsif self.role? == 'Business'
-      # user = Business.find_by_id(self.id)
-      user.account.name if user.account.present?
+    # downcase role to normalize
+    if ['freelancer', 'business'].include? role?
+      @name = account.name if account.present?
     else
-      self.resume.name if self.resume.present?
+      @name = resume.name if resume.present?
     end
+    @name
   end
 
   def name=(name)

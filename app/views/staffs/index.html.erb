@@ -1,20 +1,17 @@
-<h1>Listing staffs</h1>
+<h1>Listing Staffers</h1>
 
 <table>
   <tr>
     <th>User</th>
-    <th>Client</th>
-    <th></th>
-    <th></th>
+    <th>Position</th>
     <th></th>
   </tr>
 
-<% @staffs.each do |staff| %>
+<% @staffed_users.each do |staff| %>
   <tr>
-    <td><%= staff.user_id %></td>
-    <td><%= staff.client_id %></td>
+    <td><%= staff.name %></td>
+    <td><%= staff.role %></td>
     <td><%= link_to 'Show', staff %></td>
-    <td><%= link_to 'Edit', edit_staff_path(staff) %></td>
     <td><%= link_to 'Destroy', staff, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>

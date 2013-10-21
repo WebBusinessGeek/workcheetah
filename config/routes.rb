@@ -1,6 +1,7 @@
 CareerLoop::Application.routes.draw do
 
-  resources :staffs
+  resources :staffs, only: [:index, :show, :new, :create, :destroy]
+  get 'contacts' => 'staffs#contacts', as: :contacts
 
   resources :projects do
     resources :tasks

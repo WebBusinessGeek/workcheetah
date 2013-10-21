@@ -8,13 +8,7 @@
       .span4
         %h3 Activity Feed
       .span4
-        %h3
-          To Do
-          = Date.today
-          %ul#dashboard_tasks
-            - @tasks.each do |task|
-              %li = task.title
-          = render 'tasks/form'
+        = render @project
     .row
       .span8
         #adcarousel.hero-unit

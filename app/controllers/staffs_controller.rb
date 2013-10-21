@@ -1,28 +1,20 @@
 class StaffsController < ApplicationController
-  # GET /staffs
-  # GET /staffs.json
+  before_filter :authenticate_user!
+  respond_to :html, :js
   def index
-    @staffs = Staff.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @staffs }
-    end
+    @staffed_users = current_user.staffed_users
   end
 
-  # GET /staffs/1
-  # GET /staffs/1.json
   def show
-    @staff = Staff.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @staff }
-    end
+    @contact = User.find(params[:id])
+    respond_with @contact
   end
 
-  # GET /staffs/new
-  # GET /staffs/new.json
+  def contacts
+    @clients = current_user.clients
+    @staffed_users = current_user.staffed_users
+  end
+
   def new
     @staff = Staff.new
 
@@ -32,10 +24,6 @@ class StaffsController < ApplicationController
     end
   end
 
-  # GET /staffs/1/edit
-  def edit
-    @staff = Staff.find(params[:id])
-  end
 
   # POST /staffs
   # POST /staffs.json
@@ -53,24 +41,6 @@ class StaffsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /staffs/1
-  # PATCH/PUT /staffs/1.json
-  def update
-    @staff = Staff.find(params[:id])
-
-    respond_to do |format|
-      if @staff.update_attributes(staff_params)
-        format.html { redirect_to @staff, notice: 'Staff was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @staff.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /staffs/1
-  # DELETE /staffs/1.json
   def destroy
     @staff = Staff.find(params[:id])
     @staff.destroy
@@ -82,10 +52,6 @@ class StaffsController < ApplicationController
   end
 
   private
-
-    # Use this method to whitelist the permissible parameters. Example:
-    # params.require(:person).permit(:name, :age)
-    # Also, you can specialize this method with per-user checking of permissible attributes.
     def staff_params
       params.require(:staff).permit(:client_id, :user_id)
     end

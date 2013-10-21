@@ -1,0 +1,11 @@
+.row
+  .span3
+    %h4 Clients
+    %ul
+    - @clients.each do |user|
+      %li= link_to user.name, staff_path(user), remote: true
+    %h4 Staffed Users
+    - @staffed_users.each do |user|
+      %li= link_to user.name, staff_path(user), remote: true
+  .span8
+    #contact

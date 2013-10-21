@@ -7,7 +7,7 @@
         %li= link_to "Recruiting", search_resumes_path, class: (root_path == request.path ? "current" : "" )
         %li= link_to "Staff", my_jobs_path
         %li= link_to "Accounting", "javascript:void(0);"
-        %li= link_to "Contacts", "javascript:void(0);"
+        %li= link_to "Contacts", contacts_path
         - if current_user.resume.present?
           %li= link_to "My Business", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
         - else
@@ -18,7 +18,7 @@
         %li= link_to "Project Mgr", projects_path
         %li= link_to "Staff", my_jobs_path
         %li= link_to "Accounting", "javascript:void(0);"
-        %li= link_to "Contacts", "javascript:void(0);"
+        %li= link_to "Contacts", contacts_path
         - if current_user.resume.present?
           %li= link_to "My Profile", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
         - else
@@ -39,7 +39,7 @@
         - else
           %li= link_to "My Profile", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
         %li= link_to "Messages", "javascript:void(0);"
-        %li= link_to "Contacts", "javascript:void(0);"
+        %li= link_to "Contacts", contacts_path
       %li= link_to "Interviews", video_chats_path unless current_user.advertiser?
       %li= link_to "Messages", conversations_path
       %li
