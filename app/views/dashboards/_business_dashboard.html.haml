@@ -6,9 +6,9 @@
       .span8
         = link_to "Post a Job", new_job_path, class: "btn btn-primary btn-large pull-right"
       .span4
-        %h3 Activity Feed
+        = render "activities"
       .span4
-        = render @project
+        =# render @project   #commented by gagan
     .row
       #adcarousel.span8.hero-unit
         %h2 Our Partners want you to know…
@@ -30,7 +30,7 @@
           %a.carousel-control.right{ :href => root_path, :'data-slide' => 'next' } &lsaquo;
     .row
       .span3.well
-        #calendar
+        = #render 'calendar'
       .span3.well
         = render 'shared/calculator'
     .row

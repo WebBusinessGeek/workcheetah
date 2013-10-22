@@ -3,6 +3,7 @@ class DashboardsController < ApplicationController
 
   before_filter :authorize_admin!, only: [ :admin ]
   before_filter :authorize_moderator!, only: [ :moderator ]
+  before_filter :load_activities
 
   def home
     @visitors_ip = Rails.env.development? ? "71.197.119.115" : request.remote_ip
@@ -17,7 +18,7 @@ class DashboardsController < ApplicationController
 
     if user_signed_in?
       @project = current_user.default_project
-      @tasks = @project.tasks.order(:due_date).limit(10)
+      #@tasks = @project.tasks.order(:due_date).limit(10)   # commented by gagan
 
       @sidebar_ads = Advertisement.by_target(current_user.target_params)
       Advertisement.batch_stat_incrementor "impression", @sidebar_ads.pluck(:id)
@@ -87,5 +88,11 @@ class DashboardsController < ApplicationController
   def fetch_ads_group
     @ads_group = Advertisement.order('priority').offset(params[:offset]).take(10) if params[:offset].present?
     render nothing: true
+  end
+
+  private
+
+  def load_activities
+    @activities = current_user.activities.order('updated_at desc').limit(10) if current_user
   end
 end

@@ -1,14 +1,18 @@
 .conversations_new
-	.white_box
-		%h1= "New message to #{@recipient.name}"
-		= simple_form_for @conversation do |f|
-			.form-fields
-				= f.input :subject, autofocus: true
-				= f.simple_fields_for @conversation.conversation_items.build do |ci|
-					= ci.input :body
-				= f.hidden_field :recipient_id, value: params[:recipient_id]
-			.form-actions
-				- if current_user.account.present? and !current_user.account.safe_job_seal?
-					%a.btn.btn-primary{"data-content" => "Due to spamming issues you must #{link_to "verify your account", add_seal_account_path} before you can send messages on WorkCheetah. Thank you.", "data-original-title" => "Please verify your account.", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "bottom"} Send
-				- else
-					= f.button :submit, "Send", class: "btn btn-primary"
+  .white_box
+    .row
+      .span2
+        = render "conversations/left_nav"
+      .span9{style: "border-left:1px solid #DDDDDD;padding-left:5px"}
+        = simple_form_for @conversation do |f|
+          .form-fields
+            = select_tag :recipient, options_for_select(@users.collect{ |u| [u.user.name, u.user.id] }, params[:recipient_id]), {autofocus: true, :include_blank => false, :prompt=>"Select Recipient", :onchange=>"javascript:document.getElementById('conversation_recipient_id').value = this.value"}
+            = f.input :subject, autofocus: true
+            = f.simple_fields_for @conversation.conversation_items.build do |ci|
+              = ci.input :body
+            = f.text_field :recipient_id, value: params[:recipient_id]
+          .form-actions
+            - if current_user.account.present? and !current_user.account.safe_job_seal?
+              %a.btn.btn-primary{"data-content" => "Due to spamming issues you must #{link_to "verify your account", add_seal_account_path} before you can send messages on WorkCheetah. Thank you.", "data-original-title" => "Please verify your account.", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "bottom"} Send
+            - else
+              = f.button :submit, "Send", class: "btn btn-primary"

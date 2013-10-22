@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
   has_many :questionaire_answers, class_name: "Answer"
   has_and_belongs_to_many :projects
   has_many :tasks, through: :projects
+  has_many :events, dependent: :destroy
+  has_many :activities, dependent: :destroy
   # Associations for staffing feature
   has_many :staffings, class_name: "Staff", foreign_key: "client_id", dependent: :destroy
   has_many :staffed_users, through: :staffings, source: :staffer

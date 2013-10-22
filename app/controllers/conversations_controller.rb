@@ -2,11 +2,26 @@ class ConversationsController < ApplicationController
 	before_filter :user_signed_in?
 
 	def index
+		@conversations = ConversationItem.where("sender_id != ? and draft = false",current_user.id).select('DISTINCT ON (conversation_id) *').order('conversation_id desc,created_at desc')
 		@conversations = current_user.conversations.order("id DESC")
+	end
+
+	def sent
+		@conversations = ConversationItem.where("sender_id = ? and draft = false",current_user.id).select('DISTINCT ON (conversation_id) *').order('conversation_id desc,created_at desc')
+	end
+
+	def draft
+		@conversations = ConversationItem.where("sender_id = ? and draft = true",current_user.id).select('DISTINCT ON (conversation_id) *').order('conversation_id desc,created_at desc')
 	end
 
 	def show
 		@conversation = Conversation.find(params[:id])
+		@draft = @conversation.conversation_items.find_by_sender_id_and_draft(current_user.id,true)
+		if @draft.present?
+			@new_conversation = @draft
+		else
+			@new_conversation = @conversation.conversation_items.build
+		end
 		if !@conversation.participants.where(user_id: current_user).any?
 			redirect_to :back, notice: "This is not your conversation."
 		end
@@ -17,12 +32,10 @@ class ConversationsController < ApplicationController
 			redirect_to :back, notice: "Only employers can initiate conversations." and return
 		end
 
+		@account = current_user.account
+		@users = @account.job_applications.select("user_id").group("user_id")
+		
 		@conversation = Conversation.new
-		@recipient = User.find(params[:recipient_id])
-
-		if @recipient.blocks?(current_user)
-			redirect_to :back, notice: "That user is blocking you. You cannot send a message to that user." and return
-		end
 	end
 
 	def create
@@ -32,10 +45,6 @@ class ConversationsController < ApplicationController
 
 		if current_user.account.present? and !current_user.account.safe_job_seal?
 			redirect_to :back, notice: "Please validate your company in order to be able to send messages to your recruits." and return
-		end
-
-		if User.find(params[:conversation][:recipient_id]).blocks?(current_user)
-			redirect_to :back, notice: "That user is blocking you. You cannot send a message to that user." and return
 		end
 
 		@conversation = Conversation.create(subject: params[:conversation][:subject])
@@ -73,8 +82,18 @@ class ConversationsController < ApplicationController
 				break
 			end
 		end
+		
+		@draft = @conversation.conversation_items.find_by_sender_id_and_draft(current_user.id,true)
+		if @draft.present?
+			@draft.destroy
+		end
+		
+		if params[:commit].present? and params[:commit].downcase == 'send'
+			conversation_item = @conversation.conversation_items.build(params[:conversation][:conversation_item].merge(sender_id: current_user.id, draft: false))
+		else
+			conversation_item = @conversation.conversation_items.build(params[:conversation][:conversation_item].merge(sender_id: current_user.id, draft: true))
+		end
 
-		conversation_item = @conversation.conversation_items.build(params[:conversation][:conversation_item], sender_id: current_user)
 		conversation_item.sender = current_user
 		if conversation_item.save
 			redirect_to @conversation

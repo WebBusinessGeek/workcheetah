@@ -3,10 +3,17 @@ CareerLoop::Application.routes.draw do
   resources :staffs, only: [:index, :show, :new, :create, :destroy]
   get 'contacts' => 'staffs#contacts', as: :contacts
 
+  resources :activities, only: [:index]
   resources :projects do
     resources :tasks
   end
-
+  
+  resources :events do
+    collection do
+      get :ajax_events
+    end
+  end
+  
   resources :estimates do
     collection do
       get :for_job
@@ -65,9 +72,11 @@ CareerLoop::Application.routes.draw do
   resources :conversations, only: [ :index, :show, :create, :update, :new ] do
     collection do
       post :send_to_all
+      get :draft
+      get :sent
     end
   end
-
+  
   resources :tweets
   resources :video_chat_messages, only: [ :create ]
 

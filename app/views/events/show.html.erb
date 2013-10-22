@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @event.title %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @event.start %>
+</p>
+
+<%= link_to 'Delete Event', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131016175503) do
+ActiveRecord::Schema.define(:version => 20131017121608) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(:version => 20131016175503) do
     t.string   "business_type"
     t.integer  "invite_credits",   :default => 25
     t.integer  "estimate_credits", :default => 100
+  end
+
+  create_table "activities", :force => true do |t|
+    t.string   "message"
+    t.integer  "user_id"
+    t.integer  "job_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "ad_stats", :force => true do |t|
@@ -223,9 +231,10 @@ ActiveRecord::Schema.define(:version => 20131016175503) do
   create_table "conversation_items", :force => true do |t|
     t.text     "body"
     t.integer  "sender_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.integer  "conversation_id"
+    t.boolean  "draft",           :default => false
   end
 
   create_table "conversations", :force => true do |t|
@@ -310,6 +319,14 @@ ActiveRecord::Schema.define(:version => 20131016175503) do
 
   add_index "estimates", ["job_id"], :name => "index_estimates_on_job_id"
   add_index "estimates", ["resume_id"], :name => "index_estimates_on_resume_id"
+
+  create_table "events", :force => true do |t|
+    t.string   "title"
+    t.date     "start"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "experiences", :force => true do |t|
     t.string   "company_name"
@@ -407,21 +424,6 @@ ActiveRecord::Schema.define(:version => 20131016175503) do
 
   add_index "payment_profiles", ["accountable_id", "accountable_type"], :name => "index_payment_profiles_on_accountable_id_and_accountable_type"
 
-  create_table "profiles", :force => true do |t|
-    t.string   "name"
-    t.string   "phone"
-    t.string   "email"
-    t.string   "website"
-    t.string   "status"
-    t.string   "growth_importance"
-    t.string   "distance_importance"
-    t.string   "freedom_importance"
-    t.string   "pay_importance"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-    t.string   "twitter"
-  end
-
   create_table "projects", :force => true do |t|
     t.string   "title"
     t.datetime "created_at", :null => false
@@ -475,8 +477,8 @@ ActiveRecord::Schema.define(:version => 20131016175503) do
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"
-    t.integer  "rating"
     t.boolean  "private",             :default => false
+    t.integer  "rating"
     t.string   "resume_type"
   end
 
