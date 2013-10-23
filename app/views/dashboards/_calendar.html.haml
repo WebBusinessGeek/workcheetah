@@ -1,10 +1,7 @@
-.row
-  - if current_user
-    .span5
-      #calendar
+- if current_user
+  #calendar
 
-      .span12
-        %button{ type: 'button', 'data-toggle' => 'modal', 'data-target' => '#event_modal', 'data-remote' => new_event_path } Create Event
+  %button{ type: 'button', 'data-toggle' => 'modal', 'data-target' => '#event_modal', 'data-remote' => new_event_path } Create Event
 
-      #event_modal.modal.hide.fade{ tabindex: '-1', role: 'dialog', 'aria-hidden' => 'true', style: 'width: 52%' }
-        .modal-body
+  #event_modal.modal.hide.fade{ tabindex: '-1', role: 'dialog', 'aria-hidden' => 'true', style: 'width: 52%' }
+    .modal-body

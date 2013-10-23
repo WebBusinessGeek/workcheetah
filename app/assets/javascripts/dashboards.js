@@ -21,4 +21,21 @@ $(document).ready(function(){
     $('#new_advertiser_sign_up').show(200);
     return false;
   });
+
+  $('#calendar').fullCalendar({
+    header: {
+      left: 'prevYear prev',
+      center: 'title',
+      right: 'next nextYear'
+    },
+    events: {
+      url: "/events/ajax_events.json",
+      cache: false
+    },
+    eventClick: function(calEvent, jsEvent, view) {
+      $('#event_modal').modal({
+        remote: '/events/' + calEvent.id
+      });
+    }
+  });
 });

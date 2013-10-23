@@ -57,6 +57,7 @@ html .fc,
 .fc-header-title h2 {
 	margin-top: 0;
 	white-space: nowrap;
+	font-size: 1.5em;
 	}
 	
 .fc .fc-header-space {
@@ -166,8 +167,8 @@ html .fc,
 */
 
 .fc-text-arrow {
-	margin: 0 .1em;
-	font-size: 2em;
+	margin: 0 0;
+	font-size: 1em;
 	font-family: "Courier New", Courier, monospace;
 	vertical-align: baseline; /* for IE7 */
 	}
@@ -291,6 +292,7 @@ a.fc-event,
 .fc-event-time,
 .fc-event-title {
 	padding: 0 1px;
+	cursor: pointer;
 	}
 	
 .fc .ui-resizable-handle {
