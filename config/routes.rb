@@ -5,15 +5,20 @@ CareerLoop::Application.routes.draw do
 
   resources :activities, only: [:index]
   resources :projects do
-    resources :tasks
+    resources :comments
+    resources :tasks do
+      member do
+        post :complete
+      end
+    end
   end
-  
+
   resources :events do
     collection do
       get :ajax_events
     end
   end
-  
+
   resources :estimates do
     collection do
       get :for_job

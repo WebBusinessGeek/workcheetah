@@ -1,0 +1,9 @@
+.span3
+  = content_tag :li, id: task.id do
+    = check_box_tag "complete", task.id, task.done?, class: "complete_task"
+    = task.title
+    .pull-right
+      = link_to [:edit, @project, task], remote: true do
+        %i.icon-pencil
+      = link_to [@project, task], method: :delete, remote: true do
+        %i.icon-trash

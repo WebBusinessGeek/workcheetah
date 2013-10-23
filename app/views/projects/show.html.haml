@@ -1,0 +1,19 @@
+.row
+  .span.offset3
+    %h1= @project.title
+%hr/
+.row
+  .span4
+    %h2 Tasks
+    %ul#detailed_tasks.unstyled{data: {project_id: @project.id}}
+      = render partial: "tasks/detailed_task", collection: @project.tasks, as: :task
+  .span4
+    %h2 Documents
+.row
+  .span8
+    %hr/
+    %h2 Comments
+    %ul.unstyled#comments
+      = render partial: "comments/comment", collection: @comments, as: :comment
+    = render 'comments/form'
+

@@ -1,4 +1,4 @@
-class Task < ActiveRecord::Base
+  class Task < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :project

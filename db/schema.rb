@@ -424,6 +424,21 @@ ActiveRecord::Schema.define(:version => 20131017121608) do
 
   add_index "payment_profiles", ["accountable_id", "accountable_type"], :name => "index_payment_profiles_on_accountable_id_and_accountable_type"
 
+  create_table "profiles", :force => true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "website"
+    t.string   "status"
+    t.string   "growth_importance"
+    t.string   "distance_importance"
+    t.string   "freedom_importance"
+    t.string   "pay_importance"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "twitter"
+  end
+
   create_table "projects", :force => true do |t|
     t.string   "title"
     t.datetime "created_at", :null => false
@@ -477,8 +492,8 @@ ActiveRecord::Schema.define(:version => 20131017121608) do
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"
-    t.boolean  "private",             :default => false
     t.integer  "rating"
+    t.boolean  "private",             :default => false
     t.string   "resume_type"
   end
 

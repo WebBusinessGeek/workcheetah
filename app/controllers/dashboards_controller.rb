@@ -18,7 +18,7 @@ class DashboardsController < ApplicationController
 
     if user_signed_in?
       @project = current_user.default_project
-      #@tasks = @project.tasks.order(:due_date).limit(10)   # commented by gagan
+      @tasks = @project.tasks.order(:due_date).limit(10)   # commented by gagan
 
       @sidebar_ads = Advertisement.by_target(current_user.target_params)
       Advertisement.batch_stat_incrementor "impression", @sidebar_ads.pluck(:id)

@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_filter :load_task, only: [:show, :update, :edit, :destroy]
+  before_filter :load_task, only: [:show, :update, :edit, :destroy, :complete]
 
   respond_to :html, :js
   def index
@@ -29,6 +29,11 @@ class TasksController < ApplicationController
   end
 
   def destroy
+  end
+
+  def complete
+    @task.update_attributes state: "done" if params["checked"] == "true"
+    @task.update_attributes state: "to_do" if params["checked"] == "false"
   end
 
   private
