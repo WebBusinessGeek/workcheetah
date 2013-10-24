@@ -8,7 +8,10 @@
       .span4
         = render "activities"
       .span4
-        = render @project
+        - if @project
+          = render @project
+        - else
+          No default project
     .row
       .span8
         #adcarousel.hero-unit
