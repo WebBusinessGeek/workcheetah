@@ -1,5 +1,5 @@
 .span3
-  = content_tag :li, id: task.id do
+  = content_tag :li, id: dom_id(task) do
     = check_box_tag "complete", task.id, task.done?, class: "complete_task"
     = task.title
     .pull-right

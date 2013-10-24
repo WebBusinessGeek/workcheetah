@@ -29,6 +29,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    @task.destroy
   end
 
   def complete
