@@ -32,16 +32,18 @@ class Estimate < ActiveRecord::Base
     end
     after_transition :reviewing => :accepted do |estimate|
       #1 mail accepted to sent_by.user
-      create_applicant_access account: job.account
-      self.update_attribute(:status, "Accepted")
+      estimate.create_applicant_access account: estimate.job.account
+      estimate.job.account.owner.add_staffer(estimate.sent_by.user)
+      estimate.update_attribute(:status, "Accepted")
       #3 Send Accepted Job Application mailer
-      ids = job.recieved_estimates - [self]
+      ids = estimate.job.recieved_estimates - [estimate]
       Estimate.update_all({state: "rejected"}, {id: ids}) unless ids.empty?
       #4 Send mass rejection mailer for performance benefit
       #5 create project workspace for the job
     end
   end
 
+  alias_method :hire!, :accept
   scope :sent, with_state("reviewing")
   scope :drafted, with_state("drafting")
   scope :rejected, with_state("rejected")
