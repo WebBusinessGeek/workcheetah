@@ -1,0 +1,6 @@
+<% if @task.errors.any? %>
+  alert("error")
+<% else %>
+  $('#taskform').modal('hide')
+  $('#<%= dom_id(@task) %>').html('<%= j render("tasks/detailed_task",{task: @task, project: @task.project}) %>')
+<% end %>

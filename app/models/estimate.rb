@@ -5,6 +5,7 @@ class Estimate < ActiveRecord::Base
   monetize :total_cents
 
   has_many :estimate_items, dependent: :destroy
+  has_one :applicant_access, as: :applicable
   belongs_to :job
   belongs_to :sent_by, class_name: "Resume", foreign_key: "resume_id"
 
@@ -31,8 +32,13 @@ class Estimate < ActiveRecord::Base
     end
     after_transition :reviewing => :accepted do |estimate|
       #1 mail accepted to sent_by.user
-      #2 mark job as working
-      #3 create invoicable project
+      create_applicant_access account: job.account
+      self.update_attribute(:status, "Accepted")
+      #3 Send Accepted Job Application mailer
+      ids = job.recieved_estimates - [self]
+      Estimate.update_all({state: "rejected"}, {id: ids}) unless ids.empty?
+      #4 Send mass rejection mailer for performance benefit
+      #5 create project workspace for the job
     end
   end
 

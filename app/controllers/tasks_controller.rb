@@ -23,6 +23,8 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task.update_attributes(task_params)
+    redirect_to @task.project, notice: "Task succesfully updated."
   end
 
   def edit

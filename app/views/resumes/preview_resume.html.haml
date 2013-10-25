@@ -4,7 +4,7 @@
       -if @job && @job_application
         - if can? :manage, @job
           .pull-right{ style: "text-align: center;" }
-            = link_to "Save applicant", [:buy, @job, @job_application], class: "btn btn-large btn-success", method: :post
+            = link_to "Hire", [:hire, @job, @job_application], class: "btn btn-large btn-success", method: :post
             %br/
             or
             %br/

@@ -81,7 +81,7 @@ CareerLoop::Application.routes.draw do
       get :sent
     end
   end
-  
+
   resources :tweets
   resources :video_chat_messages, only: [ :create ]
 
@@ -128,7 +128,7 @@ CareerLoop::Application.routes.draw do
 
     resources :job_applications do
       member do
-        post :buy
+        post :hire
         post :reject
         post :apply_with_questionaire
       end
@@ -161,12 +161,6 @@ CareerLoop::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => "users/registrations" }
 
   resource :user
-  #  do
-  #   member do
-  #     get :change_password
-  #     put :update_password
-  #   end
-  # end
 
   post "/moderators" => "users#create_moderator", as: :create_moderator
   delete "/moderators/:id" => "users#destroy_moderator", as: :destroy_moderator

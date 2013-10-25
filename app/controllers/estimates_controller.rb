@@ -61,17 +61,17 @@ class EstimatesController < ApplicationController
 
   def accept
     @estimate.accept
-    redirect_to :back, notice: "Estimate has been sent."
+    redirect_to :back, notice: "Estimate has been accepted"
   end
 
   def reject
     @estimate.reject
-    redirect_to :back, notice: "Estimate has been sent."
+    redirect_to :back, notice: "Estimate has been rejected."
   end
 
   def negotiate
     @estimate.negotiate
-    redirect_to my_jobs_path, notice: "Estimate has been sent."
+    redirect_to my_jobs_path, notice: "Estimate has been sent back."
   end
 
   private

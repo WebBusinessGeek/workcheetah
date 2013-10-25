@@ -21,6 +21,7 @@ class Job < ActiveRecord::Base
   has_and_belongs_to_many :skills
   has_many :questions
   has_many :recieved_estimates, class_name: "Estimate", foreign_key: "job_id"
+  has_one :project, dependent: :destroy
 
   accepts_nested_attributes_for :account
   accepts_nested_attributes_for :questions, allow_destroy: true, limit: 5, reject_if: proc { |attributes| attributes['text'].blank? }

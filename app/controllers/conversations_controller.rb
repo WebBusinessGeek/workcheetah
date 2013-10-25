@@ -32,8 +32,7 @@ class ConversationsController < ApplicationController
 			redirect_to :back, notice: "Only employers can initiate conversations." and return
 		end
 
-		@account = current_user.account
-		@users = @account.job_applications.select("user_id").group("user_id")
+		@users = current_user.staffed_users
 		
 		@conversation = Conversation.new
 	end

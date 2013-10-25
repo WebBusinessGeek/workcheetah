@@ -6,7 +6,7 @@ class Account < ActiveRecord::Base
   has_many :jobs, dependent: :destroy
   has_many :users, dependent: :destroy
   has_many :applicant_accesses, dependent: :destroy
-  has_many :job_applications, through: :applicant_accesses
+  has_many :applicables, through: :applicant_accesses
   has_many :payment_profiles, as: :accountable, dependent: :destroy
   has_many :seal_purchases, dependent: :destroy
 

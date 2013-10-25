@@ -38,13 +38,6 @@ class JobApplicationsController < ApplicationController
     end
   end
 
-  def reject
-    @job = Job.find(params[:job_id])
-    @job_application = @job.job_applications.find(params[:id])
-    @job_application.reject!
-    redirect_to [@job, :job_applications]
-  end
-
   def new
     authenticate_user!
 
@@ -82,38 +75,22 @@ class JobApplicationsController < ApplicationController
     @job_application.update_attributes(job_application_params)
   end
 
-  def buy
+  def hire
+    @job = Job.find(params[:job_id])
     @job_application = @job.job_applications.find(params[:id])
-
-    if can? :read, @job_application
-      redirect_to [@job_application.job, @job_application], notice: "You already have access to this job application. No need to save it again."
+    if @job_application.hire!
+      message = "User hired"
     else
-      @purchase_response = current_user.account.buy_applicant(@job_application) # currently returns true in any case to make the purchase free
-      if @purchase_response
-        redirect_to [@job_application.job, @job_application], notice: "Recruit added."
-      else
-        redirect_to [@job_application.job, @job_application], error: "Something went wrong with the purcahse"
-      end
+      message = "Failure to hire"
     end
+    redirect_to [@job, :job_applications], notice: message
+  end
 
-    # Once the application purchase is not free anymore, uncomment below code
-
-    # if current_user.account.has_payment_profile?
-    #   if can? :read, @job_application
-    #     redirect_to [@job_application.job, @job_application], notice: "You already have access to this job application. No need to buy it again."
-    #   else
-    #     @purchase_response = current_user.account.buy_applicant(@job_application)
-    #     # if @purchase_response.failure_message.nil?
-    #     if @purchase_response
-    #       redirect_to [@job_application.job, @job_application], notice: "Recruit added."
-    #     else
-    #       redirect_to [@job_application.job, @job_application], error: "Something went wrong with the purcahse"
-    #     end
-    #   end
-    # else
-    #   @payment_profile = current_user.account.payment_profiles.new
-    #   render "create_payment_profile"
-    # end
+  def reject
+    @job = Job.find(params[:job_id])
+    @job_application = @job.job_applications.find(params[:id])
+    @job_application.reject!
+    redirect_to [@job, :job_applications]
   end
 
   private

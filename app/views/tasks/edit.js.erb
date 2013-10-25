@@ -1,0 +1,15 @@
+// $("#taskform").dialog({
+//   autoOpen: true,
+//   position: "top",
+//   width: 450,
+//   modal: true,
+//   closeOnEscape: true,
+//   beforeClose: function() {
+//       $('#edit_<%= dom_id(@task) %>').submit()
+//   },
+//   open: function() {
+//     $("#taskform").html("<%= j render('tasks/edit') %>")
+//   },
+// });
+$("#taskform").html("<%= j render('tasks/edit') %>")
+$('#taskform').modal('toggle')
