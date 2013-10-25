@@ -28,7 +28,7 @@
                     = i + 1
               %td
                 - if can?(:read, job_application)
-                  Saved
+                  Accepted
                 - elsif job_application.status == "Declined"
                   Rejected
                 - else

@@ -31,9 +31,11 @@ class JobApplication < ActiveRecord::Base
     create_applicant_access account: job.account
     self.update_attribute(:status, "Accepted")
     #3 Send Accepted Job Application mailer
-    ids = job.job_application_ids - [self]
+    # Add :user to job owners staff list
+    job.account.owner.add_staffer(user)
+    ids = job.job_application_ids - [id]
     JobApplication.update_all({status: "Declined"}, {id: ids}) unless ids.empty?
-    #4 Send mass rejection mailer for performance benefit
+    #4 Send mass rejection mailer for performance benefit using ids
     #5 create project workspace for the job
   end
 
