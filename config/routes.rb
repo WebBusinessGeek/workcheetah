@@ -20,6 +20,7 @@ CareerLoop::Application.routes.draw do
   end
 
   resources :estimates do
+    resources :comments
     collection do
       get :for_job
     end

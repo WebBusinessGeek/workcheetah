@@ -9,3 +9,10 @@
       %li= link_to user.name, staff_path(user), remote: true
   .span8
     #contact
+      - if current_user.account.present?
+        = link_to "Send Message", "#invite-credit-modal", {"role" => "button", "data-toggle" => "modal", class: "btn btn-primary btn-large"}
+        
+- if current_user.account.present?    
+  #invite-credit-modal.modal.hide.fade{"role" => "dialog", "aria-hidden" => "true"}
+    #message_form{style: "margin:20px"}
+      = render :partial=>"conversations/form", :locals=>{:new_conversation => Conversation.new}

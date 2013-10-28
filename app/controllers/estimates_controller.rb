@@ -11,6 +11,9 @@ class EstimatesController < ApplicationController
   end
 
   def show
+    @commentable = @estimate
+    @comments = @commentable.comments
+    @comment = Comment.new
   end
 
   def new

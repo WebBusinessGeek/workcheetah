@@ -8,8 +8,11 @@ class Estimate < ActiveRecord::Base
   has_one :applicant_access, as: :applicable
   belongs_to :job
   belongs_to :sent_by, class_name: "Resume", foreign_key: "resume_id"
+  has_many :comments, as: :commentable, dependent: :destroy
 
   accepts_nested_attributes_for :estimate_items, allow_destroy: true
+  accepts_nested_attributes_for :estimate_items
+
   state_machine initial: :drafting do
     event :send_proposal do
       transition :drafting => :reviewing
