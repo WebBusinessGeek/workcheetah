@@ -42,3 +42,10 @@
       = link_to "Reject", reject_estimate_path(@estimate), method: :post, class: "btn btn-primary"
       = link_to "Accept", accept_estimate_path(@estimate), method: :post, class: "btn btn-primary btn-success"
 
+.row
+  .span8
+    %hr/
+    %h2 Comments
+    %ul.unstyled#comments
+      = render partial: "comments/comment", collection: @comments, as: :comment
+    = render 'comments/form'
