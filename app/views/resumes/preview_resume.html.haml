@@ -57,3 +57,13 @@
         %dt Employment Status
         %dd{style:"padding-left:30px"}
           %p.lead= @resume.status
+.modal.hide.fade
+  .modal-header
+    %button.close{type:"button","data-dismiss" => "modal", "aria-hidden" => "true"}x
+    %h3 Select Pay option
+  .modal-body
+    %p Please select whether this job is an hourly or a salaried position. This will effect how
+    you generate an invoice and whether the employee will be able to log hourly time.
+  .modal-footer
+    = link_to "Hourly", [:hire{, @job, @job_application], {type: "hourly"}, class: "btn btn-large btn-success", method: :post
+    = link_to "Salary", [:hire{, @job, @job_application], {type: "salary"}, class: "btn btn-large btn-success", method: :post

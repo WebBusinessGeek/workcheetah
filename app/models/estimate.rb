@@ -9,7 +9,7 @@ class Estimate < ActiveRecord::Base
   belongs_to :job
   belongs_to :sent_by, class_name: "Resume", foreign_key: "resume_id"
 
-  accepts_nested_attributes_for :estimate_items
+  accepts_nested_attributes_for :estimate_items, allow_destroy: true
   state_machine initial: :drafting do
     event :send_proposal do
       transition :drafting => :reviewing
@@ -32,14 +32,17 @@ class Estimate < ActiveRecord::Base
     end
     after_transition :reviewing => :accepted do |estimate|
       #1 mail accepted to sent_by.user
-      estimate.create_applicant_access account: estimate.job.account
-      estimate.job.account.owner.add_staffer(estimate.sent_by.user)
-      estimate.update_attribute(:status, "Accepted")
+      estimate.create_applicant_access account: estimate.job.account, job: estimate.job
+      estimate.job.account.owner.add_staffer!(estimate.sent_by.user)
+      estimate.update_attribute(:state, "accepted")
       #3 Send Accepted Job Application mailer
       ids = estimate.job.recieved_estimates - [estimate]
       Estimate.update_all({state: "rejected"}, {id: ids}) unless ids.empty?
       #4 Send mass rejection mailer for performance benefit
-      #5 create project workspace for the job
+      @project = Project.create! title: estimate.job.title
+      @project.owner = estimate.job.account.owner
+      @project.users << estimate.job.account.owner
+      @project.users << estimate.sent_by.user
     end
   end
 
@@ -49,10 +52,14 @@ class Estimate < ActiveRecord::Base
   scope :rejected, with_state("rejected")
 
   def proposed_total
-    unless total or total <= 0
-      estimate_items.sum(&:line_total)
+    if total or total <= 0
+      Money.new(estimate_items.sum(&:line_total))
     else
-      total
+      Money.new(total)
     end
+  end
+
+  def user
+    sent_by.user
   end
 end

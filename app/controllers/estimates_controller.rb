@@ -37,7 +37,13 @@ class EstimatesController < ApplicationController
 
   def update
     if @estimate.update_attributes(estimate_params)
-      redirect_to :back
+      if params[:commit] == "Send Estimate"
+        @estimate.send_proposal
+        msg = "Estimate sent."
+      else
+        msg = "Estimate updated."
+      end
+      redirect_to estimates_path, notice: msg
     end
   end
 
@@ -80,6 +86,6 @@ class EstimatesController < ApplicationController
     end
 
     def estimate_params
-      params.require(:estimate).permit(:job_id, :due_date, :terms, :notes, estimate_items_attributes: [:title, :hours, :total])
+      params.require(:estimate).permit(:job_id, :due_date, :terms, :notes, estimate_items_attributes: [:id, :task, :hours, :total, :_destroy])
     end
 end

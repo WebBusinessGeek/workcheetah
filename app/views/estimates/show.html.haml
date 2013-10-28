@@ -30,7 +30,7 @@
 .row
   .span2.offset6
     %h5 Proposed Total
-    = number_to_currency @estimate.proposed_total
+    = @estimate.proposed_total
 .row
   .span8
     -if @estimate.sent_by == current_user.resume

@@ -14,29 +14,32 @@ class JobApplication < ActiveRecord::Base
   after_destroy :destruction_notification
 
   def creation_notification
-    self.notifications.create(body: "Someone has applied to one of your jobs.", user_id: self.job.account.users.first)
+    self.notifications.create(body: "Someone has applied to one of your jobs.", user_id: self.job.account.owner)
   end
 
   def change_notification
-    self.notifications.create(body: "Your job application has been changed.", user_id: self.job.account.users.first)
+    self.notifications.create(body: "Your job application has been changed.", user_id: self.job.account.owner)
     self.notifications.create(body: "Your job application has been changed.", user_id: self.user_id)
   end
 
   def destruction_notification
-    Notification.create(body: "Your job application has been destroyed.", user_id: self.job.account.users.first)
+    Notification.create(body: "Your job application has been destroyed.", user_id: self.job.account.owner)
     Notification.create(body: "Your job application has been destroyed.", user_id: self.user_id)
   end
 
   def hire!
-    create_applicant_access account: job.account
-    self.update_attribute(:status, "Accepted")
+    create_applicant_access account: job.account, job: job
+    self.update_attribute(:state, "accepted")
     #3 Send Accepted Job Application mailer
     # Add :user to job owners staff list
-    job.account.owner.add_staffer(user)
+    job.account.owner.add_staffer!(user)
     ids = job.job_application_ids - [id]
     JobApplication.update_all({status: "Declined"}, {id: ids}) unless ids.empty?
     #4 Send mass rejection mailer for performance benefit using ids
-    #5 create project workspace for the job
+    @project = Project.create! title: job.title
+    @project.owner = account.owner
+    @project.users << account.owner
+    @project.users << user
   end
 
   def reject!

@@ -105,7 +105,7 @@ class User < ActiveRecord::Base
   end
 
   def default_project
-    projects.first
+    owned_projects.first
   end
 
   def add_task(task)
@@ -126,6 +126,10 @@ class User < ActiveRecord::Base
 
   private
     def generate_default_project
-      projects.create! title: "Default" if default_project
+      unless default_project
+        @project = Project.new title: "Default"
+        self.owned_projects << @project
+        self.projects << @project
+      end
     end
 end

@@ -27,9 +27,9 @@ class Resume < ActiveRecord::Base
   mount_uploader :web_video, VideoUploader
 
   accepts_nested_attributes_for :addresses, reject_if: proc { |attributes| attributes['address_1'].blank? }
-  accepts_nested_attributes_for :schools, reject_if: proc { |attributes| attributes['name'].blank? }
-  accepts_nested_attributes_for :references, reject_if: proc { |attributes| attributes['name'].blank? }
-  accepts_nested_attributes_for :experiences, reject_if: proc { |attributes| attributes['company_name'].blank? || attributes['job_title'].blank? }
+  accepts_nested_attributes_for :schools, reject_if: proc { |attributes| attributes['name'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :references, reject_if: proc { |attributes| attributes['name'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :experiences, reject_if: proc { |attributes| attributes['company_name'].blank? || attributes['job_title'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :user
 
   validates :terms_of_service, acceptance: { accept: 1 }

@@ -17,6 +17,7 @@ class Job < ActiveRecord::Base
   belongs_to :category3, class_name: "Category"
   has_many :invites, dependent: :destroy
   has_many :job_applications, dependent: :destroy
+  has_one :applicant_access, class_name: "ApplicantAccess"
   has_many :notifications, as: :notifiable, dependent: :destroy
   has_and_belongs_to_many :skills
   has_many :questions
@@ -66,6 +67,10 @@ class Job < ActiveRecord::Base
       RANK
       where("title @@ :q or description @@ :q", q: query).order("#{rank} desc")
     end
+  end
+
+  def working?
+    applicant_access?
   end
 
   #stubbed for ratings for now
