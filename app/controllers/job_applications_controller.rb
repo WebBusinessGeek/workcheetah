@@ -27,15 +27,16 @@ class JobApplicationsController < ApplicationController
     if ['freelancer', 'business'].include? current_user.role?
       @available_jobs = Job.find(current_user.account.job_ids - @resume.invites.map(&:job_id))
     end
-    if can? :read, @job_application
-      @job_application.status = "Company Interested"
-      @job_application.save if @job_application.changed?
-      render "resumes/show"
-    else
-      @job_application.status = "Viewed" if @job_application.status == "Application Sent"
-      @job_application.save if @job_application.changed?
-      render "resumes/preview_resume"
-    end
+    # if can? :read, @job_application
+    #   @job_application.status = "Company Interested"
+    #   @job_application.save if @job_application.changed?
+    #   render "resumes/show"
+    # else
+    #   @job_application.status = "Viewed" if @job_application.status == "Application Sent"
+    #   @job_application.save if @job_application.changed?
+    #   render "resumes/preview_resume"
+    # end
+    render "resumes/preview_resume"
   end
 
   def new
@@ -78,7 +79,7 @@ class JobApplicationsController < ApplicationController
   def hire
     @job = Job.find(params[:job_id])
     @job_application = @job.job_applications.find(params[:id])
-    if @job_application.hire!
+    if @job_application.hire!(params[:type])
       message = "User hired"
     else
       message = "Failure to hire"

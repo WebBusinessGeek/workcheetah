@@ -35,25 +35,29 @@ class Estimate < ActiveRecord::Base
     end
     after_transition :reviewing => :accepted do |estimate|
       #1 mail accepted to sent_by.user
-      estimate.create_applicant_access account: estimate.job.account, job: estimate.job
-      estimate.job.account.owner.add_staffer!(estimate.sent_by.user)
-      estimate.update_attribute(:state, "accepted")
-      #3 Send Accepted Job Application mailer
-      ids = estimate.job.recieved_estimates - [estimate]
-      Estimate.update_all({state: "rejected"}, {id: ids}) unless ids.empty?
-      #4 Send mass rejection mailer for performance benefit
-      @project = Project.create! title: estimate.job.title
-      @project.owner = estimate.job.account.owner
-      @project.users << estimate.job.account.owner
-      @project.users << estimate.sent_by.user
     end
   end
 
-  alias_method :hire!, :accept
   scope :sent, with_state("reviewing")
   scope :drafted, with_state("drafting")
   scope :rejected, with_state("rejected")
-
+  def hire!(paytype)
+    if paytype == "salary"
+      create_applicant_access account: job.account, job: job, hourly: false
+    else
+      create_applicant_access account: job.account, job: job, hourly: true
+    end
+    job.account.owner.add_staffer!(sent_by.user)
+    self.accept
+    #3 Send Accepted Job Application mailer
+    ids = job.recieved_estimates - [estimate]
+    Estimate.update_all({state: "rejected"}, {id: ids}) unless ids.empty?
+    #4 Send mass rejection mailer for performance benefit
+    @project = Project.create! title: job.title, job: job
+    @project.owner = job.account.owner
+    @project.users << @project.owner
+    @project.users << sent_by.user
+  end
   def proposed_total
     if total or total <= 0
       Money.new(estimate_items.sum(&:line_total))

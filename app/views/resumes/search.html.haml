@@ -1,6 +1,6 @@
 #resume_search
   .row
-    .span10
+    .span8.offset2
       = search_form_for @search, url: search_resumes_path, method: :get, html: {class: "form-search"}, remote: true do |f|
         = f.select :skills_name_eq, Skill::GROUPED_SKILLS, {include_blank: 'None'}
         = f.select :schools_highest_merit_eq, School::HIGHEST_MERIT, {include_blank: 'None'}
@@ -8,14 +8,25 @@
         = f.submit "Search"
       %hr
   .row{style: "margin-bottom:20px"}
-    .span1
+    .span1.offset2
       %span.lead{style:"margin-left:50px"} Rating
     .span3
       %span.lead{style:"margin-left:50px"} Name
     .span2
       %span.lead{style:"margin-left:50px"} Overview
-  %ul#resumes.clearfix.unstyled{style: "margin-left:50px"}
-    =render partial: "resumes/resume", collection: @resumes
+  .row
+    .span2
+      %ul.nav.nav-list
+        %li.nav-header Actions
+        %li{style:"margin-left:10px"}
+        %li= link_to "Post a New Job", new_job_path
+        %li= link_to "Recieved Estimates", "#"
+        %li= link_to "Recieved Job Applicants", "#"
+        %li.nav-header Categories
+
+    .span8
+      %ul#resumes.clearfix.unstyled{style: "margin-left:50px"}
+        =render partial: "resumes/resume", collection: @resumes
 :javascript
   $('#search_reset').on('click', function() {
     $.get($("#resumes_search").attr("action"), $("#products_search").serialize(), null, "script");

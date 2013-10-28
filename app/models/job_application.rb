@@ -27,18 +27,22 @@ class JobApplication < ActiveRecord::Base
     Notification.create(body: "Your job application has been destroyed.", user_id: self.user_id)
   end
 
-  def hire!
-    create_applicant_access account: job.account, job: job
-    self.update_attribute(:state, "accepted")
+  def hire!(paytype)
+    if paytype == "salary"
+      create_applicant_access account: job.account, job: job, hourly: false
+    else
+      create_applicant_access account: job.account, job: job, hourly: true
+    end
+    self.update_attribute(:status, "accepted")
     #3 Send Accepted Job Application mailer
     # Add :user to job owners staff list
     job.account.owner.add_staffer!(user)
     ids = job.job_application_ids - [id]
     JobApplication.update_all({status: "Declined"}, {id: ids}) unless ids.empty?
     #4 Send mass rejection mailer for performance benefit using ids
-    @project = Project.create! title: job.title
-    @project.owner = account.owner
-    @project.users << account.owner
+    @project = Project.create! title: job.title, job: job
+    @project.owner = job.account.owner
+    @project.users << @project.owner
     @project.users << user
   end
 

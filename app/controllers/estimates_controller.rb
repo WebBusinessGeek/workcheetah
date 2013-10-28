@@ -69,7 +69,7 @@ class EstimatesController < ApplicationController
   end
 
   def accept
-    @estimate.hire!
+    @estimate.hire!(params[:type])
     redirect_to :back, notice: "Estimate has been accepted"
   end
 
