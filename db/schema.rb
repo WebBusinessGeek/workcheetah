@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131028130039) do
-
+ActiveRecord::Schema.define(:version => 20131029081117) do
   create_table "accounts", :force => true do |t|
     t.string   "name"
     t.string   "website"
@@ -426,6 +425,16 @@ ActiveRecord::Schema.define(:version => 20131028130039) do
   end
 
   add_index "payment_profiles", ["accountable_id", "accountable_type"], :name => "index_payment_profiles_on_accountable_id_and_accountable_type"
+
+  create_table "project_documents", :force => true do |t|
+    t.integer  "project_id"
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
 
   create_table "projects", :force => true do |t|
     t.string   "title"

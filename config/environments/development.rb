@@ -18,7 +18,7 @@ CareerLoop::Application.configure do
 
   config.action_mailer.delivery_method = :letter_opener
 
-  config.serve_static_assets = false
+  config.serve_static_assets = true
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
