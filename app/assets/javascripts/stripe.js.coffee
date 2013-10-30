@@ -3,6 +3,23 @@ jQuery ->
   $.mask.definitions['x'] = '[x0-9]'
   do_when_ready()
 
+  $("#account-form").submit ->
+    if typeof Stripe isnt 'undefined'
+      Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
+    form.find('button').prop('disabled', true)
+    Stripe.bankAccount.createToken
+      country: "US"
+      routingNumber: $(".routingNumber").val()
+      accountNumber: $(".accountNumber").val()
+    , stripeRecipientResponseHandler
+    false
+
+  stripeRecipientResponseHandler = (response) ->
+    console.log response
+    form = $("#account-form")
+    form.append "<input type='hidden' name='stripeToken' value='" + response.id + "'/>"
+    form.get(0).submit()
+
 do_when_ready = ->
   # console.log("ready to fire")
   if typeof Stripe isnt 'undefined'

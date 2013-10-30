@@ -166,6 +166,7 @@ CareerLoop::Application.routes.draw do
 
   post "/moderators" => "users#create_moderator", as: :create_moderator
   delete "/moderators/:id" => "users#destroy_moderator", as: :destroy_moderator
+  post "/users/update_bank_account" => "users#update_bank_account", as: :update_bank_account
 
   get "/image_ad" => "advertisers/advertisements#image_ad"
   get "/text_ad" => "advertisers/advertisements#text_ad"

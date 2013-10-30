@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
+    render 'payment_recipient' if params[:bank_account]
   end
 
   def update
@@ -13,6 +14,19 @@ class UsersController < ApplicationController
       redirect_to root_path, notice: "Your user account has been updated"
     else
       render "edit"
+    end
+  end
+
+  def update_bank_account
+    recipient = Stripe::Recipient.create(
+      name: params[:fullName],
+      type: 'individual',
+      bank_account: params[:stripeToken]
+    )
+    if current_user.update_attributes(stripe_recipient_id: recipient.id)
+      redirect_to root_path, notice: "Bank Account Succesffuly added"
+    else
+      redirect_to edit_user_path(bank_account: true)
     end
   end
 
