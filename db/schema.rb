@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131030133325) do
+ActiveRecord::Schema.define(:version => 20131030185652) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -351,6 +351,21 @@ ActiveRecord::Schema.define(:version => 20131030133325) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "invoices", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "reciever_id"
+    t.integer  "project_id"
+    t.string   "guid"
+    t.string   "stripe_charge_id"
+    t.string   "description"
+    t.string   "error"
+    t.integer  "amount_cents",     :default => 0,     :null => false
+    t.string   "amount_currency",  :default => "USD", :null => false
+    t.string   "state"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
+
   create_table "job_applications", :force => true do |t|
     t.integer  "job_id"
     t.integer  "user_id"
@@ -395,6 +410,17 @@ ActiveRecord::Schema.define(:version => 20131030133325) do
   create_table "jobs_skills", :id => false, :force => true do |t|
     t.integer "job_id"
     t.integer "skill_id"
+  end
+
+  create_table "line_items", :force => true do |t|
+    t.integer  "invoice_id"
+    t.integer  "task_id"
+    t.integer  "rate_cents",    :default => 0,     :null => false
+    t.string   "rate_currency", :default => "USD", :null => false
+    t.integer  "hours"
+    t.string   "note"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   create_table "notifications", :force => true do |t|
