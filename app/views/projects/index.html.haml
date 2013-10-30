@@ -1,5 +1,8 @@
 %h1 Projects
 .row
+  .span2
+    = link_to "Add a project", new_project_path, class: "btn btn-primary btn-success"
+.row
   %ul#projects.unstyled
     - @projects.each do |project|
       = content_tag :li, id: dom_id(project) do

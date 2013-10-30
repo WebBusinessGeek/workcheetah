@@ -1,6 +1,9 @@
 .row
-  .span.offset3
+  .span3
+    %lead Project
     %h1= @project.title
+  .span4.pull-right
+    = link_to "Log Time", "#", class: "btn btn-primary btn-success"
 %hr/
 .row
   .span4

@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :questionaire_answers, class_name: "Answer"
   has_many :owned_projects, class_name: "Project", foreign_key: "owner_id", dependent: :destroy
-  has_and_belongs_to_many :projects
+  has_many :projects_users
+  has_many :projects, through: :projects_users
   has_many :tasks, through: :projects
   has_many :events, dependent: :destroy
   has_many :activities, dependent: :destroy

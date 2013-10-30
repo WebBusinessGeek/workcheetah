@@ -1,6 +1,6 @@
 = simple_form_for new_conversation do |f|
   .form-fields
-    = select_tag :recipient, options_for_select(current_user.staffed_users.collect{ |u| [u.user.name, u.user.id] }, params[:recipient_id]), {autofocus: true, :include_blank => false, :prompt=>"Select Recipient", :onchange=>"javascript:document.getElementById('conversation_recipient_id').value = this.value"}
+    = select_tag :recipient, options_for_select(current_user.staffed_users.collect{ |u| [u.name, u.id] }, params[:recipient_id]), {autofocus: true, :include_blank => false, :prompt=>"Select Recipient", :onchange=>"javascript:document.getElementById('conversation_recipient_id').value = this.value"}
     = f.input :subject, autofocus: true
     = f.simple_fields_for new_conversation.conversation_items.build do |ci|
       = ci.input :body, input_html: { rows: 5, cols: 30 } 

@@ -4,6 +4,10 @@ class ProjectsController < ApplicationController
     @projects = current_user.projects.includes(:tasks)
   end
 
+  def new
+    @project = current_user.projects.new
+  end
+
   def show
     @commentable = @project
     @comments = @commentable.comments
@@ -12,6 +16,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = current_user.projects.build(project_params)
+    @project.owner = current_user
 
     if @project.save!
       redirect_to projects_path, notice: "Project Created"
