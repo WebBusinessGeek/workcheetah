@@ -1,0 +1,5 @@
+.span3
+  = content_tag :li, id: dom_id(document) do
+    = document.document_file_name
+    .pull-right
+      = link_to "Download", document.document.url, :target=>"_blank"

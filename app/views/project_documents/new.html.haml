@@ -1,0 +1,11 @@
+= simple_form_for [@project,@project_document], :html => { :multipart => true } do |f|
+  - if @project_document.errors.any?
+    .errors
+      - @project_document.errors.full_messages.each do |msg|
+        %li= msg
+  .form-fields
+    = f.file_field :document
+    = f.hidden_field :project_id
+  .form-actions
+    = f.button :submit, "Upload", class: "btn btn-primary"
+

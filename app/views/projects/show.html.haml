@@ -9,6 +9,11 @@
       = render partial: "tasks/detailed_task", collection: @project.tasks, as: :task
   .span4
     %h2 Documents
+    = link_to "Upload Document", new_project_project_document_url(@project.id), :class=>"btn btn-primary btn-small pull-right"
+    %br
+    %br
+    %ul#document_list.unstyled{data: {project_id: @project.id}}
+      = render partial: "project_documents/document_list", collection: @project.project_documents, as: :document
 .row
   .span8
     %hr/
