@@ -5,4 +5,6 @@ class Staff < ActiveRecord::Base
 
   validates :client_id, presence: true
   validates :staffer_id, presence: true
+  validates :staffer_id, uniqueness: {scope: [:client_id], message: "already belongs to client"}
+
 end
