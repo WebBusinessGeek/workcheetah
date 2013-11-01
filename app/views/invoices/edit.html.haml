@@ -1,0 +1,4 @@
+.row
+  .span10
+    = simple_form_for(@invoice, url: invoice_path(@invoice), method: :put) do |f|
+      = render 'form', f: f

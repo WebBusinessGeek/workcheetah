@@ -9,4 +9,3 @@ jQuery ->
     payload = { checked: checked }
     $.post("/projects/" + project_id + "/tasks/" + task_id + "/complete", payload).done (result) ->
       console.log result
-    alert id + checked + project_id

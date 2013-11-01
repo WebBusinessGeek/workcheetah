@@ -1,4 +1,4 @@
-%h1 New Invoice
-= render 'form'
-
-= link_to "Back", accounting_path
+.row
+  .span10
+    = simple_form_for(@invoice) do |f|
+      = render 'form', f: f

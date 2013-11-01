@@ -30,6 +30,11 @@ class ApplicationController < ActionController::Base
     @account ||= current_user.account
   end
 
+  def current_resume
+    @resume ||= current_user.resume
+  end
+  helper_method :current_resume
+
   def current_target_params
     if user_signed_in?
       @current_target_params ||= current_user.target_params

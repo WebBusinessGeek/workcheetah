@@ -7,6 +7,7 @@ class Project < ActiveRecord::Base
   has_many :tasks, dependent: :destroy
   has_many :project_documents, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :invoices
   has_many :timesheets
   has_many :timesheet_entries, through: :timesheets
   has_many :unpaid_time_entries, through: :timesheets, source: :timesheet_entries, conditions: {status: "unpaid"}

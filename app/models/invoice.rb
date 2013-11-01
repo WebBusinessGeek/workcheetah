@@ -7,7 +7,7 @@ class Invoice < ActiveRecord::Base
   belongs_to :project
   has_many :line_items, dependent: :destroy
 
-  accepts_nested_attributes_for :line_items, allow_destroy: true
+  accepts_nested_attributes_for :line_items, reject_if: :all_blank, allow_destroy: true
 
   monetize :amount_cents
 
@@ -58,7 +58,7 @@ class Invoice < ActiveRecord::Base
       recipient.name
     else
       "None"
-    end
+    end  
   end
 
   def project_name

@@ -28,8 +28,13 @@ class InvoicesController < ApplicationController
   # GET /invoices/new
   # GET /invoices/new.json
   def new
-    @invoice = Invoice.new
-
+    if params[:project_id]
+      @project = Project.find(params[:project_id])
+      @invoice = current_account.sent_invoices.new(project_id: @project.id)
+    else
+      @invoice = Invoice.new sender_id: current_account
+    end
+    @invoice.line_items.build
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @invoice }
@@ -44,11 +49,11 @@ class InvoicesController < ApplicationController
   # POST /invoices
   # POST /invoices.json
   def create
-    @invoice = Invoice.new(invoice_params)
+    @invoice = current_account.sent_invoices.new(invoice_params)
 
     respond_to do |format|
       if @invoice.save
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
+        format.html { redirect_to invoice_path(@invoice.guid), notice: 'Invoice was successfully created.' }
         format.json { render json: @invoice, status: :created, location: @invoice }
       else
         format.html { render action: "new" }
@@ -64,7 +69,7 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.update_attributes(invoice_params)
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully updated.' }
+        format.html { redirect_to invoice_path(@invoice.guid), notice: 'Invoice was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -87,6 +92,7 @@ class InvoicesController < ApplicationController
 
   private
     def invoice_params
-      params.require(:invoice).permit(:description)
+      params.require(:invoice).permit(:description, :project_id, :amount,
+        line_items_attributes: [:id, :task_id, :note, :hours, :rate, :_destroy])
     end
 end

@@ -1,0 +1,13 @@
+%fieldset
+  %ul.inline.unstyled
+    %li
+      - if @invoice.project && !@invoice.project.tasks.empty?
+        = f.association :task, collection: @invoice.project.tasks
+      - else
+        = link_to "No tasks available", "javascript(void(0);", data: {toggle: "tooltip", title: "The project you've assigned to this invoice has no tasks. Create some to assign a task to a line item."}, rel: "tooltip"
+    %li= f.input :note, label: false
+    %li= f.input :hours, label: false, input_html: {class: "span1 hours"}
+    %li= f.input :rate, label: false, input_html: {class: "span1 rate"}
+    %li.total.pull-right
+  = f.hidden_field :_destroy
+  = link_to "remove", "#", class: "remove_fields pull-right"

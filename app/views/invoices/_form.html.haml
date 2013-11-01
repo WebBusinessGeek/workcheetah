@@ -1,11 +1,32 @@
-= simple_form_for(@invoice) do |f|
-  = f.error_notification
 
-  .form-inputs
-    = f.association :project
-    = f.input :description
+= f.error_notification
+%h1
+  Invoice #:
+  = @invoice.guid
+.row
+  .span5
+    = formatted_address(current_resume.addresses.first)
+  .span5
+    = f.association :project, collection: current_user.projects
+.row
+  .span8
+    %table.table.table-striped
+      %tr
+        %th Task
+        %th Note
+        %th Hours
+        %th Rate
+        %th Total
+    .line_items
+      = f.simple_fields_for :line_items do |line|
+        = render 'line_item_fields', f: line
+      = link_to_add_fields "Add Line Item", f, :line_items
+.row
+  .span2.offset6
     = f.input :amount
 
-  .form-actionsinvo
-    = f.button :submit
+.form-actions
+  .row
+    .span3= f.submit "Save Draft", class: "btn btn-large btn-success"
+    .span3= f.submit "Send Invoice", class: "btn btn-large btn-success"
 

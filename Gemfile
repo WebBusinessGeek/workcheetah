@@ -35,6 +35,7 @@ group :assets do
 end
 
 gem "figaro"
+gem 'cocoon'
 gem 'libv8', '~> 3.11.8.3'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
