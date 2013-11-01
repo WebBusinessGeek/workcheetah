@@ -8,6 +8,7 @@ CareerLoop::Application.routes.draw do
 
   resources :activities, only: [:index]
   resources :projects do
+    resources :timesheets
     resources :project_documents
     resources :comments
     resources :tasks do

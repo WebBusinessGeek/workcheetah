@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :owned_projects, class_name: "Project", foreign_key: "owner_id", dependent: :destroy
   has_many :projects_users, dependent: :destroy
   has_many :projects, through: :projects_users
+  has_many :timesheets
   has_many :tasks, through: :projects
   has_many :events, dependent: :destroy
   has_many :activities, dependent: :destroy

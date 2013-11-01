@@ -3,7 +3,7 @@
     %lead Project
     %h1= @project.title
   .span4.pull-right
-    = link_to "Log Time", "#", class: "btn btn-primary btn-success"
+    = link_to "Log Time", [:new,@project,:timesheet], class: "btn btn-primary btn-success"
 %hr/
 .row
   .span4
@@ -25,5 +25,6 @@
       = render partial: "comments/comment", collection: @comments, as: :comment
     = render 'comments/form'
 #taskform.modal.fade{tabindex:"-1", role: "dialog"}
+#timesheetform.modal.fade{tabindex:"-1", role: "dialog"}
 
 

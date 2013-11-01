@@ -2,6 +2,7 @@
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :project
+  has_many :timesheet_entries
 
   scope :due, ->(date) { where(due_date: date) }
   scope :to_do, -> { with_state :to_do }

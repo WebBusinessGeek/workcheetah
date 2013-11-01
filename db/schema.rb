@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131031135721) do
+ActiveRecord::Schema.define(:version => 20131101023301) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -615,6 +615,30 @@ ActiveRecord::Schema.define(:version => 20131031135721) do
 
   add_index "tasks", ["project_id"], :name => "index_tasks_on_project_id"
   add_index "tasks", ["state"], :name => "index_tasks_on_state"
+
+  create_table "timesheet_entries", :force => true do |t|
+    t.integer  "timesheet_id"
+    t.date     "date"
+    t.decimal  "hours",        :precision => 3, :scale => 1, :default => 0.0
+    t.string   "note"
+    t.integer  "task_id"
+    t.string   "status",                                     :default => "unpaid"
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
+  end
+
+  add_index "timesheet_entries", ["task_id"], :name => "index_timesheet_entries_on_task_id"
+  add_index "timesheet_entries", ["timesheet_id"], :name => "index_timesheet_entries_on_timesheet_id"
+
+  create_table "timesheets", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "timesheets", ["project_id"], :name => "index_timesheets_on_project_id"
+  add_index "timesheets", ["user_id"], :name => "index_timesheets_on_user_id"
 
   create_table "tweets", :force => true do |t|
     t.text     "body"

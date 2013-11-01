@@ -3,7 +3,7 @@ class Job < ActiveRecord::Base
 
   after_save :update_rating
 
-  default_scope where("active = true AND account_id IS NOT null")
+  default_scope { searchable }
 
   # Later more categories where added; category1_id == category_id so that we don't have to change this name everywhere in the code
   # both names are used in the code for backwards compatibility reasons
@@ -44,6 +44,10 @@ class Job < ActiveRecord::Base
   attr_accessor :email_for_claim
 
   scope :cat_search, ->(query) {where('category_id IN (?) OR category2_id IN (?) OR category3_id IN (?)', query, query, query)}
+  scope :active, -> { where(active: true) }
+  scope :has_account, -> {where("account_id IS NOT ?", nil)}
+  scope :searchable, -> {active.has_account}
+  scope :working, -> {where("id IN (SELECT job_id FROM projects)")}
 
   def self.text_search(query, location)
     if query.present?

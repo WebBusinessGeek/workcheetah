@@ -26,7 +26,6 @@
         .controls
           = f.input :current_employer, label: false
     = f.hidden_field :_destroy
-    .remove
-      = link_to "Remove Experience", '#', class: "remove_fields btn btn-mini btn-danger"
+    = link_to "Remove Experience", '#', class: "remove_fields btn btn-mini btn-danger"
     :javascript
       $('input.date').datepicker();
