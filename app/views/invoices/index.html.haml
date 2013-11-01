@@ -1,0 +1,21 @@
+.row
+  .span2
+    %ul.nav.nav-list
+      %li.nav-header Filters
+      %li= link_to "All", accounting_path
+      %li= link_to "Recieved", accounting_path(filter: "recieved")
+      %li= link_to "Sent", accounting_path(filter: "sent")
+  .span8
+    %h1.pull-left Listing invoices
+    =link_to "New Invoice", new_invoice_path, class: "btn btn-large btn-success pull-right"
+    %table.table.table-bordered
+      %tr
+        %th{style: "width:20px"} #
+        %th Project
+        %th To
+        %th From
+        %th Status
+        %th Amount
+        %th Actions
+      - @invoices.each do |invoice|
+        = render 'invoice_table_entry', invoice: invoice

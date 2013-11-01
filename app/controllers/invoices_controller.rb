@@ -1,8 +1,12 @@
 class InvoicesController < ApplicationController
-  # GET /invoices
-  # GET /invoices.json
+  before_filter :user_signed_in?
+
   def index
-    @invoices = Invoice.all
+    if params[:filter]
+      @invoices = current_user.account.send("#{params[:filter]}_invoices".to_sym)
+    else
+      @invoices = current_user.account.sent_invoices
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +17,7 @@ class InvoicesController < ApplicationController
   # GET /invoices/1
   # GET /invoices/1.json
   def show
-    @invoice = Invoice.find(params[:id])
+    @invoice = Invoice.find_by_guid(params[:guid])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -82,11 +86,7 @@ class InvoicesController < ApplicationController
   end
 
   private
-
-    # Use this method to whitelist the permissible parameters. Example:
-    # params.require(:person).permit(:name, :age)
-    # Also, you can specialize this method with per-user checking of permissible attributes.
     def invoice_params
-      params.require(:invoice).permit(:account_id, :amount, :description, :error, :guid, :state, :stripe_charge_id)
+      params.require(:invoice).permit(:description)
     end
 end

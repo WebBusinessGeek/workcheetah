@@ -1,18 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Account:</b>
-  <%= @invoice.account_id %>
-</p>
-
-<p>
   <b>Guid:</b>
   <%= @invoice.guid %>
-</p>
-
-<p>
-  <b>Stripe charge:</b>
-  <%= @invoice.stripe_charge_id %>
 </p>
 
 <p>
@@ -20,10 +10,6 @@
   <%= @invoice.description %>
 </p>
 
-<p>
-  <b>Error:</b>
-  <%= @invoice.error %>
-</p>
 
 <p>
   <b>Amount:</b>
@@ -37,4 +23,4 @@
 
 
 <%= link_to 'Edit', edit_invoice_path(@invoice) %> |
-<%= link_to 'Back', invoices_path %>
+<%= link_to 'Back', accounting_path %>

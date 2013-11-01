@@ -54,7 +54,19 @@ class Invoice < ActiveRecord::Base
   end
 
   def client_name
-    recipient.name
+    if recipient
+      recipient.name
+    else
+      "None"
+    end
+  end
+
+  def project_name
+    if project
+      project.title
+    else
+      "None"
+    end
   end
 
   def line_total
@@ -62,12 +74,12 @@ class Invoice < ActiveRecord::Base
   end
 
   def invoice_total
-    Money.new((amount_cents * (1 + PAYMENT_FEE + APPLICATION_FEE)) + 30)
+    Money.new((amount * (1 + PAYMENT_FEE + APPLICATION_FEE)) + Money.new(30))
   end
 
   private
     def generate_guid
-      self.guid = SecureRandom.uuid()
+      self.guid = SecureRandom.urlsafe_base64(8)
     end
 
     def update_total
