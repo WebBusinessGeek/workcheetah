@@ -93,6 +93,6 @@ class InvoicesController < ApplicationController
   private
     def invoice_params
       params.require(:invoice).permit(:description, :project_id, :amount,
-        line_items_attributes: [:id, :task_id, :note, :hours, :rate, :_destroy])
+        line_items_attributes: [:id, :task_id, :note, :hours, :rate, :total, :_destroy])
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131101023301) do
+ActiveRecord::Schema.define(:version => 20131101203700) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -416,12 +416,14 @@ ActiveRecord::Schema.define(:version => 20131101023301) do
   create_table "line_items", :force => true do |t|
     t.integer  "invoice_id"
     t.integer  "task_id"
-    t.integer  "rate_cents",    :default => 0,     :null => false
-    t.string   "rate_currency", :default => "USD", :null => false
+    t.integer  "rate_cents",     :default => 0,     :null => false
+    t.string   "rate_currency",  :default => "USD", :null => false
     t.integer  "hours"
     t.string   "note"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.integer  "total_cents",    :default => 0,     :null => false
+    t.string   "total_currency", :default => "USD", :null => false
   end
 
   create_table "notifications", :force => true do |t|

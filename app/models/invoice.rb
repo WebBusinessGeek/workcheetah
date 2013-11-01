@@ -12,7 +12,7 @@ class Invoice < ActiveRecord::Base
   monetize :amount_cents
 
   before_create :generate_guid
-  before_save :update_total
+  after_save :update_total
 
   state_machine initial: :draft do
     event :send_invoice do
@@ -58,7 +58,7 @@ class Invoice < ActiveRecord::Base
       recipient.name
     else
       "None"
-    end  
+    end
   end
 
   def project_name
@@ -83,6 +83,6 @@ class Invoice < ActiveRecord::Base
     end
 
     def update_total
-      self.amount = line_total
+      amount = line_total
     end
 end

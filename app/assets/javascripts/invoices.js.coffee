@@ -6,6 +6,11 @@ $ ->
     $('#invoice_project_id').change ->
       id = $(this).val()
       window.location.href = 'new?project_id='+id unless id is ''
+    bind_line_item_totals()
+  if $('.edit_invoice').length
+    bind_line_item_totals()
+
+bind_line_item_totals = ->
     $('form').on 'change', 'input.hours', ->
       hours = $(this).val()
       rate = $(this).closest('ul').find('input.rate').val()

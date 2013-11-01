@@ -9,5 +9,6 @@
     %li= f.input :hours, label: false, input_html: {class: "span1 hours"}
     %li= f.input :rate, label: false, input_html: {class: "span1 rate"}
     %li.total.pull-right
+      = f.input :total, label: false, input_html: {class: "span1 pull-right total"}
   = f.hidden_field :_destroy
   = link_to "remove", "#", class: "remove_fields pull-right"
