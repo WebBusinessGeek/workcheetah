@@ -12,7 +12,7 @@ class Invoice < ActiveRecord::Base
   monetize :amount_cents
 
   before_create :generate_guid
-  after_save :update_total
+  before_update :update_total
 
   state_machine initial: :draft do
     event :send_invoice do

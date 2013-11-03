@@ -9,22 +9,22 @@ $ ->
     bind_line_item_totals()
   if $('.edit_invoice').length
     bind_line_item_totals()
+    update_invoice_total()
 
 bind_line_item_totals = ->
     $('form').on 'change', 'input.hours', ->
       hours = $(this).val()
       rate = $(this).closest('ul').find('input.rate').val()
       total = get_total(hours, rate)
-      target = $(this).closest('ul').find('li:last-child')
-      target.html(total)
-      target.data('total', total)
+      target = $(this).closest('ul').find('input.total')
+      target.val(total)
+      update_invoice_total()
     $('form').on 'change', 'input.rate', ->
       rate = $(this).val()
       hours = $(this).closest('ul').find('input.hours').val()
       total = get_total(hours, rate)
-      target = $(this).closest('ul').find('li:last-child')
-      target.html(total)
-      target.data('total', total)
+      target = $(this).closest('ul').find('input.total')
+      target.val(total)
       update_invoice_total()
 
 get_total = (hours, rate) ->
@@ -32,6 +32,6 @@ get_total = (hours, rate) ->
 
 update_invoice_total = ->
   sum = 0
-  $('li.total').each ->
-    sum += Number $(this).data('total')
+  $('input.total').each ->
+    sum += Number $(this).val()
   $('#invoice_amount').val(sum.toFixed(2))

@@ -43,7 +43,7 @@ class InvoicesController < ApplicationController
 
   # GET /invoices/1/edit
   def edit
-    @invoice = Invoice.find(params[:id])
+    @invoice = Invoice.find_by_guid(params[:guid])
   end
 
   # POST /invoices

@@ -1,0 +1,37 @@
+.row
+  .span10
+    %h1
+      Invoice #:
+      = @invoice.guid
+    .row
+      .span5
+        = formatted_address(@invoice.sender.owner.resume.addresses.first)
+      .span5
+        = @invoice.project.present? ? @invoice.project.title : "No Project Assigned"
+    .row
+      .span8
+        %table.table.table-striped
+          %tr
+            %th Task
+            %th Note
+            %th Hours
+            %th Rate
+            %th Total
+          .line_items
+          - @invoice.line_items.each do|li|
+            %tr
+              %td= li.task.present? ? li.task.title : "None"
+              %td= li.note
+              %td= li.hours
+              %td= number_to_currency li.rate
+              %td= number_to_currency li.total
+
+    .row
+      .span2.offset6
+        .pull-right= @invoice.amount
+
+    .actions
+      .row
+        .span3= link_to "Edit", edit_invoice_path(@invoice.guid), class: "btn btn-large btn-success"
+        .span3= link_to "Pay Invoice","javascript:void(0));", class: "btn btn-large btn-success"
+

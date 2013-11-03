@@ -1,8 +1,9 @@
 CareerLoop::Application.routes.draw do
 
-  resources :invoices, only: [:create, :new, :edit, :update, :destroy]
+  resources :invoices, only: [:create, :new, :update, :destroy]
   get 'accounting' => 'invoices#index', as: :accounting
   get "invoices/:guid" => "invoices#show"
+  get "invoices/:guid/edit" => "invoices#edit", as: :edit_invoice
 
   resources :staffs, only: [:index, :show, :new, :create, :destroy]
   get 'contacts' => 'staffs#contacts', as: :contacts

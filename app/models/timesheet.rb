@@ -6,5 +6,7 @@ class Timesheet < ActiveRecord::Base
 
   accepts_nested_attributes_for :timesheet_entries, allow_destroy: true
 
-  scope :current
+  def total_hours
+    timesheet_entries.sum(&:hours)
+  end
 end
