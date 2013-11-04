@@ -3,7 +3,7 @@ class Invoice < ActiveRecord::Base
   APPLICATION_FEE = 0.03
   PAYMENT_FEE = 0.027
   belongs_to :sender, class_name: "Account"
-  belongs_to :recipient, class_name: "Account"
+  belongs_to :reciever, class_name: "Account"
   belongs_to :project
   has_many :line_items, dependent: :destroy
 

@@ -8,7 +8,7 @@
     = formatted_address(@invoice.sender.owner.resume.addresses.first)
   .span3
     - unless @available_recipients.empty?
-      = f.association :recipient, collection: @available_recipeints.collect(&:account)
+      = f.association :reciever, collection: @available_recipients, value_method: :account_id, label_method: :name
     - else
       = label_tag "Clients", nil, class: "pull-left"
       = link_to "?", "javascript:void(0);", rel: "tooltip", data: {toggle: "tooltip", title: "You currently have no clients in the system."}, class: "clearfix"
