@@ -2,8 +2,30 @@
   .span3
     %lead Project
     %h1= @project.title
+    %hr/
+    %p
+      %h4 Project Manager
+      %lead= @project.owner.name
+    %p
+      %h4 Project Participants
+      %lead
+        - if @project.participants(current_user).empty?
+          No other users involved in this project.
+          %br/
+          Invite a user to join
+          = text_field_tag :recipient_email
+        - else
+          = @project.participants.first.name
   .span4.pull-right
-    = link_to "Log Time", [:new,@project,:timesheet], class: "btn btn-primary btn-success"
+    .hero-unit
+      %h3 Unpaid
+      %h3 Total Hours
+      %p
+        = @project.total_unpaid_hours
+        = @project.total_hours
+      %p
+        = link_to "Log Time", [:new,@project,:timesheet], class: "btn btn-primary btn-success", remote: true
+        = link_to "Generate Invoice", [:new, @project, :invoice], class: "btn btn-primary btn-success"
 %hr/
 .row
   .span4
@@ -24,7 +46,7 @@
     %ul.unstyled#comments
       = render partial: "comments/comment", collection: @comments, as: :comment
     = render 'comments/form'
-#taskform.modal.fade{tabindex:"-1", role: "dialog"}
+#taskform.span10.modal.fade{tabindex:"-1", role: "dialog"}
 #timesheetform.modal.fade{tabindex:"-1", role: "dialog"}
 
 

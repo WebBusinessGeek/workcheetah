@@ -4,21 +4,21 @@
       = f.label "Date", class: "control-label"
       .controls
         = f.input :date, as: :string, label: false, input_html: {class: "date span1"}
-    .control-group.span2
+    .control-group.span1
       = f.label "Hours", class: "control-label"
       .controls
-        = f.input :hours, label: false, input_html: {class: "span2"}
-    .control-group.span4
-      = f.label "Assign a task (optional)", class: "control-label span3"
+        = f.input :hours, label: false, input_html: {class: "input-small"}
+    .control-group.span3
+      = f.label "Assign a task (optional)", class: "control-label input-large"
       .controls
         = f.association :task, collection: @project.tasks, label: false
   .controls-row
     .control-group.span6
       = f.label "Note", class: "control-label"
       .controls
-        = f.input :note, label: false, input_html: {class: "span6"}
-    .control-group.span1
-      .controls
-        = f.hidden_field :_destroy
-        = link_to '#', class: "remove_fields btn btn-mini btn-danger" do
-          %i.icon-remove
+        = f.input :note, label: false, input_html: {class: "input-xlarge"}
+    -# .control-group.span1
+    -#   .controls
+    -#     = f.hidden_field :_destroy
+    -#     = link_to '#', class: "remove_fields btn btn-mini btn-danger" do
+    -#       %i.icon-remove

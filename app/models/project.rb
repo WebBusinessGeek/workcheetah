@@ -10,12 +10,23 @@ class Project < ActiveRecord::Base
   has_many :invoices
   has_many :timesheets
   has_many :timesheet_entries, through: :timesheets
-  has_many :unpaid_time_entries, through: :timesheets, source: :timesheet_entries, conditions: {status: "unpaid"}
 
   scope :private_to_user, where(job_id: nil)
   scope :working, where("job_id != ?",nil)
   def private?
     !job_id
+  end
+
+  def total_unpaid_hours
+    timesheets.includes(:timesheet_entries).where(status: "unpaid").sum(&:total_hours)
+  end
+
+  def total_hours
+    timesheets.includes(:timesheet_entries).sum(&:total_hours)
+  end
+
+  def participants(current_user)
+    @participants = users - [current_user]
   end
 
   def working?

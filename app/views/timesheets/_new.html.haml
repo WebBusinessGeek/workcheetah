@@ -1,0 +1,6 @@
+%legend Add a New Time Entry
+= simple_form_for [@project, @timesheet] do |f|
+  = f.fields_for :timesheet_entries do |ff|
+    = render 'timesheet_entry_fields', f: ff
+  .form-actions
+    .span2.offset2= f.submit "Save", class: "btn btn-large"
