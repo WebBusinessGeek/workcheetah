@@ -53,6 +53,10 @@ class Invoice < ActiveRecord::Base
     end
   end
 
+  def to_param
+    guid
+  end
+
   def client_name
     if recipient
       recipient.name

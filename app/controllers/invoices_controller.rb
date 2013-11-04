@@ -1,5 +1,6 @@
 class InvoicesController < ApplicationController
   before_filter :user_signed_in?
+  before_filter :load_project, only: [:new, :edit]
 
   def index
     if params[:filter]
@@ -28,11 +29,12 @@ class InvoicesController < ApplicationController
   # GET /invoices/new
   # GET /invoices/new.json
   def new
-    if params[:project_id]
-      @project = Project.find(params[:project_id])
+    if @project
       @invoice = current_account.sent_invoices.new(project_id: @project.id)
+      @available_recipients = @project.users - [current_user]
     else
-      @invoice = Invoice.new sender_id: current_account
+      @invoice = Invoice.new sender_id: current_account.id
+      @available_recipients = current_user.clients
     end
     @invoice.line_items.build
     respond_to do |format|
@@ -41,19 +43,18 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # GET /invoices/1/edit
   def edit
     @invoice = Invoice.find_by_guid(params[:guid])
+    @project ||= @invoice.project
+    @available_recipients = @project.users - [current_user]
   end
 
-  # POST /invoices
-  # POST /invoices.json
   def create
     @invoice = current_account.sent_invoices.new(invoice_params)
 
     respond_to do |format|
       if @invoice.save
-        format.html { redirect_to invoice_path(@invoice.guid), notice: 'Invoice was successfully created.' }
+        format.html { redirect_to invoice_path(@invoice), notice: 'Invoice was successfully created.' }
         format.json { render json: @invoice, status: :created, location: @invoice }
       else
         format.html { render action: "new" }
@@ -69,7 +70,7 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.update_attributes(invoice_params)
-        format.html { redirect_to invoice_path(@invoice.guid), notice: 'Invoice was successfully updated.' }
+        format.html { redirect_to invoice_path(@invoice), notice: 'Invoice was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -91,6 +92,12 @@ class InvoicesController < ApplicationController
   end
 
   private
+    def load_project
+      if params[:project_id]
+        @project = Project.find(params[:project_id])
+      end
+    end
+
     def invoice_params
       params.require(:invoice).permit(:description, :project_id, :amount,
         line_items_attributes: [:id, :task_id, :note, :hours, :rate, :total, :_destroy])

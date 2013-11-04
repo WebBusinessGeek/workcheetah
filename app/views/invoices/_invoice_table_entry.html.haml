@@ -1,5 +1,5 @@
 %tr
-  %td= link_to invoice.guid, invoice_path(invoice.guid)
+  %td= link_to invoice.guid, invoice_path(invoice)
   %td= invoice.project_name
   %td
     %p= invoice.client_name
@@ -14,10 +14,10 @@
   %td
     %ul.unstyled.inline
       %li
-        = link_to invoice_path(invoice.guid), rel: "tooltip", data: {toggle: "tooltip", title: "Review"} do
+        = link_to invoice_path(invoice), rel: "tooltip", data: {toggle: "tooltip", title: "Review"} do
           %i.icon-eye-open
       %li
-        = link_to edit_invoice_path(invoice.guid),rel: "tooltip", data: {toggle: "tooltip", title: "Edit"} do
+        = link_to edit_invoice_path(invoice),rel: "tooltip", data: {toggle: "tooltip", title: "Edit"} do
           %i.icon-pencil
       %li
         = link_to invoice_path(invoice), rel: "tooltip", method: :delete, data: { confirm: 'Are you sure?' } do

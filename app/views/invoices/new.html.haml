@@ -2,3 +2,7 @@
   .span10
     = simple_form_for(@invoice) do |f|
       = render 'form', f: f
+      .form-actions
+        .row
+          .span3= f.submit "Save Draft", class: "btn btn-large btn-success"
+          .span3= f.submit "Send Invoice", class: "btn btn-large btn-success"

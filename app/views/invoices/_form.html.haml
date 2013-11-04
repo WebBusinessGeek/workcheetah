@@ -4,9 +4,16 @@
   Invoice #:
   = @invoice.guid
 .row
-  .span5
-    = formatted_address(current_resume.addresses.first)
-  .span5
+  .span3
+    = formatted_address(@invoice.sender.owner.resume.addresses.first)
+  .span3
+    - unless @available_recipients.empty?
+      = f.association :recipient, collection: @available_recipeints.collect(&:account)
+    - else
+      = label_tag "Clients", nil, class: "pull-left"
+      = link_to "?", "javascript:void(0);", rel: "tooltip", data: {toggle: "tooltip", title: "You currently have no clients in the system."}, class: "clearfix"
+      = text_field_tag :new_recipient_email
+  .span3
     = f.association :project, collection: current_user.projects
 .row
   .span8
@@ -24,9 +31,3 @@
 .row
   .span2.offset6
     = f.input :amount, input_html: {class: "pull-right"}
-
-.form-actions
-  .row
-    .span3= f.submit "Save Draft", class: "btn btn-large btn-success"
-    .span3= f.submit "Send Invoice", class: "btn btn-large btn-success"
-
