@@ -15,10 +15,10 @@ CareerLoop::Application.routes.draw do
     resources :project_documents
     resources :comments
     resources :tasks do
-      member do
-        post :complete
-      end
+      member { post :complete}
+      collection { post :sort }
     end
+    collection { post :sort }
   end
 
   resources :events do

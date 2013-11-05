@@ -15,6 +15,7 @@ gem 'virtus'
 gem 'ransack'
 gem 'money-rails'
 gem 'state_machine'
+gem 'acts_as_list'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

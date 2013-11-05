@@ -3,8 +3,8 @@ class Project < ActiveRecord::Base
   belongs_to :job
   belongs_to :owner, class_name: "User"
   has_many :projects_users, dependent: :destroy
-  has_many :users, through: :projects_users
-  has_many :tasks, dependent: :destroy
+  has_many :users, through: :projects_users, uniq: true
+  has_many :tasks, order: "position ASC", dependent: :destroy
   has_many :project_documents, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :invoices

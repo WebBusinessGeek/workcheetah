@@ -44,7 +44,7 @@
       %li= link_to "Messages", conversations_path
       %li
         = link_to "javascript: return false;", title: "Notifications", id: "notifications" do
-          %i.icon-globe
+          .span.badge= current_user.notifications.size
 
 :javascript
   $('#notifications').popover({content: "#{j render current_user.notifications.order('created_at DESC')}", placement: "bottom", html: true});

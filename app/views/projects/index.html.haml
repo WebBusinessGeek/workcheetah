@@ -3,7 +3,8 @@
   .span2
     = link_to "Add a project", new_project_path, class: "btn btn-primary btn-success"
 .row
-  %ul#projects.unstyled
-    - @projects.each do |project|
-      = content_tag :li, id: dom_id(project) do
-        = render project
+  .span12
+    %ul#projects.unstyled{"data-update-url" => sort_projects_url}
+      - @projects.each do |project|
+        = content_tag_for :li, project, class: "ui-state-default", style: "width:250px;padding:3px;text-align:center;min-height:300px;float:left;margin:3px 3px 3px 3px 0" do
+          = render project.project

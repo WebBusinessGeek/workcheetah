@@ -1,7 +1,9 @@
 class ProjectsController < ApplicationController
   before_filter :load_project, only: [:show, :edit, :update, :destroy]
   def index
-    @projects = current_user.projects.includes(:tasks)
+    # @projects = current_user.projects.includes(:tasks)
+    # ensure proper ordering by position on join table
+    @projects = current_user.projects_users.includes(project: [:tasks])
   end
 
   def new
@@ -37,6 +39,14 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     redirect_to projects_path, notice: "Project successfully deleted."
+  end
+
+  def sort
+    params[:projects_user].each_with_index do |id, index|
+        pu = current_user.projects_users.find id
+        pu.update_attribute :position, index if pu
+    end
+    render nothing: true
   end
 
   private

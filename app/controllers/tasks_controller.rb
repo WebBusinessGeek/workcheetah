@@ -39,6 +39,9 @@ class TasksController < ApplicationController
     @task.update_attributes state: "to_do" if params["checked"] == "false"
   end
 
+  def sort
+  end
+
   private
     def load_task
       @task = Task.find(params[:id])

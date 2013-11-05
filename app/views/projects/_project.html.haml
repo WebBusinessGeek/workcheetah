@@ -1,8 +1,7 @@
-.span4
-  %h4= link_to project.title, project_path(project)
-  %p
-    = content_tag :ul, id: "tasks_project_#{project.id}" do
-      - project.tasks.each do |task|
-        = content_tag :li, id: dom_id(task) do
-          = render task
-  = render 'tasks/form', project: project
+%h4= link_to project.title, project_path(project)
+%p
+  = content_tag :ul, id: "tasks_project_#{project.id}" do
+    - project.tasks.each do |task|
+      = content_tag_for :li, task do
+        = render task
+= render 'tasks/form', project: project
