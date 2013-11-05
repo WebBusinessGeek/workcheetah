@@ -7,3 +7,8 @@ jQuery ->
       $.post($(this).data('update-url'), $(this).sortable('serialize'))
 
   $('#projects').disableSelection()
+
+  $('ul.task_list').sortable
+    update: ->
+      $.post($(this).data('update-url'), $(this).sortable('serialize'))
+  $('ul.task_list').disableSelection()

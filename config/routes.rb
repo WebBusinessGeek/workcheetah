@@ -16,10 +16,11 @@ CareerLoop::Application.routes.draw do
     resources :comments
     resources :tasks do
       member { post :complete}
-      collection { post :sort }
     end
     collection { post :sort }
   end
+
+  post 'tasks/sort' => "tasks#sort", as: :sort_tasks
 
   resources :events do
     collection do

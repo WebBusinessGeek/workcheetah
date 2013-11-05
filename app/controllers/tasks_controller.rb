@@ -40,6 +40,11 @@ class TasksController < ApplicationController
   end
 
   def sort
+    params[:task].each_with_index do |id, index|
+        task = Task.find id
+        task.update_attribute :position, index if task
+    end
+    render nothing: true
   end
 
   private

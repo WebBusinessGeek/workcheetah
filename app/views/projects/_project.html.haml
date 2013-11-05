@@ -1,7 +1,7 @@
 %h4= link_to project.title, project_path(project)
 %p
-  = content_tag :ul, id: "tasks_project_#{project.id}" do
+  %ul.task_list{id: "tasks_project_#{project.id}", "data-update-url" => sort_tasks_url }
     - project.tasks.each do |task|
-      = content_tag_for :li, task do
+      = content_tag_for :li, task, class: "ui-state-default" do
         = render task
 = render 'tasks/form', project: project
