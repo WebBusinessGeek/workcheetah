@@ -37,11 +37,13 @@ class ResumeConfirmationCreator
         c.confirm_for = confirm_for
       end
     end
+
     def generate_confirmation_token
       begin
         self.confirmation_token = SecureRandom.urlsafe_base64(4)
       end while self.class.exists?(confirmation_token: confirmation_token)
     end
+
     def persist!
       @confirmation.save!
     end

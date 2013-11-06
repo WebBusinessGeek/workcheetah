@@ -25,7 +25,6 @@ gem 'acts_as_list'
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
   gem 'bootstrap-sass'
   gem 'font-awesome-sass-rails'
 
@@ -35,6 +34,7 @@ group :assets do
   gem 'chosen-rails'
 end
 
+gem 'coffee-rails', '~> 3.2.1'
 gem "figaro"
 gem 'libv8', '~> 3.11.8.3'
 gem 'jquery-rails'
@@ -42,6 +42,7 @@ gem 'jquery-ui-rails'
 gem 'tinymce-rails', '~> 3.5.8.3'
 gem 'haml', '~> 3.2.0.beta.1'
 gem 'devise'
+gem 'devise_invitable'
 gem 'rspec-rails'
 gem "simple_form"
 gem "strong_parameters", '>= 0.2.0'

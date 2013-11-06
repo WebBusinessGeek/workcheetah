@@ -34,11 +34,12 @@ class User < ActiveRecord::Base
                                    class_name:  "Staff",
                                    dependent:   :destroy
   has_many :clients, through: :reverse_staffings, source: :client
+  has_many :todos, order: :date, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :token_authenticatable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   validates :terms_of_service, acceptance: true

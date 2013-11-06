@@ -41,6 +41,7 @@ class Estimate < ActiveRecord::Base
   scope :sent, with_state("reviewing")
   scope :drafted, with_state("drafting")
   scope :rejected, with_state("rejected")
+
   def hire!(paytype)
     if paytype == "salary"
       create_applicant_access account: job.account, job: job, hourly: false
@@ -58,6 +59,7 @@ class Estimate < ActiveRecord::Base
     @project.users << @project.owner
     @project.users << sent_by.user
   end
+
   def proposed_total
     if total or total <= 0
       Money.new(estimate_items.sum(&:line_total))

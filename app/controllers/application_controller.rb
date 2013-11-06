@@ -64,6 +64,18 @@ class ApplicationController < ActionController::Base
     @location
   end
 
+  before_filter :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+
+  def configure_permitted_parameters
+    # Override accepted parameters
+    devise_parameter_sanitizer.for(:accept_invitation) do |u|
+      u.permit(:password, :password_confirmation,
+               :invitation_token)
+    end
+  end
+
   private
 
   def render_error(status, exception)
