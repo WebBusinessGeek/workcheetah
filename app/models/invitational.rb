@@ -19,7 +19,12 @@ class Invitational
 
   def save
     return false unless valid?
-    delegates_attributes_to_user
+
+    unless User.exists? email: email
+      delegates_attributes_to_user
+    else
+      send_invitational_email
+    end
     delegates_errors_to_user unless @user.valid?
 
     if !errors.any?
@@ -28,6 +33,10 @@ class Invitational
     else
       false
     end
+  end
+
+  def persisted?
+    false
   end
 
   private
@@ -53,6 +62,7 @@ class Invitational
         @invoice = Invoice.find(type_id)
         @user.create_account! business_type: "business", name: name
         @user.save!
+        @invoice.update_attributes(reciever_id: @user.account_id)
         # send future Invoice invitational mailer
       when "Staff"
         @staffer = User.find(type_id)

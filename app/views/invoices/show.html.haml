@@ -4,9 +4,14 @@
       Invoice #:
       = @invoice.guid
     .row
-      .span5
-        = formatted_address(@invoice.sender.owner.resume.addresses.first)
-      .span5
+      .span3
+        = formatted_address(@invoice.sender)
+      .span3
+        - if @invoice.reciever.present?
+          = formatted_address(@invoice.reciever)
+        - else
+          None
+      .span3
         = @invoice.project.present? ? @invoice.project.title : "No Project Assigned"
     .row
       .span8

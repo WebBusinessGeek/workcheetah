@@ -1,0 +1,7 @@
+No other users involved in this project.
+%br/
+Invite a user to join
+= simple_form_for @invitational, url: invite_project_path, remote: true do |f|
+  = f.input :name, label: false, required: false, placeholder: "John Doe"
+  = f.input :email, label: false, required: false, placeholder: "example@example.com"
+  = f.submit "Invite"

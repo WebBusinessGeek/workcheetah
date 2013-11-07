@@ -10,12 +10,9 @@
       %h4 Project Participants
       %lead
         - if @project.participants(current_user).empty?
-          No other users involved in this project.
-          %br/
-          Invite a user to join
-          = text_field_tag :recipient_email
+          #invite= render 'projects/invitational'
         - else
-          = @project.participants.first.name
+          = @project.participants(current_user).first.name
   .span4.pull-right
     .hero-unit
       %h3 Unpaid

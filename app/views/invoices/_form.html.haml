@@ -12,7 +12,10 @@
     - else
       = label_tag "Clients", nil, class: "pull-left"
       = link_to "?", "javascript:void(0);", rel: "tooltip", data: {toggle: "tooltip", title: "You currently have no clients in the system."}, class: "clearfix"
-      = text_field_tag :new_recipient_email
+      = label_tag "Name"
+      = email_field_tag :recipient_name
+      = label_tag "Email"
+      = text_field_tag :recipient_email
   .span3
     = f.association :project, collection: current_user.projects
 .row

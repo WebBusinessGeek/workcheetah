@@ -70,6 +70,14 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.update_attributes(invoice_params)
+            unless params[:recipient_name].blank? && params[:recipient_email].blank?
+              @invitational = Invitational.new(
+                email: params[:recipient_email],
+                name: params[:recipient_name],
+                type: "Invoice",
+                type_id: @invoice.id
+              ).save
+            end
         format.html { redirect_to invoice_path(@invoice), notice: 'Invoice was successfully updated.' }
         format.json { head :no_content }
       else
@@ -89,6 +97,11 @@ class InvoicesController < ApplicationController
       format.html { redirect_to invoices_url }
       format.json { head :no_content }
     end
+  end
+
+  def invite
+    @invitational = Invitational.new(
+      )
   end
 
   private

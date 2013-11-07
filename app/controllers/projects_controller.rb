@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_filter :load_project, only: [:show, :edit, :update, :destroy]
+  before_filter :load_project, only: [:show, :edit, :update, :destroy, :invite]
   def index
     # @projects = current_user.projects.includes(:tasks)
     # ensure proper ordering by position on join table
@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @invitational = Invitational.new
     @commentable = @project
     @comments = @commentable.comments
     @comment = Comment.new
@@ -47,6 +48,21 @@ class ProjectsController < ApplicationController
         pu.update_attribute :position, index if pu
     end
     render nothing: true
+  end
+
+  def invite
+    @invitational = Invitational.new(
+      email: params[:invitational][:email],
+      name: params[:invitational][:name],
+      type: "Project",
+      type_id: params[:id]
+    )
+    if @invitational.save
+      redirect_to project_path(@project), notice: "Invited User successfully"
+    else
+      logger.debug @invitational.inspect
+      render 'projects/invite'
+    end
   end
 
   private
