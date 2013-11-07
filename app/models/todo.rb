@@ -1,3 +1,3 @@
 class Todo < ActiveRecord::Base
-  attr_accessible :date, :title, :user_id
+ include ActiveModel::ForbiddenAttributesProtection
 end

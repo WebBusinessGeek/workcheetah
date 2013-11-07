@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131106190323) do
+ActiveRecord::Schema.define(:version => 20131107134728) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -650,8 +650,10 @@ ActiveRecord::Schema.define(:version => 20131106190323) do
     t.string   "title"
     t.integer  "user_id"
     t.date     "date"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.integer  "position"
+    t.boolean  "done",       :default => false
   end
 
   add_index "todos", ["user_id"], :name => "index_todos_on_user_id"

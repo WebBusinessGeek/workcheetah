@@ -1,0 +1,4 @@
+= simple_form_for Todo.new, remote: true, html: {class: "form-inline"} do |f|
+  = f.input :title, label: false
+  = f.input :date, as: :hidden, input_html: { value: Date.today }
+  = f.submit "Add a Todo"

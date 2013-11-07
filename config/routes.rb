@@ -1,6 +1,9 @@
 CareerLoop::Application.routes.draw do
 
-  resources :todos
+  resources :todos, only: [:new, :create, :destroy] do
+    collection { post :sort }
+    member { post :complete }
+  end
 
   resources :invoices, only: [:create, :new, :update, :destroy]
   get 'staffing' => 'staffs#index', as: :staffing

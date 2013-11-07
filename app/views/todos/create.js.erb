@@ -1,0 +1,4 @@
+$('#todo_list').append('<%= j render(partial: "todos/todo", locals: {todo: @todo}) %>')
+$('#new_todo').each(function() {
+    this.reset();
+});

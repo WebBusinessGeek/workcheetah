@@ -8,10 +8,12 @@
       .span4
         = render "activities"
       .span4
-        - if @project
-          = render @project
-        - else
-          No default project
+        %h4
+          Todos for: 
+          = Date.today
+        %ul#todo_list.unstyled{"data-update-url" => sort_todos_url }
+          = render @todos
+        = render 'todos/form'
     .row
       #adcarousel.span8.hero-unit
         %h2 Our Partners want you to know…

@@ -8,16 +8,8 @@ class DashboardsController < ApplicationController
   def home
     @visitors_ip = Rails.env.development? ? "71.197.119.115" : request.remote_ip
 
-    #TODO: Cleanup this code, extract to service object
-    # @current_location = Geocoder.search(@visitors_ip).first
-    # if @current_location
-    #   @current_location_clean = [@current_location.city, @current_location.state].map{ |x| x if x.present? }.join(", ")
-    # else
-    #   @current_location_clean = ""
-    # end
-
     if user_signed_in?
-      @project = current_user.default_project
+      @todos = current_user.todos.where(date: Date.today)
 
       @sidebar_ads = Advertisement.by_target(current_user.target_params)
       Advertisement.batch_stat_incrementor "impression", @sidebar_ads.pluck(:id)

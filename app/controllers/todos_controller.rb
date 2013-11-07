@@ -1,92 +1,34 @@
 class TodosController < ApplicationController
-  # GET /todos
-  # GET /todos.json
-  def index
-    @todos = Todo.all
+  respond_to :html, :js
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @todos }
-    end
-  end
-
-  # GET /todos/1
-  # GET /todos/1.json
-  def show
-    @todo = Todo.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @todo }
-    end
-  end
-
-  # GET /todos/new
-  # GET /todos/new.json
   def new
     @todo = Todo.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @todo }
-    end
   end
 
-  # GET /todos/1/edit
-  def edit
-    @todo = Todo.find(params[:id])
-  end
-
-  # POST /todos
-  # POST /todos.json
   def create
-    @todo = Todo.new(todo_params)
+    @todo = current_user.todos.build(todo_params)
 
-    respond_to do |format|
-      if @todo.save
-        format.html { redirect_to @todo, notice: 'Todo was successfully created.' }
-        format.json { render json: @todo, status: :created, location: @todo }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @todo.errors, status: :unprocessable_entity }
-      end
+    if @todo.save
+      respond_with @todo
     end
   end
 
-  # PATCH/PUT /todos/1
-  # PATCH/PUT /todos/1.json
-  def update
-    @todo = Todo.find(params[:id])
-
-    respond_to do |format|
-      if @todo.update_attributes(todo_params)
-        format.html { redirect_to @todo, notice: 'Todo was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @todo.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /todos/1
-  # DELETE /todos/1.json
   def destroy
     @todo = Todo.find(params[:id])
     @todo.destroy
+  end
 
-    respond_to do |format|
-      format.html { redirect_to todos_url }
-      format.json { head :no_content }
-    end
+  def sort
+  end
+
+  def complete
+    @todo = Todo.find(params[:id])
+    @todo.update_attributes done: true if params["checked"] == "true"
+    @todo.update_attributes done: false if params["checked"] == "false"
   end
 
   private
-
-    # Use this method to whitelist the permissible parameters. Example:
-    # params.require(:person).permit(:name, :age)
-    # Also, you can specialize this method with per-user checking of permissible attributes.
     def todo_params
-      params.require(:todo).permit(:date, :title, :user_id)
+      params.require(:todo).permit(:date, :title, :done)
     end
 end
