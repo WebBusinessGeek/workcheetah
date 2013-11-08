@@ -72,6 +72,7 @@ class User < ActiveRecord::Base
     else
       @name = resume.name if resume.present?
     end
+    @name = "Not Provided" if @name.nil?
     @name
   end
 

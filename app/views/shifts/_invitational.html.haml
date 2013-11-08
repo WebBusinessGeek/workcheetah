@@ -1,5 +1,5 @@
 Invite a new employee to the application.
-= simple_form_for invitational, url: invite_shifts_url, remote: true do |f|
+= simple_form_for invitational, url: invite_shifts_url, remote: true, html: {class: "form-inline"} do |f|
   = f.input :name, label: false, required: false, placeholder: "John Doe"
   = f.input :email, label: false, required: false, placeholder: "example@example.com"
   = f.submit "Invite"

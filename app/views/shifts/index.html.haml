@@ -1,39 +1,41 @@
 .row
   .span2
+    = link_to "New Schedule", "javascript:void(0);", class: "btn btn-large btn-success"
     %ul.nav.nav-list
       %li.nav-header Staff
     -@staffers.each do |staff|
       %li= link_to "#{staff.email}", "#"
   .span8
-    .span3
-      = link_to "New Schedule"
-    .span3
-    .span3
-      #invite= render 'shifts/invitational', invitational: @invitational
-    .row
-      .span8
-        %h1 listing Shifts
+    #index
+      .row
+        .span8
+          #invite= render 'shifts/invitational', invitational: @invitational
+      .row
+        .span8
+          #shift_calender
 
-        %table.table
-          %tr
-            %th Employee
-            %th Schedule date
-            %th start hour
-            %th end hour
-            %th creator
-            %th shift hours
-            %th
-            %th
-            %th
-            - @shifts.each do |shift|
-              %tr
-                %td= shift.employee_id
-                %td= shift.schedule_date
-                %td= shift.start_hour.hour
-                %td= shift.end_hour.hour
-                %td= shift.creator_id
-                %td= shift.shift_hours
-                %td= link_to 'Show', shift
-                %td= link_to 'Edit', edit_shift_path(shift)
-                %td= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' }
+          %h1 listing Shifts
+
+          %table.table
+            %tr
+              %th Employee
+              %th Schedule date
+              %th start hour
+              %th end hour
+              %th creator
+              %th shift hours
+              %th
+              %th
+              %th
+              - @shifts.each do |shift|
+                %tr
+                  %td= shift.user.name
+                  %td= shift.schedule_date
+                  %td= shift.start_hour.strftime "%l:%M %P"
+                  %td= shift.end_hour.strftime "%l:%M %P"
+                  %td= shift.account.name
+                  %td= shift.shift_hours
+                  %td= link_to 'Show', shift
+                  %td= link_to 'Edit', edit_shift_path(shift)
+                  %td= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' }
 

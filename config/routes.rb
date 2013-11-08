@@ -1,7 +1,10 @@
 CareerLoop::Application.routes.draw do
 
   resources :shifts do
-    collection { post :invite }
+    collection do
+     post :invite
+     get :calender
+   end
   end
 
   resources :todos, only: [:new, :create, :destroy] do

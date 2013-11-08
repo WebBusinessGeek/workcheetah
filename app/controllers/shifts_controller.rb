@@ -61,6 +61,15 @@ class ShiftsController < ApplicationController
     render 'shifts/invite'
   end
 
+  def calender
+    @shifts = current_user.account.created_shifts.collect(&:to_calender_json)
+    logger.debug @shifts.inspect
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @shifts }
+    end
+  end
+
   private
 
     # Use this method to whitelist the permissible parameters. Example:
