@@ -45,8 +45,11 @@ class InvoicesController < ApplicationController
 
   def edit
     @invoice = Invoice.find_by_guid(params[:guid])
-    @project ||= @invoice.project
-    @available_recipients = @project.users - [current_user]
+    if @invoice.project
+      @available_recipients = @invoice.project.users - [current_user]
+    else
+      @available_recipients = current_user.clients
+    end
   end
 
   def create
@@ -57,6 +60,12 @@ class InvoicesController < ApplicationController
         format.html { redirect_to invoice_path(@invoice), notice: 'Invoice was successfully created.' }
         format.json { render json: @invoice, status: :created, location: @invoice }
       else
+        if @invoice.project
+          @available_recipients = @invoice.project.users - [current_user]
+        else
+          @available_recipients = current_user.clients
+        end
+        logger.debug @invoice.errors.inspect
         format.html { render action: "new" }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
       end
@@ -112,7 +121,7 @@ class InvoicesController < ApplicationController
     end
 
     def invoice_params
-      params.require(:invoice).permit(:description, :project_id, :amount,
+      params.require(:invoice).permit(:description, :project_id, :amount, :reciever_id,
         line_items_attributes: [:id, :task_id, :note, :hours, :rate, :total, :_destroy])
     end
 end

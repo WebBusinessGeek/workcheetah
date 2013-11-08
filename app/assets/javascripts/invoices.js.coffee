@@ -8,6 +8,10 @@ $ ->
       window.location.href = 'new?project_id='+id unless id is ''
     bind_line_item_totals()
   if $('.edit_invoice').length
+    $('#invoice_project_id').change ->
+      id = $('.edit_invoice').data('id')
+      project_id = $(this).val()
+      window.location.href = '?project_id=' + project_id unless project_id is ''
     bind_line_item_totals()
     update_invoice_total()
 

@@ -9,7 +9,6 @@ class LineItem < ActiveRecord::Base
 
   before_save :update_total
 
-  validates :invoice_id, presence: true
   validates :rate, presence: true
   validates :hours, presence: true
   validates :task_id, uniqueness: {scope: [:invoice_id], message: "already belongs to invoice"}, allow_nil: true
