@@ -1,0 +1,16 @@
+<%= simple_form_for(@shift) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :employee_id %>
+    <%= f.input :schedule_date %>
+    <%= f.input :start_hour %>
+    <%= f.input :end_hour %>
+    <%= f.input :creator_id %>
+    <%= f.input :shift_hours %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

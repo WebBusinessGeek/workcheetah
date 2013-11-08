@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
                                    dependent:   :destroy
   has_many :clients, through: :reverse_staffings, source: :client
   has_many :todos, order: :date, dependent: :destroy
+  has_many :scheduled_shifts, class_name: "Shift", foreign_key: "employee_id", dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :token_authenticatable,
@@ -125,6 +126,11 @@ class User < ActiveRecord::Base
 
   def remove_staffer!(user)
     staffings.find_by_staffer_id(user.id).destroy
+  end
+
+  def remove_client!(user)
+    @staff = reverse_staffings.find_by_client_id(user.id)
+    @staff.destroy
   end
 
   private

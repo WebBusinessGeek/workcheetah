@@ -1,5 +1,7 @@
 CareerLoop::Application.routes.draw do
 
+  resources :shifts
+
   resources :todos, only: [:new, :create, :destroy] do
     collection { post :sort }
     member { post :complete }
@@ -8,7 +10,7 @@ CareerLoop::Application.routes.draw do
   resources :invoices, only: [:create, :new, :update, :destroy] do
     member { post :invite }
   end
-  get 'staffing' => 'staffs#index', as: :staffing
+  get 'staffing' => 'shifts#index', as: :staffing
   get 'accounting' => 'invoices#index', as: :accounting
   get "invoices/:guid" => "invoices#show"
   get "invoices/:guid/edit" => "invoices#edit", as: :edit_invoice

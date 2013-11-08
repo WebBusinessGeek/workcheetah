@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131107134728) do
+ActiveRecord::Schema.define(:version => 20131108125956) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -588,6 +588,21 @@ ActiveRecord::Schema.define(:version => 20131107134728) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "shifts", :force => true do |t|
+    t.integer  "employee_id"
+    t.date     "schedule_date"
+    t.datetime "start_hour"
+    t.datetime "end_hour"
+    t.integer  "creator_id"
+    t.integer  "shift_hours"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "shifts", ["creator_id"], :name => "index_shifts_on_creator_id"
+  add_index "shifts", ["employee_id"], :name => "index_shifts_on_employee_id"
+  add_index "shifts", ["schedule_date"], :name => "index_shifts_on_schedule_date"
 
   create_table "skill_groups", :force => true do |t|
     t.string   "name"
