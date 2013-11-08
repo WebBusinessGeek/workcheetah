@@ -20,12 +20,12 @@ class Invitational
   def save
     return false unless valid?
 
-    unless User.exists? email: email
-      delegates_attributes_to_user
+    unless @user = User.find_by_email(email)
+      create_user
     else
-      send_invitational_email
+      send_invitational_email(type)
     end
-    delegates_errors_to_user unless @user.valid?
+    # delegates_errors_to_user unless @user.valid?
 
     if !errors.any?
       connect_invitational
@@ -40,15 +40,18 @@ class Invitational
   end
 
   private
-    def delegates_attributes_to_user
+    def create_user
       @user = User.invite! email: email, role: "business" if ["Project", "Invoice"].include? type
       @user = User.invite! email: email, role: "employee" if ["Staff", "Job"].include? type
     end
 
-    def delegates_errors_to_user
-      errors.add(:email, @user.errors[:email].first) if @user.errors[:email].present?
-      errors.add(:name, @user.errors[:name].first) if @user.errors[:name].present?
+    def send_invitational_email(type)
     end
+
+    # def delegates_errors_to_user
+    #   errors.add(:email, @user.errors[:email].first) if @user.errors[:email].present?
+    #   errors.add(:name, @user.errors[:name].first) if @user.errors[:name].present?
+    # end
 
     def connect_invitational
       case type

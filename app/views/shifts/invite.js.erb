@@ -1,0 +1,5 @@
+<% if @invitational.errors.any? %>
+    $('#invite').html('<%= j render(partial: "shifts/invitational", locals: {invitational: @invitational}) %>')
+<% else %>
+    window.location.reload()
+<% end %>

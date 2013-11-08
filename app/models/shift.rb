@@ -9,6 +9,6 @@ class Shift < ActiveRecord::Base
   scope :current_week, where(schedule_date: Date.today.at_beginning_of_week..Date.today.at_end_of_week)
   private
     def update_total_hours
-      shift_hours = end_hour.hour - start_hour.hour
+      shift_hours = (end_hour.hour - start_hour.hour)
     end
 end
