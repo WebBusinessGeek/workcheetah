@@ -8,14 +8,10 @@
               = current_user.resume.present? && current_user.resume.name.present? && !current_user.resume.new_record? ? current_user.resume.name : current_user.email
               %b.caret
             %ul.dropdown-menu{ style: "background: black;"}
-              - if ['employee'].include?(current_user.role?)
-                - if current_user.resume.present?
-                  %li= link_to "Edit My Resume", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
-                - else
-                  %li= link_to "Edit My Resume", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
-              %li= link_to "Edit Email & Password", [:edit, :user]
-              - if ['Freelancer', 'Business'].include?(current_user.role?) && current_user.account
+              - if ['freelancer', 'business'].include?(current_user.role?) && current_user.account
                 %li= link_to "My Account", account_path
+              - else
+                %li= link_to "My Account", [:edit, :user]
               %li= link_to "Sign Out", destroy_user_session_path, method: :delete
         - else
           = form_for("user", :url => user_session_path, html: { class: "navbar-form" }) do |f|

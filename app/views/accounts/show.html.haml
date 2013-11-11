@@ -40,7 +40,11 @@
       - else
         = link_to "Please specify your role", edit_account_path(@account)
 
-
+    .bank_account
+      %h2 Bank Account
+      %p Click the button below to securely save your bank information
+      = link_to edit_user_path(bank_account: true), class: "btn btn-large btn-success" do
+        = current_user.stripe_recipient_id.nil? ? "Add Bank Account Information" : "Update Bank Account information"
     .payment_profiles
       %h2 Payment Profiles
       - if @account.payment_profiles.any?

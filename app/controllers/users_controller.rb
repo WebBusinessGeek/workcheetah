@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    render 'payment_recipient' if params[:bank_account]
+    render 'payment_recipient' if params["bank_account"]
   end
 
   def update
