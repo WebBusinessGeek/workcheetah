@@ -3,7 +3,9 @@ CareerLoop::Application.routes.draw do
   resources :shifts do
     collection do
      post :invite
-     get :calender
+     get :calendar
+     get :client_calendar
+     get :client_calendar_ajax
    end
   end
 

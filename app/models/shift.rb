@@ -7,8 +7,8 @@ class Shift < ActiveRecord::Base
   before_save :update_total_hours
   validates :schedule_date, :start_hour, :end_hour, presence: true
   scope :current_week, where(schedule_date: Date.today.at_beginning_of_week..Date.today.at_end_of_week)
-  scope :between_these, ->(start_date, end_end) {where(schedule_date: start_date..end_date)}
-
+  scope :before, lambda {|before| where("schedule_date < ?", Time.at(before.to_i).to_formatted_s(:db))}
+  scope :after, lambda {|after| where("schedule_date > ?", Time.at(after.to_i).to_formatted_s(:db))}
   def title
     "#{shift_hours} hour shift for #{user.email}"
   end
@@ -19,7 +19,7 @@ class Shift < ActiveRecord::Base
       title: self.title,
       start: self.start_hour,
       end: self.end_hour,
-      url: "/shifts/#{self.id}",
+      url: "shifts/#{id}/edit.js",
       allDay: false,
       recurring: false
     }

@@ -61,8 +61,20 @@ class ShiftsController < ApplicationController
     render 'shifts/invite'
   end
 
-  def calender
-    @shifts = current_user.account.created_shifts.collect(&:to_calender_json)
+  def client_calendar
+    @staffer = User.find(params[:user_id])
+    @shifts = @staffer.scheduled_shifts
+    @shifts = @shifts.before(params["end"]) if params["end"]
+    @shifts = @shifts.after(params["start"]) if params["start"]
+    @shifts = @shifts.collect(&:to_calender_json)
+    logger.debug @shifts.inspect
+  end
+
+  def calendar
+    @shifts = current_user.account.created_shifts
+    @shifts = @shifts.before(params["end"]) if params["end"]
+    @shifts = @shifts.after(params["start"]) if params["start"]
+    @shifts = @shifts.collect(&:to_calender_json)
     logger.debug @shifts.inspect
     respond_to do |format|
       format.html # index.html.erb
@@ -70,6 +82,17 @@ class ShiftsController < ApplicationController
     end
   end
 
+  def client_calendar_ajax
+    @shifts = User.find(params[:user_id]).scheduled_shifts
+    @shifts = @shifts.before(params["end"]) if params["end"]
+    @shifts = @shifts.after(params["start"]) if params["start"]
+    @shifts = @shifts.collect(&:to_calender_json)
+    logger.debug @shifts.inspect
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @shifts }
+    end
+  end
   private
 
     # Use this method to whitelist the permissible parameters. Example:

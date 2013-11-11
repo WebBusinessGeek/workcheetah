@@ -4,7 +4,7 @@
     %ul.nav.nav-list
       %li.nav-header Staff
     -@staffers.each do |staff|
-      %li= link_to "#{staff.email}", "#"
+      %li= link_to "#{staff.email}", client_calendar_shifts_path(user_id: staff.id), remote: true
   .span8
     #index
       .row
@@ -38,4 +38,5 @@
                   %td= link_to 'Show', shift
                   %td= link_to 'Edit', edit_shift_path(shift)
                   %td= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' }
-
+#shift_modal.modal.hide.fade{ tabindex: '-1', role: 'dialog', 'aria-hidden' => 'true', style: 'width: 52%' }
+  .modal-body

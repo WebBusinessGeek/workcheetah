@@ -4,6 +4,11 @@
 jQuery ->
   $('#shift_calender').fullCalendar
     defaultView: 'agendaWeek'
+
     events:
-      url: "/shifts/calender.json"
+      url: "/shifts/calendar.json"
       cache: false
+
+    eventClick: (calEvent, jsEvent, view) ->
+      $.get 'shifts/' + calEvent.id + '/edit.js'
+      jsEvent.preventDefault()
