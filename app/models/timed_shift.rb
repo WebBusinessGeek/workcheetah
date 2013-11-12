@@ -1,5 +1,5 @@
 class TimedShift < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   belongs_to :user
   belongs_to :shift
-  attr_accessible :end_time, :start_time, :total_time.float
 end

@@ -14,6 +14,9 @@
             %p Please pick one
       - elsif ['freelancer','business'].include?(current_user.role?)
         - if current_user.account.present? and !current_user.account.jobs.empty?
+          %h2
+            Invite Credits
+            = current_user.account.invite_credits
           - if @available_jobs.empty?
             You have already invited this user to this job.
           - else

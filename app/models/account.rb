@@ -62,25 +62,6 @@ class Account < ActiveRecord::Base
     end
   end
 
-  def buy_applicant(job_applicant)
-    # if has_payment_profile?
-    #   @payment_profile = self.payment_profiles.first
-    #   @payment_profile.stripe_customer_token
-    #   @response = Stripe::Charge.create(
-    #     :amount      => ApplicantAccess::PRICE_PER_APPLICANT,
-    #     :currency    => "usd",
-    #     :customer    => @payment_profile.stripe_customer_token,
-    #     :description => "Charge for Job Applicant ##{job_applicant.id}")
-    #   if @response.failure_message.nil?
-    #     self.applicant_accesses.create(job_application: job_applicant)
-    #   end
-    #   @response
-    # end
-
-    self.applicant_accesses.create(job_application: job_applicant)
-    true # currently purchasing an applicant is free; if it shall not be free anymore, comment in above code and also inside job_applications_conroller#show
-  end
-
   def buy_seal
     if has_payment_profile?
       @payment_profile = self.payment_profiles.first

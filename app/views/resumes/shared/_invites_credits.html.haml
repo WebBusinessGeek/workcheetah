@@ -2,8 +2,17 @@
   = link_to "Buy Credits", "#invite-credit-modal", {"role" => "button", "data-toggle" => "modal", class: "btn btn-primary btn-large"}
 - else
   = link_to "Update your billing info or enter a new one", new_payment_profile_path
-#invite-credit-modal.modal.span6.hide.fade{"role" => "dialog", "aria-hidden" => "true"}
+#invite-credit-modal.modal.span6.hide.fade{"tabindex" => -1, "role" => "dialog", "aria-hidden" => "true"}
   %ul.thumbnails
-    %li.span2= link_to "#{number_to_currency(Invite::PRICE[0].first)}", buy_invites_jobs_path(selection: "first"), class: "btn btn-large thumnail", method: :post
-    %li.span2= link_to "#{number_to_currency(Invite::PRICE[1].first)}", buy_invites_jobs_path(selection: "second"), class: "btn btn-large thumnail", method: :post
-    %li.span2= link_to "#{number_to_currency(Invite::PRICE[2].first)}", buy_invites_jobs_path(selection: "third"), class: "btn btn-large thumnail", method: :post
+    %li.span2
+      %h3= Invite::PRICE[0].first.to_s + " Credits"
+      %p 
+      = link_to "#{number_to_currency(Money.new Invite::PRICE[0].last)}", buy_invites_jobs_path(selection: "first"), class: "btn btn-large thumbnail", method: :post
+    %li.span2
+      %h3= Invite::PRICE[1].first.to_s + " Credits"
+      %p Most Popular Option
+      = link_to "#{number_to_currency(Money.new Invite::PRICE[1].last)}", buy_invites_jobs_path(selection: "second"), class: "btn btn-large thumbnail", method: :post
+    %li.span2
+      %h3= Invite::PRICE[2].first.to_s + " Credits"
+      %p 
+      = link_to "#{number_to_currency(Money.new Invite::PRICE[2].last)}", buy_invites_jobs_path(selection: "third"), class: "btn btn-large thumbnail", method: :post

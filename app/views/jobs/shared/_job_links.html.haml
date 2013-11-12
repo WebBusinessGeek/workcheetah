@@ -22,6 +22,9 @@
   - elsif current_user.account != @job.account
     - if current_user.resume.present?
       - if ['business','freelancer'].include? current_user.role?
+        %h2 
+          Estimate Credits 
+          = current_user.account.estimate_credits
         - if current_user.account.has_estimate_credits?
           = link_to "Send Estimate", new_estimate_path(job_id: @job.id), class: "btn btn-success btn-large"
         - else

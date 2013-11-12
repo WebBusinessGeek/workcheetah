@@ -20,8 +20,7 @@ class AdvertiserInvoice < ActiveRecord::Base
     end
 
     before_transition :pending => :processing do |invoice|
-      # charge_card
-      puts invoice.total_charge
+      charge_card
     end
   end
 
@@ -36,7 +35,7 @@ class AdvertiserInvoice < ActiveRecord::Base
         amount: self.amount,
         currency: "usd",
         card: self.advertiser_account.payment_profile.first.stripe_customer_token,
-        description: "Test"
+        description: "Advertisers Invoice"
       )
       self.update stripe_charge_id: charge.id
       self.success

@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   has_many :clients, through: :reverse_staffings, source: :client
   has_many :todos, order: :date, dependent: :destroy
   has_many :scheduled_shifts, class_name: "Shift", foreign_key: "employee_id", dependent: :destroy
-
+  has_many :timed_shifts
   # Include default devise modules. Others available are:
   # :token_authenticatable,
   # :lockable, :timeoutable and :omniauthable

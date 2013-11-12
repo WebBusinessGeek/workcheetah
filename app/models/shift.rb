@@ -3,6 +3,7 @@ class Shift < ActiveRecord::Base
 
   belongs_to :user, foreign_key: "employee_id"
   belongs_to :account, foreign_key: "creator_id"
+  has_many :timed_shifts, dependent: :destroy
 
   before_save :update_total_hours
   validates :schedule_date, :start_hour, :end_hour, presence: true
