@@ -1,7 +1,7 @@
 .resumes_show
   .white_box
     %h1= @resume.name
-    - if user_signed_in? and current_user.resume
+    - if user_signed_in? and current_user.resume and @resume != current_user.resume
       .alert.alert-info.alert-block
         = link_to "interview", video_chats_path
         = "."
