@@ -99,6 +99,7 @@ class Invoice < ActiveRecord::Base
         self.in_escrow
       else
         self.success
+        request_transfer
       end
     rescue Stripe::Error => e
       self.update_attributes(error: e.message)
@@ -115,7 +116,7 @@ class Invoice < ActiveRecord::Base
         description: "Transfer #{self.amount} to #{self.sender.owner.email}"
       )
     rescue Stripe::Error => e
-      self.update_attributes(error: e.message, state: "errored")
+      self.update_attributes(error: e.message)
     end
   end
 
