@@ -34,7 +34,7 @@ class AdvertiserInvoice < ActiveRecord::Base
       charge = Stripe::Charge.create(
         amount: self.amount,
         currency: "usd",
-        card: self.advertiser_account.payment_profile.first.stripe_customer_token,
+        customer: self.advertiser_account.payment_profile.first.stripe_customer_token,
         description: "Advertisers Invoice"
       )
       self.update stripe_charge_id: charge.id

@@ -45,13 +45,15 @@ class Invoice < ActiveRecord::Base
     end
 
     before_transition :pending => :processing do |invoice|
-      # unless escrow?
-      # charge_card_immediately and transfer funds
-      # if charge_card success call success else failure
-      # else
-      # charge_card_immediately but do not transfer funds
-      # if charge_carge success call in_escrow else failure
-      # end
+      unless escrow?
+        charge_reciever
+      else
+        charge_reciever(is_escrow: true)
+      end
+    end
+
+    before_transition :escrowed => :finished do
+      request_transfer
     end
   end
 
@@ -81,6 +83,40 @@ class Invoice < ActiveRecord::Base
 
   def invoice_total
     Money.new((amount * (1 + PAYMENT_FEE + APPLICATION_FEE)) + Money.new(30))
+  end
+
+  def charge_reciever(is_escrow = false)
+    begin
+      save!
+      charge = Stripe::Charge.create(
+        amount: self.amount,
+        currency: "usd",
+        customer: self.reciever.payment_profile.first.stripe_customer_token,
+        description: "Invoice Charge for #{self.amount} from #{self.reciever.owner.email}"
+      )
+      self.update stripe_charge_id: charge.id
+      if is_escrow
+        self.in_escrow
+      else
+        self.success
+      end
+    rescue Stripe::Error => e
+      self.update_attributes(error: e.message)
+      self.failure
+    end
+  end
+
+  def request_transfer
+    begin
+      transfer = Stripe::Transfer.create(
+        amount:      self.amount,
+        currency:    'usd',
+        recipient:   self.sender.owner.stripe_recipient_id,
+        description: "Transfer #{self.amount} to #{self.sender.owner.email}"
+      )
+    rescue Stripe::Error => e
+      self.update_attributes(error: e.message, state: "errored")
+    end
   end
 
   private
