@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 ruby '1.9.3'
 gem 'rails', '3.2.13'
-gem 'thin'
+gem 'unicorn'
 gem 'rmagick'
 gem 'zencoder'
 gem "private_pub"
@@ -17,18 +17,12 @@ gem 'money-rails'
 gem 'state_machine'
 gem 'acts_as_list'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-
-# Gems used only for assets and not required
-# in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'bootstrap-sass'
   gem 'font-awesome-sass-rails'
   gem 'bootstrap-colorpicker-rails'
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'uglifier', '>= 1.0.3'
   gem 'turbo-sprockets-rails3'
   gem 'chosen-rails'
@@ -63,6 +57,7 @@ gem 'paperclip-meta'
 gem 'pry-rails'
 gem 'pry'
 gem 'pg'
+gem 'newrelic_rpm'
 
 group :test do
   gem "factory_girl_rails"
