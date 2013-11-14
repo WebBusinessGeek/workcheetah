@@ -5,7 +5,7 @@ class CreateTimedShifts < ActiveRecord::Migration
       t.references :shift
       t.datetime, :start_time
       t.datetime, :end_time
-      t.string :total_time.float
+      t.decimal :total_time, precision: 4, scale: 2
 
       t.timestamps
     end

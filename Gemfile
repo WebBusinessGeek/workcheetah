@@ -11,8 +11,13 @@ gem "foreman"
 gem "auto_html"
 gem 'rake', '~> 10.1.0'
 gem "will_paginate"
+# Forms
 gem 'virtus'
+gem "simple_form"
+# Search
 gem 'ransack'
+
+# Utilities
 gem 'money-rails'
 gem 'state_machine'
 gem 'acts_as_list'
@@ -38,7 +43,7 @@ gem 'haml', '~> 3.2.0.beta.1'
 gem 'devise'
 gem 'devise_invitable'
 gem 'rspec-rails'
-gem "simple_form"
+
 gem "strong_parameters", '>= 0.2.0'
 gem "cancan"
 gem 'stripe'
@@ -58,6 +63,7 @@ gem 'pry-rails'
 gem 'pry'
 gem 'pg'
 gem 'newrelic_rpm'
+gem 'rails_12factor'
 
 group :test do
   gem "factory_girl_rails"
