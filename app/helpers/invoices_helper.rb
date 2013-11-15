@@ -1,5 +1,9 @@
 module InvoicesHelper
   def formatted_address(account)
+    return "<address>
+        <strong>#{account.name}</strong><br>
+        No address available
+        </address>".html_safe if account.owner.nil?
     @address = account.owner.resume ? account.owner.resume.addresses.first : nil
     if @address
       data = "<address>

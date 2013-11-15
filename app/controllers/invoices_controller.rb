@@ -46,7 +46,7 @@ class InvoicesController < ApplicationController
   def edit
     @invoice = Invoice.find_by_guid(params[:guid])
     if @invoice.project
-      @available_recipients = @invoice.project.users - [current_user]
+      @available_recipients = @invoice.project.users - [current_user] + [@invoice.reciever.owner]
     else
       @available_recipients = current_user.clients
     end
@@ -57,7 +57,13 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.save
-        format.html { redirect_to invoice_path(@invoice), notice: 'Invoice was successfully created.' }
+        if params[:submit] == 'Send Invoice'
+          @invoice.send_invoice
+          msg = 'Invoice has been send for approval'
+        else
+          msg = 'Invoice was successfully created.'
+        end
+        format.html { redirect_to invoice_path(@invoice), notice: msg }
         format.json { render json: @invoice, status: :created, location: @invoice }
       else
         if @invoice.project
@@ -75,19 +81,26 @@ class InvoicesController < ApplicationController
   # PATCH/PUT /invoices/1
   # PATCH/PUT /invoices/1.json
   def update
-    @invoice = Invoice.find(params[:id])
+    @invoice = Invoice.find_by_guid(params[:id])
+    @invoice = Invoice.find(params[:id]) unless @invoice
 
     respond_to do |format|
       if @invoice.update_attributes(invoice_params)
-            unless params[:recipient_name].blank? && params[:recipient_email].blank?
-              @invitational = Invitational.new(
-                email: params[:recipient_email],
-                name: params[:recipient_name],
-                type: "Invoice",
-                type_id: @invoice.id
-              ).save
-            end
-        format.html { redirect_to invoice_path(@invoice), notice: 'Invoice was successfully updated.' }
+        unless params[:recipient_name].blank? && params[:recipient_email].blank?
+          @invitational = Invitational.new(
+            email: params[:recipient_email],
+            name: params[:recipient_name],
+            type: "Invoice",
+            type_id: @invoice.id
+          ).save
+        end
+        if params[:commit] == 'Send Invoice'
+          @invoice.send_invoice
+          msg = 'Invoice has been send for approval'
+        else
+          msg = 'Invoice was successfully updated.'
+        end
+        format.html { redirect_to invoice_path(@invoice), notice: msg }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -111,6 +124,15 @@ class InvoicesController < ApplicationController
   def invite
     @invitational = Invitational.new(
       )
+  end
+
+  def pay
+    @invoice = Invoice.find_by_guid(params[:id])
+    if params[:data] == "pay"
+      @invoice.accept
+      @invoice.charge
+    elsif params[:data == "transfer"]
+    end
   end
 
   private

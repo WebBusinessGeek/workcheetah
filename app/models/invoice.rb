@@ -27,8 +27,11 @@ class Invoice < ActiveRecord::Base
     event :charge do
       transition :pending => :processing
     end
+    event :pay_out do
+      transition :processing => :payout
+    end
     event :success do
-      transition :processing => :finished
+      transition :payout => :finished
     end
     event :failure do
       transition :processing => :errored
@@ -45,10 +48,10 @@ class Invoice < ActiveRecord::Base
     end
 
     before_transition :pending => :processing do |invoice|
-      unless escrow?
-        charge_reciever
+      unless invoice.escrow?
+        invoice.charge_reciever
       else
-        charge_reciever(is_escrow: true)
+        invoice.charge_reciever(is_escrow: true)
       end
     end
 
@@ -89,34 +92,35 @@ class Invoice < ActiveRecord::Base
     begin
       save!
       charge = Stripe::Charge.create(
-        amount: self.amount,
+        amount: self.amount_cents,
         currency: "usd",
-        customer: self.reciever.payment_profile.first.stripe_customer_token,
+        customer: self.reciever.payment_profiles.first.stripe_customer_token,
         description: "Invoice Charge for #{self.amount} from #{self.reciever.owner.email}"
       )
-      self.update stripe_charge_id: charge.id
+      self.update_attributes(stripe_charge_id: charge.id)
       if is_escrow
         self.in_escrow
       else
-        self.success
-        request_transfer
+        self.pay_out
       end
-    rescue Stripe::Error => e
+    rescue Stripe::CardError => e
       self.update_attributes(error: e.message)
       self.failure
     end
   end
 
   def request_transfer
-    begin
-      transfer = Stripe::Transfer.create(
-        amount:      self.amount,
-        currency:    'usd',
-        recipient:   self.sender.owner.stripe_recipient_id,
-        description: "Transfer #{self.amount} to #{self.sender.owner.email}"
-      )
-    rescue Stripe::Error => e
-      self.update_attributes(error: e.message)
+    transfer = Stripe::Transfer.create(
+      amount:      self.amount_cents,
+      currency:    'usd',
+      recipient:   self.sender.owner.stripe_recipient_id,
+      description: "Transfer #{self.amount} to #{self.sender.owner.email}"
+    )
+    puts transfer.inspect
+    if transfer.error_message.nil?
+      self.success
+    else
+      self.update_attributes(message: transfer.error_message)
     end
   end
 

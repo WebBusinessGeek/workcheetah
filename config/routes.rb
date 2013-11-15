@@ -15,7 +15,10 @@ CareerLoop::Application.routes.draw do
   end
 
   resources :invoices, only: [:create, :new, :update, :destroy] do
-    member { post :invite }
+    member do
+      post :invite
+      post :pay
+    end
   end
   get 'staffing' => 'shifts#index', as: :staffing
   get 'accounting' => 'invoices#index', as: :accounting

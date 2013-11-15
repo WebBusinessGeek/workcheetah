@@ -6,7 +6,7 @@ jQuery ->
   $("#account-form").submit ->
     if typeof Stripe isnt 'undefined'
       Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
-    form.find('button').prop('disabled', true)
+    $('input[type=submit]').attr('disabled', true)
     Stripe.bankAccount.createToken
       country: "US"
       routingNumber: $(".routingNumber").val()
@@ -14,11 +14,14 @@ jQuery ->
     , stripeRecipientResponseHandler
     false
 
-  stripeRecipientResponseHandler = (response) ->
-    console.log response
-    form = $("#account-form")
-    form.append "<input type='hidden' name='stripeToken' value='" + response.id + "'/>"
-    form.get(0).submit()
+  stripeRecipientResponseHandler = (status, response) ->
+    alert status
+    if status == 200
+      $("#account-form").append "<input type='hidden' name='stripeToken' value='" + response.id + "'/>"
+      $("#account-form").get(0).submit()
+    else
+      $('#stripe_error').text(response.error.message)
+      $('input[type=submit]').attr('disabled', false)
 
 do_when_ready = ->
   # console.log("ready to fire")
