@@ -47,7 +47,7 @@ class Invoice < ActiveRecord::Base
       transition :escrowed => :finished
     end
 
-    before_transition :pending => :processing do |invoice|
+    after_transition :pending => :processing do |invoice|
       unless invoice.escrow?
         invoice.charge_reciever
       else
@@ -55,8 +55,12 @@ class Invoice < ActiveRecord::Base
       end
     end
 
-    before_transition :escrowed => :finished do
-      request_transfer
+    before_transition :escrowed => :finished do |invoice|
+      invoice.request_transfer
+    end
+
+    before_transition :payout => :finished do |invoice|
+      invoice.request_transfer
     end
   end
 
@@ -84,15 +88,27 @@ class Invoice < ActiveRecord::Base
     line_items.sum(&:total)
   end
 
+  def application_fee_total
+    amount_cents * APPLICATION_FEE
+  end
+
+  def payment_fee_total
+    amount_cents * PAYMENT_FEE + 30
+  end
+
   def invoice_total
-    Money.new((amount * (1 + PAYMENT_FEE + APPLICATION_FEE)) + Money.new(30))
+    amount_cents + payment_fee_total.to_i + application_fee_total.to_i
+  end
+
+  def transfer_total
+    amount_cents - 25
   end
 
   def charge_reciever(is_escrow = false)
     begin
       save!
       charge = Stripe::Charge.create(
-        amount: self.amount_cents,
+        amount: self.invoice_total,
         currency: "usd",
         customer: self.reciever.payment_profiles.first.stripe_customer_token,
         description: "Invoice Charge for #{self.amount} from #{self.reciever.owner.email}"
@@ -111,16 +127,15 @@ class Invoice < ActiveRecord::Base
 
   def request_transfer
     transfer = Stripe::Transfer.create(
-      amount:      self.amount_cents,
+      amount:      self.transfer_total,
       currency:    'usd',
       recipient:   self.sender.owner.stripe_recipient_id,
       description: "Transfer #{self.amount} to #{self.sender.owner.email}"
     )
-    puts transfer.inspect
     if transfer.error_message.nil?
       self.success
     else
-      self.update_attributes(message: transfer.error_message)
+      self.update_attributes(message: transfer.error_message, state: "errored")
     end
   end
 
@@ -130,6 +145,6 @@ class Invoice < ActiveRecord::Base
     end
 
     def update_total
-      amount = line_total
+      self.amount = line_total
     end
 end

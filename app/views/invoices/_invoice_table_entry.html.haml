@@ -9,8 +9,8 @@
     %small
       Created On:
       = l invoice.created_at, format: :short
-  %td= invoice.state
-  %td= number_to_currency invoice.invoice_total
+  %td= format_states(invoice)
+  %td= number_to_currency Money.new invoice.invoice_total
   %td
     %ul.unstyled.inline
       %li

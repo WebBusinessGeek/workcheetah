@@ -3,7 +3,7 @@
     %h1
       Invoice #:
       = @invoice.guid
-      .pull-right= @invoice.state
+      .pull-right= format_states(@invoice)
     .row
       .span3
         = formatted_address(@invoice.sender)
@@ -34,7 +34,15 @@
 
     .row
       .span2.offset6
-        .pull-right= @invoice.amount
+        %dl.dl-horizontal
+          %dt Invoice Amount
+          %dd= number_to_currency Money.new @invoice.amount_cents
+          %dt Application Fee
+          %dd= number_to_currency Money.new @invoice.application_fee_total
+          %dt Payment Processing Fee
+          %dd= number_to_currency Money.new @invoice.payment_fee_total
+          %dt Total Amount
+          %dd= number_to_currency Money.new @invoice.invoice_total
 
     .actions
       .row
@@ -47,5 +55,6 @@
               = link_to "Approve and Pay Invoice", pay_invoice_path(@invoice, data: "pay"), method: :post, class: "btn btn-large btn-success" unless @invoice.escrow?
               = link_to "Approve and Put into escrow", "javascript:void(0));", class: "btn btn-large btn-success" unless !@invoice.escrow?
             - else
-              = link_to "Request Payment", invoice_path(@invoice), {commit: 'request transfer'}, method: :post, class: "btn btn-large btn-success"
+              - if @invoice.escrow?
+                = link_to "Request Payment", invoice_path(@invoice), {commit: 'request transfer'}, method: :post, class: "btn btn-large btn-success"
 

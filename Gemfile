@@ -13,7 +13,7 @@ gem 'rake', '~> 10.1.0'
 gem "will_paginate"
 # Forms
 gem 'virtus'
-gem "simple_form"a,.
+gem "simple_form"
 # Search
 gem 'ransack'
 

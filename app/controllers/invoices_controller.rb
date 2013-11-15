@@ -46,7 +46,7 @@ class InvoicesController < ApplicationController
   def edit
     @invoice = Invoice.find_by_guid(params[:guid])
     if @invoice.project
-      @available_recipients = @invoice.project.users - [current_user] + [@invoice.reciever.owner]
+      @available_recipients = @invoice.project.users - [current_user] + current_user.clients
     else
       @available_recipients = current_user.clients
     end
@@ -131,6 +131,7 @@ class InvoicesController < ApplicationController
     if params[:data] == "pay"
       @invoice.accept
       @invoice.charge
+      redirect_to @invoice, notice: "Invoice Paid and awaiting transfer"
     elsif params[:data == "transfer"]
     end
   end
