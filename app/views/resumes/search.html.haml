@@ -1,11 +1,6 @@
 #resume_search
   .row
     .span8.offset2
-      .alert.alert-info
-        %button{type: "button", class: "close", "data-dismiss" => "alert"} x
-        Due to privacy, you can see limited information about your competition
-  .row
-    .span8.offset2
       = search_form_for @search, url: search_resumes_path, method: :get, html: {class: "form-search"}, remote: true do |f|
         = f.select :skills_name_eq, Skill::GROUPED_SKILLS, {include_blank: 'None'}
         = f.select :schools_highest_merit_eq, School::HIGHEST_MERIT, {include_blank: 'None'}

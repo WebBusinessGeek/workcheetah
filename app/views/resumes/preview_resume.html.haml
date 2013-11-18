@@ -32,10 +32,6 @@
           %p You must post a job before inviting applicants.
           = link_to "post a job", new_job_path
       %h1.pagination-centered Preview
-      - if user_signed_in? and current_user.resume.present?
-        .alert.alert-block.alert-info
-          %button.close{"data-dismiss" => "alert", :type => "button"} &times;
-        Due to privacy, you can see limited information about your competition.
       %dl.dl-horizontal
         %dt Resume Score
         %dd{style:"padding-left:30px"}
