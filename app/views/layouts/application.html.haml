@@ -1,43 +1,40 @@
--# coding: UTF-8
-
 !!!
 %html
   %head
-    %title Work Cheetah
-    = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
-    = javascript_include_tag "https://js.stripe.com/v1/"
-    = tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY
-    :erb
-      <link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
-      <script src="http://vjs.zencdn.net/c/video.js"></script>
-      <script type="text/javascript" src="//use.typekit.net/prn5mzt.js"></script>
-      <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-      <link rel="shortcut icon" href="<%= asset_path("favicon-claw1.ico") %>">
-      <meta name="norton-safeweb-site-verification" content="fzfm6lkgip0n2y51ih1ogqx197azlcrnbf0yorqhkbffncxzbchos0rbt8y3hbf-cmrq279msj9jm66hcgvu4ycrtgdur8ttvnxvsu496x4kk49jkoi4nuo4ax93uk-o" />
-    = csrf_meta_tags
-  %body
-    #fb-root
-    :javascript
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-    .container
-      .header_box
-        = render "shared/header_nav"
-      .content
-        - if user_signed_in?
-          = render "shared/sub_nav_header"
-        - if flash.any?
-          .flash
-            - flash.each do |name, msg|
-              %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
-                %a.close{"data-dismiss" => "alert"} ×
-                = msg
-        = yield
-      .footer{ style: "border: 0; padding: 10px 0 20px;"}
-        = render "shared/footer"
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+      %title Work Cheetah
+      %link{:rel => "stylesheet", :type => "text/css", :href => "http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800"}
+      %link{:rel => "stylesheet", :type => "text/css", :href => "http://fonts.googleapis.com/css?family=Alfa+Slab+One"}
+      = stylesheet_link_tag "application", :media => "all"
+      = javascript_include_tag "application"
+      = javascript_include_tag "https://js.stripe.com/v1/"
+      = tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY
+      :erb
+        <link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
+        <script src="http://vjs.zencdn.net/c/video.js"></script>
+        <script type="text/javascript" src="//use.typekit.net/prn5mzt.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        <link rel="shortcut icon" href="<%= asset_path("favicon-claw1.ico") %>">
+        <meta name="norton-safeweb-site-verification" content="fzfm6lkgip0n2y51ih1ogqx197azlcrnbf0yorqhkbffncxzbchos0rbt8y3hbf-cmrq279msj9jm66hcgvu4ycrtgdur8ttvnxvsu496x4kk49jkoi4nuo4ax93uk-o" />
+      = csrf_meta_tags
+  - if user_signed_in?
+    %body{:class => "#{controller_name} #{action_name} loggedin", :id => 'skrollr-body'}
+  - else
+    %body{:class => "#{controller_name} #{action_name}", :id => 'skrollr-body'}
+  #fb-root
+  :javascript
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  = render "shared/header_nav"
+  = render "shared/messages"
+  #main{:role => "main"}
+    = yield
+    - if current_page?(root_path)
+    - else
+      = render "shared/footer"
+     

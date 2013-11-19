@@ -16,18 +16,19 @@ gem 'virtus'
 gem "simple_form"
 # Search
 gem 'ransack'
-
 # Utilities
 gem 'money-rails'
 gem 'state_machine'
 gem 'acts_as_list'
+# style branch
+gem 'simple_form'
+gem 'bootstrap-sass', '~> 2.3.2.2'
+gem 'skrollr-rails'
 
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
-  gem 'bootstrap-sass'
   gem 'font-awesome-sass-rails'
-  gem 'bootstrap-colorpicker-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'turbo-sprockets-rails3'
   gem 'chosen-rails'

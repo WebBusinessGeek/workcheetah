@@ -1,5 +1,12 @@
 CareerLoop::Application.routes.draw do
 
+  match '/businesses',     to: 'staticpages#staticbusinesses'
+  match '/freelancers',    to: 'staticpages#staticfreelancers'
+  match '/employees',      to: 'staticpages#staticemployees'
+  match '/pagetwo',        to: 'staticpages#staticpagetwo'
+  match '/pageone',        to: 'staticpages#staticpageone'
+  match '/pagethree',      to: 'staticpages#staticpagethree'
+
   resources :shifts do
     collection do
      post :invite

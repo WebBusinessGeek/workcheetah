@@ -1,51 +1,223 @@
-.row
-  .span1
-    sidebar ads
-  .span8
-    .row
-      .span6-offset2
-        = render 'job_search'
-      .span4
-        = render "activities"
-      .span4
-        %h4
-          Todos for: 
-          = Date.today
-        %ul#todo_list{"data-update-url" => sort_todos_url }
-          = render @todos
-        = render 'todos/form'
-    .row
-      .span8
-        #adcarousel.hero-unit
-          %h2 Our Partners want you to know…
-          .carousel.slide#adsCarousel
-            %a.carousel-control.left{ :href => '#adsCarousel', :'data-slide' => 'prev' } &lsaquo;
-            .carousel-inner
-              .active.item{ style: 'color: #fff; margin-left: 2em;' }
-                %ul.thumbnails
-                  -# - @business_ads_group[0..(@business_ads_group.size/2)-1].each do |ad|
-                  -#   %li.span2
-                  -#     %a.thumbnail{ href: 'javascript:void(0);' }
-                  -#       = ad.content
-                -# %ul.thumbnails
-                -#   - @business_ads_group[@business_ads_group.size/2..@business_ads_group.size-1].each do |ad|
-                -#     %li.span2
-                -#       %a.thumbnail{ href: 'javascript:void(0);' }
-                -#         = ad.content
-            -# %a.carousel-control.right{ :href => root_path(offset: @business_ads_group.size), :'data-slide' => 'next' }
-            %a.carousel-control.right{ :href => root_path, :'data-slide' => 'next' } &lsaquo;
-    .row
-      .span3.well
-        = render 'calendar'
-      .span3.well
-        = render 'shared/calculator'
-    .row
-      .span8
-        %h2 Freelancing tips
-        - if @employee_articles.present?
-          - @employee_articles.each do |article|
-            = article.title
-        - else
-          No new articles
-  .span1
-    = render partial: 'advertisers/advertisements/ad', collection: @sidebar_ads, as: :ad
+.container
+  .row
+  .col-md-12 
+    / = render 'job_search'
+  .col-md-2.ads
+    .well
+      / = render partial: 'advertisers/advertisements/ad', collection: @sidebar_ads, as: :ad
+      %h2 Jobs Available in Finance!
+      = link_to(image_tag('ad1img.png'), "#", :class => 'adimg')
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.financejobs.com
+      %h3 Free ipad and a nice chair! Plus money!
+      = link_to(image_tag('ad2img.png'), "#", :class => 'adimg')
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.apple.com/jobs
+      %h3 Jobs Available in Medicine!
+      = link_to(image_tag('ad3img.png'), "#", :class => 'adimg')
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.docjobs.com
+  .col-md-8 
+    .row   
+      .col-md-6.col-sm-6.main
+        .well
+          / = render "activities"
+          %h1 Activity Feed
+          %ul
+            %li
+              %a{:href => "#"} Steve Jones
+              has applied for "Sr. Graph..."
+            %li
+              %a{:href => "#"} Steve Jones
+              has applied for "Graphic Design..."
+            %li
+              %a{:href => "#"} Steve Jones
+              has applied for "App Designer..."
+            %li
+              %a{:href => "#"} Steve Jones
+              has applied for "Web Developer..."
+            %li
+              %a{:href => "#"} Steve Jones
+              has applied for "Graphic II..."
+          .buttonholds
+            %a.btn.btn-viewall{ :href => "#"} View All
+      .col-md-6.col-sm-6.main
+        .well
+          %h1 To Do List
+          %a.datefloat{:href => "#"} 
+            << 
+            = Date.today 
+            >>
+          / %ul#todo_list{"data-update-url" => sort_todos_url }
+          /   = render @todos
+          / = render 'todos/form'
+          %form{:role => "form"}
+            .checkbox
+              %label
+                %input{:type => "checkbox"}
+                  Follow up with GloboCorp Enter...
+            .checkbox
+              %label
+                %input{:type => "checkbox"}
+                  Follow up with Client #1
+            .checkbox
+              %label
+                %input{:type => "checkbox"}
+                  Follow up with Client #2
+            .checkbox
+              %label
+                %input{:type => "checkbox"}
+                  Follow up with Client #3
+            .checkbox
+              %label
+                %input{:type => "checkbox"}
+                  Follow up with Client #4
+            .checkbox
+              %label
+                %input{:type => "checkbox"}
+                  Follow up with Client #5
+          .buttonholds
+            %a.btn.btn-viewall{ :href => "#"} + Add an Item
+    .row 
+      .col-md-12
+        = link_to(image_tag('widead.png'), "#", :class => 'adimg')
+    .row 
+      .col-md-6.col-sm-6.main
+        .well
+          %h1 Calendar
+          = render 'calendar'
+      .col-md-6.col-sm-6.main
+        .well
+          %h1 Calculator
+          = render 'shared/calculator'
+    .row 
+      .col-md-12.main
+        .well
+          %h1 Resources from Blog
+  .col-md-2.ads
+    .well
+      %h2 A Banking Career Can Be Yours!
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.financejobs.com
+      %h3 Design! Make money and pretty things
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.apple.com/jobs
+      %h3 Recruiter/ Scheduling Coordinator
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.docjobs.com
+      %h3 A Banking Career Can Be Yours!
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.apple.com/jobs
+      %h3 Design! Make money and pretty things!
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.docjobs.com
+
+
+
+
+
+/ .row
+/   .span1
+/     employees
+/   .span8
+/     .row
+/       .span6-offset2
+/         = render 'job_search'
+/       .span4
+/         = render "activities"
+/       .span4
+/         %h4
+/           Todos for: 
+/           = Date.today
+/         %ul#todo_list{"data-update-url" => sort_todos_url }
+/           = render @todos
+/         = render 'todos/form'
+/     .row
+/       .span8
+/         #adcarousel.hero-unit
+/           %h2 Our Partners want you to know…
+/           .carousel.slide#adsCarousel
+/             %a.carousel-control.left{ :href => '#adsCarousel', :'data-slide' => 'prev' } &lsaquo;
+/             .carousel-inner
+/               .active.item{ style: 'color: #fff; margin-left: 2em;' }
+/                 %ul.thumbnails
+/                   -# - @business_ads_group[0..(@business_ads_group.size/2)-1].each do |ad|
+/                   -#   %li.span2
+/                   -#     %a.thumbnail{ href: 'javascript:void(0);' }
+/                   -#       = ad.content
+/                 -# %ul.thumbnails
+/                 -#   - @business_ads_group[@business_ads_group.size/2..@business_ads_group.size-1].each do |ad|
+/                 -#     %li.span2
+/                 -#       %a.thumbnail{ href: 'javascript:void(0);' }
+/                 -#         = ad.content
+/             -# %a.carousel-control.right{ :href => root_path(offset: @business_ads_group.size), :'data-slide' => 'next' }
+/             %a.carousel-control.right{ :href => root_path, :'data-slide' => 'next' } &lsaquo;
+/     .row
+/       .span3.well
+/         = render 'calendar'
+/       .span3.well
+/         = render 'shared/calculator'
+/     .row
+/       .span8
+/         %h2 Freelancing tips
+/         - if @employee_articles.present?
+/           - @employee_articles.each do |article|
+/             = article.title
+/         - else
+/           No new articles
+/   .span1
+/     = render partial: 'advertisers/advertisements/ad', collection: @sidebar_ads, as: :ad
+
+
+
+/ .row
+/   .span1
+/     employees
+/   .span8
+/     .row
+/       .span6-offset2
+/         = render 'job_search'
+/       .span4
+/         = render "activities"
+/       .span4
+/         %h4
+/           Todos for: 
+/           = Date.today
+/         %ul#todo_list{"data-update-url" => sort_todos_url }
+/           = render @todos
+/         = render 'todos/form'
+/     .row
+/       .span8
+/         #adcarousel.hero-unit
+/           %h2 Our Partners want you to know…
+/           .carousel.slide#adsCarousel
+/             %a.carousel-control.left{ :href => '#adsCarousel', :'data-slide' => 'prev' } &lsaquo;
+/             .carousel-inner
+/               .active.item{ style: 'color: #fff; margin-left: 2em;' }
+/                 %ul.thumbnails
+/                   -# - @business_ads_group[0..(@business_ads_group.size/2)-1].each do |ad|
+/                   -#   %li.span2
+/                   -#     %a.thumbnail{ href: 'javascript:void(0);' }
+/                   -#       = ad.content
+/                 -# %ul.thumbnails
+/                 -#   - @business_ads_group[@business_ads_group.size/2..@business_ads_group.size-1].each do |ad|
+/                 -#     %li.span2
+/                 -#       %a.thumbnail{ href: 'javascript:void(0);' }
+/                 -#         = ad.content
+/             -# %a.carousel-control.right{ :href => root_path(offset: @business_ads_group.size), :'data-slide' => 'next' }
+/             %a.carousel-control.right{ :href => root_path, :'data-slide' => 'next' } &lsaquo;
+/     .row
+/       .span3.well
+/         = render 'calendar'
+/       .span3.well
+/         = render 'shared/calculator'
+/     .row
+/       .span8
+/         %h2 Freelancing tips
+/         - if @employee_articles.present?
+/           - @employee_articles.each do |article|
+/             = article.title
+/         - else
+/           No new articles
+/   .span1
+/     = render partial: 'advertisers/advertisements/ad', collection: @sidebar_ads, as: :ad
