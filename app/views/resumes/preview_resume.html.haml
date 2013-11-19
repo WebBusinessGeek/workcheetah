@@ -53,9 +53,10 @@
               = @resume.highest_merit_earned
             - else
               None
-        %dt Employment Status
-        %dd{style:"padding-left:30px"}
-          %p.lead= @resume.status
+        - unless ['business', 'freelancer'].include?(@resume.resume_type)
+          %dt Employment Status
+          %dd{style:"padding-left:30px"}
+            %p.lead= @resume.status.present? ? @resume.status : "Unemployed"
 -if @job && @job_application
   #myHire.modal.hide.fade
     .modal-header

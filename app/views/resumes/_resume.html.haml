@@ -20,7 +20,8 @@
             =resume.highest_merit_earned
           - else
             None
-        %li
-          %strong Status:
-          =resume.status
+        -unless ['freelancer', 'business'].include?(resume.resume_type)
+          %li
+            %strong Status
+            = resume.status.present? ? resume.status : "Unemployed"
   %hr/
