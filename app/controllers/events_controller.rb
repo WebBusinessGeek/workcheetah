@@ -10,7 +10,7 @@ class EventsController < ApplicationController
       format.json { render json: @r }
     end
   end
-  
+
   def index
     @events = current_user.events.all
 
@@ -82,7 +82,7 @@ class EventsController < ApplicationController
     @event.destroy
 
     respond_to do |format|
-      format.html { redirect_to freelancer_path, notice: 'Event was successfully deleted!' }
+      format.html { redirect_to root_path, notice: 'Event was successfully deleted!' }
       format.json { head :no_content }
     end
   end
