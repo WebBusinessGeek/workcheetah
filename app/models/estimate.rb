@@ -62,7 +62,7 @@ class Estimate < ActiveRecord::Base
 
   def proposed_total
     if total or total <= 0
-      Money.new(estimate_items.sum(&:line_total))
+      Money.new(estimate_items.sum(&:total_cents))
     else
       Money.new(total)
     end

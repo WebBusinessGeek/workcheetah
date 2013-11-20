@@ -1,4 +1,5 @@
 = simple_form_for @estimate, url: estimate_path(@estimate), method: :put do |f|
+  %legend Edit the estimate below
   = render 'form', f: f
   = f.submit "Update Draft"
   = f.submit "Send Estimate"

@@ -20,8 +20,6 @@ jQuery ->
   $('#search_skill_ids').chosen
     theme: 'facebook'
 
-  $('input.date_picker').datepicker
-
   $('#job_skill_ids').chosen
     theme: 'facebook'
     max_selected_options: 10

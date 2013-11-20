@@ -1,8 +1,22 @@
-= f.input :job_id, as: :hidden, input_html: {value: @job.id} if @job
-= f.input :due_date, as: :string, input_html: {class: "date", value: @estimate.due_date}
-#estimate_items
-  = f.fields_for :estimate_items do |i|
-    = render 'estimate_item_fields', f: i
-  = link_to_add_fields "Add An Item", f, :estimate_items
-= f.input :terms
-= f.input :notes
+.row
+  .span3
+    = f.input :job_id, as: :hidden, input_html: {value: @job.id}
+    - if @job
+      %h4= @job.title
+      %p= @job.description.html_safe
+  .span3
+    = f.label :start_date, "When can you start?"
+    = f.input :start_date, label: false, as: :string, input_html: {class: "date", value: @estimate.start_date}
+  .span3
+    = f.label :due_date, "When do you propose to finish?"
+    = f.input :due_date, label: false, as: :string, input_html: {class: "date", value: @estimate.due_date}
+%hr/
+.row
+  #estimate_items.span8
+    = f.fields_for :estimate_items do |i|
+      = render 'estimate_item_fields', f: i
+    = link_to_add_fields "Add An Item", f, :estimate_items
+%hr/
+.row
+  .span4= f.input :terms
+  .span4= f.input :notes

@@ -15,9 +15,6 @@
 //= require jquery_ujs
 //= require tinymce-jquery
 //= require bootstrap
-//= require bootstrap_setup
-//= require jquery.maskedinput
 //= require private_pub
 //= require chosen-jquery
-//= require jquery.calculator.min
 //= require_tree .

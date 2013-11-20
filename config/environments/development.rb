@@ -36,5 +36,6 @@ CareerLoop::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = false
+  config.assets.debug = true
+  # config.assets.initialize_on_precompile = true
 end

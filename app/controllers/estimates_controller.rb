@@ -22,17 +22,21 @@ class EstimatesController < ApplicationController
     @estimate.estimate_items.build
   end
 
+  def edit
+    @job = @estimate.job
+  end
+
   def create
     @estimate = current_user.resume.sent_estimates.build(estimate_params)
 
     if @estimate.save!
-      if params[:submit] == "Send Estimate"
+      if params[:commit] == "Send Estimate"
         @estimate.send
-        notice = "Estimate has been sent successfully"
+        msg = "Estimate has been sent successfully"
       else
-        notice = "Estimate has been saved successfully"
+        msg = "Estimate has been saved successfully"
       end
-      redirect_to @estimate.job, notice: notice
+      redirect_to estimates_path, notice: msg
     else
       render :new
     end
@@ -89,6 +93,6 @@ class EstimatesController < ApplicationController
     end
 
     def estimate_params
-      params.require(:estimate).permit(:job_id, :due_date, :terms, :notes, estimate_items_attributes: [:id, :task, :hours, :total, :_destroy])
+      params.require(:estimate).permit(:job_id, :due_date, :start_date, :terms, :notes, estimate_items_attributes: [:id, :task, :hours, :total, :_destroy])
     end
 end

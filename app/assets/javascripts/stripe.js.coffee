@@ -31,7 +31,6 @@ do_when_ready = ->
 
   $("input.phone").mask("(999) 999-9999? x9999", {placeholder:" "})
   $("input.website").mask("http://%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%", {placeholder:" "})
-  $("input.date").datepicker()
   $("input.twitter").mask("@?***************", {placeholder:" "})
 
 new_payment_profile_form =
