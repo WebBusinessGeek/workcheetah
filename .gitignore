@@ -33,3 +33,5 @@ vendor/bundle
 # Ignore keys
 y
 y.pub
+zeus.json
+custom_plan.rb

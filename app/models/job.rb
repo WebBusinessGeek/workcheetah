@@ -82,6 +82,10 @@ class Job < ActiveRecord::Base
     false
   end
 
+  def remote?
+    job_type == 'outsource'
+  end
+
   def to_param
     "#{self.id}-#{self.title.parameterize}"
   end

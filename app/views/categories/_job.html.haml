@@ -7,12 +7,5 @@
   = job.address
   = job.category ? job.category.name : "n/a"
   = link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
-  - if job.quick_applicable?
-    - if user_signed_in? and job.job_applications.where(user_id: current_user.id).empty?
-      - if job.invite_only?
-        - if current_user.resume.present? and current_user.resume.invited_to_job?(job)
-          = check_box_tag 'job_ids[]', job.id, false
-      - else
-        = check_box_tag 'job_ids[]', job.id, false
-    - else
-      = check_box_tag 'job_ids[]', job.id, false
+  - if job.remote?
+    %span.label.label-info REMOTE
