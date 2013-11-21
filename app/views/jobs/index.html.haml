@@ -26,12 +26,12 @@
 		%h3
 			Open positions for
 			= @location || @current_location_clean
-		= form_tag :quick_apply_to_jobs do
-			.pull-right
-				- if user_signed_in? and current_user.resume.present?
-					= submit_tag "Quick apply", class: "btn btn-primary"
-				- else
-					%a#invite-popover.btn.btn-primary{"data-content" => "Please build a resume to apply to jobs.", "data-original-title" => "#{link_to "Build Work Profile", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left"} Quick apply
+		-# = form_tag :quick_apply_to_jobs do
+		-# 	.pull-right
+		-# 		- if user_signed_in? and current_user.resume.present?
+		-# 			= submit_tag "Quick apply", class: "btn btn-primary"
+		-# 		- else
+		-# 			%a#invite-popover.btn.btn-primary{"data-content" => "Please build a resume to apply to jobs.", "data-original-title" => "#{link_to "Build Work Profile", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left"} Quick apply
 			%br{clear: :all}/
 			%br/
 			%fieldset

@@ -8,17 +8,14 @@
 	%td= job.address
 	%td= job.category ? job.category.name : "n/a"
 	%td
-		-# - if user_signed_in? and current_user.resume
 		= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
-		-# - else
-		-# 	%a#invite-popover{"data-content" => "You have to have a resume to view your competition.", "data-original-title" => "#{link_to "Build Work Profile", new_resume_path}", :href => "javascript: void(0);", :rel => "popover", "data-placement" => "left"} ? applicants
-	%td
-		- if job.quick_applicable?
-			- if user_signed_in? and current_user.job_applications.where(job_id: job).empty?
-				- if job.invite_only?
-					- if current_user.resume.present? and current_user.resume.invited_to_job?(job)
-						= check_box_tag 'job_ids[]', job.id, false
-				- else
-					= check_box_tag 'job_ids[]', job.id, false
-			- else
-				= check_box_tag 'job_ids[]', job.id, false
+	-# %td
+	-# 	- if job.quick_applicable?
+	-# 		- if user_signed_in? and current_user.job_applications.where(job_id: job).empty?
+	-# 			- if job.invite_only?
+	-# 				- if current_user.resume.present? and current_user.resume.invited_to_job?(job)
+	-# 					= check_box_tag 'job_ids[]', job.id, false
+	-# 			- else
+	-# 				= check_box_tag 'job_ids[]', job.id, false
+	-# 		- else
+	-# 			= check_box_tag 'job_ids[]', job.id, false

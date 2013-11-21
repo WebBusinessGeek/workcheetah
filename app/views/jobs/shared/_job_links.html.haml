@@ -1,13 +1,6 @@
 - if can? :manage, @job
   = link_to 'Edit Job', edit_job_path(@job), class: "btn"
   = link_to 'Deactivate Job', job_path(@job), method: :delete, class: "btn btn-danger"
-  -# - if current_user.account.present? and current_user.account.safe_job_seal?
-  -#   - if !@job.invited?
-  -#     = link_to 'Invite job seekers', invite_job_seekers_to_job_path(@job), method: :post, class: "btn btn-success"
-  -#   - else
-  -#     = link_to 'Invite job seekers', "javascript: return false;", method: :post, class: "btn btn-success disabled"
-  -# - else
-  -#   %a#invite-popover.btn.btn-success{"data-content" => "#{link_to "Verify your account.", add_seal_account_path} As a verified employer you can invite all relevant job seekers within a 50 mile radius to your job opening.", "data-original-title" => "Invite", :href => "javascript: void(0);", :rel => "popover"} Invite job seekers
 - if current_user and current_user.account and current_user.account == @job.account and @job.invite_only?
   %p
     You selected Invite Only for your job posting. Only job seekers you
@@ -22,8 +15,8 @@
   - elsif current_user.account != @job.account
     - if current_user.resume.present?
       - if ['business','freelancer'].include? current_user.role?
-        %h2 
-          Estimate Credits 
+        %h2
+          Estimate Credits
           = current_user.account.estimate_credits
         - if current_user.account.has_estimate_credits?
           = link_to "Send Estimate", new_estimate_path(job_id: @job.id), class: "btn btn-success btn-large"
