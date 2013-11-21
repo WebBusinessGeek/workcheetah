@@ -6,7 +6,7 @@
   %ul.thumbnails
     %li.span2
       %h3= Invite::PRICE[0].first.to_s + " Credits"
-      %p 
+      %p
       = link_to "#{number_to_currency(Money.new Invite::PRICE[0].last)}", buy_invites_jobs_path(selection: "first"), class: "btn btn-large thumbnail", method: :post
     %li.span2
       %h3= Invite::PRICE[1].first.to_s + " Credits"
@@ -14,5 +14,5 @@
       = link_to "#{number_to_currency(Money.new Invite::PRICE[1].last)}", buy_invites_jobs_path(selection: "second"), class: "btn btn-large thumbnail", method: :post
     %li.span2
       %h3= Invite::PRICE[2].first.to_s + " Credits"
-      %p 
+      %p
       = link_to "#{number_to_currency(Money.new Invite::PRICE[2].last)}", buy_invites_jobs_path(selection: "third"), class: "btn btn-large thumbnail", method: :post

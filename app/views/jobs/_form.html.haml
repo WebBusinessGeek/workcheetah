@@ -39,15 +39,15 @@
     %hr/
     = f.input :address, label: "City, State (ex. Los Angeles, CA)", input_html: { style: "width: 100%; max-width: 400px; font-size: 16px;" }
     .control-group
-      = f.label :quick_applicable, "Quick applicable?"
+      = f.label :quick_applicable do
+        = link_to "Quick applicable?", "javascript(void(0);", data: {toggle: "tooltip", title: "Allow job seekers to quickly apply to your jobs and increase the amount of applicants you receive. Having a questionaire will disable this feature."}, rel: "tooltip"
       .control
         = f.check_box :quick_applicable
-        %a#invite-popover.btn.btn-primary{"data-content" => "Allow job seekers to quickly apply to your jobs and increase the amount of applicants you receive. Having a questionaire will disable this feature.", "data-original-title" => "Quick Applicable", html: true, :href => "javascript: void(0);", :rel => "popover"} ?
     .control-group
-      = f.label :invite_only, "Invite only?"
+      = f.label :invite_only do
+        = link_to "Invite only?", "javascript:void(0);", data: {toggle: "tooltip", title: "Protect yourself from spam. Your job only shows to those that you invite to your listing."}, rel: "tooltip"
       .control
         = f.check_box :invite_only, html: { checked: true }
-        %a#invite-popover.btn.btn-primary{"data-content" => "Protect yourself from spam. Your job only shows to those that you invite to your listing.", "data-original-title" => "Invite Only", html: true, :href => "javascript: void(0);", :rel => "popover"} ?
     %hr/
     - unless @job.account.nil?
       = f.fields_for :account do |af|
