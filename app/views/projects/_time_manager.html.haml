@@ -1,0 +1,11 @@
+%button.btn.btn-primary{"data-toggle" => "collapse", "data-target" => "#collapseManager"} Manage Time
+#collapseManager.collapse.in
+  .hero-unit
+    %h3 Unpaid
+    %h3 Total Hours
+    %p
+      = @project.total_unpaid_hours
+      = @project.total_hours
+    %p
+      = link_to "Log Time", [:new,@project,:timesheet], class: "btn btn-primary btn-success", remote: true
+      = link_to "Generate Invoice", [:new, @project, :invoice], class: "btn btn-primary btn-success"

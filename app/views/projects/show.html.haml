@@ -14,15 +14,7 @@
         - else
           = @project.participants(current_user).first.name
   .span4.pull-right
-    .hero-unit
-      %h3 Unpaid
-      %h3 Total Hours
-      %p
-        = @project.total_unpaid_hours
-        = @project.total_hours
-      %p
-        = link_to "Log Time", [:new,@project,:timesheet], class: "btn btn-primary btn-success", remote: true
-        = link_to "Generate Invoice", [:new, @project, :invoice], class: "btn btn-primary btn-success"
+    = render 'time_manager'
 %hr/
 .row
   .span4
