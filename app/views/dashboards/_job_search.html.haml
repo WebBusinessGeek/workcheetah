@@ -1,10 +1,6 @@
--# = form_tag search_categories_path, method: :get, class: "form-inline"  do |f|
--#   .input-append
--#     = text_field_tag :search, @query || nil, tabindex: "1", placeholder: "Start Hunting...", class: "search-query", style: 'width: 100%;', autofocus: true
--#   = submit_tag "Search", class: "btn btn-success btn-large"
-=form_tag search_categories_path, method: :get, class: "form-search" do
-  .input-append
-    =text_field_tag :search, @search || nil, placeholder: "Start Hunting", autofocus: true, style: "height:25px", class: "search-query span4"
+=form_tag search_categories_path, method: :get, class: "form-inline", role: "form" do
+  .input-group
+    =text_field_tag :search, @search || nil, placeholder: "Start Hunting", autofocus: true, class: "search-query span4"
     =select_tag :category, options_from_collection_for_select(Category.all, "id", "name"),include_blank: true
-    %button.btn.btn-large{type: "submit"}
-      %i.icon-search
+    %button.btn.btn-default{type: "submit"}
+      %span.glyphicon.glyphicon-search

@@ -1,62 +1,61 @@
-.job_applicants_show
-  .white_box
-    - if @resume.present?
-      -if @job && @job_application
-        - if can? :manage, @job
-          .pull-right{ style: "text-align: center;" }
-            %a.btn.btn-large.btn-success{:href => "#myHire", :role => "button", "data-toggle" => "modal"} Hire
-            %br/
-            or
-            %br/
-            = link_to "Not Interested", [:reject, @job, @job_application], class: "btn btn-danger", method: :post
-            %br/
-            %br/
-            %p Please pick one
-      - elsif ['freelancer','business'].include?(current_user.role?)
-        - if current_user.account.present? and !current_user.account.jobs.empty?
-          %h2
-            Invite Credits
-            = current_user.account.invite_credits
-          - if @available_jobs.empty?
-            You have already invited this user to this job.
-          - else
-            - if current_user.account.has_invite_credits?
-              %lead Invite to a job
-              = form_tag invite_job_seekers_to_job_path do |f|
-                = hidden_field_tag :resume_id, @resume.id
-                = select_tag 'job', options_from_collection_for_select(@available_jobs, 'id', 'title')
-                = submit_tag 'invite'
-            - else
-              = render "resumes/shared/invites_credits"
+.job_applicants_show.container
+  - if @resume.present?
+    -if @job && @job_application
+      - if can? :manage, @job
+        .pull-right
+          %a.btn.btn-default.btn-lg.btn-success{:href => "#myHire", :role => "button", "data-toggle" => "modal"} Hire
+          %br/
+          or
+          %br/
+          = link_to "Not Interested", [:reject, @job, @job_application], class: "btn btn-danger", method: :post
+          %br/
+          %br/
+          %p Please pick one
+    - elsif ['freelancer','business'].include?(current_user.role?)
+      - if current_user.account.present? and !current_user.account.jobs.empty?
+        %h2
+          Invite Credits
+          = current_user.account.invite_credits
+        - if @available_jobs.empty?
+          You have already invited this user to this job.
         - else
-          %p You must post a job before inviting applicants.
-          = link_to "post a job", new_job_path
-      %h1.pagination-centered Preview
-      %dl.dl-horizontal
-        %dt Resume Score
-        %dd{style:"padding-left:30px"}
-          = render_rating_display @resume.rating
-        %dt Name
-        %dd{style:"padding-left:30px"}
-          %p.lead= @resume.user.name
-        %dt Skills
-        %dd{style:"padding-left:30px"}
-          %p.lead
-            - if @resume.skills.any?
-              = @resume.skills.map(&:name)*", "
-            - else
-              None
-        %dt Highest Merit Earned
-        %dd{style:"padding-left:30px"}
-          %p.lead
-            - if @resume.schools.any?
-              = @resume.highest_merit_earned
-            - else
-              None
-        - unless ['business', 'freelancer'].include?(@resume.resume_type)
-          %dt Employment Status
-          %dd{style:"padding-left:30px"}
-            %p.lead= @resume.status.present? ? @resume.status : "Unemployed"
+          - if current_user.account.has_invite_credits?
+            %lead Invite to a job
+            = form_tag invite_job_seekers_to_job_path do |f|
+              = hidden_field_tag :resume_id, @resume.id
+              = select_tag 'job', options_from_collection_for_select(@available_jobs, 'id', 'title')
+              = submit_tag 'invite'
+          - else
+            = render "resumes/shared/invites_credits"
+      - else
+        %p You must post a job before inviting applicants.
+        = link_to "post a job", new_job_path
+    %h5 Preview
+    %dl.dl-horizontal
+      %dt Resume Score
+      %dd
+        = render_rating_display @resume.rating
+      %dt Name
+      %dd
+        %p.lead= @resume.user.name
+      %dt Skills
+      %dd
+        %p.lead
+          - if @resume.skills.any?
+            = @resume.skills.map(&:name)*", "
+          - else
+            None
+      %dt Highest Merit Earned
+      %dd
+        %p.lead
+          - if @resume.schools.any?
+            = @resume.highest_merit_earned
+          - else
+            None
+      - unless ['business', 'freelancer'].include?(@resume.resume_type)
+        %dt Employment Status
+        %dd
+          %p.lead= @resume.status.present? ? @resume.status : "Unemployed"
 -if @job && @job_application
   #myHire.modal.hide.fade
     .modal-header

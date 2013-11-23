@@ -1,128 +1,124 @@
-.resumes_show
-  .white_box
-    %h1= @resume.name
-    - if user_signed_in? and current_user.resume and @resume != current_user.resume
-      .alert.alert-info.alert-block
-        = link_to "interview", video_chats_path
-        = "."
-      %br/
-    - if user_signed_in?
-      - if current_user.admin? or current_user.moderator?
-        = link_to "Send message", new_conversation_path(recipient_id: @resume.user.id)
-      - if current_user.blocks?(@resume.user)
-        = link_to "Unblock", blocks_path(id: @resume.user.id), method: :delete
-      - elsif (current_user.resume.present? and current_user.resume != @resume) or !current_user.resume.present?
-        = link_to "Block", blocks_path(id: @resume.user.id), method: :post 
-    - if @resume.present?
-      .pull-right{ style: "width: 300px"}
-        - if @resume.user == current_user
-          = link_to [:add_video, @resume], class: "btn btn-success" do
-            %b{ class: "icon-facetime-video"}
-            Add Video Resume
+.container
+  %h2= @resume.name
+  - if user_signed_in? and current_user.resume and @resume != current_user.resume
+    .alert.alert-info.alert-block
+      = link_to "interview", video_chats_path
+      = "."
+    %br/
+  - if user_signed_in?
+    - if current_user.admin? or current_user.moderator?
+      = link_to "Send message", new_conversation_path(recipient_id: @resume.user.id)
+    - if current_user.blocks?(@resume.user)
+      = link_to "Unblock", blocks_path(id: @resume.user.id), method: :delete
+    - elsif (current_user.resume.present? and current_user.resume != @resume) or !current_user.resume.present?
+      = link_to "Block", blocks_path(id: @resume.user.id), method: :post 
+  - if @resume.present?
+    .pull-right
+      - if @resume.user == current_user
+        = link_to [:add_video, @resume], class: "btn btn-default btn-success" do
+          %b{ class: "icon-facetime-video"}
+          Add Video Resume
+        = link_to [:edit, @resume], class: "btn btn-default btn-primary" do
+          %b{ class: "icon-user"}
+          Edit Resume
+        %p{ style: "margin-top: 10px;" } Video helps you sell yourself to potential employers. Stand out with a great visual presentation of your skills.
+      - if @resume.category1 || @resume.category2 || @resume.category3
+        %strong Types of Jobs They Are Interested In:
+        %ul
+          - if @resume.category1
+            %li= @resume.category1.name
+          - if @resume.category2
+            %li= @resume.category2.name
+          - if @resume.category3
+            %li= @resume.category3.name
+    .contact_details
+      - if !@resume.phone.blank? and !@resume.private?
+        .phone
+          %span.resume_detail_label Phone:
+          = @resume.phone
+      - if !@resume.email.blank?
+        .email
+          %span.resume_detail_label Email:
+          = link_to @resume.email, "mailto: #{@resume.email}"
+      - if !@resume.website.blank?
+        .website
+          %span.resume_detail_label Website:
+          = link_to @resume.website, @resume.website
+      - if !@resume.twitter.blank?
+        .twitter
+          %span.resume_detail_label Twitter:
+          = link_to "@#{@resume.twitter.gsub("@", "")}", "http://www.twitter.com/#{@resume.twitter.gsub("@", "")}"
 
-          = link_to [:edit, @resume], class: "btn btn-primary" do
-            %b{ class: "icon-user"}
-            Edit Resume
-          %p{ style: "margin-top: 10px;" } Video helps you sell yourself to potential employers. Stand out with a great visual presentation of your skills.
-        - if @resume.category1 || @resume.category2 || @resume.category3
-          %strong Types of Jobs They Are Interested In:
-          %ul
-            - if @resume.category1
-              %li= @resume.category1.name
-            - if @resume.category2
-              %li= @resume.category2.name
-            - if @resume.category3
-              %li= @resume.category3.name
+      - if @resume.addresses.any? and !@resume.private?
+        - @resume.addresses.each do |address|
+          .address
+            %span.resume_detail_label Address:
+            = address.city
+            = address.state
 
-      .contact_details
-        - if !@resume.phone.blank? and !@resume.private?
-          .phone
-            %span.resume_detail_label Phone:
-            = @resume.phone
-        - if !@resume.email.blank?
-          .email
-            %span.resume_detail_label Email:
-            = link_to @resume.email, "mailto: #{@resume.email}"
-        - if !@resume.website.blank?
-          .website
-            %span.resume_detail_label Website:
-            = link_to @resume.website, @resume.website
-        - if !@resume.twitter.blank?
-          .twitter
-            %span.resume_detail_label Twitter:
-            = link_to "@#{@resume.twitter.gsub("@", "")}", "http://www.twitter.com/#{@resume.twitter.gsub("@", "")}"
-
-        - if @resume.addresses.any? and !@resume.private?
-          - @resume.addresses.each do |address|
-            .address
-              %span.resume_detail_label Address:
-              = address.city
-              = address.state
-
-      - if @resume.web_video.present?
-        .video_resume
-          %h3 Video Resume
-          :erb
-            <video id="my_video_1" class="video-js vjs-default-skin" controls
-              preload="auto" width="640" height="360"
-              data-setup="{}">
-              <source src="<%= @resume.web_video.url %>" type='video/mp4'>
-            </video>
-      %hr{style: "width:300px"}
-      %p.lead Rating
-      = render_rating_display(@resume.rating)
-      = link_to "#", data: {toggle:"tooltip"},title: "test", rel: "tooltip" do
-        %em Whats This?
-      - if @resume.skills.any?
-        %p.lead Skills
-        %ul.skills{style: "margin-left:15px"}
-          -@resume.skills.each do |skill|
-            %li=skill.name
-      - if @resume.experiences.any?
-        %p.lead Experience
-        - @resume.experiences.each do |experience|
-          .experience{style: "margin-left:15px"}
-            = experience.job_title
-            = " @ "
-            %strong= experience.company_name
-            %span.range{ style: "font-weight: normal; margin-left: 10px; font-size: 14px;" }
-              = experience.from
-              = " - "
-              = experience.till
-      - if @resume.schools.any?
-        .row
-          .schools.span6
-            %p.lead{style: "margin-top:20px"} Schools
-            - @resume.schools.each do |school|
-              .school{style: "margin-left:15px"}
-                %span{style: "font-weight:bold; font-size:18px;"}= school.name
-                %span{style: "margin-left:10px"}= school.course_of_study
-                %p
-                  = school.highest_merit
-                  = school.completion_year
-      - if @resume.references.any?
-        .row
-          .references.span4
-            %p.lead References
-            - @resume.references.each do |reference|
-              .reference{style: "margin-left:15px"}
-                %h4.name{ style: "margin-bottom: 0"}= reference.name
-                -unless reference.confirmation
-                  =link_to "Send Confirmation Request", new_confirmation_path(reference: reference, email: reference.email), remote: true, class: "btn btn-danger confirmation"
+    - if @resume.web_video.present?
+      .video_resume
+        %h3 Video Resume
+        :erb
+          <video id="my_video_1" class="video-js vjs-default-skin" controls
+            preload="auto" width="640" height="360"
+            data-setup="{}">
+            <source src="<%= @resume.web_video.url %>" type='video/mp4'>
+          </video>
+    %hr
+    %p.lead Rating
+    = render_rating_display(@resume.rating)
+    %br/
+    = link_to "javascript:void(0);", data: {toggle:"tooltip"},title: "Work Profile Ratings are on a scale of 0-100, the more detailed and filled out a profile is, the higher the rating.", rel: "tooltip" do
+      Whats This?
+    - if @resume.skills.any?
+      %p.lead Skills
+      %ul.skills
+        -@resume.skills.each do |skill|
+          %li=skill.name
+    - if @resume.experiences.any?
+      %p.lead Experience
+      - @resume.experiences.each do |experience|
+        .experience
+          = experience.job_title
+          = " @ "
+          %strong= experience.company_name
+          %span.range
+            = " - "
+            = experience.till
+    - if @resume.schools.any?
+      .row
+        .schools.col-md-6
+          %p.lead Schools
+          - @resume.schools.each do |school|
+            = school.name
+            = school.course_of_study
+            %p
+              = school.highest_merit
+              = school.completion_year
+    - if @resume.references.any?
+      .row
+        .references.col-md-4
+          %p.lead References
+          - @resume.references.each do |reference|
+            .reference
+              %h4.name= reference.name
+              -unless reference.confirmation
+                =link_to "Send Confirmation Request", new_confirmation_path(reference: reference, email: reference.email), remote: true, class: "btn btn-default btn-danger confirmation"
+              -else
+                -if reference.confirmed?
+                  %span.label.label-success.confirmation CONFIRMED
                 -else
-                  -if reference.confirmed?
-                    %span.label.label-success.confirmation CONFIRMED
-                  -else
-                    %span.label.label-warning.confirmation
-                      Confirmation sent on:
-                      = reference.confirmation.confirmation_sent.strftime("%B %d, %Y")
-                %em.job= reference.job_title
-                .company= reference.company
-                .phone= reference.phone
-                .email= reference.email
-                .notes= reference.notes
-    - else
-      %p This application doesn't have a resume
+                  %span.label.label-warning.confirmation
+                    Confirmation sent on:
+                    = reference.confirmation.confirmation_sent.strftime("%B %d, %Y")
+              %em.job= reference.job_title
+              .company= reference.company
+              .phone= reference.phone
+              .email= reference.email
+              .notes= reference.notes
+  - else
+    %p This application doesn't have a resume
 #myModal.modal.hide.fade
   .modal-header
     %button.close{type: "button", "data-dismiss" => "modal", "aria-hidden" => true} X
