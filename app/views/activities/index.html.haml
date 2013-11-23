@@ -1,8 +1,7 @@
-.conversations_index
-  .white_box
-    - if @activities
-      - @activities.each do |activity|
-        .row
-          .span11.offset1
-            = "#{raw(activity.message)} #{time_ago_in_words(activity.created_at)} ago..."
-            = link_to("View job details", activity.job)
+.conversations_index.container
+  - if @activities
+    - @activities.each do |activity|
+      .row
+        .col-md-12
+          = "#{raw(activity.message)} #{time_ago_in_words(activity.created_at)} ago..."
+          = link_to("View job details", activity.job)

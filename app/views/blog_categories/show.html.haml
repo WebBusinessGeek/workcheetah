@@ -1,7 +1,5 @@
-.white_box
+.container
   %p
     %b Name:
     = @blog_category.name
   = link_to 'Edit', edit_blog_category_path(@blog_category)
-  |
-  \#{link_to 'Back', blog_categories_path}
