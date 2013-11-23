@@ -1,13 +1,13 @@
 %li
   .row
-    .span1
+    .col-md-1
       =render_rating_display resume.rating
-    .span3{style:"text-decoration:none"}
+    .col-md-4{style:"text-decoration:none;margin-left:10px;"}
       =link_to resume_path(resume) do
         %p.lead= resume.user.name.titleize if resume.user
       %span= resume.user.role.titleize
-    .span3
-      %ul.unstyled
+    .col-md-3
+      %ul.list-unstyled
         %li
           %strong Skills:
           - if resume.skills.any?

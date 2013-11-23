@@ -30,10 +30,10 @@
       - else
         %p You must post a job before inviting applicants.
         = link_to "post a job", new_job_path
-    %h5 Preview
+    %h3 Preview
     %dl.dl-horizontal
-      %dt Resume Score
-      %dd
+      %dt{style: "margin-bottom:10px;margin-top:20px;"} Resume Score
+      %dd{style: "margin-bottom:10px;margin-top:20px;"}
         = render_rating_display @resume.rating
       %dt Name
       %dd
