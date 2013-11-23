@@ -4,6 +4,6 @@
   - @activities.each do |activity|
     %li
       = link_to("Job Details", activity.job)
-      = "#{raw(activity.message)} #{time_ago_in_words(activity.created_at)} ago..."   
+      = "#{raw(activity.message)} #{time_ago_in_words(activity.created_at)} ago..."
 .buttonholds
   %a.btn.btn-viewall{ :href => activities_path} View All

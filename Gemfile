@@ -22,7 +22,7 @@ gem 'state_machine'
 gem 'acts_as_list'
 # style branch
 gem 'simple_form'
-gem 'bootstrap-sass', '~> 2.3.2.2'
+# gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'skrollr-rails'
 
 
@@ -83,8 +83,8 @@ group :development do
   gem 'therubyracer', "0.11.4", :platforms => :ruby
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'meta_request'
   gem 'thin'
+  gem 'meta_request'
   gem 'quiet_assets'
   gem "letter_opener"
 end

@@ -13,12 +13,10 @@
 //= require jquery
 //= require jquery.ui.all
 //= require jquery_ujs
-//= require tinymce-jquery
-//= require bootstrap
+//= require bootstrap.min
 //= require skrollr
 //= require skrollr.ie
 //= require skrollr.menu
-//= require jquery.maskedinput
 //= require private_pub
 //= require chosen-jquery
 //= require_tree .

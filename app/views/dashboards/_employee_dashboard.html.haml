@@ -1,7 +1,7 @@
 .container
   .row
-  .col-md-12 
-    / = render 'job_search'
+  .col-md-12
+    = render 'job_search'
   .col-md-2.ads
     .well
       / = render partial: 'advertisers/advertisements/ad', collection: @sidebar_ads, as: :ad
@@ -17,30 +17,11 @@
       = link_to(image_tag('ad3img.png'), "#", :class => 'adimg')
       %p Text for this advertisement. Text, for this advertisement. This is Text!!!
       %a{ :href => "#" } www.docjobs.com
-  .col-md-8 
-    .row   
+  .col-md-8
+    .row
       .col-md-6.col-sm-6.main
         .well
-          / = render "activities"
-          %h1 Activity Feed
-          %ul
-            %li
-              %a{:href => "#"} Steve Jones
-              has applied for "Sr. Graph..."
-            %li
-              %a{:href => "#"} Steve Jones
-              has applied for "Graphic Design..."
-            %li
-              %a{:href => "#"} Steve Jones
-              has applied for "App Designer..."
-            %li
-              %a{:href => "#"} Steve Jones
-              has applied for "Web Developer..."
-            %li
-              %a{:href => "#"} Steve Jones
-              has applied for "Graphic II..."
-          .buttonholds
-            %a.btn.btn-viewall{ :href => "#"} View All
+          = render "activities"
       .col-md-6.col-sm-6.main
         .well
           %h1 To Do List
@@ -48,40 +29,40 @@
             << 
             = Date.today 
             >>
-          / %ul#todo_list{"data-update-url" => sort_todos_url }
-          /   = render @todos
-          / = render 'todos/form'
-          %form{:role => "form"}
-            .checkbox
-              %label
-                %input{:type => "checkbox"}
-                  Follow up with GloboCorp Enter...
-            .checkbox
-              %label
-                %input{:type => "checkbox"}
-                  Follow up with Client #1
-            .checkbox
-              %label
-                %input{:type => "checkbox"}
-                  Follow up with Client #2
-            .checkbox
-              %label
-                %input{:type => "checkbox"}
-                  Follow up with Client #3
-            .checkbox
-              %label
-                %input{:type => "checkbox"}
-                  Follow up with Client #4
-            .checkbox
-              %label
-                %input{:type => "checkbox"}
-                  Follow up with Client #5
-          .buttonholds
-            %a.btn.btn-viewall{ :href => "#"} + Add an Item
-    .row 
+          %ul#todo_list{"data-update-url" => sort_todos_url }
+            = render @todos
+          = render 'todos/form'
+          -# %form{:role => "form"}
+          -#   .checkbox
+          -#     %label
+          -#       %input{:type => "checkbox"}
+          -#         Follow up with GloboCorp Enter...
+          -#   .checkbox
+          -#     %label
+          -#       %input{:type => "checkbox"}
+          -#         Follow up with Client #1
+          -#   .checkbox
+          -#     %label
+          -#       %input{:type => "checkbox"}
+          -#         Follow up with Client #2
+          -#   .checkbox
+          -#     %label
+          -#       %input{:type => "checkbox"}
+          -#         Follow up with Client #3
+          -#   .checkbox
+          -#     %label
+          -#       %input{:type => "checkbox"}
+          -#         Follow up with Client #4
+          -#   .checkbox
+          -#     %label
+          -#       %input{:type => "checkbox"}
+          -#         Follow up with Client #5
+          -# .buttonholds
+          -#   %button.btn.btn-viewall{ :href => "#"} + Add an Item
+    .row
       .col-md-12
         = link_to(image_tag('widead.png'), "#", :class => 'adimg')
-    .row 
+    .row
       .col-md-6.col-sm-6.main
         .well
           %h1 Calendar
@@ -90,10 +71,15 @@
         .well
           %h1 Calculator
           = render 'shared/calculator'
-    .row 
+    .row
       .col-md-12.main
         .well
-          %h1 Resources from Blog
+          %h1 Freelancing tips
+          - if @employee_articles.present?
+            - @employee_articles.each do |article|
+              = article.title
+          - else
+            No new articles
   .col-md-2.ads
     .well
       %h2 A Banking Career Can Be Yours!
