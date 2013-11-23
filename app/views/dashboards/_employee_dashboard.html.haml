@@ -25,9 +25,9 @@
       .col-md-6.col-sm-6.main
         .well
           %h1 To Do List
-          %a.datefloat{:href => "#"} 
-            << 
-            = Date.today 
+          %a.datefloat{:href => "#"}
+            <<
+            = Date.today
             >>
           %ul#todo_list{"data-update-url" => sort_todos_url }
             = render @todos

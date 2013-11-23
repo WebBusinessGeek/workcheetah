@@ -1,6 +1,8 @@
 = content_tag :li, id: dom_id(todo) do
-  = check_box_tag "complete", todo.id, todo.done?, class: "complete_todo"
-  = todo.title
-  .pull-right
-    = link_to [todo], method: :delete, remote: true do
-      %i.icon-trash
+  .checkbox
+    %label
+      = check_box_tag "complete", todo.id, todo.done?, class: "complete_todo"
+      = todo.title
+      .pull-right
+        = link_to [todo], method: :delete, remote: true do
+          %span.glyphicon.glyphicon-trash
