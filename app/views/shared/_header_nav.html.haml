@@ -9,8 +9,7 @@
     .navbar-collapse.collapse
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
-          %li{:class => current_page?(root_path) && 'active'}
-            = link_to "My Dashboard", root_path
+          = render 'shared/sub_nav_header'
           %li{:class =>"divider-vertical"}
           %li= link_to "Sign Out", destroy_user_session_path, method: :delete
         - else

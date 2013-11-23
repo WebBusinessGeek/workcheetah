@@ -1,51 +1,77 @@
-.row
-  .span10.offset1.text-center
-    .ul.nav.nav-pills
-      - if ['business'].include?(current_user.role?)
-        %li= link_to "Get Business", categories_path, class: (root_path == request.path ? "current" : "" )
-        %li= link_to "Project Mgr", projects_path
-        %li= link_to "Recruiting", search_resumes_path, class: (root_path == request.path ? "current" : "" )
-        %li= link_to "Staff", "javascript:void(0);"
-        %li= link_to "Accounting", accounting_path
-        %li= link_to "Contacts", contacts_path
-        - if current_user.resume.present?
-          %li= link_to "My Business", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
-        - else
-          %li= link_to "My Business", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
-      - elsif ['freelancer'].include?(current_user.role?)
-        %li= link_to "Find Clients", categories_path, class: (root_path == request.path ? "current" : "" )
-        %li= link_to "Recruiting", search_resumes_path, class: (root_path == request.path ? "current" : "")
-        %li= link_to "Project Mgr", projects_path
-        %li= link_to "Staff", "javascript:void(0);"
-        %li= link_to "Accounting",  accounting_path
-        %li= link_to "Contacts", contacts_path
-        - if current_user.resume.present?
-          %li= link_to "My Profile", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
-        - else
-          %li= link_to "My Profile", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
-      - elsif current_user.advertiser?
-        %li= link_to "campaigns", advertisers_campaigns_path
-        %li= link_to "invoices", advertisers_invoices_path
-        %li= link_to "manage my account", edit_advertisers_account_path(current_user.advertiser_account)
-      - elsif current_user.admin?
-        %li= link_to "Admin", admin_path
-      - elsif current_user.moderator?
-        %li= link_to "Moderator", moderator_path
-      - else
-        %li= link_to "Find Work", categories_path, class: (root_path == request.path ? "current" : "" )
-        %li= link_to "Task Mgr", projects_path
-        - if current_user.resume.present?
-          %li= link_to "My Profile", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
-        - else
-          %li= link_to "My Profile", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
-        %li= link_to "Messages", "javascript:void(0);"
-        %li= link_to "Contacts", contacts_path
-      %li= link_to "Interviews", video_chats_path unless current_user.advertiser?
-      %li= link_to "Messages", conversations_path
-      %li
-        = link_to "javascript: return false;", title: "Notifications", id: "notifications" do
-          %i.icon-eye-open
-          %span.badge= current_user.notifications.size unless current_user.notifications.empty?
+- if ['business'].include?(current_user.role?)
+  %li{:class => current_page?(categories_path) && 'active'}
+    = link_to "Get Business", categories_path, class: (root_path == request.path ? "current" : "" )
+  %li{:class => current_page?(projects_path) && 'active'}
+    = link_to "Project Mgr", projects_path
+  %li{:class => current_page?(search_resumes_path) && 'active'}
+    = link_to "Recruiting", search_resumes_path, class: (root_path == request.path ? "current" : "" )
+  -# %li{:class => current_page?(categories_path) && 'active'}
+  -#   = link_to "Staff", "javascript:void(0);"
+  %li{:class => current_page?(accounting_path) && 'active'}
+    = link_to "Accounting", accounting_path
+  %li{:class => current_page?(contacts_path) && 'active'}
+    = link_to "Contacts", contacts_path
+  - if current_user.resume.present?
+    %li{:class => current_page?([current_user.resume]) && 'active'}
+      = link_to "My Business", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
+  - else
+    %li{:class => current_page?(new_resume_path) && 'active'}
+      = link_to "My Business", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
+- elsif ['freelancer'].include?(current_user.role?)
+  %li{:class => current_page?(categories_path) && 'active'}
+    = link_to "Find Clients", categories_path, class: (root_path == request.path ? "current" : "" )
+  %li{:class => current_page?(search_resumes_path) && 'active'}
+    = link_to "Recruiting", search_resumes_path, class: (root_path == request.path ? "current" : "")
+  %li{:class => current_page?(projects_path) && 'active'}
+    = link_to "Project Mgr", projects_path
+  -# %li{:class => current_page?(categories_path) && 'active'}
+  -#   = link_to "Staff", "javascript:void(0);"
+  %li{:class => current_page?(accounting_path) && 'active'}
+    = link_to "Accounting",  accounting_path
+  %li{:class => current_page?(contacts_path) && 'active'}
+    = link_to "Contacts", contacts_path
+  - if current_user.resume.present?
+    %li{:class => current_page?([current_user.resume]) && 'active'}
+      = link_to "My Profile", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
+  - else
+    %li{:class => current_page?(new_resume_path) && 'active'}
+      = link_to "My Profile", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
+- elsif current_user.advertiser?
+  %li{:class => current_page?(advertisers_campaigns_path) && 'active'}
+    = link_to "campaigns", advertisers_campaigns_path
+  %li{:class => current_page?(advertisers_invoices_path) && 'active'}
+    = link_to "invoices", advertisers_invoices_path
+  %li{:class => current_page?(edit_advertisers_account_path) && 'active'}
+    = link_to "manage my account", edit_advertisers_account_path(current_user.advertiser_account)
+- elsif current_user.admin?
+  %li{:class => current_page?(admin_path) && 'active'}
+    = link_to "Admin", admin_path
+- elsif current_user.moderator?
+  %li{:class => current_page?(moderator_path) && 'active'}
+    = link_to "Moderator", moderator_path
+- else
+  %li{:class => current_page?(categories_path) && 'active'}
+    = link_to "Find Work", categories_path, class: (root_path == request.path ? "current" : "" )
+  %li{:class => current_page?(projects_path) && 'active'}
+    = link_to "Task Mgr", projects_path
+  - if current_user.resume.present?
+    %li{:class => current_page?([current_user.resume]) && 'active'}
+      = link_to "My Profile", [current_user.resume], class: (current_user.resume == request.path ? "current" : "" )
+  - else
+    %li{:class => current_page?(new_resume_path) && 'active'}
+      = link_to "My Profile", [:new, :resume], class: (new_resume_path == request.path ? "current" : "" )
+  -# %li{:class => current_page?(categories_path) && 'active'}
+  -#   = link_to "Messages", "javascript:void(0);"
+  %li{:class => current_page?(contacts_path) && 'active'}
+    = link_to "Contacts", contacts_path
+%li{:class => current_page?(video_chats_path) && 'active'}
+  = link_to "Interviews", video_chats_path unless current_user.advertiser?
+%li{:class => current_page?(conversations_path) && 'active'}
+  = link_to "Messages", conversations_path
+%li
+  = link_to "javascript: return false;", title: "Notifications", id: "notifications" do
+    %i.icon-eye-open
+    %span.badge= current_user.notifications.size unless current_user.notifications.empty?
 
 :javascript
   $('#notifications').popover({content: "#{j render current_user.notifications.order('created_at DESC')}", placement: "bottom", html: true});
