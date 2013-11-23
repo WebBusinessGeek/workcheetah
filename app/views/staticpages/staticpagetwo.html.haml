@@ -1,0 +1,81 @@
+.container
+  .row.topcallout
+    %h1 Design Jobs
+    .col-md-2.col-sm-3
+      = image_tag('valid-seal.png', :class => "validseal")
+    .col-md-10.col-sm-9
+      %p All listings on Work Cheetah are current. You can view available positions, apply in seconds and see who you're competeing agianst if you have a resume. Don't forget to look for the Validation Seal to identify employers that have been verified by WorkCheetah. Happy job hunting! 
+  .row
+    .col-md-2.ads
+      .well
+        %h2 Jobs Available in Finance!
+        = link_to(image_tag('ad1img.png'), "#", :class => 'adimg')
+        %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+        %a{ :href => "#" } www.financejobs.com
+        %h3 Free ipad and a nice chair! Plus money!
+        = link_to(image_tag('ad2img.png'), "#", :class => 'adimg')
+        %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+        %a{ :href => "#" } www.apple.com/jobs
+        %h3 Jobs Available in Medicine!
+        = link_to(image_tag('ad3img.png'), "#", :class => 'adimg')
+        %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+        %a{ :href => "#" } www.docjobs.com
+    .col-md-10 
+      .row   
+        .col-md-2.col-sm-3.sidenaver
+          %h2 All Categories
+          %ul
+            %li Design & Multimedia
+            %li IT & Programming
+            %li Sales & Marketing
+            %li Engineering & Manufacturing
+            %li Writing & Translation
+            %li More...
+          %h3 All Job Types
+          %ul
+            %li Fixed Price
+            %li Hourly
+        .col-md-10.col-sm-9.openpositions
+          %h1 Open positions for Austin, TX 
+          %a.btn.btn-viewall.toprii{ :href => "#"} Quick Apply
+          .well
+            %h1 
+              Mid-Level Web Designer
+              = image_tag('valid-seal.png', :class => "validseal")
+            %ul
+              %li
+                %h2 Salary
+                26-35k
+              %li
+                %h2 Job Description
+                Here is an example of the job description. This is a great job, whoo hoooo!. Here is an example of the job description. This is a great job, whoo hoooo!. 
+              %li
+                %h2 About The Company
+                Private Listing
+            .subwell
+              %h1 
+                Senior Web Designer
+                = image_tag('valid-seal-g.png', :class => "validseal")
+              %ul
+                %li
+                  %h2 Salary
+                  26-35k
+                %li
+                  %h2 Job Description
+                  Here is an example of the job description. 
+                %li
+                  %h2 About The Company
+                  Private Listing
+            %h1 
+              Junior Web Designer
+              = image_tag('valid-seal.png', :class => "validseal")
+            %ul
+              %li
+                %h2 Salary
+                26-35k
+              %li
+                %h2 Job Description
+                Here is an example of the job description.  
+              %li
+                %h2 About The Company
+                Private Listing

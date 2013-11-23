@@ -1,13 +1,39 @@
--# coding: UTF-8
+#footer.section
+  .navbar.navbar-inverse.navbar-static-bottom
+    .container
+      .navbar-header
+        %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+      .navbar-collapse.collapse
+        %ul.nav.navbar-nav.navbar-left
+          %li{:class => current_page?(root_path) && 'active'}
+            = link_to "HOME", root_path
+          %li{:class => current_page?('#about') && 'active'}
+            = link_to "ABOUT US", '#about'
+          %li{:class => current_page?('#forum') && 'active'}
+            = link_to "FORUM", '#forum'
+          %li{:class => current_page?('#news') && 'active'}
+            = link_to "NEWS", '#news'
+          %li{:class => current_page?(new_user_registration_path) && 'active'}
+            = link_to "REGISTER", new_user_registration_path
+          %li{:class => current_page?('/articles') && 'active'}
+            = link_to "BLOG", '/articles'
+          %li{:class => current_page?('/contact') && 'active'}
+            = link_to "CONTACT US", '/contact'
+        %p.navbar-text.pull-right all rights reserved
 
-.footer
-	.pull-right
-		= "Registered #{Time.now.year} - Workcheetah.com, Inc. ® All Rights Reserved."
-	= link_to "Home", root_path
-	= link_to "Career Stuff 101", "/articles"
-	= link_to "Report Scam", [:new, :scam_report]
-	= link_to "Contact", "/contact"
-	:erb
-		<script src="//static.getclicky.com/js" type="text/javascript"></script>
-		<script type="text/javascript">try{ clicky.init(100608832); }catch(e){}</script>
-		<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100608832ns.gif" /></p></noscript>
+/ -# coding: UTF-8
+
+/ .footer
+/ 	.pull-right
+/ 		= "Registered #{Time.now.year} - Workcheetah.com, Inc. ® All Rights Reserved."
+/ 	= link_to "Home", root_path
+/ 	= link_to "Career Stuff 101", "/articles"
+/ 	= link_to "Report Scam", [:new, :scam_report]
+/ 	= link_to "Contact", "/contact"
+/ 	:erb
+/ 		<script src="//static.getclicky.com/js" type="text/javascript"></script>
+/ 		<script type="text/javascript">try{ clicky.init(100608832); }catch(e){}</script>
+/ 		<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100608832ns.gif" /></p></noscript>

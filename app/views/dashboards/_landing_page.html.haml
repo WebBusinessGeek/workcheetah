@@ -1,32 +1,69 @@
--# .search_content.row
--#   .search_box.span12
--#     - if user_signed_in? && ['Freelancer', 'Business'].include?(current_user.role?) # and current_user.account
--#       .logo
--#         %img{:src => "assets/logo-large5.png", :alt => "large logo", style: "width: 70%;"}/
--#         / = image_tag "logo-large5.png"
--#     - else
--#       .logo= image_tag("logo-large5.png")
--#     - if current_user
--#       - if ['Employee', nil].include?(current_user.role?) # !current_user.account
--#         .search_form= render "jobs/search_form"
--#     - else
--#       .search_form= render "jobs/search_form"
-FUTURE PAGE
+.container
+  .row
+    .col-md-5
+      %button.btn.btn-primary POST A JOB
+      %button.btn.btn-primary GET HIRED
+    .col-md-7
+      %h2 SEE HOW IT WORKS:
+      .row.mainparlinks
+        %a.col-md-4.col-sm-4.col-xs-4.circleicon.biz{:href => businesses_path}
+          = image_tag('NEWbusinesses.png')
+          %h3 BUSINESSES
+        %a.col-md-4.col-sm-4.col-xs-4.circleicon.free{:href => freelancers_path}
+          = image_tag('NEWfreelancers.png')
+          %h3 FREELANCERS
+        %a.col-md-4.col-sm-4.col-xs-4.circleicon.emp{:href => employees_path}
+          = image_tag('NEWemployees.png')
+          %h3 EMPLOYEES
+      .row
+        %h1 Experience Speed.
+      .row
+        .well.well-large
+          %p Join businesses and workers around the globe on WorkCheetah.
+          %br
+          = simple_form_for( :confirmations, :url => confirmations_path, :html => {:class => 'form' }) do |f|
+            %span.field
+              = f.email_field :email, :placeholder => "Type your email here",class: "input-large"
+            %span.action= f.submit "Get Started!", class: "btn btn-getstarted"
+            = image_tag('NEWfree.png')
+      .row
+        .footings
+          %p 
+            &copy; 2013 WorkCheetah.com Inc. &bull; All rights reserved &bull; Mail us: 303 W Lancaster Ave 142, Wayne PA 19087
+            %br
+            Email us: support@WorkCheetah.com &bull; Terms and Conditions &bull; Advertise &bull; Grow your business
+.cheetahimage
+  = image_tag('NEWlargecheetah.png')
 
-Convenince links
-= link_to "Post Your Work Profile", new_resume_path, class: "btn btn-success btn-large"
-= link_to "Post Your Job", new_job_path, class: "btn btn-primary btn-large"
+/ -# .search_content.row
+/ -#   .search_box.span12
+/ -#     - if user_signed_in? && ['Freelancer', 'Business'].include?(current_user.role?) # and current_user.account
+/ -#       .logo
+/ -#         %img{:src => "assets/logo-large5.png", :alt => "large logo", style: "width: 70%;"}/
+/ -#         / = image_tag "logo-large5.png"
+/ -#     - else
+/ -#       .logo= image_tag("logo-large5.png")
+/ -#     - if current_user
+/ -#       - if ['Employee', nil].include?(current_user.role?) # !current_user.account
+/ -#         .search_form= render "jobs/search_form"
+/ -#     - else
+/ -#       .search_form= render "jobs/search_form"
+/ FUTURE PAGE
 
-- if @articles.any?
-  %hr.divider
-  %h2 News &amp; Resources
-  .articles
-    - @articles.each do |article|
-      - @side = cycle("left", "right")
-      .article_box
-        .article{ class: @side }
-          %h3= link_to article.title, article
-          %p.teaser= strip_tags(article.body).truncate(200).html_safe
-      - if @side == "right"
-        .clearfix
-    .clearfix
+/ Convenince links
+/ = link_to "Post Your Work Profile", new_resume_path, class: "btn btn-success btn-large"
+/ = link_to "Post Your Job", new_job_path, class: "btn btn-primary btn-large"
+
+/ - if @articles.any?
+/   %hr.divider
+/   %h2 News &amp; Resources
+/   .articles
+/     - @articles.each do |article|
+/       - @side = cycle("left", "right")
+/       .article_box
+/         .article{ class: @side }
+/           %h3= link_to article.title, article
+/           %p.teaser= strip_tags(article.body).truncate(200).html_safe
+/       - if @side == "right"
+/         .clearfix
+/     .clearfix

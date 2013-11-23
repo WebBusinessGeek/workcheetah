@@ -7,7 +7,7 @@ jQuery ->
   $("input.date").datepicker
     dateFormat: "yy-mm-dd"
 
-  $(".dropdown").hover (->
-    $(this).find(".dropdown-menu").stop(true, true).delay(200).fadeIn()
-  ), ->
-    $(this).find(".dropdown-menu").stop(true, true).delay(200).fadeOut()
+  # $(".dropdown").hover (->
+  #   $(this).find(".dropdown-menu").stop(true, true).delay(200).fadeIn()
+  # ), ->
+  #   $(this).find(".dropdown-menu").stop(true, true).delay(200).fadeOut()

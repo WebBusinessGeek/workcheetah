@@ -1,10 +1,9 @@
-%h3 Activity Feed
+%h1 Activity Feed
+%ul
 - if @activities
   - @activities.each do |activity|
-    .row
-      .span10
-        = "#{raw(activity.message)} #{time_ago_in_words(activity.created_at)} ago..."
-        = link_to("View job details", activity.job)
-  .row
-    .span10
-      = link_to 'More', activities_path
+    %li
+      = link_to("Job Details", activity.job)
+      = "#{raw(activity.message)} #{time_ago_in_words(activity.created_at)} ago..."   
+.buttonholds
+  %a.btn.btn-viewall{ :href => activities_path} View All

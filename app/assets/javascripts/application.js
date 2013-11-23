@@ -15,6 +15,10 @@
 //= require jquery_ujs
 //= require tinymce-jquery
 //= require bootstrap
+//= require skrollr
+//= require skrollr.ie
+//= require skrollr.menu
+//= require jquery.maskedinput
 //= require private_pub
 //= require chosen-jquery
 //= require_tree .

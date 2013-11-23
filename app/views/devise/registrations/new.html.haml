@@ -1,15 +1,12 @@
-.white_box
-  %h2 Sign up
-  = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-    = devise_error_messages!
-    .control-group
-      = f.label :email
-      = f.email_field :email
-    .control-group
-      = f.label :password
-      = f.password_field :password
-    .control-group
-      = f.label :password_confirmation
-      = f.password_field :password_confirmation
-    %div= f.submit "Sign up", class: "btn btn-large btn-success"
-  = render :partial => "devise/shared/links"
+.container
+  .col-md-12.deviser
+    %h2 Sign up
+    = simple_form_for(resource, :url => '/moderators', :html => {:class => 'form-vertical' }) do |f|
+      = f.error_notification
+      = display_base_errors resource
+      / = f.input :advertiser, :as => :hidden, :input_html => { :value => "Test Advertiser" }
+      = f.input :email, :required => true
+      = f.input :password, :required => true
+      = f.input :password_confirmation, :required => true
+      = f.button :submit, 'Sign up', :class => 'btn-primary'
+    = render "devise/shared/links"

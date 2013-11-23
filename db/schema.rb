@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131108125956) do
+ActiveRecord::Schema.define(:version => 20131111161916) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -456,21 +456,6 @@ ActiveRecord::Schema.define(:version => 20131108125956) do
 
   add_index "payment_profiles", ["accountable_id", "accountable_type"], :name => "index_payment_profiles_on_accountable_id_and_accountable_type"
 
-  create_table "profiles", :force => true do |t|
-    t.string   "name"
-    t.string   "phone"
-    t.string   "email"
-    t.string   "website"
-    t.string   "status"
-    t.string   "growth_importance"
-    t.string   "distance_importance"
-    t.string   "freedom_importance"
-    t.string   "pay_importance"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-    t.string   "twitter"
-  end
-
   create_table "project_documents", :force => true do |t|
     t.integer  "project_id"
     t.string   "document_file_name"
@@ -542,8 +527,8 @@ ActiveRecord::Schema.define(:version => 20131108125956) do
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"
-    t.integer  "rating"
     t.boolean  "private",             :default => false
+    t.integer  "rating"
     t.string   "resume_type"
   end
 
@@ -637,6 +622,19 @@ ActiveRecord::Schema.define(:version => 20131108125956) do
   add_index "tasks", ["project_id"], :name => "index_tasks_on_project_id"
   add_index "tasks", ["state"], :name => "index_tasks_on_state"
 
+  create_table "timed_shifts", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "shift_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.decimal  "total_time", :precision => 4, :scale => 2
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+  end
+
+  add_index "timed_shifts", ["shift_id"], :name => "index_timed_shifts_on_shift_id"
+  add_index "timed_shifts", ["user_id"], :name => "index_timed_shifts_on_user_id"
+
   create_table "timesheet_entries", :force => true do |t|
     t.integer  "timesheet_id"
     t.date     "date"
@@ -714,6 +712,7 @@ ActiveRecord::Schema.define(:version => 20131108125956) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.string   "color"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

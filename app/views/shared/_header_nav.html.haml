@@ -1,23 +1,53 @@
-.navbar.navbar-static-top.navbar-inverse
-  .navbar-inner
-    .navbar-form.pull-right
-      .nav
+.container
+  .navbar.navbar-default
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to(image_tag('wclogotop.png'), root_path, :class => 'brand')
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
-          .dropdown
-            = link_to "#", class: "dropdown-toggle", data: { toggle: "dropdown"} do
-              = current_user.resume.present? && current_user.resume.name.present? && !current_user.resume.new_record? ? current_user.resume.name : current_user.email
-              %b.caret
-            %ul.dropdown-menu{ style: "background: black;"}
-              - if ['freelancer', 'business'].include?(current_user.role?) && current_user.account
-                %li= link_to "My Account", account_path
-              - else
-                %li= link_to "My Account", [:edit, :user]
-              %li= link_to "Sign Out", destroy_user_session_path, method: :delete
+          %li{:class => current_page?(root_path) && 'active'}
+            = link_to "My Dashboard", root_path
+          %li{:class =>"divider-vertical"}
+          %li= link_to "Sign Out", destroy_user_session_path, method: :delete
         - else
-          = form_for("user", :url => user_session_path, html: { class: "navbar-form" }) do |f|
-            = link_to "Forgot password", new_user_password_path
-            %span.field= f.email_field :email, placeholder: "Email", class: "input-medium"
-            %span.field= f.password_field :password, placeholder: "Password", class: "input-medium"
-            %span.action= f.submit "Sign in", class: "btn"
-    .links-top-right
-      %span.home= link_to "Home", root_path
+          - if current_page?(pageone_path) || current_page?(pagetwo_path) || current_page?(pagethree_path)
+            %li= link_to "Landing Pages", businesses_path
+            %li{:class =>"divider-vertical"}
+            %li{:class => current_page?(pageone_path) && 'active'}
+              = link_to "Inner 1", pageone_path
+            %li{:class =>"divider-vertical"}
+            %li{:class => current_page?(pagetwo_path) && 'active'}
+              = link_to "Inner 2", pagetwo_path
+            %li{:class =>"divider-vertical"}
+            %li{:class => current_page?(pagethree_path) && 'active'}
+              = link_to "Inner 3", pagethree_path
+          - elsif current_page?(businesses_path) || current_page?(employees_path) || current_page?(freelancers_path)
+            %li{:class => current_page?(businesses_path) && 'active'}
+              = link_to "Businesses", businesses_path
+            %li{:class =>"divider-vertical"}
+            %li{:class => current_page?(freelancers_path) && 'active'}
+              = link_to "Freelancers", freelancers_path
+            %li{:class =>"divider-vertical"}
+            %li{:class => current_page?(employees_path) && 'active'}
+              = link_to "Employees", employees_path
+            %li{:class =>"divider-vertical"}
+            %li= link_to "Inner Pages", pageone_path
+          - else
+            %li
+              = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'navbar-form' }) do |f|
+                %span.form-group
+                  = f.label :username
+                  %br
+                  = f.email_field :email, class: "input-small"
+                %span.form-group
+                  = f.label :password
+                  %br
+                  = f.password_field :password, class: "input-small"
+                %span.action= f.submit "Log in", class: "btn"
+            %li= link_to "Landing Pages", businesses_path
+            %li{:class =>"divider-vertical"}
+            %li= link_to "Inner Pages", pageone_path
