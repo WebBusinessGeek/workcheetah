@@ -1,15 +1,14 @@
-.accounts_edit
-  .white_box
-    %h1 Customize Jobs Portal
-    = form_for @account, url: account_path do |f|
-      .control-group
-        = f.label :logo, style: "font-weight: bold"
-        .control
-          = f.file_field :logo
-      .control-group
-        = f.label :slug, "What would you like your job portal link to be?", style: "font-weight: bold"
-        .control
-          http://www.workcheetah.com/
-          = f.text_field :slug
-      .action
-        = f.submit "Customize Jobs Portal", class: "btn"
+.accounts_edit.container
+  %h1 Customize Jobs Portal
+  = form_for @account, url: account_path do |f|
+    .control-group
+      = f.label :logo, style: "font-weight: bold"
+      .control
+        = f.file_field :logo
+    .control-group
+      = f.label :slug, "What would you like your job portal link to be?", style: "font-weight: bold"
+      .control
+        http://www.workcheetah.com/
+        = f.text_field :slug
+    .action
+      = f.submit "Customize Jobs Portal", class: "btn"

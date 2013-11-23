@@ -1,35 +1,34 @@
-.accounts_show
-	.white_box
-		%h1 My Recruits
-		.alert.alert-info.alert-block
-			%button.close{"data-dismiss" => "alert", :type => "button"} &times;
-			Manage your recruits here. You can easily compare applicants with access to their resume and attached videos. See a winner? Schedule an
-			= link_to "online interview", video_chats_path
-			with them.
-		- if @accessible_job_applications.any?
-			%table.table
+.accounts_show.container
+	%h2 My Recruits
+	.alert.alert-info.alert-block
+		%button.close{"data-dismiss" => "alert", :type => "button"} &times;
+		Manage your recruits here. You can easily compare applicants with access to their resume and attached videos. See a winner? Schedule an
+		= link_to "online interview", video_chats_path
+		with them.
+	- if @accessible_job_applications.any?
+		%table.table
+			%tr
+				%th Recruit Name
+				%th Phone Number
+				%th Email
+				%th Job Applied
+				%th
+				%th
+				%th Note
+			- @accessible_job_applications.each do |job_application|
 				%tr
-					%th Recruit Name
-					%th Phone Number
-					%th Email
-					%th Job Applied
-					%th
-					%th
-					%th Note
-				- @accessible_job_applications.each do |job_application|
-					%tr
-						%td= link_to job_application.user.resume.name, [job_application.job, job_application]
-						%td= job_application.user.resume.phone
-						%td= job_application.user.resume.email
-						%td= job_application.job.title
-						%td= link_to "Schedule interview", new_video_chat_path(recipient_id: job_application.user.id)
-						%td= link_to "Send message", new_conversation_path(recipient_id: job_application.user.id)
-						%td
-							= simple_form_for job_application, remote: true do |f|
-								= f.input :note, label: false, collection: JobApplication::NOTES, include_blank: false, input_html: {class: "application"}
+					%td= link_to job_application.user.resume.name, [job_application.job, job_application]
+					%td= job_application.user.resume.phone
+					%td= job_application.user.resume.email
+					%td= job_application.job.title
+					%td= link_to "Schedule interview", new_video_chat_path(recipient_id: job_application.user.id)
+					%td= link_to "Send message", new_conversation_path(recipient_id: job_application.user.id)
+					%td
+						= simple_form_for job_application, remote: true do |f|
+							= f.input :note, label: false, collection: JobApplication::NOTES, include_blank: false, input_html: {class: "application"}
 
-		- else
-			%p
-				You currently have no recruits. Save an applicant from your
-				= link_to "my jobs", my_jobs_path
-				page to add a recruit.
+	- else
+		%p
+			You currently have no recruits. Save an applicant from your
+			= link_to "my jobs", my_jobs_path
+			page to add a recruit.

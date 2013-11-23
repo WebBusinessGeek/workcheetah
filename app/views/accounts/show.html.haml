@@ -1,79 +1,78 @@
-.accounts_show
-  .white_box
-    .pull-right
-      - if @account.safe_job_seal?
-        = link_to "Remove Safe Job Seal", [:remove_seal, :account], class: "btn" if current_user.admin?
-      - else
-        .complete_account
-          %h2 Complete Your Account
-          %ul
-            %li.completed Create Account
-            %li.completed Create First Job Listing
-            %li.incomplete
-              = link_to "Verify Your Company", [:add_seal, :account]
-              .small_text
-                You have not verified your company.
-                %br/
-                Please verify your company now.
+.accounts_show.container
+  .pull-right
+    - if @account.safe_job_seal?
+      = link_to "Remove Safe Job Seal", [:remove_seal, :account], class: "btn" if current_user.admin?
+    - else
+      .complete_account
+        %h2 Complete Your Account
+        %ul
+          %li.completed Create Account
+          %li.completed Create First Job Listing
+          %li.incomplete
+            = link_to "Verify Your Company", [:add_seal, :account]
+            .small_text
+              You have not verified your company.
+              %br/
+              Please verify your company now.
 
-    - if @account.logo.present?
-      .logo= image_tag @account.logo.medium.url
-    %h1.account_name= @account.name
-    - if current_user.admin? or current_user.moderator?
-      = link_to "Send message", new_conversation_path(recipient_id: @account.users.first.id)
-      %br/ 
-    - if current_user.blocks?(@account.users.first)
-      = link_to "Unblock", blocks_path(id: @account.users.first), method: :delete
-    - elsif (current_user.account.present? and current_user.account != @account) or !current_user.account.present?
-      = link_to "Block", blocks_path(id: @account.users.first), method: :post
+  - if @account.logo.present?
+    .logo= image_tag @account.logo.medium.url
+  %h1.account_name= @account.name
+  - if current_user.admin? or current_user.moderator?
+    = link_to "Send message", new_conversation_path(recipient_id: @account.users.first.id)
+    %br/
+  - if current_user.blocks?(@account.users.first)
+    = link_to "Unblock", blocks_path(id: @account.users.first), method: :delete
+  - elsif (current_user.account.present? and current_user.account != @account) or !current_user.account.present?
+    = link_to "Block", blocks_path(id: @account.users.first), method: :post
 
-    %p
-      Website:
-      = link_to @account.website, @account.website
-      %br/
-      Phone:
-      = @account.phone
-      %br/ 
-      Role:
-      - if @account.role.present?
-        = @account.role
-      - else
-        = link_to "Please specify your role", edit_account_path(@account)
+  %p
+    Website:
+    = link_to @account.website, @account.website
+    %br/
+    Phone:
+    = @account.phone
+    %br/ 
+    Role:
+    - if @account.role.present?
+      = @account.role
+    - else
+      = link_to "Please specify your role", edit_account_path(@account)
 
-    .bank_account
-      %h2 Bank Account
-      %p Click the button below to securely save your bank information
-      = link_to edit_user_path(bank_account: true), class: "btn btn-large btn-success" do
-        = current_user.stripe_recipient_id.nil? ? "Add Bank Account Information" : "Update Bank Account information"
-    .payment_profiles
-      %h2 Payment Profiles
-      - if @account.payment_profiles.any?
-        - @account.payment_profiles.each do |pp|
-          .payment_profile
-            - if pp.nickname
-              .nickname
-                Nickname:
-                = pp.nickname
-            - if pp.expiration
-              .expiration
-                Expires:
-                = pp.expiration
-            - if pp.cc_number_preview
-              .cc_number_preview
-                Last 4 Numbers:
-                = pp.cc_number_preview
-            - if pp.created_at
-              .created_at
-                Created on:
-                = pp.created_at.strftime("%m/%d/%Y")
-            - if pp.status
-              .status= pp.status
-            .delete= link_to "Delete this form of payment", payment_profile_path(pp), method: :delete, confirm: "Are you sure you want to remove this payment profile?", class: "btn btn-mini btn-danger"
-            %br/
-      - else
-        %p
-          Looks like you don't have any payment profiles setup yet. Please
-          = link_to "add a payment profile", new_payment_profile_path
+  .bank_account
+    %h2 Bank Account
+    %p Click the button below to securely save your bank information
+    = link_to edit_user_path(bank_account: true), class: "btn btn-large btn-success" do
+      = current_user.stripe_recipient_id.nil? ? "Add Bank Account Information" : "Update Bank Account information"
+  .payment_profiles
+    %h2 Payment Profiles
+    - if @account.payment_profiles.any?
+      - @account.payment_profiles.each do |pp|
+        .payment_profile
+          - if pp.nickname
+            .nickname
+              Nickname:
+              = pp.nickname
+          - if pp.expiration
+            .expiration
+              Expires:
+              = pp.expiration
+          - if pp.cc_number_preview
+            .cc_number_preview
+              Last 4 Numbers:
+              = pp.cc_number_preview
+          - if pp.created_at
+            .created_at
+              Created on:
+              = pp.created_at.strftime("%m/%d/%Y")
+          - if pp.status
+            .status= pp.status
+          .delete= link_to "Delete this form of payment", payment_profile_path(pp), method: :delete, confirm: "Are you sure you want to remove this payment profile?", class: "btn btn-mini btn-danger"
+          %br/
+    - else
+      %p
+        Looks like you don't have any payment profiles setup yet. Please
+        = link_to "add a payment profile", new_payment_profile_path
 
-    = link_to "Customize Jobs Portal", [:customize, :account], class: "btn"
-    = link_to "Edit Account", [:edit, :account], class: "btn"
+  = link_to "Customize Jobs Portal", [:customize, :account], class: "btn"
+  = link_to "Edit Account", [:edit, :account], class: "btn"
