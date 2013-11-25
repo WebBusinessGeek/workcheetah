@@ -1,4 +1,8 @@
 ---
+glyphiconsreg.eot: e76f5a754ccf64843a118a8706df3f8c
+glyphiconsreg.svg: 8a0a941aafb8c48e709ca72675344c92
+glyphiconsreg.ttf: b5577a3f3fb089369af33ce56e196d02
+glyphiconsreg.woff: 0391150c52d1f65893d1d6b0d29fd0c9
 NEWarrowdown.png: 746b35fe10894ff304ac1c07acd51b7b
 NEWarrowleft.png: 5619fef3d4d079c517e4b5625f3fe0a7
 NEWarrowright.png: 5b6422ca88fe2e33d2008f7bf053ce55
@@ -37,6 +41,7 @@ ad1img.png: 10dfafcbfdb03fd1adf1d57bccbb168d
 ad2img.png: 0a3f3369f2a7db3371669c1d4c0dba77
 ad3img.png: 390e9b0c7ca19802d2de48b615841157
 arrows.png: 3df9b6e85e001a4a73096a0011f22ccf
+favicon-claw1.ico: 40ed0e423fd62e0b420d3a864215a3d7
 favicon-claw2.ico: dfa04ce9e1b95908090916c59594e629
 footerbg.png: 155835c9a40f3dc01e9efcf918347e64
 greencheck.png: f3e85c4a6f48b55b26eab2a7f86d3907
@@ -177,7 +182,6 @@ old/brand.jpg: ee4981abef8ce58ba4adbf32c36f5ec5
 old/competition.jpg: 043adc6cfdc566c46a3839160acbc7c1
 old/facebook.svg: d30b52d1ad60fde6db097ab9e907a421
 old/favicon-briefcase.ico: eb18859aca2d96edebe5742a02ddcf2b
-old/favicon-claw1.ico: 40ed0e423fd62e0b420d3a864215a3d7
 old/fresh.jpg: 58bb1e53558d35736d93834de4bfd05f
 old/getting-faster.jpg: 3d5c715e25cb75d133b323159680c28f
 old/googleplus.svg: 52ce3f24012b552b508527e2c9e1b1f6
@@ -217,8 +221,8 @@ valid-seal.png: 05eb1896d4231b11c50dcc9df0e9a074
 wImg.png: 43ffd000c3d3578d64d8715835db2ca1
 wclogotop.png: 40ba9a6afdc1f088ec074bac8b08c90b
 widead.png: 5724a6232a785e542bac5c64e14968f2
-application.js: 25ef202d87b3ca22397bb3a6ef26246d
-application.css: 1108c69069895798677861ceed55d4a4
+application.js: 9242080f1d5d6e18ec6f7ce04f5b118b
+application.css: 78349b712274e2e442f05598c6c15780
 tinymce.js: d1f73b6b410b262bb2da1c7c813fb46f
 tinymce/license.txt: 6b8dfd9d628576a414268f9be344eb0a
 tinymce/plugins/advhr/rule.htm: f7ea84e3f8b35fd56c7acd232551cb77
@@ -327,5 +331,12 @@ FontAwesome.otf: 468f83b63df32064983141584a19ff17
 fontawesome-webfont.eot: 635909f146e208b3509acdf3b154bf0d
 fontawesome-webfont.ttf: 6a4e273908b7e43d9e479d38b8ae5957
 fontawesome-webfont.woff: a0fbd98b232e7e1ef9cdaad813b26eb3
-glyphicons-halflings-white.png: 6cccd17a7aed91dbc0157d343c68c0d9
-glyphicons-halflings.png: 2851b489e8c39f8fad44fc10efb99c3e
+bar-alpha.png: 17575f4e5e307f535dc0c2835121e8ee
+bar-opacity.png: c26d1831ae2333ab0f7b98e01fe48a4f
+bar-pointer.png: b623454abda150642485abad3378d019
+bar.png: 66055e4dfc6918905ec32389bc638e53
+map-opacity.png: 4e93cb3eb3f693c407e426c212236b4b
+map-pointer.png: 3a84a27d96424080551384fbe5c234ff
+map.png: 75abd32d2e317f4b98c2bb95921c3233
+preview-opacity.png: 0a184e48e593255f2531b441a1562ee4
+ui-colorpicker.png: afe31a75c1ea827b1c428119072a5a66
