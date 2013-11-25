@@ -1,12 +1,12 @@
 
 = f.error_notification
-%h1
+%h2
   Invoice #:
   = @invoice.guid
 .row
-  .span3
+  .col-md-3
     = formatted_address(@invoice.sender)
-  .span3
+  .col-md-3
     - unless @available_recipients.empty?
       = f.association :reciever, collection: @available_recipients, value_method: :account_id, label_method: :name
     - else
@@ -16,10 +16,10 @@
       = email_field_tag :recipient_name
       = label_tag "Email"
       = text_field_tag :recipient_email
-  .span3
+  .col-md-3
     = f.association :project, collection: current_user.projects, allow_blank: true, selected: (@project if @project)
 .row
-  .span8
+  .col-md-8
     %table.table.table-striped
       %tr
         %th Task
@@ -32,5 +32,5 @@
         = render 'line_item_fields', f: line
       = link_to_add_fields "Add Line Item", f, :line_items
 .row
-  .span2.offset6
+  .col-md-2.col-md-offset-6
     = f.input :amount, input_html: {class: "pull-right"}

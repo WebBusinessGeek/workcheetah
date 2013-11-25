@@ -1,60 +1,61 @@
-.row
-  .col-md-10
-    %h1
-      Invoice #:
-      = @invoice.guid
-      .pull-right= format_states(@invoice)
-    .row
-      .col-md-3
-        = formatted_address(@invoice.sender)
-      .col-md-3
-        - if @invoice.reciever.present?
-          = formatted_address(@invoice.reciever)
-        - else
-          None
-      .col-md-3
-        = @invoice.project.present? ? @invoice.project.title : "No Project Assigned"
-    .row
-      .col-md-8
-        %table.table.table-striped
-          %tr
-            %th Task
-            %th Note
-            %th Hours
-            %th Rate
-            %th Total
-          .line_items
-          - @invoice.line_items.each do|li|
-            %tr
-              %td= li.task.present? ? li.task.title : "None"
-              %td= li.note
-              %td= li.hours
-              %td= number_to_currency li.rate
-              %td= number_to_currency li.total
-
-    .row
-      .col-md-2.col-md-offset6
-        %dl.dl-horizontal
-          %dt Invoice Amount
-          %dd= number_to_currency Money.new @invoice.amount_cents
-          %dt Application Fee
-          %dd= number_to_currency Money.new @invoice.application_fee_total
-          %dt Payment Processing Fee
-          %dd= number_to_currency Money.new @invoice.payment_fee_total
-          %dt Total Amount
-          %dd= number_to_currency Money.new @invoice.invoice_total
-
-    .actions
+.container
+  .row
+    .col-md-10
+      %h1
+        Invoice #:
+        = @invoice.guid
+        .pull-right= format_states(@invoice)
       .row
         .col-md-3
-          - if current_user.account == @invoice.sender
-            = link_to "Edit", edit_invoice_path(@invoice.guid), class: "btn btn-large btn-success"
+          = formatted_address(@invoice.sender)
         .col-md-3
-          - if @invoice.amount >= 0
-            - if current_user.account == @invoice.reciever
-              = link_to "Approve and Pay Invoice", pay_invoice_path(@invoice, data: "pay"), method: :post, class: "btn btn-large btn-success" unless @invoice.escrow?
-              = link_to "Approve and Put into escrow", "javascript:void(0));", class: "btn btn-large btn-success" unless !@invoice.escrow?
-            - else
-              - if @invoice.escrow?
-                = link_to "Request Payment", invoice_path(@invoice), {commit: 'request transfer'}, method: :post, class: "btn btn-large btn-success"
+          - if @invoice.reciever.present?
+            = formatted_address(@invoice.reciever)
+          - else
+            None
+        .col-md-3
+          = @invoice.project.present? ? @invoice.project.title : "No Project Assigned"
+      .row
+        .col-md-8
+          %table.table.table-striped
+            %tr
+              %th Task
+              %th Note
+              %th Hours
+              %th Rate
+              %th Total
+            .line_items
+            - @invoice.line_items.each do|li|
+              %tr
+                %td= li.task.present? ? li.task.title : "None"
+                %td= li.note
+                %td= li.hours
+                %td= number_to_currency li.rate
+                %td= number_to_currency li.total
+
+      .row
+        .col-md-2.col-md-offset6
+          %dl.dl-horizontal
+            %dt Invoice Amount
+            %dd= number_to_currency Money.new @invoice.amount_cents
+            %dt Application Fee
+            %dd= number_to_currency Money.new @invoice.application_fee_total
+            %dt Payment Processing Fee
+            %dd= number_to_currency Money.new @invoice.payment_fee_total
+            %dt Total Amount
+            %dd= number_to_currency Money.new @invoice.invoice_total
+
+      .actions
+        .row
+          .col-md-3
+            - if current_user.account == @invoice.sender
+              = link_to "Edit", edit_invoice_path(@invoice.guid), class: "btn btn-large btn-success"
+          .col-md-3
+            - if @invoice.amount >= 0
+              - if current_user.account == @invoice.reciever
+                = link_to "Approve and Pay Invoice", pay_invoice_path(@invoice, data: "pay"), method: :post, class: "btn btn-large btn-success" unless @invoice.escrow?
+                = link_to "Approve and Put into escrow", "javascript:void(0));", class: "btn btn-large btn-success" unless !@invoice.escrow?
+              - else
+                - if @invoice.escrow?
+                  = link_to "Request Payment", invoice_path(@invoice), {commit: 'request transfer'}, method: :post, class: "btn btn-large btn-success"
 
