@@ -18,5 +18,4 @@
 //= require skrollr.ie
 //= require skrollr.menu
 //= require private_pub
-//= require chosen-jquery
 //= require_tree .

@@ -28,13 +28,13 @@ gem "jquery-colorpicker-rails", "~> 1.0.3"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
   gem 'font-awesome-sass-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'turbo-sprockets-rails3'
   gem 'chosen-rails'
 end
 
-gem 'coffee-rails', '~> 3.2.1'
 gem "figaro"
 gem 'libv8', '~> 3.11.8.3'
 gem 'jquery-rails'
@@ -80,7 +80,6 @@ group :test do
 end
 
 group :development do
-  gem 'therubyracer', "0.11.4", :platforms => :ruby
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'thin'

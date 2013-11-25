@@ -294,7 +294,6 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     redcarpet (2.3.0)
-    ref (1.0.5)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rinku (1.5.1)
@@ -343,9 +342,6 @@ GEM
       actionpack (~> 3.0)
       activemodel (~> 3.0)
       railties (~> 3.0)
-    therubyracer (0.11.4)
-      libv8 (~> 3.11.8.12)
-      ref
     thin (1.6.1)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -448,7 +444,6 @@ DEPENDENCIES
   state_select
   stripe
   strong_parameters (>= 0.2.0)
-  therubyracer (= 0.11.4)
   thin
   tinymce-rails (~> 3.5.8.3)
   turbo-sprockets-rails3

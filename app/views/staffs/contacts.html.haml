@@ -1,17 +1,17 @@
 .container
   .row
     .col-md-4
-      %h4 Clients
+      %h2 Clients
       %ul
       - @clients.each do |user|
         %li= link_to user.name, staff_path(user), remote: true
-      %h4 Staffed Users
+      %h2 Staffed Users
       - @staffed_users.each do |user|
         %li= link_to user.name, staff_path(user), remote: true
     .col-md-8
       #contact
         - if current_user.account.present?
-          = link_to "Send Message", "#invite-credit-modal", {"role" => "button", "data-toggle" => "modal", class: "btn btn-primary btn-large"}
+          = link_to "Send Message", "#invite-credit-modal", {"role" => "button", "data-toggle" => "modal", class: "btn btn-default btn-primary btn-large"}
 - if current_user.account.present?
   #invite-credit-modal.modal.hide.fade{"role" => "dialog", "aria-hidden" => "true"}
     #message_form{style: "margin:20px"}
