@@ -1,15 +1,16 @@
-%h1 Tasks
-= render 'form'
-.row
-  .span3
-    %h3 To-Do
-    %ul#tasks-to-do
-      = render @tasks.to_do
-  .span3
-    %h3 Doing
-    %ul#tasks-doing
-      = render @tasks.doing
-  .span3
-    %h3 Done
-    %ul#tasks-done
-      = render @tasks.done
+.container
+  %h1 Tasks
+  = render 'form'
+  .row
+    .col-md-3
+      %h3 To-Do
+      %ul#tasks-to-do
+        = render @tasks.to_do
+    .col-md-3
+      %h3 Doing
+      %ul#tasks-doing
+        = render @tasks.doing
+    .col-md-3
+      %h3 Done
+      %ul#tasks-done
+        = render @tasks.done

@@ -1,25 +1,24 @@
-.jobs_show
-  .white_box
-    .row
-      .span6
-        - if !@job.account.safe_job_seal?
-          %center{ style: "color: red;" }
-            Company Not Verified.
-        - if @job.account.logo.present?
-          = image_tag @job.account.logo.medium.url
-        %h2
-          = @job.title
-          - if @job.address.present?
-            %span.city{ style: "font-weight: normal; font-size: 18px; color: #555"}
-              &ndash;
-              = @job.address
-          %br/
-        %h3 Job Rating
-        = render_rating_display (@job.rating.nil? or @job.rating == 0) ? 0 : @job.rating
-        %h3
-          = @job.yearly_compensation
-      .span4{style:"margin: 20px auto; display: block; text-align: center;"}
-        = render 'jobs/shared/job_links'
+.jobs_show.container
+  .row
+    .col-md-6
+      - if !@job.account.safe_job_seal?
+        %center{ style: "color: red;" }
+          Company Not Verified.
+      - if @job.account.logo.present?
+        = image_tag @job.account.logo.medium.url
+      %h2
+        = @job.title
+        - if @job.address.present?
+          %span.city{ style: "font-weight: normal; font-size: 18px; color: #555"}
+            &ndash;
+            = @job.address
+        %br/
+      %h3 Job Rating
+      = render_rating_display (@job.rating.nil? or @job.rating == 0) ? 0 : @job.rating
+      %h3
+        = @job.yearly_compensation
+    .col-md-4{style:"margin: 20px auto; display: block; text-align: center;"}
+      = render 'jobs/shared/job_links'
 #questionaire-modal.modal.hide.fade{"role" => "dialog", "aria-hidden" => "true"}
   = simple_form_for @job, url: apply_with_questionaire_job_job_application_path(@job), method: :post do |f|
     .modal-header

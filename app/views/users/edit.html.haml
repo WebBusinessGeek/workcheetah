@@ -1,6 +1,6 @@
-.white_box
+.container
   .row
-    .span4
+    .col-md-4
       %h1 Edit Your Account
       = form_for(@user, :url => { :action => "update" } ) do |f|
         .field
@@ -17,7 +17,7 @@
           = link_to "Cancel my account", registration_path(@user), :confirm => "Are you sure?", :method => :delete
         .action_container
           = f.submit "Update Password", class: "btn btn-success"
-    .span4
+    .col-md-4
       %ul.nav-list
         %p Click the button below to securely save your bank information
         = link_to edit_user_path(bank_account: true), class: "btn btn-large btn-success", style: "width: 75%" do

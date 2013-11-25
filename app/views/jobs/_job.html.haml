@@ -9,13 +9,3 @@
 	%td= job.category ? job.category.name : "n/a"
 	%td
 		= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
-	-# %td
-	-# 	- if job.quick_applicable?
-	-# 		- if user_signed_in? and current_user.job_applications.where(job_id: job).empty?
-	-# 			- if job.invite_only?
-	-# 				- if current_user.resume.present? and current_user.resume.invited_to_job?(job)
-	-# 					= check_box_tag 'job_ids[]', job.id, false
-	-# 			- else
-	-# 				= check_box_tag 'job_ids[]', job.id, false
-	-# 		- else
-	-# 			= check_box_tag 'job_ids[]', job.id, false
