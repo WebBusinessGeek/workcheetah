@@ -32,11 +32,11 @@ group :assets do
   gem 'font-awesome-sass-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'turbo-sprockets-rails3'
-  gem 'chosen-rails'
 end
 
 gem "figaro"
 gem 'libv8', '~> 3.11.8.3'
+gem 'chosen-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'tinymce-rails', '~> 3.5.8.3'
