@@ -1,10 +1,9 @@
-.resumes_add_video
-	.white_box
-		%h1 Upload your video below:
-		%p Video upload terms: By uploading a video you are agreeing to WorkCheetah Terms of Usage, in which you must own the copyright or have the necessary rights for any content that you upload and you ensure that there is absolutely no pornographic material in the video.
-		%center 
-			= direct_upload_form_for @uploader do |f|
-				%p= f.label :video, "Video file (maximum file size: 100MB)"
-				%p
-					= f.file_field :video
-					= f.submit "Upload Video", class: "btn btn-success"
+.resumes_add_video.container
+	%h2 Upload your video below:
+	%p Video upload terms: By uploading a video you are agreeing to WorkCheetah Terms of Usage, in which you must own the copyright or have the necessary rights for any content that you upload and you ensure that there is absolutely no pornographic material in the video.
+	%center
+		= direct_upload_form_for @uploader do |f|
+			%p= f.label :video, "Video file (maximum file size: 100MB)"
+			%p
+				= f.file_field :video
+				= f.submit "Upload Video", class: "btn btn-success"

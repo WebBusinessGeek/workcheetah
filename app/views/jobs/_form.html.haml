@@ -10,66 +10,73 @@
   .form-inputs
     %p.lead Job Title
     = f.input :title, label: false, input_html: { style: "width: 98%; font-size: 24px; padding: 0.4em; height: 1.2em" }
-    = f.label :category_id, raw("<abbr title=\"required\">*</abbr> Job category")
-    = f.collection_select(:category_id, Category.scoped, :id, :name, :prompt => true)
-    = f.label :category2_id, "Job category 2"
-    = f.collection_select(:category2_id, Category.scoped, :id, :name, :prompt => true)
-    = f.label :category3_id, "Job category 3"
-    = f.collection_select(:category3_id, Category.scoped, :id, :name, :prompt => true)
-    = f.input :yearly_compensation, collection: Job::COMPENSATION_OPTIONS, prompt: true
-    = f.input :merit_requested, collection: School::HIGHEST_MERIT, prompt: true
-    = f.input :job_type, label: 'What are you looking for', collection: job_types_collection, prompt: true
-    .skills
-      %p
-        .lead Service/Skills Requested
-        Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.
-      = f.input :skill_ids, label: false, collection: SkillGroup.includes(:skills).all, as: :grouped_select, group_method: :skills, group_label_method: :name, label_method: :name, input_html: { multiple: true, class: ".chzn-select" }
-    .control-group
-      %p.lead Job Description
-      .control= f.text_area :description, label: false, style: "height: 200px; width: 100%; font-size: 16px;", class: "tinymce"
-    %hr/
-    .questionaire
-      %p
-        .lead Questionaire
-        Workcheetah provides the option to construct a short survey that all job applicants would need to fill out before successfully applying for a job. Note: creating a questionaire will negate the quick applicable feature.
-      -# = link_to "Create a questionaire", "#", id: "create_questionaire", class: "btn" unless @job.questions.any? or @job.new_record?
-      -# #questions{class: (@job.questions.any? or @job.new_record?) ? "" : "hide"}
-      #questions
-        = f.fields_for :questions do |question|
-          = render 'question_fields', f: question
-        = link_to_add_fields "Add A Question", f, :questions
-    %br/
-    %hr/
-    %p.lead Address
-    = f.input :address, label: "City, State (ex. Los Angeles, CA)", input_html: { style: "width: 100%; max-width: 400px; font-size: 16px;" }
-    .control-group
-      = f.label :invite_only do
-        = link_to "Invite only?", "javascript:void(0);", data: {toggle: "tooltip", title: "Protect yourself from spam. Your job only shows to those that you invite to your listing."}, rel: "tooltip"
-      .control
-        = f.check_box :invite_only, html: { checked: true }
-    %hr/
-    - unless @job.account.nil?
-      = f.fields_for :account do |af|
-        %p.lead Account Info
-        = af.input :name, label: "Company name", placeholder: "ABC Company"
-        = af.input :business_type, label: 'Which best describes your business?', collection: business_types_collection, prompt: true
-        = af.label :role, "Which describes your role best?"
-        = af.input :role, collection: Account::ROLE_OPTIONS, prompt: true
-        = af.input :website, label: "Company website", input_html: { class: "website" }, placeholder: "http://www.yourdomain.com"
-        = af.input :phone, label: "Company phone", input_html: { class: "phone" }, placeholder: "(555) 555-5555 x555"
-        = af.label :slug, "Jobs portal address (no spaces allowed)"
-        %abbr{:title => "required"} *
-        http://www.workcheetah.com/
-        = af.input_field :slug, placeholder: "your-company-name-without-spaces", input_html: { style: "width: 400px;" }
-        - unless user_signed_in?
-          %p
-            .lead Admin User Settings
-            Let's start by creating the first user on your account. You can add additional users later.
-          = af.fields_for :users do |uf|
-            = uf.input :email, label: "Your email", placeholder: "john.doe@example.com", required: true
-            = uf.input :password, placeholder: "************", required: true
-            = uf.input :password_confirmation, placeholder: "************", required: true
-            = uf.input :terms_of_service, as: :boolean, label: raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}"), required: :true
+    .row
+      .form-group.col-md-3
+        = f.label :category_id, raw("<abbr title=\"required\">*</abbr> Job category")
+        = f.collection_select(:category_id, Category.scoped, :id, :name, {class: "form-control", prompt: true})
+      .form-group.col-md-3
+        = f.label :category2_id, "Job category 2"
+        = f.collection_select(:category2_id, Category.scoped, :id, :name, :prompt => true)
+      .form-group.col-md-3
+        = f.label :category3_id, "Job category 3"
+        = f.collection_select(:category3_id, Category.scoped, :id, :name, {class: ".chzn-select", prompt: true})
+    .row
+      .form-group
+        = f.input :yearly_compensation, collection: Job::COMPENSATION_OPTIONS, prompt: true
+        = f.input :merit_requested, collection: School::HIGHEST_MERIT, prompt: true
+        = f.input :job_type, label: 'What are you looking for', collection: job_types_collection, prompt: true, class: ".chzn-select"
+      .skills
+        %p
+          .lead Service/Skills Requested
+          Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.
+        = f.input :skill_ids, label: false, collection: SkillGroup.includes(:skills).all, as: :grouped_select, group_method: :skills, group_label_method: :name, label_method: :name, input_html: { multiple: true, class: ".chzn-select" }
+      .form-group
+        %p.lead Job Description
+        = f.text_area :description, label: false, style: "height: 200px; width: 100%; font-size: 16px;", class: "form-control tinymce"
+      %hr/
+      .questionaire
+        %p
+          .lead Questionaire
+          Workcheetah provides the option to construct a short survey that all job applicants would need to fill out before successfully applying for a job. Note: creating a questionaire will negate the quick applicable feature.
+        -# = link_to "Create a questionaire", "#", id: "create_questionaire", class: "btn" unless @job.questions.any? or @job.new_record?
+        -# #questions{class: (@job.questions.any? or @job.new_record?) ? "" : "hide"}
+        #questions
+          = f.fields_for :questions do |question|
+            = render 'question_fields', f: question
+          = link_to_add_fields "Add A Question", f, :questions
+      %br/
+      %hr/
+      %p.lead Address
+      .form-group
+        = f.label :address, "City, State (ex. Los Angeles, CA)"
+        = f.input :address, label: false, input_html: { style: "width: 100%; max-width: 400px; font-size: 16px;", class: "form-control" }
+      .form-group
+        = f.label :invite_only do
+          = link_to "Invite only?", "javascript:void(0);", data: {toggle: "tooltip", title: "Protect yourself from spam. Your job only shows to those that you invite to your listing."}, rel: "tooltip"
+          = f.check_box :invite_only, html: { checked: true, class: "form-control" }
+      %hr/
+      - unless @job.account.nil?
+        = f.fields_for :account do |af|
+          %p.lead Account Info
+          = af.input :name, label: "Company name", placeholder: "ABC Company"
+          = af.input :business_type, label: 'Which best describes your business?', collection: business_types_collection, prompt: true
+          = af.label :role, "Which describes your role best?"
+          = af.input :role, collection: Account::ROLE_OPTIONS, prompt: true
+          = af.input :website, label: "Company website", input_html: { class: "website" }, placeholder: "http://www.yourdomain.com"
+          = af.input :phone, label: "Company phone", input_html: { class: "phone" }, placeholder: "(555) 555-5555 x555"
+          = af.label :slug, "Jobs portal address (no spaces allowed)"
+          %abbr{:title => "required"} *
+          http://www.workcheetah.com/
+          = af.input_field :slug, placeholder: "your-company-name-without-spaces", input_html: { style: "width: 400px;" }
+          - unless user_signed_in?
+            %p
+              .lead Admin User Settings
+              Let's start by creating the first user on your account. You can add additional users later.
+            = af.fields_for :users do |uf|
+              = uf.input :email, label: "Your email", placeholder: "john.doe@example.com", required: true
+              = uf.input :password, placeholder: "************", required: true
+              = uf.input :password_confirmation, placeholder: "************", required: true
+              = uf.input :terms_of_service, as: :boolean, label: raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}"), required: :true
   .form-actions
     - if user_signed_in? && ['Freelancer', 'Business'].include?(current_user.role?)
       = f.submit class: "btn btn-large btn-success"

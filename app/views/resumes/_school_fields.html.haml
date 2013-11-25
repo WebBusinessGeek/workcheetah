@@ -1,40 +1,24 @@
 .school.fields_for_set
   %fieldset{ style: "border: 1px solid #ddd; padding: 20px;"}
     .controls-row
-      .control-group.span2{style: "margin-left:-10px"}
+      .form-group.col-md-2{style: "margin-left:-10px"}
         = f.label "Merit Recieved", class: "control-label"
         .controls
           = f.input :highest_merit, label: false, collection: School::HIGHEST_MERIT, input_html: {class: "input-medium"}
-      .control-group.span3{style: "margin-left:-10px"}
+      .form-group.col-md-3{style: "margin-left:-10px"}
         = f.label "Course of study", class: "control-label"
         .controls
           = f.input :course_of_study, as: :grouped_select, :group_method => :last, label: false, collection: School::COURSE_OF_STUDY, input_html: {class: "input-large"}
-      .control-group.span3{style: "margin-left:-10px"}
+      .form-group.col-md-3{style: "margin-left:-10px"}
         = f.label "School name", class: "control-label"
         .controls
           = f.input :name, label: false, input_html: {class: "input-large"}
-      .control-group.span2{style: "margin-left:-10px"}
+      .form-group.col-md-2{style: "margin-left:-10px"}
         = f.label "Year of completion", class: "control-label"
         .controls
           = f.input :completion_year, label: false, collection: (1900..2014).to_a.reverse, input_html: {class: "input-small"}
-      .control-group.span2
+      .form-group.col-md-2
         .controls
           = f.hidden_field :_destroy
           .remove{style: "margin-top:25px"}
             = link_to "Remove Education", '#', class: "remove_fields btn btn-mini btn-danger"
-    -# = f.label :degree_type
-    -# = f.select :degree_type, options_for_select(["Associates", "Bachelors", "Masters", "Ph. D"])
-    -# = f.label :degree_name
-    -# = f.text_field :degree_name
-    -# = f.label :from
-    -# = f.text_field :from, class: "date"
-    -# = f.label :till
-    -# = f.text_field :till, class: "date"
-    -# = f.label :highlights
-    -# = f.text_area :highlights, rows: "15", class: "tinymce"
-    -# = tinymce
-    -# :javascript
-    -#   tinyMCE.init({
-    -#     mode: 'textareas',
-    -#     theme: 'advanced'
-    -#   });
