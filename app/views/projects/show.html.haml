@@ -1,41 +1,42 @@
-.row
-  .span3
-    %lead Project
-    %h1= @project.title
-    %hr/
-    %p
-      %h4 Project Manager
-      %lead= @project.owner.name
-    %p
-      %h4 Project Participants
-      %lead
-        - if @project.participants(current_user).empty?
-          #invite= render 'projects/invitational'
-        - else
-          = @project.participants(current_user).first.name
-  .span4.pull-right
-    = render 'time_manager'
-%hr/
-.row
-  .span4
-    %h2 Tasks
-    %ul#detailed_tasks.unstyled{data: {project_id: @project.id}}
-      = render partial: "tasks/detailed_task", collection: @project.tasks, as: :task
-  .span4
-    %h2 Documents
-    = link_to "Upload Document", new_project_project_document_url(@project.id), :class=>"btn btn-primary btn-small pull-right"
-    %br
-    %br
-    %ul#document_list.unstyled{data: {project_id: @project.id}}
-      = render partial: "project_documents/document_list", collection: @project.project_documents, as: :document
-.row
-  .span8
-    %hr/
-    %h2 Comments
-    %ul.unstyled#comments
-      = render partial: "comments/comment", collection: @comments, as: :comment
-    = render 'comments/form'
-#taskform.span10.modal.fade{tabindex:"-1", role: "dialog"}
+.container
+  .row
+    .col-md-3
+      %lead Project
+      %h2= @project.title
+      %hr/
+      %p
+        %h3 Project Manager
+        %lead= @project.owner.name
+      %p
+        %h3 Project Participants
+        %lead
+          - if @project.participants(current_user).empty?
+            #invite= render 'projects/invitational'
+          - else
+            = @project.participants(current_user).first.name
+    .col-md-4.pull-right
+      = render 'time_manager'
+  %hr/
+  .row
+    .col-md-5
+      %h3 Tasks
+      %ul#detailed_tasks.list-unstyled{data: {project_id: @project.id}}
+        = render partial: "tasks/detailed_task", collection: @project.tasks, as: :task
+    .col-md-5
+      %h3 Documents
+      = link_to "Upload Document", new_project_project_document_url(@project.id), :class=>"btn btn-primary btn-small pull-right"
+      %br
+      %br
+      %ul#document_list.list-unstyled{data: {project_id: @project.id}}
+        = render partial: "project_documents/document_list", collection: @project.project_documents, as: :document
+  .row
+    .col-md-10
+      %hr/
+      %h3 Comments
+      %ul.list-unstyled#comments
+        = render partial: "comments/comment", collection: @comments, as: :comment
+      = render 'comments/form'
+#taskform.col-md-10.modal.fade{tabindex:"-1", role: "dialog"}
 #timesheetform.modal.fade{tabindex:"-1", role: "dialog"}
 
 

@@ -1,7 +1,11 @@
 .conversations_index.container
-  - if @activities
+  - unless @activities.empty?
     - @activities.each do |activity|
       .row
         .col-md-12
           = "#{raw(activity.message)} #{time_ago_in_words(activity.created_at)} ago..."
           = link_to("View job details", activity.job)
+  - else
+    .row
+      .col-md-12
+        %h2 No Current Activities

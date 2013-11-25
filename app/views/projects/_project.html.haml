@@ -1,7 +1,4 @@
-%h4= link_to project.title, project_path(project)
 %p
-  %ul.task_list{id: "tasks_project_#{project.id}", "data-update-url" => sort_tasks_url }
-    - project.tasks.each do |task|
-      = content_tag_for :li, task, class: "ui-state-default" do
-        = render task
-= render 'tasks/form', project: project
+  .lead= link_to project.title, project_path(project)
+  This section will be filled with project users, project status, and various
+  other metadata
