@@ -41,8 +41,8 @@
     = link_to "campaigns", advertisers_campaigns_path
   %li{:class => current_page?(advertisers_invoices_path) && 'active'}
     = link_to "invoices", advertisers_invoices_path
-  %li{:class => current_page?(edit_advertisers_account_path) && 'active'}
-    = link_to "manage my account", edit_advertisers_account_path(current_user.advertiser_account)
+  -# %li{:class => current_page?(edit_advertisers_account_path) && 'active'}
+  -#   = link_to "manage my account", edit_advertisers_account_path(current_user.advertiser_account)
 - elsif current_user.admin?
   %li{:class => current_page?(admin_path) && 'active'}
     = link_to "Admin", admin_path
