@@ -1,8 +1,8 @@
 .container
   .row
     .col-md-5
-      %button.btn.btn-primary POST A JOB
-      %button.btn.btn-primary GET HIRED
+      =link_to "POST A JOB", new_job_path, class: "btn btn-primary"
+      =link_to "GET HIRED", new_resume_path, class: "btn btn-primary"
     .col-md-7
       %h2 SEE HOW IT WORKS:
       .row.mainparlinks

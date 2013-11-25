@@ -34,7 +34,6 @@
             %li{:class => current_page?(employees_path) && 'active'}
               = link_to "Employees", employees_path
             %li{:class =>"divider-vertical"}
-            %li= link_to "Inner Pages", pageone_path
           - else
             %li
               = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'navbar-form' }) do |f|
@@ -47,6 +46,3 @@
                   %br
                   = f.password_field :password, class: "input-small"
                 %span.action= f.submit "Log in", class: "btn"
-            %li= link_to "Landing Pages", businesses_path
-            %li{:class =>"divider-vertical"}
-            %li= link_to "Inner Pages", pageone_path
