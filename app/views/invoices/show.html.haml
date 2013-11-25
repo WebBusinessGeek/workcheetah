@@ -1,21 +1,21 @@
 .row
-  .span10
+  .col-md-10
     %h1
       Invoice #:
       = @invoice.guid
       .pull-right= format_states(@invoice)
     .row
-      .span3
+      .col-md-3
         = formatted_address(@invoice.sender)
-      .span3
+      .col-md-3
         - if @invoice.reciever.present?
           = formatted_address(@invoice.reciever)
         - else
           None
-      .span3
+      .col-md-3
         = @invoice.project.present? ? @invoice.project.title : "No Project Assigned"
     .row
-      .span8
+      .col-md-8
         %table.table.table-striped
           %tr
             %th Task
@@ -33,7 +33,7 @@
               %td= number_to_currency li.total
 
     .row
-      .span2.offset6
+      .col-md-2.col-md-offset6
         %dl.dl-horizontal
           %dt Invoice Amount
           %dd= number_to_currency Money.new @invoice.amount_cents
@@ -46,10 +46,10 @@
 
     .actions
       .row
-        .span3
+        .col-md-3
           - if current_user.account == @invoice.sender
             = link_to "Edit", edit_invoice_path(@invoice.guid), class: "btn btn-large btn-success"
-        .span3
+        .col-md-3
           - if @invoice.amount >= 0
             - if current_user.account == @invoice.reciever
               = link_to "Approve and Pay Invoice", pay_invoice_path(@invoice, data: "pay"), method: :post, class: "btn btn-large btn-success" unless @invoice.escrow?
