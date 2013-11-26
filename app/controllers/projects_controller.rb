@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    authorize! :read, @project
     @invitational = Invitational.new
     @commentable = @project
     @comments = @commentable.comments
@@ -30,14 +31,17 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    authorize! :edit, @article
   end
 
   def update
+    authorize! :update, @article
     if @project.update_attributes(project_params)
     end
   end
 
   def destroy
+    authorize! :destroy, @article
     @project.destroy
     redirect_to projects_path, notice: "Project successfully deleted."
   end

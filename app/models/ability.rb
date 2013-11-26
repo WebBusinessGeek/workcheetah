@@ -31,6 +31,10 @@ class Ability
 
     can :manage, VideoChat do |video_chat| video_chat_managable?(video_chat, user) end
 
+    can :manage, Project do |project| user == project.owner end
+
+    can :read, Project do |project| project.users.include?(user) end
+
     if !user.admin?
       cannot :manage, Tweet
     end

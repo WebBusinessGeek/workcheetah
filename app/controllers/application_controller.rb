@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
 
   # Disabling this for performance reasons and up for possible feature removal.
   # before_filter :get_tweet
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, notice: exception.message
+  end
 
   def get_tweet
     # if user_signed_in? and current_user.account.present?
