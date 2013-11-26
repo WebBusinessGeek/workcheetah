@@ -20,8 +20,9 @@
   .row
     .col-md-5
       %h3 Tasks
-      %ul#detailed_tasks.list-unstyled{data: {project_id: @project.id}}
+      %ul.task_list.list-unstyled{"data-update-url" => sort_tasks_url, data: {project_id: @project.id}}
         = render partial: "tasks/detailed_task", collection: @project.tasks, as: :task
+      = render 'tasks/form', project: @project
     .col-md-5
       %h3 Documents
       = link_to "Upload Document", new_project_project_document_url(@project.id), :class=>"btn btn-primary btn-small pull-right"
@@ -37,6 +38,11 @@
         = render partial: "comments/comment", collection: @comments, as: :comment
       = render 'comments/form'
 #taskform.col-md-10.modal.fade{tabindex:"-1", role: "dialog"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+      .modal-body
+      .modal-footer
 #timesheetform.modal.fade{tabindex:"-1", role: "dialog"}
 
 

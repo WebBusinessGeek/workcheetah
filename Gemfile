@@ -31,7 +31,6 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'font-awesome-sass-rails'
   gem 'uglifier', '>= 1.0.3'
-  gem 'turbo-sprockets-rails3'
 end
 
 gem "figaro"
@@ -54,6 +53,7 @@ gem 'fog'
 gem 'carrierwave'
 gem 'carrierwave_direct'
 gem 'aws-sdk'
+gem 'unf'
 # gem 'rmagick'
 gem "geocoder"
 gem "unicorn"

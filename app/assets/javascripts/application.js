@@ -20,3 +20,4 @@
 //= require private_pub
 //= require chosen-jquery
 //= require_tree .
+

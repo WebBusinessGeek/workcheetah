@@ -1,9 +1,8 @@
-.col-md-3
-  = content_tag :li, id: dom_id(task) do
-    = check_box_tag "complete", task.id, task.done?, class: "complete_task"
-    = task.title
-    .pull-right
-      = link_to [:edit, task.project, task], remote: true do
-        %i.glyphicon.glyphicon-pencil
-      = link_to [task.project, task], method: :delete, remote: true do
-        %i.glyphicon.glyphicon-trash
+= content_tag :li, id: dom_id(task), class: "ui-state-default" do
+  = check_box_tag "complete", task.id, task.done?, class: "complete_task"
+  = task.title
+  .pull-right
+    = link_to [:edit, task.project, task], remote: true do
+      %i.glyphicon.glyphicon-pencil
+    = link_to [task.project, task], method: :delete, remote: true do
+      %i.glyphicon.glyphicon-trash
