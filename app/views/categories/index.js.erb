@@ -1,1 +1,5 @@
-$('#jobs').html("<%= j render(partial: 'categories/job', collection: @jobs) %>")
+<% unless @jobs.empty? %>
+  $('#jobs').html("<%= j render(partial: 'categories/job', collection: @jobs) %>")
+<% else %>
+  $('#jobs').html("<h2>No Jobs match your search criteria</h2>")
+<% end %>

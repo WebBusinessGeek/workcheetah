@@ -39,6 +39,18 @@ class Ability
       (project.users.include? user) || (user == project.owner)
     end
 
+    can :read, Estimate do |estimate|
+      estimate.sent_by == user.resume || user.account.job_ids.include?(estimate.job_id)
+    end
+
+    can [:accept, :reject, :negotiate], Estimate do |estimate|
+      user.account.job_ids.include?(estimate.job_id)
+    end
+
+    can [:update, :destroy], Estimate do |estimate|
+      estimate.sent_by == user.resume
+    end
+
     if !user.admin?
       cannot :manage, Tweet
     end

@@ -1,5 +1,6 @@
 class EstimatesController < ApplicationController
   before_filter :load_estimate, only: [:show, :propose, :accept, :reject, :negotiate, :edit, :update, :destroy]
+
   def index
     @estimates = current_user.resume.sent_estimates
   end
@@ -93,7 +94,7 @@ class EstimatesController < ApplicationController
 
   def negotiate
     @estimate.negotiate
-    redirect_to my_jobs_path, notice: "Estimate has been sent back."
+    redirect_to :back, notice: "Estimate has been sent back."
   end
 
   private

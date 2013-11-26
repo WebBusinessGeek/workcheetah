@@ -55,7 +55,7 @@ class Estimate < ActiveRecord::Base
     Estimate.update_all({state: "rejected"}, {id: ids}) unless ids.empty?
     #4 Send mass rejection mailer for performance benefit
     @project = Project.create! title: job.title, job: job
-    @project.update_attribute(owner_id: job.account.owner.id
+    @project.update_attribute(owner_id: job.account.owner.id)
     @project.users << @project.owner
     @project.users << sent_by.user
   end
