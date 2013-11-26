@@ -1,7 +1,7 @@
-.white_box
+.container
   %br/
   - if @job
-    %h1= @job ? "Who's Applying to '#{@job.title}'" : "My Job Applications"
+    %h2= @job ? "Who's Applying to '#{@job.title}'" : "My Job Applications"
     %table.table
       %tr
         %th{ style: "width: 60px"} Actions
@@ -20,7 +20,7 @@
           %td= estimate.created_at.strftime("%m/%d/%Y")
           %td= number_to_currency estimate.proposed_total
   - else
-    %h1 Jobs you've sent estimates to
+    %h2 Jobs you've sent estimates to
     %table.table
       %tr
         %th{ style: "width: 60px"} Actions

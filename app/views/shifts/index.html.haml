@@ -39,4 +39,8 @@
                   %td= link_to 'Edit', edit_shift_path(shift)
                   %td= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' }
 #shift_modal.modal.hide.fade{ tabindex: '-1', role: 'dialog', 'aria-hidden' => 'true', style: 'width: 52%' }
-  .modal-body
+  .modal-dialog
+    .modal-content
+      .modal-header
+      .modal-body
+      .modal-footer

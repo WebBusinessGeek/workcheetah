@@ -22,16 +22,18 @@
     .col-md-4{style:"margin: 20px auto; display: block; text-align: center;"}
       = render 'jobs/shared/job_links'
 #questionaire-modal.modal.hide.fade{"role" => "dialog", "aria-hidden" => "true"}
-  = simple_form_for @job, url: apply_with_questionaire_job_job_application_path(@job), method: :post do |f|
-    .modal-header
-      %button.close{"data-dismiss" => "modal","aria-hidden" => "true"} x
-      %h3 Questionaire
-    .modal-body
-      - @job.questions.each do |question|
-        = f.fields_for "answers_attributes[#{question.id}]", Answer.new do |answer_fields|
-          = answer_fields.label :text, label: question.text
-          = answer_fields.input :user_id, as: :hidden, input_html: {value: current_user.id}
-          = answer_fields.input :text, label: false, input_html: {class: "input_xxlarge"}
-    .modal-footer
-      = link_to "Close", "#", { "data-dismiss" => "modal", "aria-hidden" => "true", class: "btn"}
-      = f.submit "Save Changes", class: "btn btn-primary"
+  .modal-dialog
+    .modal-content
+    = simple_form_for @job, url: apply_with_questionaire_job_job_application_path(@job), method: :post do |f|
+      .modal-header
+        %button.close{"data-dismiss" => "modal","aria-hidden" => "true"} x
+        %h3 Questionaire
+      .modal-body
+        - @job.questions.each do |question|
+          = f.fields_for "answers_attributes[#{question.id}]", Answer.new do |answer_fields|
+            = answer_fields.label :text, label: question.text
+            = answer_fields.input :user_id, as: :hidden, input_html: {value: current_user.id}
+            = answer_fields.input :text, label: false, input_html: {class: "input_xxlarge"}
+      .modal-footer
+        = link_to "Close", "#", { "data-dismiss" => "modal", "aria-hidden" => "true", class: "btn"}
+        = f.submit "Save Changes", class: "btn btn-primary"

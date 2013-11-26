@@ -13,7 +13,7 @@
 - if @estimate.estimate_items.any?
   %hr/
   .row
-    .span8.offset2
+    .col-md-8.col-md-offset-2
       %table.table
         %tr
           %th Task
@@ -28,11 +28,11 @@
           %td= item.line_total
 %hr/
 .row
-  .span2.offset6
+  .col-md-2.col-md-offset-6
     %h5 Proposed Total
     = @estimate.proposed_total
 .row
-  .span8
+  .col-md-8
     -if @estimate.sent_by == current_user.resume
       = link_to "Edit", edit_estimate_path(@estimate), class: "btn btn-primary"
       - if ['drafting', "reviewing"].include? @estimate.state
@@ -41,11 +41,10 @@
       = link_to "Send Back", negotiate_estimate_path(@estimate), method: :post, class: "btn btn-primary"
       = link_to "Reject", reject_estimate_path(@estimate), method: :post, class: "btn btn-primary"
       = link_to "Accept", accept_estimate_path(@estimate), method: :post, class: "btn btn-primary btn-success"
-
 .row
-  .span8
+  .col-md-8
     %hr/
     %h2 Comments
-    %ul.unstyled#comments
+    %ul.list-unstyled#comments
       = render partial: "comments/comment", collection: @comments, as: :comment
     = render 'comments/form'
