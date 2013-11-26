@@ -16,7 +16,7 @@ class EstimatesController < ApplicationController
   end
 
   def show
-    authorize! :read, @estimate
+    authorize! :show, @estimate
     @commentable = @estimate
     @comments = @commentable.comments
     @comment = Comment.new

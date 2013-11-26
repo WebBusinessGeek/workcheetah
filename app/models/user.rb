@@ -122,6 +122,7 @@ class User < ActiveRecord::Base
   end
 
   def add_staffer!(user)
+    return true if staffings.where(staffer_id: user.id).any?
     staffings.create!(staffer_id: user.id)
   end
 

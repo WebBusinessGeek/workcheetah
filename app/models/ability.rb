@@ -31,12 +31,13 @@ class Ability
 
     can :manage, VideoChat do |video_chat| video_chat_managable?(video_chat, user) end
 
-    can [:create, :edit, :update, :destroy], Project do |project| user == project.owner end
+    can [:create, :edit, :update, :destroy], Project do |project|
+      user == project.owner
+    end
 
-    can :read, Project do |project| project.users.include?(user) || user == project.owner end
-
-    can [:create, :edit, :destroy], Estimate do |estimate| estimate.sent_by == user.resume end
-    can [:read, :update], Estimate do |estimate| estimate.sent_by == user.resume || user.account.job_ids.include?(estimate.job_id) end
+    can :read, Project do |project|
+      (project.users.include? user) || (user == project.owner)
+    end
 
     if !user.admin?
       cannot :manage, Tweet

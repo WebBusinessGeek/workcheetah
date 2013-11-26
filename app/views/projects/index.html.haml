@@ -5,7 +5,16 @@
       = link_to "Add a project", new_project_path, class: "btn btn-primary btn-success"
   .row
     .col-md-12
+      %h3 My Projects
       %ul#projects.list-unstyled{"data-update-url" => sort_projects_url}
         - @projects.each do |project|
+          - if project.project.owner_id == current_user.id
+            = content_tag_for :li, project, class: "panel ui-state-default", style: "width:250px;padding:3px;text-align:center;min-height:300px;float:left;margin:3px 3px 3px 3px 0" do
+              = render project.project
+  .row
+    .col-md-12
+      %h3 Projects I'm collaborating on
+      - @projects.each do |project|
+        -unless project.project.owner == current_user
           = content_tag_for :li, project, class: "panel ui-state-default", style: "width:250px;padding:3px;text-align:center;min-height:300px;float:left;margin:3px 3px 3px 3px 0" do
             = render project.project

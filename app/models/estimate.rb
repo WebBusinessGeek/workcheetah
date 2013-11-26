@@ -51,11 +51,11 @@ class Estimate < ActiveRecord::Base
     job.account.owner.add_staffer!(sent_by.user)
     self.accept
     #3 Send Accepted Job Application mailer
-    ids = job.recieved_estimates - [estimate]
+    ids = job.recieved_estimate_ids - [self.id]
     Estimate.update_all({state: "rejected"}, {id: ids}) unless ids.empty?
     #4 Send mass rejection mailer for performance benefit
     @project = Project.create! title: job.title, job: job
-    @project.owner = job.account.owner
+    @project.update_attribute(owner_id: job.account.owner.id
     @project.users << @project.owner
     @project.users << sent_by.user
   end
