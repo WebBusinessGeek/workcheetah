@@ -2,44 +2,65 @@
   %ul.errors
     - @resume.errors.full_messages.each do |msg|
       %li.error= msg
-
 = simple_form_for @resume do |f|
   = f.error_notification
-
   - unless user_signed_in?
-    %h3 Account Details
+    %hr
+    .row
+      .col-md-12
+        %p.lead Account Details
     = f.fields_for :user do |uf|
-      = uf.input :email, label: "Email (used to log in)", required: :true
-      = uf.input :password, required: :true
-      = uf.input :password_confirmation, required: :true
-      = uf.input :terms_of_service, as: :boolean, label: raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}"), required: :true
+      .row
+        .form-group.col-md-4
+          = uf.input :email, label: "Email (used to log in)", required: :true, input_html: { class: 'form-control' }
+        .form-group.col-md-4
+          = uf.input :password, required: :true, input_html: { class: 'form-control' }
+        .form-group.col-md-4
+          = uf.input :password_confirmation, required: :true, input_html: { class: 'form-control' }
+      .row
+        .input-group.col-md-12
+          = uf.input :terms_of_service, as: :boolean, label: raw("I agree to the #{link_to "Terms & Conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}"), required: :true
   #contact-details{ class: !user_signed_in? ? "hidden" : "" }
-    = f.input :resume_type, label: 'Which best describes you?', collection: Resume::TYPES, prompt: false, required: :true, selected: (user_signed_in? && current_user.role) ? current_user.role : "employee"
+    = f.input :resume_type, label: 'Which best describes you?', collection: Resume::TYPES, prompt: false, required: :true, selected: (user_signed_in? && current_user.role) ? current_user.role : "employee", input_html: { class: 'form-control' }
+    %hr
     .row
-      .col-md-5
-        %h3 Contact Details
-        %p You choose what information you want to share with employers.
-        = f.input :name, label: "Full name", input_html: { style: "width: 100%;" }
-        = f.input :phone, label: "Phone (This number is the number shown to employers who want to contact you)", input_html: { style: "width: 100%", class: "phone" }
-        = f.input :email, label: false, label: "Email (professional email if different)", input_html: { style: "width: 100%;" }
-        = f.input :website, input_html: { style: "width: 100%;", class: "website" }
-        = f.input :twitter, input_html: { style: "width: 100%;", class: "twitter" }
-        = f.input :status, collection: [ "Employed", "Unemployed", "Expecting Layoff" ], prompt: true
-
+      .col-md-12
+        %p.lead Contact Details
+        .help-block You choose what information you want to share with employers.
+    .row
+      .col-md-4
+        = f.input :name, label: "Full name", input_html: { :class => "form-control" }
+      .col-md-4
+        = f.input :phone, label: "Phone Number", input_html: { :class => "form-control" }
+      .col-md-4
+        = f.input :email, label: false, label: "Email", input_html: { :class => "form-control" }
+    .row
+      .col-md-4
+        = f.input :website, input_html: { :class => "form-control" }
+      .col-md-4
+        = f.input :twitter, input_html: { :class => "form-control" }
+      .col-md-4
+        = f.input :status, collection: [ "Employed", "Unemployed", "Expecting Layoff" ], prompt: true, input_html: { :class => "form-control" }
+    = f.fields_for :addresses do |af|
+      = render "address_fields", f: af
+    .col-md-12
+      = f.input :private, label: "Keep phone and address private"
   #rest{ class: !user_signed_in? ? "hidden" : "" }
+    %hr
     .row
-      .col-md-5
-        %h2 What Types Of Jobs Are You Looking For?
+      .col-md-12
+        %p.lead Additional Details
+        .help-block What type of Jobs are you looking for?
+    .row
+      .col-md-4
         = f.label :category1, "Preference 1:"
-        = f.collection_select(:category1_id, Category.all, :id, :name, prompt: true)
+        = f.collection_select(:category1_id, Category.all, :id, :name, {:prompt=>true}, {:class=>'form-control'})
+      .col-md-4
         = f.label :category2, "Preference 2:"
-        = f.collection_select(:category2_id, Category.all, :id, :name, prompt: true)
+        = f.collection_select(:category2_id, Category.all, :id, :name, {:prompt=>true}, {:class=>'form-control'})
+      .col-md-4
         = f.label :category3, "Preference 3:"
-        = f.collection_select(:category3_id, Category.all, :id, :name, prompt: true)
-      .col-md-6
-        = f.fields_for :addresses do |af|
-          = render "address_fields", f: af
-        = f.input :private, label: "Keep phone and address private"
+        = f.collection_select(:category3_id, Category.all, :id, :name, {:prompt=>true}, {:class=>'form-control'})
     .hidden
       %h2 What's Important To You?
       .question
@@ -86,30 +107,41 @@
         = f.label :pay_importance_10, class: "radio inline", style: "width: 150px" do
           = f.radio_button :pay_importance, "10"
           Very Important
-    .skills
-      %h2 Skills
-      %p Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.
-      = f.input :skill_ids, label: false, collection: SkillGroup.includes(:skills).all, as: :grouped_select, group_method: :skills, group_label_method: :name, label_method: :name, input_html: { multiple: true, class: ".chzn-select" }
+    %hr
+    .row
+      .col-md-12
+        %p.lead Skills
+        .help-block Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.
+        = f.input :skill_ids, label: false, collection: SkillGroup.includes(:skills).all, as: :grouped_select, group_method: :skills, group_label_method: :name, label_method: :name, input_html: { multiple: true, class: ".chzn-select" }
     -unless user_signed_in? and ['business'].include? current_user.role?
-      .schools
-        %h2 Education
-        = f.fields_for :schools do |sf|
-          = render "school_fields", f: sf
-        = link_to_add_fields "Add Education", f, :schools
-
-      .experiences
-        %h2 Experience
-        = f.fields_for :experiences do |pf|
-          = render "experience_fields", f: pf
-        = link_to_add_fields "Add Experience", f, :experiences
-
-    .references
-      %h2 References
-      = f.fields_for :references do |rf|
-        = render "reference_fields", f: rf
-      = link_to_add_fields "Add Reference", f, :references
-
-    = f.submit((f.object.new_record? ? "Create Profile" : "Update Profile" ), class: "btn btn-success")
+      %hr
+      .row
+        .col-md-12
+          %p.lead Education
+      .row
+        .col-md-12
+          = f.fields_for :schools do |sf|
+            = render "school_fields", f: sf
+          = link_to_add_fields "Add Education", f, :schools
+      %hr
+      .row
+        .col-md-12
+          %p.lead Experience
+      .row
+        .col-md-12
+          = f.fields_for :experiences do |pf|
+            = render "experience_fields", f: pf
+          = link_to_add_fields "Add Experience", f, :experiences
+      %hr
+      .row
+        .col-md-12
+          %p.lead References
+      .row
+        .col-md-12
+          = f.fields_for :references do |rf|
+            = render "reference_fields", f: rf
+          = link_to_add_fields "Add Reference", f, :references
+  = f.submit((f.object.new_record? ? "Create Profile" : "Update Profile" ), class: "btn btn-primary")
 
 :javascript
   $('#resume_user_attributes_terms_of_service').change(function() {

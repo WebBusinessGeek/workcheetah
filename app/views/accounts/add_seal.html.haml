@@ -1,44 +1,52 @@
 .accounts_add_seal
-  .white_box
-    %h1 Your Job Is Live on WorkCheetah!
-    %h2 The next step is verifying your account...
-    .options
-      .no_thanks_box
-        .no_thanks_content
-          .heading No Thanks, I don't want to be a Verified Employer.
-          - if @account.payment_profiles.any?
-            %p= link_to "CANCEL Verification Process", [:my, :jobs], class: "btn btn-danger"
-          - else
-            %p= link_to "Don't Verify - Continue", [:my, :jobs], class: "btn btn-danger"
-      .verify_box
-        .verify_content
-          .heading
-            Verify Your
-            %br/
-            Account
+  .container
+    .row
+      .form-group.col-md-12
+        %h2 Your Job Is Live on WorkCheetah!
+        .alert.alert-success.alert-block
+          %button.close{"data-dismiss" => "alert", :type => "button"} &times;
+          The next step is verifying your account...
+        .help-block Becoming a verified employer is optional and NOT required to use WorkCheetah. However it greatly increases your chances of recruiting better talent. Please start the process by adding billing details to verify your identity. You WILL NOT be charged to begin the verification.
+    .row
+      .form-group.col-md-12
+        %p
+          .lead Why Verify?
           %ul
             %li Attract More Candidates
-            %li Verifies All Your Job Listings
-            / %li Access Advanced Recruiting Tools
-          / %p
-          /   Becoming a Verified Employer on WorkCheetah is simple and easy! You will receive a Verification Seal upon completing the quick process. Please see
-          /   %strong NOTE
-          /   below button BEFORE clicking.
-          - if @account.payment_profiles.any?
-            .button= link_to "Become Verified - $ #{PaymentProfile::SAFE_SEAL_PRICE_IN_DOLLARS}", [:buy_seal, :account], method: :post
-            .after_button
-              %strong NOTE:
-              = "Clicking the above button will charge $ #{PaymentProfile::SAFE_SEAL_PRICE_IN_DOLLARS}"
-              %br/
-              to the card on file.
-              /  ending in
-              / = "XXXX-" + @account.payment_profiles.first.cc_number_preview
-              Following payment you will immediately receive your seal and be able to access Verified Only recruiting tools on WorkCheetah. To cancel this process please click the Cancel Verification Process button to the left.
-          - else
-            .button= link_to "Become A Verified Employer Now", new_payment_profile_path(product: "seal")
-            .after_button
-              %strong PLEASE READ BELOW
-              %p
-                Becoming a verified employer is optional and NOT required to use WorkCheetah. However it greatly increases your chances of recruiting better talent. Please start the process by adding billing details to verify your identity. You WILL NOT be charged to begin the verification.
-
-      .clearfix
+            %li Legitimize All Your Job Listings
+            %li Access Advanced Recruiting Tools
+            %li and much more...
+    .row
+      .form-group.col-md-12
+        %p.lead Verify Your Account
+        .help-block Becoming a Verified Employer on WorkCheetah is simple and easy! You will receive a Verification Seal upon completing the quick process. Following payment you will immediately receive your seal and be able to access Verified Only recruiting tools on WorkCheetah. To cancel this process please click the Cancel Verification Process button to the left.
+        .options
+          .verify_box
+            .verify_content
+            - if @account.payment_profiles.any?
+              = link_to "Become Verified - $ #{PaymentProfile::SAFE_SEAL_PRICE_IN_DOLLARS}", [:buy_seal, :account], method: :post, class: "btn btn-primary"
+            - else
+              = link_to "Become A Verified Employer Now!", new_payment_profile_path(product: "seal"), class: "btn btn-primary"
+          .no_thanks_box
+            .no_thanks_content
+              .heading 
+              - if @account.payment_profiles.any?
+                .button= link_to "CANCEL Verification Process", [:my, :jobs]
+              - else
+                .button= link_to "No Thanks, I don't want to be a Verified Employer.", [:my, :jobs]
+          .clearfix
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br

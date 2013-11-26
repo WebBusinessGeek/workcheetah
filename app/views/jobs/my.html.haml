@@ -1,12 +1,12 @@
 .jobs_index.accounts_show
-	.white_box
-		.pull-left.span4
-			%h1 My Jobs
+	.container
+		.col-md-6
+			%h2 My Jobs
 			.alert.alert-info.alert-block
 				%button.close{"data-dismiss" => "alert", :type => "button"} &times;
 				Your dashboard helps you manage all your job posts and applicants in the cloud. You can click on your listings to view/edit/delete the descriptions at any time. You can follow the applicant links to view who's applying to your job listings.
 		- if !current_user.account.safe_job_seal?
-			.pull-right.span6
+			.col-md-6
 				.complete_account
 					%h2 Complete Your Account
 					%ul
@@ -38,10 +38,9 @@
 					%td
 						- if current_user.account.safe_job_seal?
 							- if !job.invited?
-								= link_to 'Invite job seekers', invite_job_seekers_to_job_path(job), method: :post, class: "btn btn-success"
+								= link_to 'Invite job seekers', invite_job_seekers_to_job_path(job), method: :post, class: "btn btn-primary"
 							- else
-								= link_to 'Invite job seekers', "javascript: return false;", method: :post, class: "btn btn-success disabled"
+								= link_to 'Invite job seekers', "javascript: return false;", method: :post, class: "btn btn-primary disabled"
 						- else
-							%a#invite-popover.btn.btn-success{"data-content" => "#{link_to "Verify your account.", add_seal_account_path} As a verified employer you can invite all relevant job seekers within a 50 mile radius to your job opening.", "data-original-title" => "Invite", :href => "javascript: void(0);", :rel => "popover"} Invite job seekers
+							%a#invite-popover.btn.btn-primary{"data-content" => "#{link_to "Verify your account.", add_seal_account_path} As a verified employer you can invite all relevant job seekers within a 50 mile radius to your job opening.", "data-original-title" => "Invite", :href => "javascript: void(0);", :rel => "popover"} Invite Job Seekers
 
-		%br/

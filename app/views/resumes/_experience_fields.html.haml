@@ -1,31 +1,26 @@
 .experience.fields_for_set
-  %fieldset{ style: "border: 1px solid #ddd; padding: 20px;"}
-    .controls-row
-      .form-group.col-md-3
-        = f.label "Previous Job Title", class: "control-label"
-        .controls
-          = f.input :job_title, label: false
-      .form-group.col-md-3
-        = f.label "Industry", class: "control-label"
-        .controls
-          = f.input :industry, label: false, collection: Category.pluck(:name)
-      .form-group.col-md-3
-        = f.label "Company", class: "control-label"
-        .controls
-          = f.input :company_name, label: false
-      .form-group.col-md-3
-        = f.label "Start Date", class: "control-label"
-        .controls
-          = f.input :from, as: :string, label: false, input_html: {class: "date"}
-      .form-group.col-md-3
-        = f.label "End Date", class: "control-label"
-        .controls
-          = f.input :till, as: :string, label: false, input_html: {class: "date"}
-      .form-group.col-md-1
-        = f.label "Currently Employed", class: "control-label"
-        .controls
-          = f.input :current_employer, label: false
-    = f.hidden_field :_destroy
-    = link_to "Remove Experience", '#', class: "remove_fields btn btn-mini btn-danger"
+  %fieldset
+    .row
+      .form-group.col-md-4
+        %label Previous Job Title
+        = f.input :job_title, label: false, input_html: {class: "form-control"}
+      .form-group.col-md-4
+        %label Industry
+        = f.input :industry, label: false, collection: Category.pluck(:name), input_html: {class: "form-control"}
+      .form-group.col-md-4
+        %label Company
+        = f.input :company_name, label: false, input_html: {class: "form-control"}
+    .row
+      .form-group.col-md-4
+        %label Start Date
+        = f.input :from, as: :string, label: false, input_html: {class: "form-control date"}
+      .form-group.col-md-4
+        %label End Date 
+        = f.input :till, as: :string, label: false, input_html: {class: "form-control date"}
+      .form-group.col-md-2
+        = f.input :current_employer, label: "Current?"
+      .form-group.col-md-2
+        = f.hidden_field :_destroy
+        = link_to "Remove", '#', class: "remove_fields btn-sm btn-primary"
     :javascript
       $('input.date').datepicker();

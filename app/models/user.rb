@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable,
   # :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+         :recoverable, :rememberable, :trackable, :validatable #, :confirmable
 
   validates :terms_of_service, acceptance: true
   serialize :target_params

@@ -5,6 +5,6 @@ module ProfileHelper
     fields = f.fields_for(association, new_object, child_index: id) do |builder|
       render(association.to_s.singularize + "_fields", f: builder)
     end
-    link_to(name, "#", class: "add_fields btn", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to(name, "#", class: "add_fields btn-sm btn-primary", data: {id: id, fields: fields.gsub("\n", "")})
   end
 end

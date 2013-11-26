@@ -1,5 +1,12 @@
-= f.input :address_1, label: "Home Address", placeholder: "Ex. 555 Some St"
-= f.input :address_2, placeholder: "Ex. Suite #12 (optional)", label: false, input_html: { style: "width: 100%" }
-= f.input :city, placeholder: "Ex. New York", input_html: { style: "width: 100%" }
-= f.input :state, collection: us_states, input_html: { style: "width: 100%" }
-= f.input :zip, placeholder: "Ex. 55555", input_html: { style: "width: 100%" }
+.row
+  .col-md-6
+    = f.input :address_1, label: "Home Address", placeholder: "Ex. 555 Some St", input_html: { class: 'form-control' }
+  .col-md-6
+    = f.input :address_2, placeholder: "Ex. Suite #12 (optional)", label: "Home Address Line 2", input_html: { class: 'form-control' }
+.row
+  .col-md-4
+    = f.input :city, placeholder: "Ex. New York", input_html: { class: 'form-control' }
+  .col-md-4
+    = f.input :state, collection: us_states, input_html: { class: 'form-control' }
+  .col-md-4
+    = f.input :zip, placeholder: "Ex. 55555", input_html: { class: 'form-control' }

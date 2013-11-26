@@ -1,24 +1,19 @@
 .school.fields_for_set
-  %fieldset{ style: "border: 1px solid #ddd; padding: 20px;"}
-    .controls-row
-      .form-group.col-md-2{style: "margin-left:-10px"}
-        = f.label "Merit Recieved", class: "control-label"
-        .controls
-          = f.input :highest_merit, label: false, collection: School::HIGHEST_MERIT, input_html: {class: "input-medium"}
-      .form-group.col-md-3{style: "margin-left:-10px"}
-        = f.label "Course of study", class: "control-label"
-        .controls
-          = f.input :course_of_study, as: :grouped_select, :group_method => :last, label: false, collection: School::COURSE_OF_STUDY, input_html: {class: "input-large"}
-      .form-group.col-md-3{style: "margin-left:-10px"}
-        = f.label "School name", class: "control-label"
-        .controls
-          = f.input :name, label: false, input_html: {class: "input-large"}
-      .form-group.col-md-2{style: "margin-left:-10px"}
-        = f.label "Year of completion", class: "control-label"
-        .controls
-          = f.input :completion_year, label: false, collection: (1900..2014).to_a.reverse, input_html: {class: "input-small"}
+  %fieldset
+    .row
+      .form-group.col-md-3
+        %label Merit Recieved
+        = f.input :highest_merit, label: false, collection: School::HIGHEST_MERIT, input_html: {class: "form-control"}
+      .form-group.col-md-3
+        %label Course of Study
+        = f.input :course_of_study, as: :grouped_select, :group_method => :last, label: false, collection: School::COURSE_OF_STUDY, input_html: {class: "form-control"}
+      .form-group.col-md-3
+        %label School Name
+        = f.input :name, label: false, input_html: {class: "form-control"}
       .form-group.col-md-2
-        .controls
-          = f.hidden_field :_destroy
-          .remove{style: "margin-top:25px"}
-            = link_to "Remove Education", '#', class: "remove_fields btn btn-mini btn-danger"
+        %label Graduation Yr
+        = f.input :completion_year, label: false, collection: (1900..2014).to_a.reverse, input_html: {class: "form-control"}
+      .form-group.col-md-1
+        = f.hidden_field :_destroy
+        .remove{style: "margin-top:25px"}
+          = link_to "Remove", '#', class: "remove_fields btn-sm btn-primary"

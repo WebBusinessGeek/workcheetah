@@ -53,7 +53,18 @@ h1,h2,h3,h4,h5,h6 {
 
 
 // control the background of other pages here 
-body.sessions.new, body.registrations.edit, body.registrations.new, body.passwords.edit, body.passwords.new {
+body.sessions, 
+body.registrations, 
+body.passwords, 
+body.jobs, 
+body.resumes, 
+body.accounts,
+body.categories, 
+body.projects, 
+body.accounting,
+body.contacts, 
+body.video_chats,
+body.conversations {
   background: url(sidebg2.png) repeat;
   .container {
     background: #FFF;
@@ -1390,6 +1401,109 @@ body.dashboards.home.loggedin {
        -moz-box-shadow: 0px 30px 60px 30px rgba(255,255,255,1.0);
             box-shadow: 0px 30px 60px 30px rgba(255,255,255,1.0);
   }
+}
+
+.help-block span {
+  font-style: italic;
+  font-size: 80%;
+}
+
+.inline {
+  display: inline;
+  margin-right: 10px;
+}
+
+.addfieldlinkholder {
+  fieldset:last-child {
+    margin-bottom: 20px;
+  }
+}
+
+body.jobs.new #main label.boolean.required {
+  display: inline;
+  margin-left: 10px;
+}
+
+input[type="checkbox"] {
+  margin: 20px 0 0;
+}
+
+.lead {
+  font-size: 31px;
+}
+
+.chosen-container-multi .chosen-results {
+  margin: 0;
+  padding: 10px 0 0 0;
+}
+
+.chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+  height: 34px;
+}
+.chosen-container-multi .chosen-choices li.search-field {
+  height: 34px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.chosen-container-multi .chosen-choices {
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  background-color: #ffffff;
+}
+
+.chosen-container-multi {
+  .chosen-choices li {
+    &.search-field {
+      .default {
+        color: #cccccc;
+        font-family: 'Open Sans', sans-serif;
+      }
+    }
+  }
+}
+
+.chosen-container-multi .chosen-choices li.search-choice {
+  padding: 7px 20px 7px 5px;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
+  top: 8px;
+}
+
+.remover {
+  padding-top: 70px;
+}
+
+.textrighty {
+  padding-top: 5px;
+  letter-spacing: 0.1em;
+  b {
+    font-weight: normal;
+    font-size: 130%;
+    color: #817F7F;
+    padding-top: 15px;
+  }
+}
+
+body.jobs.new #main .input-group-addon:last-child label {
+  margin-top: 0px;
+  line-height: 0px;
+  margin-bottom: -5px;
+}
+
+
+body.resumes #main label{
+  display: inline;
+}
+
+body.resumes #main input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+body.resumes #contact-details .form-control {
+  margin-bottom: 20px;
 }
 
 

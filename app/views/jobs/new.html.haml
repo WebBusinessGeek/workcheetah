@@ -1,12 +1,8 @@
 .container
-	%h2 Post Your Job
-	.alert.alert-info.alert-block
+	%h2 Post a Job
+	.help-block Post a job by filling out the form below.
+	.alert.alert-success.alert-block
 		%button.close{"data-dismiss" => "alert", :type => "button"} &times;
-		WorkCheetah is the standard job search engine alternative. It is free to advertise available positions on our website. Using WorkCheetah software helps you:
-		%ul
-			%li Manage your applicants
-			%li Compare qualified talent
-			%li Conduct interviews online
-		These features are innovative, effective, and free. Please do not abuse our system and cause limitations for everyone. Thank you for using WorkCheetah and good luck finding your next employee!
+		WorkCheetah is the standard job search engine alternative. It is free to advertise available positions on our website. These features are innovative, effective, and free. Please do not abuse our system and cause limitations for everyone. Thank you for using WorkCheetah and good luck finding your next employee!
 	%br/
 	= render 'form'

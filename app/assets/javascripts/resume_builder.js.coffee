@@ -15,7 +15,7 @@ jQuery ->
     max_selected_options: 10
     allow_single_deselect: true
     no_results_text: 'No results matched'
-    width: '300px'
+    width: '100%'
 
   $('#search_skill_ids').chosen
     theme: 'facebook'
@@ -25,7 +25,7 @@ jQuery ->
     max_selected_options: 10
     allow_single_deselect: true
     no_results_text: 'No results matched'
-    width: '300px'
+    width: '100%'
 
   $('#create_questionaire').on 'click', (e) ->
     e.preventDefault()
