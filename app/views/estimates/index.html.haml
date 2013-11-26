@@ -19,6 +19,27 @@
           %td= estimate.state
           %td= estimate.created_at.strftime("%m/%d/%Y")
           %td= number_to_currency estimate.proposed_total
+  - elsif @recieved_estimates
+    %h2 Estimates Recieved
+    %table.table
+      %tr
+        %th{ style: "width: 60px"} Actions
+        %th Applicant
+        %th For Job
+        %th Status
+        %th Sent Date
+        %th Proposed Amount
+      - @recieved_estimates.each do |estimate|
+        %tr
+          %td.actions
+            = link_to "Review Job", job_path(estimate.job)
+            = link_to "Preview", estimate_path(estimate)
+          %td.applicant
+            = estimate.sent_by.name
+          %td= estimate.job.title
+          %td= estimate.state
+          %td= estimate.created_at.strftime("%m/%d/%Y")
+          %td= number_to_currency estimate.proposed_total
   - else
     %h2 Jobs you've sent estimates to
     %table.table

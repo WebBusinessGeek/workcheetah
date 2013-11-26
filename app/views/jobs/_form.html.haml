@@ -46,10 +46,9 @@
   .row
     .form-group.col-md-12
       %p.lead Applicant Questionaire (Optional)
-      .help-block 
-        Workcheetah provides the option to construct a short survey that all job applicants would need to fill out before successfully applying for a job. 
-        %br 
-        %span Note: creating a questionaire will negate the quick applicable feature.
+      .help-block
+        Workcheetah provides the option to construct a short survey that all job applicants would need to fill out before successfully applying for a job.
+        %br
       .form-horizontal.addfieldlinkholder
         .col-md-12
           = f.fields_for :questions do |question|

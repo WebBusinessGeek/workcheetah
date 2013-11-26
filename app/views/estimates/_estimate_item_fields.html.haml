@@ -1,8 +1,15 @@
 .estimate_item.fields_for_set
   %fieldset
-    = f.input :task
-    = f.input :hours
-    = f.input :total
-    = f.hidden_field :_destroy
-    .remove
-      = link_to "Remove Item", '#', class: "remove_fields btn btn-mini btn-danger"
+    .row
+      .form-group.col-md-3
+        %label Task
+        = f.input :task, label: false, input_html: {class: "form-control"}
+      .form-group.col-md-3
+        %label Hours
+        = f.input :hours, label: false, input_html: {class: "form-control"}
+      .form-group.col-md-3
+        %label Total
+        = f.input :total, label: false, input_html: {class: "form-control"}
+      .form-group.col-md-3
+        = f.hidden_field :_destroy
+        = link_to "Remove Item", '#', class: "remove_fields btn-sm btn-primary"

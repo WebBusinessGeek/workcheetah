@@ -1,46 +1,52 @@
 %h2
   Estimate for
   = @estimate.job.title
-%h5= link_to "Preview Job", job_path(@estimate.job)
-%h5 Status
-=@estimate.state
-%h5 Due Date
-=@estimate.due_date ? @estimate.due_date : "None Given"
-%h5 Terms
-=@estimate.terms.blank? ? @estimate.terms : "None Given"
-%h5 Notes
-=@estimate.notes.blank? ? @estimate.notes : "None Given"
-- if @estimate.estimate_items.any?
+.jumbotron
+  = link_to "Preview Job", job_path(@estimate.job)
+  %strong Status
+  = @estimate.state
+  %strong Due Date
+  = @estimate.due_date ? @estimate.due_date : "None Given"
+  - if @estimate.estimate_items.any?
+    %hr/
+    .row
+      .col-md-8
+        %table.table
+          %tr
+            %th Task
+            %th Estimated Hours
+            %th total
+          - @estimate.estimate_items.each do |item|
+            %tr
+              %td= item.task
+              %td= item.hours
+              %td= number_to_currency item.total
+
   %hr/
   .row
-    .col-md-8.col-md-offset-2
-      %table.table
-        %tr
-          %th Task
-          %th Estimated Hours
-          %th Price
-          %th Total
-      - @estimate.estimate_items.each do |item|
-        %tr
-          %td= item.task
-          %td= item.hours
-          %td= item.total
-          %td= item.line_total
-%hr/
-.row
-  .col-md-2.col-md-offset-6
-    %h5 Proposed Total
-    = @estimate.proposed_total
+    .col-md-6
+      %label Terms
+      %br/
+      = !@estimate.terms.blank? ? @estimate.terms : "None Given"
+    .col-md-6
+      %label Notes
+      %br/
+      = !@estimate.notes.blank? ? @estimate.notes : "None Given"
+  %hr/
+  .row
+    .col-md-2.col-md-offset-6
+      %strong Proposed Total
+      = @estimate.proposed_total
 .row
   .col-md-8
     -if @estimate.sent_by == current_user.resume
-      = link_to "Edit", edit_estimate_path(@estimate), class: "btn btn-primary"
+      = link_to "Edit", edit_estimate_path(@estimate), class: "btn btn-default"
       - if ['drafting', "reviewing"].include? @estimate.state
-        = link_to "Send", propose_estimate_path(@estimate), method: :post, class: "btn btn-primary btn-success"
+        = link_to "Send", propose_estimate_path(@estimate), method: :post, class: "btn btn-default btn-success"
     -if @estimate.job.account == current_user.account
-      = link_to "Send Back", negotiate_estimate_path(@estimate), method: :post, class: "btn btn-primary"
-      = link_to "Reject", reject_estimate_path(@estimate), method: :post, class: "btn btn-primary"
-      = link_to "Accept", accept_estimate_path(@estimate), method: :post, class: "btn btn-primary btn-success"
+      = link_to "Send Back", negotiate_estimate_path(@estimate), method: :post, class: "btn btn-default"
+      = link_to "Reject", reject_estimate_path(@estimate), method: :post, class: "btn btn-default"
+      = link_to "Accept", accept_estimate_path(@estimate), method: :post, class: "btn btn-default btn-success"
 .row
   .col-md-8
     %hr/

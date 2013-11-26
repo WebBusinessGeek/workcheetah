@@ -2,21 +2,25 @@
   .col-md-3
     = f.input :job_id, as: :hidden, input_html: {value: @job.id}
     - if @job
-      %h4= @job.title
+      %h3= @job.title
       %p= @job.description.html_safe
-  .col-md-3
-    = f.label :start_date, "When can you start?"
-    = f.input :start_date, label: false, as: :string, input_html: {class: "date", value: @estimate.start_date}
-  .col-md-3
-    = f.label :due_date, "When do you propose to finish?"
-    = f.input :due_date, label: false, as: :string, input_html: {class: "date", value: @estimate.due_date}
+.row
+  .form-group.col-md-3
+    %label When can you start?
+    = f.input :start_date, label: false, as: :string, input_html: {class: "date form-control", value: @estimate.start_date}
+  .form-group.col-md-3
+    %label When do you propose to finish?
+    = f.input :due_date, label: false, as: :string, input_html: {class: "date form-control", value: @estimate.due_date}
 %hr/
 .row
-  #estimate_items.col-md-8
-    = f.fields_for :estimate_items do |i|
-      = render 'estimate_item_fields', f: i
-    = link_to_add_fields "Add An Item", f, :estimate_items
+  #estimate_items
+    .form-horizontal.addfieldlinkholder
+      .col-md-12
+        = f.fields_for :estimate_items do |i|
+          = render 'estimate_item_fields', f: i
+      .col-md-12
+        = link_to_add_fields "Add An Item", f, :estimate_items
 %hr/
 .row
-  .col-md-4= f.input :terms
-  .col-md-4= f.input :notes
+  .form-group.col-md-5= f.input :terms, input_html: {class: "form-control"}
+  .form-group.col-md-5= f.input :notes, input_html: {class: "form-control"}

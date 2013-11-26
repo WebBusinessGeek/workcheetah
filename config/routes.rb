@@ -1,11 +1,11 @@
 CareerLoop::Application.routes.draw do
 
-  match '/businesses',     to: 'staticpages#staticbusinesses'
-  match '/freelancers',    to: 'staticpages#staticfreelancers'
-  match '/employees',      to: 'staticpages#staticemployees'
-  match '/pagetwo',        to: 'staticpages#staticpagetwo'
-  match '/pageone',        to: 'staticpages#staticpageone'
-  match '/pagethree',      to: 'staticpages#staticpagethree'
+  get '/businesses',     to: 'staticpages#staticbusinesses'
+  get '/freelancers',    to: 'staticpages#staticfreelancers'
+  get '/employees',      to: 'staticpages#staticemployees'
+  get '/pagetwo',        to: 'staticpages#staticpagetwo'
+  get '/pageone',        to: 'staticpages#staticpageone'
+  get '/pagethree',      to: 'staticpages#staticpagethree'
 
   resources :shifts do
     collection do
@@ -60,6 +60,7 @@ CareerLoop::Application.routes.draw do
     resources :comments
     collection do
       get :for_job
+      get :recieved
     end
     member do
       post :buy_credits

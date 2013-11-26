@@ -10,7 +10,13 @@ class EstimatesController < ApplicationController
     render 'index'
   end
 
+  def recieved
+    @recieved_estimates = Estimate.where(job_id: [current_account.job_ids]).sent
+    render 'index'
+  end
+
   def show
+    authorize! :read, @estimate
     @commentable = @estimate
     @comments = @commentable.comments
     @comment = Comment.new
@@ -23,6 +29,7 @@ class EstimatesController < ApplicationController
   end
 
   def edit
+    authorize! :edit, @estimate
     @job = @estimate.job
   end
 
@@ -31,7 +38,8 @@ class EstimatesController < ApplicationController
 
     if @estimate.save!
       if params[:commit] == "Send Estimate"
-        @estimate.send
+        @estimate.accept
+        @estimate.send_proposal
         msg = "Estimate has been sent successfully"
       else
         msg = "Estimate has been saved successfully"
@@ -43,6 +51,7 @@ class EstimatesController < ApplicationController
   end
 
   def update
+    authorize! :update, @estimate
     if @estimate.update_attributes(estimate_params)
       if params[:commit] == "Send Estimate"
         @estimate.send_proposal
