@@ -23,19 +23,16 @@
       = render 'tasks/form', project: @project
       .col-md-4
         %p.lead To Do
-        %ul#to_do.task_list.list-unstyled{"data-type" => "to-do", "data-update-url" => sort_tasks_url, data: {project_id: @project.id}}
-          .row
-            = render partial: "tasks/detailed_task", collection: @project.tasks.to_do, as: :task
+        %ul#to_do.connectedSortable.list-unstyled{"data-type" => "to-do", "data-update-url" => sort_tasks_url, data: {project_id: @project.id}}
+          = render partial: "tasks/detailed_task", collection: @project.tasks.to_do, as: :task
       .col-md-4
         %p.lead Doing
-        %ul#doing.task_list.list-unstyled{"data-type" => "doing", "data-update-url" => sort_tasks_url, data: {project_id: @project_id}}
-          .row
-            = render partial: "tasks/detailed_task", collection: @project.tasks.doing, as: :task
+        %ul#doing.connectedSortable.list-unstyled{"data-type" => "doing", "data-update-url" => sort_tasks_url, data: {project_id: @project_id}}
+          = render partial: "tasks/detailed_task", collection: @project.tasks.doing, as: :task
       .col-md-4
         %p.lead Done
-        %ul#doing.task_list.list-unstyled{"data-type" => "done", "data-update-url" => sort_tasks_url, data: {project_id: @project_id}}
-          .row
-            = render partial: "tasks/detailed_task", collection: @project.tasks.done, as: :task
+        %ul#done.connectedSortable.list-unstyled{"data-type" => "done", "data-update-url" => sort_tasks_url, data: {project_id: @project_id}}
+          = render partial: "tasks/detailed_task", collection: @project.tasks.done, as: :task
   .row
     .col-md-5
       %h3 Documents

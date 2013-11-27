@@ -1,4 +1,4 @@
-= content_tag :li, id: dom_id(task), class: "ui-state-default task col-md-8" do
+= content_tag :li, id: dom_id(task), class: "ui-state-default task", data:{project_id: @project.id} do
   = check_box_tag "complete", task.id, task.done?, class: "complete_task"
   = task.title
   .pull-right

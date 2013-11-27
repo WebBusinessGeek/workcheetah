@@ -2,8 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 jQuery ->
-  $('#detailed_tasks').on 'change','input[type=checkbox]', (e) ->
-    project_id = $('#detailed_tasks').data('project-id')
+  $('.task').on 'change','input[type=checkbox]', (e) ->
+    project_id = $('.task').data('project-id')
     task_id = $(this).val()
     checked = $(this).is(':checked')
     payload = { checked: checked }

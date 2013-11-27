@@ -8,9 +8,24 @@ jQuery ->
 
   $('#projects').disableSelection()
 
-  $('.task').draggable()
-
-  $('ul.task_list').sortable
+  $('ul#to_do, ul#doing, ul#done').sortable(
+    connectWith: ".connectedSortable"
+    placeholder: "ui-state-highlight"
+    dropOnEmpty: true
     update: ->
       $.post($(this).data('update-url'), $(this).sortable('serialize'))
-  $('ul.task_list').disableSelection()
+  ).disableSelection()
+
+  # $('#doing').sortable
+  #   connectWith: ['#to_do','#done']
+  #   items: 'li'
+  #   update: ->
+  #     $.post($(this).data('update-url'), $(this).sortable('serialize'))
+
+  # $('#done').sortable
+  #   connectWith: ['#to_do','#doing']
+  #   items: 'li'
+  #   update: ->
+  #     $.post($(this).data('update-url'), $(this).sortable('serialize'))
+
+  # $('#to_do').disableSelection()

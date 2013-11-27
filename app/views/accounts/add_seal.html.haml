@@ -29,11 +29,11 @@
               = link_to "Become A Verified Employer Now!", new_payment_profile_path(product: "seal"), class: "btn btn-primary"
           .no_thanks_box
             .no_thanks_content
-              .heading 
+              .heading
               - if @account.payment_profiles.any?
-                .button= link_to "CANCEL Verification Process", [:my, :jobs]
+                .button= link_to "CANCEL Verification Process", root_path
               - else
-                .button= link_to "No Thanks, I don't want to be a Verified Employer.", [:my, :jobs]
+                .button= link_to "No Thanks, I don't want to be a Verified Employer.", root_path
           .clearfix
           %br
           %br
