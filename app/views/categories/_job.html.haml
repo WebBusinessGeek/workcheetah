@@ -1,11 +1,18 @@
-%li
-  - if job.title.present?
-    %h5= link_to job.title, job
-  - if job.account.safe_job_seal?
-    = link_to(image_tag("safe-seal-small.png", alt: "Safe Job seal"), job)
-  = job.yearly_compensation or "n/a"
-  = job.address
-  = job.category ? job.category.name : "n/a"
-  = link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
-  - if job.remote?
-    %span.label.label-info REMOTE
+- if job.title.present?
+  %h1
+    = link_to job.title, job
+    - if job.account.safe_job_seal?
+      = link_to(image_tag("safe-seal-small.png", alt: "Safe Job seal"), job)
+  %ul
+    %li
+      %h2 Salary
+      = job.yearly_compensation or "n/a"
+    %li
+      %h2 Job Description
+      = job.description.html_safe
+    %li
+      %h2 About This Company
+      = job.account.name
+    %li
+      - if job.remote?
+        %span.label.label-info REMOTE

@@ -1,38 +1,64 @@
 .container
-  .categories_index_new
+  .row.topcallout
+    %h1
+      = @display_cat
+      Jobs
     .row
-      - if user_signed_in? and current_user.resume and !current_user.resume.enough_for_employers?
-        .alert.alert-danger
-          Looks like your resume isn't complete. Having a completed resume increases the likelihood of a company becoming interested in hiring you. You should provide your name, phone number, at least one address and at least one category that's of interest.
-      .col-md-offset-4
+      .col-md-6.col-md-offset-4
         =form_tag search_categories_path, method: :get, class: "form-inline", remote: true do
           .input-group
             =text_field_tag :search, @search || nil, placeholder: "Ex. Sales Manager", autofocus: true, style: "height:25px", class: "search-query span4"
             =text_field_tag :location, @location || @current_location_clean, style: "height:25px", class: "search-query span2"
             %button.btn.btn-default.btn-lq{type: "submit"}
               %span.glyphicon.glyphicon-search
-        .pull-right
-          - if ['business'].include?(current_user.role?)
-            = link_to "Market your Services", ad_info_path, class: "btn btn-default btn-lg btn-success"
-          - elsif !current_user.resume.present?
-            = link_to "Get Hired", new_resume_path, class: "btn btn-default btn-lg btn-success"
-    %hr/
     .row
-      .col-md-offset-6
-        .center-block JOBS AVAILABLE COPY
-    .row
-      .col-md-2
-        %ul.nav.nav-list
-          %li.nav-header Categories
-          %li
-            = link_to "All", search_categories_path(categories: 'all'), remote: true
-          -if user_signed_in? && current_user.resume.present?
-            %li= link_to "Recommended", search_categories_path(categories: current_user.resume.recommended), remote: true
-          -@category_list.each do |category|
-            %li= link_to category.name, search_categories_path(categories: category.id), remote: true
-      .col-md-8
-        %ul#jobs.list-unstyled
-          - unless @jobs.empty?
-            =render partial: "categories/job", collection: @jobs
-          - else
-            %h2 No Jobs match your search criteria
+      .col-md-2.col-sm-3
+        = image_tag('valid-seal.png', :class => "validseal")
+      .col-md-10.col-sm-9
+        %p All listings on Work Cheetah are current. You can view available positions, apply in seconds and see who you're competeing agianst if you have a resume. Don't forget to look for the Validation Seal to identify employers that have been verified by WorkCheetah. Happy job hunting!
+  .row
+    .col-md-2.ads
+      .well
+        %h3 Jobs Available in Finance!
+        = link_to(image_tag('ad1img.png'), "#", :class => 'adimg')
+        %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+        %a{ :href => "#" } www.financejobs.com
+        %h3 Free ipad and a nice chair! Plus money!
+        = link_to(image_tag('ad2img.png'), "#", :class => 'adimg')
+        %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+        %a{ :href => "#" } www.apple.com/jobs
+        %h3 Jobs Available in Medicine!
+        = link_to(image_tag('ad3img.png'), "#", :class => 'adimg')
+        %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+        %a{ :href => "#" } www.docjobs.com
+    .col-md-10
+      .row
+        .col-md-2.col-sm-3.sidenaver
+          %h2= link_to "All Categories", search_categories_path(categories: 'all')
+          %ul
+            -if user_signed_in? && current_user.resume.present?
+              %li= link_to "Recommended", search_categories_path(categories: current_user.resume.recommended)
+            -@category_list.each do |category|
+              %li= link_to category.name, search_categories_path(categories: category.id)
+        .col-md-10.col-sm-9.openpositions
+          %h1
+            Open positions for
+            = @location
+          .well#jobs
+            - unless @jobs.empty?
+              =render partial: "categories/job", collection: @jobs
+            - else
+              %h2 No Jobs match your search criteria
+
+
+
+
+
+  -# .row
+  -#   .col-md-offset-4
+
+  -#     .pull-right
+  -#       - if ['business'].include?(current_user.role?)
+  -#         = link_to "Market your Services", ad_info_path, class: "btn btn-default btn-lg btn-success"
+  -#       - elsif !current_user.resume.present?
+  -#         = link_to "Get Hired", new_resume_path, class: "btn btn-default btn-lg btn-success" 

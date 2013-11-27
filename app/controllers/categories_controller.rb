@@ -1,16 +1,21 @@
 class CategoriesController < ApplicationController
 
   def index
+    if user_signed_in? and current_user.resume and !current_user.resume.enough_for_employers?
+      redirect_to root_path, notice: "Looks like your resume isn't complete. Having a completed resume increases the likelihood of a company becoming interested in hiring you. You should provide your name, phone number, at least one address and at least one category that's of interest."
+    end
     @category_list = Category.scoped.order(:name)
     check_session
     logger.debug @category
     if @category == 'all'
+      @display_cat = 'All'
       @jobs = Job.order('created_at').limit(8)
     else
       @jobs = Job.scoped
       @jobs = @jobs.cat_search(@category) if @category
       @jobs = @jobs.search(@query) if @query
       @jobs = @jobs.near(human_readable_current_location, 50).includes(:account, :category).order("created_at DESC").page(params[:page]).per_page(8)
+      @display_cat = Category.find(@category).collect(&:name).collect(&:humanize)*""
     end
   end
 
