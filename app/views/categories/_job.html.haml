@@ -5,14 +5,14 @@
       = link_to(image_tag("safe-seal-small.png", alt: "Safe Job seal"), job)
   %ul
     %li
-      %h2 Salary
+      %strong Salary
       = job.yearly_compensation or "n/a"
     %li
-      %h2 Job Description
+      %strong Job Description
       = job.description.html_safe
     %li
-      %h2 About This Company
+      %strong About This Company
       = job.account.name
     %li
       - if job.remote?
-        %span.label.label-info REMOTE
+        %span.label.label-info REMOTE JOB

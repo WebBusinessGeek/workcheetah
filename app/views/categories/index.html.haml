@@ -46,7 +46,12 @@
             = @location
           .well#jobs
             - unless @jobs.empty?
-              =render partial: "categories/job", collection: @jobs
+              - @jobs.each_with_index do |job, index|
+                - if index.odd?
+                  .subwell
+                    = render partial: "categories/job", locals: {job: job}
+                - else
+                  = render partial: "categories/job", locals: {job: job}
             - else
               %h2 No Jobs match your search criteria
 
