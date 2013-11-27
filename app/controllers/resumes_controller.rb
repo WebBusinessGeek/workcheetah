@@ -56,7 +56,7 @@ class ResumesController < ApplicationController
     if ['freelancer', 'business'].include? current_user.role?
       @available_jobs = Job.find(current_user.account.job_ids - @resume.invites.map(&:job_id))
     end
-    render 'resumes/preview_resume' unless user_signed_in? && (@resume.user == current_user || current_user.admin?)
+    render 'resumes/preview_resume'
   end
 
   def edit

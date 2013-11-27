@@ -38,9 +38,15 @@
                 = render 'profile_actions'
       .col-md-4.col-sm-4.companyinfo
         .well
-          = link_to(image_tag('wImg.png'), "#", :class => 'adimg')
-          .simplelink
-            %a{ :href => "#"} What's This?
+          - if @resume.user.account.present?
+            - account = @resume.user.account
+            - if account.logo.present?
+              = link_to(image_tag(account.logo), account.website, :class => 'adimg')
+              .simplelink
+                %a{ :href => "#"} What's This?
+            - else
+              No logo provided
+              = link_to "Update Logo", customize_account_path, class: "btn btn-viewall"
     .row
       .col-md-12.companydetails
         .well
@@ -81,7 +87,7 @@
                 %h3 No References provided
   .col-md-2.ads
     .well
-      %h2 A Banking Career Can Be Yours!
+      %h3 A Banking Career Can Be Yours!
       %p Text for this advertisement. Text, for this advertisement. This is Text!!!
       %a{ :href => "#" } www.financejobs.com
       %h3 Design! Make money and pretty things

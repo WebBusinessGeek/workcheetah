@@ -1,14 +1,17 @@
 .accounts_edit.container
-  %h1 Customize Jobs Portal
-  = form_for @account, url: account_path do |f|
-    .control-group
-      = f.label :logo, style: "font-weight: bold"
-      .control
-        = f.file_field :logo
-    .control-group
-      = f.label :slug, "What would you like your job portal link to be?", style: "font-weight: bold"
-      .control
-        http://www.workcheetah.com/
-        = f.text_field :slug
-    .action
-      = f.submit "Customize Jobs Portal", class: "btn"
+  .row
+    .col-md-5
+      %h3 Customize Profile Portal
+      = form_for @account, url: account_path, html: {role: "form"} do |f|
+        .form-group
+          = f.label :logo
+          = f.file_field :logo, class: "form-control"
+          %p.help-block Upload a file above, files will be resized and must be of type .jpeg, .png, or .gif
+        .form-group
+          %label Jobs Portal Web Address
+          .help-block To protect yourself from spam, you can make your job post invite only.
+          .input-group
+            %span.input-group-addon http://www.workcheetah.com/
+            = f.text_field :slug, label: false, placeholder: "your-company-name-without-spaces", input_html: { class: 'form-control' }
+        .action
+          = f.submit "Customize Profile Portal", class: "btn btn-viewall"
