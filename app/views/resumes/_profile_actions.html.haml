@@ -1,0 +1,31 @@
+- if @resume.present?
+  -if @job && @job_application
+    - if can? :manage, @job
+      .pull-right
+        %a.btn.btn-viewall{:href => "#myHire", :role => "button", "data-toggle" => "modal"} Hire
+        %br/
+        or
+        %br/
+        = link_to "Not Interested", [:reject, @job, @job_application], class: "btn btn-viewall", method: :post
+        %br/
+        %br/
+        %p Please pick one
+  - elsif ['freelancer','business'].include?(current_user.role?)
+    - if current_user.account.present? and !current_user.account.jobs.empty?
+      %h3
+        Invite Credits
+        = current_user.account.invite_credits
+      - if @available_jobs.empty?
+        You have already invited this user to this job.
+      - else
+        - if current_user.account.has_invite_credits?
+          %lead Invite to a job
+          = form_tag invite_job_seekers_to_job_path do |f|
+            = hidden_field_tag :resume_id, @resume.id
+            = select_tag 'job', options_from_collection_for_select(@available_jobs, 'id', 'title')
+            = submit_tag 'invite'
+        - else
+          = render "resumes/shared/invites_credits"
+    - else
+      %p You must post a job before inviting applicants.
+      = link_to "post a job", new_job_path, class: "btn btn-viewall"

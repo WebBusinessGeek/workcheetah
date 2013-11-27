@@ -1,69 +1,131 @@
-.job_applicants_show.container
-  - if @resume.present?
-    -if @job && @job_application
-      - if can? :manage, @job
-        .pull-right
-          %a.btn.btn-default.btn-lg.btn-success{:href => "#myHire", :role => "button", "data-toggle" => "modal"} Hire
-          %br/
-          or
-          %br/
-          = link_to "Not Interested", [:reject, @job, @job_application], class: "btn btn-danger", method: :post
-          %br/
-          %br/
-          %p Please pick one
-    - elsif ['freelancer','business'].include?(current_user.role?)
-      - if current_user.account.present? and !current_user.account.jobs.empty?
-        %h2
-          Invite Credits
-          = current_user.account.invite_credits
-        - if @available_jobs.empty?
-          You have already invited this user to this job.
-        - else
-          - if current_user.account.has_invite_credits?
-            %lead Invite to a job
-            = form_tag invite_job_seekers_to_job_path do |f|
-              = hidden_field_tag :resume_id, @resume.id
-              = select_tag 'job', options_from_collection_for_select(@available_jobs, 'id', 'title')
-              = submit_tag 'invite'
-          - else
-            = render "resumes/shared/invites_credits"
-      - else
-        %p You must post a job before inviting applicants.
-        = link_to "post a job", new_job_path
-    %h3 Preview
-    %dl.dl-horizontal
-      %dt{style: "margin-bottom:10px;margin-top:20px;"} Resume Score
-      %dd{style: "margin-bottom:10px;margin-top:20px;"}
-        = render_rating_display @resume.rating
-      %dt Name
-      %dd
-        %p.lead= @resume.user.name
-      %dt Skills
-      %dd
-        %p.lead
+.container
+  .col-md-2.ads
+    .well
+      %h3 Jobs Available in Finance!
+      = link_to(image_tag('ad1img.png'), "#", :class => 'adimg')
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.financejobs.com
+      %h3 Free ipad and a nice chair! Plus money!
+      = link_to(image_tag('ad2img.png'), "#", :class => 'adimg')
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.apple.com/jobs
+      %h3 Jobs Available in Medicine!
+      = link_to(image_tag('ad3img.png'), "#", :class => 'adimg')
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.docjobs.com
+  .col-md-8
+    .row
+      .col-md-8.col-sm-8.companyinfo
+        .well
+          %h1= @resume.name
+          %h2= @resume.resume_type.humanize
+          %ul
+            %li
+              %h3 Location:
+              = @resume.addresses.first.city_state
+            %li
+              %h3 Brief Description:
+              - if @resume.schools.any?
+                = @resume.highest_merit_earned
+              - else
+                None
+              -# - unless ['business', 'freelancer'].include?(@resume.resume_type)
+              -#   %p.lead= @resume.status.present? ? @resume.status : "Unemployed"
+          .buttonholds
+            -# %a.btn.btn-viewall{ :href => "#"} Invite
+            .panel
+              .panel-default
+                = render 'profile_actions'
+      .col-md-4.col-sm-4.companyinfo
+        .well
+          = link_to(image_tag('wImg.png'), "#", :class => 'adimg')
+          .simplelink
+            %a{ :href => "#"} What's This?
+    .row
+      .col-md-12.companydetails
+        .well
+          = link_to "Edit Profile", [:edit, @resume], class: "btn btn-viewall" if current_user == @resume.user
+          %h1 Services
           - if @resume.skills.any?
             = @resume.skills.map(&:name)*", "
           - else
-            None
-      %dt Highest Merit Earned
-      %dd
-        %p.lead
-          - if @resume.schools.any?
-            = @resume.highest_merit_earned
+            No skills provided.
+          %h4 Project History
+          - if @resume.experiences.any?
+            - @resume.experiences.each do |experience|
+              = experience.job_title
+              = " @ "
+              %strong= experience.company_name
+              %span.range " - "
+              = experience.till
           - else
-            None
-      - unless ['business', 'freelancer'].include?(@resume.resume_type)
-        %dt Employment Status
-        %dd
-          %p.lead= @resume.status.present? ? @resume.status : "Unemployed"
+            No experiences provided.
+          %h4 Referrers
+          .row
+            - if @resume.references.any?
+              - @resume.references.each do |reference|
+                .col-md-6.col-sm-6
+                  %h3= reference.confirmed? ? "Confirmed" : "Not Confirmed"
+                  %ul
+                    %li
+                      %h3 Name:
+                      = reference.name
+                    %li
+                      %h3 How I Know this Business:
+                      = reference.reference_type
+                    %li
+                      %h3 Feedback:
+                      = reference.notes
+            - else
+              .col-md-6.col-sm-6
+                %h3 No References provided
+  .col-md-2.ads
+    .well
+      %h2 A Banking Career Can Be Yours!
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.financejobs.com
+      %h3 Design! Make money and pretty things
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.apple.com/jobs
+      %h3 Recruiter/ Scheduling Coordinator
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.docjobs.com
+      %h3 A Banking Career Can Be Yours!
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.apple.com/jobs
+      %h3 Design! Make money and pretty things!
+      %p Text for this advertisement. Text, for this advertisement. This is Text!!!
+      %a{ :href => "#" } www.docjobs.com
+  #invite-credit-modal.modal.col-md-6.fade{"tabindex" => -1, "role" => "dialog", "aria-hidden" => "true"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"type" => "button", "data-dismiss" => "modal", "aria-hidden" => true} &times
+          %p.lead.modal-title Buy Credits
+        .modal-body
+          .row
+            .col-md-4
+              %h3= Invite::PRICE[0].first.to_s + " Credits"
+              %p
+              = link_to "#{number_to_currency(Money.new Invite::PRICE[0].last)}", buy_invites_jobs_path(selection: "first"), class: "btn btn-viewall", method: :post
+            .col-md-4
+              %h3= Invite::PRICE[1].first.to_s + " Credits"
+              %p Most Popular Option
+              = link_to "#{number_to_currency(Money.new Invite::PRICE[1].last)}", buy_invites_jobs_path(selection: "second"), class: "btn btn-viewall", method: :post
+            .col-md-4
+              %h3= Invite::PRICE[2].first.to_s + " Credits"
+              %p
+              = link_to "#{number_to_currency(Money.new Invite::PRICE[2].last)}", buy_invites_jobs_path(selection: "third"), class: "btn btn-viewall", method: :post
 -if @job && @job_application
   #myHire.modal.hide.fade
-    .modal-header
-      %button.close{type:"button","data-dismiss" => "modal", "aria-hidden" => "true"}x
-      %h3 Select Pay option
-    .modal-body
-      %p Please select whether this job is an hourly or a salaried position. This will effect how
-      you generate an invoice and whether the employee will be able to log hourly time.
-    .modal-footer
-      = link_to "Hourly", hire_job_job_application_path(@job, @job_application, {type: "hourly"}), {class: "btn btn-large btn-success", method: :post}
-      = link_to "Salary", hire_job_job_application_path(@job, @job_application, {type: "salary"}), {class: "btn btn-large btn-success", method: :post}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{type:"button","data-dismiss" => "modal", "aria-hidden" => "true"}x
+          %h3 Select Pay option
+        .modal-body
+          %p Please select whether this job is an hourly or a salaried position. This will effect how
+          you generate an invoice and whether the employee will be able to log hourly time.
+        .modal-footer
+          = link_to "Hourly", hire_job_job_application_path(@job, @job_application, {type: "hourly"}), {class: "btn btn-large btn-success", method: :post}
+          = link_to "Salary", hire_job_job_application_path(@job, @job_application, {type: "salary"}), {class: "btn btn-large btn-success", method: :post}

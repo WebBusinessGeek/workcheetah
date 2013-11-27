@@ -7,4 +7,8 @@ class Address < ActiveRecord::Base
   validates :state, presence: true
   validates :zip, presence: true
   validates :addressable_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
+
+  def city_state
+    "#{city}, #{state}"
+  end
 end
