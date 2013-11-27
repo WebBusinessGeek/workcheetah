@@ -8,6 +8,8 @@ jQuery ->
 
   $('#projects').disableSelection()
 
+  $('.task').draggable()
+
   $('ul.task_list').sortable
     update: ->
       $.post($(this).data('update-url'), $(this).sortable('serialize'))
