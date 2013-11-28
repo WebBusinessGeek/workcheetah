@@ -34,15 +34,10 @@ class TasksController < ApplicationController
     @task.destroy
   end
 
-  def complete
-    @task.update_attributes state: "done" if params["checked"] == "true"
-    @task.update_attributes state: "to_do" if params["checked"] == "false"
-  end
-
   def sort
     params[:task].each_with_index do |id, index|
         task = Task.find id
-        task.update_attribute :position, index if task
+        task.update_attributes(position: index, state: params[:status]) if task
     end
     render nothing: true
   end

@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   def index
     # @projects = current_user.projects.includes(:tasks)
     # ensure proper ordering by position on join table
-    @projects = current_user.projects_users.includes(project: [:tasks])
+    @projects = current_user.projects_users.includes(:project)
   end
 
   def new
