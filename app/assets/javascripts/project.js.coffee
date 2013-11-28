@@ -13,19 +13,5 @@ jQuery ->
     placeholder: "ui-state-highlight"
     dropOnEmpty: true
     update: ->
-      $.post($(this).data('update-url'), $(this).sortable('serialize'))
+      $.post($(this).data('update-url'), $(this).sortable('serialize')+'&status='+$(this).data('type'))
   ).disableSelection()
-
-  # $('#doing').sortable
-  #   connectWith: ['#to_do','#done']
-  #   items: 'li'
-  #   update: ->
-  #     $.post($(this).data('update-url'), $(this).sortable('serialize'))
-
-  # $('#done').sortable
-  #   connectWith: ['#to_do','#doing']
-  #   items: 'li'
-  #   update: ->
-  #     $.post($(this).data('update-url'), $(this).sortable('serialize'))
-
-  # $('#to_do').disableSelection()

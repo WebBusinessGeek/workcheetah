@@ -23,7 +23,7 @@
       = render 'tasks/form', project: @project
       .col-md-4
         %p.lead To Do
-        %ul#to_do.connectedSortable.list-unstyled{"data-type" => "to-do", "data-update-url" => sort_tasks_url, data: {project_id: @project.id}}
+        %ul#to_do.connectedSortable.list-unstyled{"data-type" => "to_do", "data-update-url" => sort_tasks_url, data: {project_id: @project.id}}
           = render partial: "tasks/detailed_task", collection: @project.tasks.to_do, as: :task
       .col-md-4
         %p.lead Doing
