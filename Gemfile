@@ -24,7 +24,11 @@ gem 'acts_as_list'
 gem 'simple_form'
 gem 'skrollr-rails'
 gem "jquery-colorpicker-rails", "~> 1.0.3"
-
+#cache
+gem 'rack-cache'
+gem 'kgio'
+gem 'memcachier'
+gem 'dalli'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
