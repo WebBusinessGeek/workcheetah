@@ -443,10 +443,10 @@ wclogotop.png: wclogotop-40ba9a6afdc1f088ec074bac8b08c90b.png
 wclogotop/index.png: wclogotop-40ba9a6afdc1f088ec074bac8b08c90b.png
 widead.png: widead-5724a6232a785e542bac5c64e14968f2.png
 widead/index.png: widead-5724a6232a785e542bac5c64e14968f2.png
-application.js: application-143cb7c235b6bb6335e77aa4968d6130.js
-application/index.js: application-143cb7c235b6bb6335e77aa4968d6130.js
-application.css: application-847cd68713b3d5ef181f84670a2a98dc.css
-application/index.css: application-847cd68713b3d5ef181f84670a2a98dc.css
+application.js: application-44d64ea1e4ba7fd3956bd37d9d63b6cd.js
+application/index.js: application-44d64ea1e4ba7fd3956bd37d9d63b6cd.js
+application.css: application-ddf7ba8512045525ba542c8d1f1938d8.css
+application/index.css: application-ddf7ba8512045525ba542c8d1f1938d8.css
 tinymce.js: tinymce-c4007445c9d8a3cae08dd984558a8d71.js
 tinymce/license.txt: tinymce/license.txt
 tinymce/license/index.txt: tinymce/license/index.txt
