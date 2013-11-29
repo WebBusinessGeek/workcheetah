@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby '1.9.3'
+ruby '2.0.0'
 gem 'rails', '3.2.13'
 gem 'unicorn'
 gem 'rmagick'
@@ -24,7 +24,11 @@ gem 'acts_as_list'
 gem 'simple_form'
 gem 'skrollr-rails'
 gem "jquery-colorpicker-rails", "~> 1.0.3"
-
+#cache
+gem 'rack-cache'
+gem 'kgio'
+gem 'memcachier'
+gem 'dalli'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -64,7 +68,10 @@ gem 'pry-rails'
 gem 'pry'
 gem 'pg'
 gem 'newrelic_rpm'
-gem 'rails_12factor'
+
+group :production do
+  gem 'rails_12factor'
+end
 
 group :test do
   gem "factory_girl_rails"

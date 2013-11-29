@@ -2,11 +2,11 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 jQuery ->
-  $('#projects').sortable
+  $('ul.projects').sortable
     update: ->
       $.post($(this).data('update-url'), $(this).sortable('serialize'))
 
-  $('#projects').disableSelection()
+  $('ul.projects').disableSelection()
 
   $('ul#to_do, ul#doing, ul#done').sortable(
     connectWith: ".connectedSortable"
