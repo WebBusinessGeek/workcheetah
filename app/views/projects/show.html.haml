@@ -21,16 +21,19 @@
     .col-md-12
       %h3 Tasks
       = render 'tasks/form', project: @project
-      .col-md-4
+      .col-md-4.panel.panel-default
         %p.lead To Do
+        %hr/
         %ul#to_do.connectedSortable.list-unstyled{"data-type" => "to_do", "data-update-url" => sort_tasks_url, data: {project_id: @project.id}}
           = render partial: "tasks/detailed_task", collection: @project.tasks.to_do, as: :task
-      .col-md-4
+      .col-md-4.panel.panel-default
         %p.lead Doing
+        %hr/
         %ul#doing.connectedSortable.list-unstyled{"data-type" => "doing", "data-update-url" => sort_tasks_url, data: {project_id: @project_id}}
           = render partial: "tasks/detailed_task", collection: @project.tasks.doing, as: :task
-      .col-md-4
+      .col-md-4.panel.panel-default
         %p.lead Done
+        %hr/
         %ul#done.connectedSortable.list-unstyled{"data-type" => "done", "data-update-url" => sort_tasks_url, data: {project_id: @project_id}}
           = render partial: "tasks/detailed_task", collection: @project.tasks.done, as: :task
   .row

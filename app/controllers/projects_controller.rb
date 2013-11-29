@@ -3,7 +3,15 @@ class ProjectsController < ApplicationController
   def index
     # @projects = current_user.projects.includes(:tasks)
     # ensure proper ordering by position on join table
+    @owned_projects, @callaboration_projects, = [],[]
     @projects = current_user.projects_users.includes(:project)
+    @projects.each do |project|
+      if project.project.owner_id == current_user.id
+        @owned_projects << project
+      else
+        @callaboration_projects << project
+      end
+    end
   end
 
   def new
@@ -31,17 +39,18 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    authorize! :edit, @article
+    authorize! :edit, @project
   end
 
   def update
-    authorize! :update, @article
+    authorize! :update, @project
     if @project.update_attributes(project_params)
+      redirect_to projects_path, notice: "Project successfully updated."
     end
   end
 
   def destroy
-    authorize! :destroy, @article
+    authorize! :destroy, @project
     @project.destroy
     redirect_to projects_path, notice: "Project successfully deleted."
   end

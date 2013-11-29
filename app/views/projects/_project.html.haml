@@ -1,4 +1,30 @@
 %p
   .lead= link_to project.title, project_path(project)
-  This section will be filled with project users, project status, and various
-  other metadata
+  %ul.list-inline
+    %li= link_to "Edit", edit_project_path(project) if can? :edit, project
+    %li= link_to "Destroy", project_path(project), method: :delete, confirm: "Are you sure" if can? :destroy, project
+%ul.list-unstyled
+  %li
+    .text-left
+      %strong Status
+      %p= project.private? ? "Private" : "Working"
+  %li
+    .text-left
+      %strong Client
+      %p
+        - if project.private?
+          No clients assigned
+        - else
+          Job: 
+          = project.job.title
+          %br/
+          Client: 
+          = project.job.account.name
+  %li
+    .text-left
+      %strong Callaborators
+      %p
+        - if project.participants(current_user).empty?
+          No callaborators assigned
+        - else
+          = project.participants(current_user).collect(&:name)*''
