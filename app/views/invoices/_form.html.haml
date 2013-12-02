@@ -1,6 +1,6 @@
 
 = f.error_notification
-%h2
+%h3
   Invoice #:
   = @invoice.guid
 .row
@@ -33,4 +33,4 @@
       = link_to_add_fields "Add Line Item", f, :line_items
 .row
   .col-md-2.col-md-offset-6
-    = f.input :amount, input_html: {class: "pull-right"}
+    = f.input :amount, input_html: {class: "col-xs-6 pull-right"}
