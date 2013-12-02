@@ -6,7 +6,7 @@ class InvoicesController < ApplicationController
     if params[:filter]
       @invoices = current_user.account.send("#{params[:filter]}_invoices".to_sym)
     else
-      @invoices = current_user.account.sent_invoices
+      @invoices = current_user.account.sent_invoices + current_user.account.recieved_invoices
     end
 
     respond_to do |format|
