@@ -38,7 +38,7 @@ class TasksController < ApplicationController
     params[:task].each_with_index do |id, index|
         task = Task.find id
         task.update_attributes(position: index, state: params[:status]) if task
-    end
+    end unless params[:task].nil?
     render nothing: true
   end
 

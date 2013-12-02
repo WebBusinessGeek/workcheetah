@@ -1,3 +1,5 @@
+%li{class: current_page?(root_path) && 'active'}
+  = link_to "Dashboard", root_path, class: (root_path == request.path ? "current" : "" )
 - if ['business'].include?(current_user.role?)
   %li{:class => current_page?(categories_path) && 'active'}
     = link_to "Get Business", categories_path, class: (root_path == request.path ? "current" : "" )

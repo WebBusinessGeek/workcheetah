@@ -55,11 +55,11 @@ class Invoice < ActiveRecord::Base
       end
     end
 
-    before_transition :escrowed => :finished do |invoice|
+    after_transition :escrowed => :finished do |invoice|
       invoice.request_transfer
     end
 
-    before_transition :payout => :finished do |invoice|
+    after_transition :processing => :payout do |invoice|
       invoice.request_transfer
     end
   end

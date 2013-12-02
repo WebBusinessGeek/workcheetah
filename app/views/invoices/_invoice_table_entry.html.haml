@@ -12,13 +12,13 @@
   %td= format_states(invoice)
   %td= number_to_currency Money.new invoice.invoice_total
   %td
-    %ul.unstyled.inline
+    %ul.list-unstyled.inline
       %li
         = link_to invoice_path(invoice), rel: "tooltip", data: {toggle: "tooltip", title: "Review"} do
-          %i.icon-eye-open
+          %span.glyphicon.glyphicon-eye-open
       %li
         = link_to edit_invoice_path(invoice),rel: "tooltip", data: {toggle: "tooltip", title: "Edit"} do
-          %i.icon-pencil
+          %span.glyphicon.glyphicon-pencil
       %li
         = link_to invoice_path(invoice), rel: "tooltip", method: :delete, data: { confirm: 'Are you sure?' } do
-          %i.icon-remove
+          %span.glyphicon.glyphicon-remove
