@@ -109,6 +109,7 @@ class JobsController < ApplicationController
         @job.account = nil
       elsif !current_user.moderator?
         if current_user.account
+          logger.debug "current user has account and assigning to job"
           @job.account = current_user.account
         else
           @job.account.users << current_user

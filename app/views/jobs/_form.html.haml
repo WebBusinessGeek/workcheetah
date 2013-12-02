@@ -56,11 +56,9 @@
         .col-md-12
           = link_to_add_fields "Add A Question", f, :questions
   %hr
-  .row
-    .col-md-12
-      %p.lead Your Information
   .col-md-12
-    - unless @job.account.nil?
+    - unless @job.account.nil? || @job.account.present?
+      %p.lead Your Information
       = f.fields_for :account do |af|
         .row
           .form-group.col-md-4
@@ -73,7 +71,7 @@
         .row
           .form-group.col-md-4
             %label Company Address
-            = f.input :address, label: false, input_html: { style: "width: 100%; max-width: 400px; font-size: 16px;", class: "form-control" }
+            = af.input :address, label: false, input_html: { style: "width: 100%; max-width: 400px; font-size: 16px;", class: "form-control" }
             .help-block City, State (ex. Los Angeles, CA)
           .form-group.col-md-4
             %label Company Website
@@ -97,9 +95,17 @@
               = uf.input :password_confirmation, placeholder: "Repeat Password", required: true, input_html: { class: 'form-control' }
               .input-group
                 = uf.input :terms_of_service, as: :boolean, label: raw("I agree to the #{link_to "Terms & Conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}"), required: :true
-  .form-group.col-md-12
-    .row
-      - if user_signed_in? && ['Freelancer', 'Business'].include?(current_user.role?)
-        = f.submit class: "btn btn-large btn-primary"
+  .col-md-12
+    .row.form-group
+      .col-xs-12
+        .input-group
+          %label Job Location
+          .help-block Leave blank if this is a remote job.
+          = f.input :address, label: false, required: false, input_html: {class: "form-control" }
+        .input-group
+          = f.input :invite_only, as: :boolean, label: "Make Invite Only"
+    .row.form-group
+      - if user_signed_in? && ['freelancer', 'business'].include?(current_user.role?)
+        = f.submit "Post job listing", class: "btn btn-large btn-primary"
       - else
         = f.submit "Create Account & Save Job Listing", class: "btn btn-large btn-primary"

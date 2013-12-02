@@ -22,7 +22,7 @@ module Jobs
     private
       def generate_score
         @score += skill_points
-        @score += MERIT_VALUE[@job.merit_requested] unless @job.merit_requested.nil?
+        @score += MERIT_VALUE[@job.merit_requested] unless @job.merit_requested.nil? || @job.merit_requested.blank?
         @score += 15 if @job.account.safe_job_seal?
         @score += 2 if @job.description?
         @score += 3 if @job.questionaire

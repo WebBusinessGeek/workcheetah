@@ -34,7 +34,8 @@ class Job < ActiveRecord::Base
 
   validates :title, presence: true
   validates :account_id, numericality: { only_integer: true, greather_than: 0 }, allow_blank: true
-  validates :address, presence: true
+  validates :address, presence: true,
+    unless: Proc.new { |job| job.job_type == 'outsource' }
   validates :category_id, presence: true, numericality: { only_integer: true, greather_than: 0 }
   validates :category2_id, numericality: { only_integer: true, greather_than: 0 }, allow_blank: true
   validates :category3_id, numericality: { only_integer: true, greather_than: 0 }, allow_blank: true
