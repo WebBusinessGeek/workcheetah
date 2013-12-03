@@ -1,6 +1,8 @@
 =form_tag search_categories_path, method: :get, class: "form-inline", role: "form" do
-  .input-group
-    =text_field_tag :search, @search || nil, placeholder: "Start Hunting", autofocus: true, class: "search-query span4"
-    =select_tag :category, options_from_collection_for_select(Category.all, "id", "name"),include_blank: true
-    %button.btn.btn-default{type: "submit"}
-      %span.glyphicon.glyphicon-search
+  .form-group
+    %label.sr-only{:for => "search"} Search
+    .col-xs-7=text_field_tag :search, @search || nil, placeholder: "Start Hunting", autofocus: true, class: "form-control"
+    %label.sr-only{:for => "category"} Category
+    .col-xs-5=select_tag :category, options_from_collection_for_select(Category.all, "id", "name"), include_blank: true, class: "form-control"
+  %button.btn.btn-default.btn-sm{type: "submit"}
+    %span.glyphicon.glyphicon-search
