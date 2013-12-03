@@ -24,14 +24,7 @@
           = render "activities"
       .col-md-6.col-sm-6.main
         .well
-          %h1 To Do List
-          %a.datefloat{:href => "#"}
-            <<
-            = Date.today
-            >>
-          %ul#todo_list{"data-update-url" => sort_todos_url }
-            = render @todos
-          = render 'todos/form'
+          = render 'todos'
     .row
       .col-md-12
         = link_to(image_tag('widead.png'), "#", :class => 'adimg')

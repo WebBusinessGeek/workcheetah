@@ -1,0 +1,8 @@
+%h1 To Do List
+.datefloat
+  %a.prev{:href => "#"} <<
+  %span.todoDate{data: {date: Time.now.to_i * 1000}}= Date.today
+  %a.next{:href => "#"} >>
+%ul#todo_list{"data-update-url" => sort_todos_url }
+  = render @todos
+= render 'todos/form'

@@ -16,7 +16,7 @@ CareerLoop::Application.routes.draw do
    end
   end
 
-  resources :todos, only: [:new, :create, :destroy] do
+  resources :todos, only: [:index, :new, :create, :destroy] do
     collection { post :sort }
     member { post :complete }
   end

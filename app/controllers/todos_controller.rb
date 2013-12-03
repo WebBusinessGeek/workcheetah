@@ -5,6 +5,12 @@ class TodosController < ApplicationController
     @todo = Todo.new
   end
 
+  def index
+    if params[:date] && user_signed_in?
+      @todos = current_user.todos.where(date: Date.parse(params[:date]))
+    end
+  end
+
   def create
     @todo = current_user.todos.build(todo_params)
 
