@@ -21,7 +21,6 @@ gem 'money-rails'
 gem 'state_machine'
 gem 'acts_as_list'
 # style branch
-gem 'simple_form'
 gem 'skrollr-rails'
 gem "jquery-colorpicker-rails", "~> 1.0.3"
 #cache
@@ -60,7 +59,6 @@ gem 'aws-sdk'
 gem 'unf'
 # gem 'rmagick'
 gem "geocoder"
-gem "unicorn"
 gem "paperclip", "~> 3.0"
 gem 'paperclip-meta'
 # So we get pry goodness on heroku

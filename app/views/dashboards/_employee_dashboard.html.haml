@@ -32,42 +32,15 @@
           %ul#todo_list{"data-update-url" => sort_todos_url }
             = render @todos
           = render 'todos/form'
-          -# %form{:role => "form"}
-          -#   .checkbox
-          -#     %label
-          -#       %input{:type => "checkbox"}
-          -#         Follow up with GloboCorp Enter...
-          -#   .checkbox
-          -#     %label
-          -#       %input{:type => "checkbox"}
-          -#         Follow up with Client #1
-          -#   .checkbox
-          -#     %label
-          -#       %input{:type => "checkbox"}
-          -#         Follow up with Client #2
-          -#   .checkbox
-          -#     %label
-          -#       %input{:type => "checkbox"}
-          -#         Follow up with Client #3
-          -#   .checkbox
-          -#     %label
-          -#       %input{:type => "checkbox"}
-          -#         Follow up with Client #4
-          -#   .checkbox
-          -#     %label
-          -#       %input{:type => "checkbox"}
-          -#         Follow up with Client #5
-          -# .buttonholds
-          -#   %button.btn.btn-viewall{ :href => "#"} + Add an Item
     .row
       .col-md-12
         = link_to(image_tag('widead.png'), "#", :class => 'adimg')
     .row
-      .col-md-6.col-sm-6.main
+      .col-md-7.col-sm-7.main
         .well
           %h1 Calendar
           = render 'calendar'
-      .col-md-6.col-sm-6.main
+      .col-md-5.col-sm-5.main
         .well
           %h1 Calculator
           = render 'shared/calculator'

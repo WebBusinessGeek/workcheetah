@@ -53,8 +53,10 @@ class ResumesController < ApplicationController
     @resume = Resume
       .includes(:user, :addresses, :experiences, :schools, :category1, :category2, :category3, references: [:confirmation])
       .where(id: params[:id]).first
-    if ['freelancer', 'business'].include? current_user.role?
-      @available_jobs = Job.find(current_user.account.job_ids - @resume.invites.map(&:job_id))
+    if user_signed_in?
+      if ['freelancer', 'business'].include? current_user.role?
+        @available_jobs = Job.find(current_user.account.job_ids - @resume.invites.map(&:job_id))
+      end
     end
     render 'resumes/preview_resume'
   end

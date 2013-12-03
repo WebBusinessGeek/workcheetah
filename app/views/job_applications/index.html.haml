@@ -1,50 +1,49 @@
-.job_applicants_index
-  .white_box
-    %h1= @job ? "Who's Applying to '#{@job.title}'" : "My Job Applications"
-    %br/
-    - if @job
-      %table.table
-        %tr
-          %th{ style: "width: 60px"} Actions
-          %th Applicant
-          %th Status
-          %th Applied Date
+.container
+  %h2= @job ? "Who's Applying to '#{@job.title}'" : "My Job Applications"
+  %br/
+  - if @job
+    %table.table
+      %tr
+        %th{ style: "width: 60px"} Actions
+        %th Applicant
+        %th Status
+        %th Applied Date
 
-        - @job_applications.each_with_index do |job_application, i|
-          - if job_application.user.resume.present?
-            %tr
-              %td.actions
-                - if !job_application.rejected?
-                  - if can?(:read, job_application)
-                    = link_to "View", [@job, job_application], class: "btn"
-                  - else
-                    = link_to "Preview", [@job, job_application], class: "btn btn-primary"
-              %td.applicant
-                - if can?(:read, job_application)
-                  = job_application.user.resume.name
-                - else
-                  = link_to [@job, job_application] do
-                    Applicant
-                    = i + 1
-              %td
-                - if can?(:read, job_application)
-                  Accepted
-                - elsif job_application.status == "Declined"
-                  Rejected
-                - else
-                  Pending
-              %td= job_application.created_at.strftime("%m/%d/%Y")
-
-    - else
-      %table.table
-        %tr
-          %th Job
-          %th Company
-          %th Applied Date
-          %th Status
-        - @job_applications.each do |job_application|
+      - @job_applications.each_with_index do |job_application, i|
+        - if job_application.user.resume.present?
           %tr
-            %td= link_to job_application.job.title, job_application.job
-            %td= job_application.job.account.name
+            %td.actions
+              - if !job_application.rejected?
+                - if can?(:read, job_application)
+                  = link_to "View", [@job, job_application], class: "btn"
+                - else
+                  = link_to "Preview", [@job, job_application], class: "btn btn-primary"
+            %td.applicant
+              - if can?(:read, job_application)
+                = job_application.user.resume.name
+              - else
+                = link_to [@job, job_application] do
+                  Applicant
+                  = i + 1
+            %td
+              - if can?(:read, job_application)
+                Accepted
+              - elsif job_application.status == "Declined"
+                Rejected
+              - else
+                Pending
             %td= job_application.created_at.strftime("%m/%d/%Y")
-            %td= job_application.status
+
+  - else
+    %table.table
+      %tr
+        %th Job
+        %th Company
+        %th Applied Date
+        %th Status
+      - @job_applications.each do |job_application|
+        %tr
+          %td= link_to job_application.job.title, job_application.job
+          %td= job_application.job.account.name
+          %td= job_application.created_at.strftime("%m/%d/%Y")
+          %td= job_application.status

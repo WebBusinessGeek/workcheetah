@@ -39,6 +39,13 @@
     .col-md-10
       .row
         .col-md-2.col-sm-3.sidenaver
+          %h2= link_to "Actions", "javascript:void(0);"
+          %ul
+            -if user_signed_in? && ['freelancer', 'business'].include?(current_user.role)
+              %li= link_to "My Jobs", my_jobs_path
+              %li= link_to "Sent Estimates", sent_estimates_path
+            -elsif user_signed_in? && ['employee'].include?(current_user.role)
+              %li= link_to "My Job Applications", job_applications_path
           %h2= link_to "All Categories", search_categories_path(categories: 'all')
           %ul
             -if user_signed_in? && current_user.resume.present?

@@ -11,6 +11,8 @@ $ ->
       center: "title"
       right: "next nextYear"
 
+    aspectRatio: 2.5
+
     events:
       url: "/events/ajax_events.json"
       cache: false
