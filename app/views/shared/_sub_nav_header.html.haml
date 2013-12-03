@@ -72,8 +72,9 @@
   = link_to "Messages", conversations_path
 %li
   = link_to "javascript: return false;", title: "Notifications", id: "notifications" do
-    %i.icon-eye-open
-    %span.badge= current_user.notifications.size unless current_user.notifications.empty?
-
+    - if current_user.notifications_count > 0
+      %span.badge= current_user.notifications_count
+    - else
+      %span.glyphicon.glyphicon-eye-open
 :javascript
   $('#notifications').popover({content: "#{j render current_user.notifications.order('created_at DESC')}", placement: "bottom", html: true});

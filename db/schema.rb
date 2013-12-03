@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131111161916) do
+ActiveRecord::Schema.define(:version => 20131203220748) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -456,6 +456,21 @@ ActiveRecord::Schema.define(:version => 20131111161916) do
 
   add_index "payment_profiles", ["accountable_id", "accountable_type"], :name => "index_payment_profiles_on_accountable_id_and_accountable_type"
 
+  create_table "profiles", :force => true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "website"
+    t.string   "status"
+    t.string   "growth_importance"
+    t.string   "distance_importance"
+    t.string   "freedom_importance"
+    t.string   "pay_importance"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "twitter"
+  end
+
   create_table "project_documents", :force => true do |t|
     t.integer  "project_id"
     t.string   "document_file_name"
@@ -527,8 +542,8 @@ ActiveRecord::Schema.define(:version => 20131111161916) do
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"
-    t.boolean  "private",             :default => false
     t.integer  "rating"
+    t.boolean  "private",             :default => false
     t.string   "resume_type"
   end
 
@@ -713,6 +728,7 @@ ActiveRecord::Schema.define(:version => 20131111161916) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.string   "color"
+    t.integer  "notifications_count",    :default => 0
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

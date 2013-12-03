@@ -17,6 +17,9 @@ $ ->
     date.setDate(date.getDate() + 1);
     updateToDo(date)
 
+  # $('#notifications').on 'hidden.bs.popover', ->
+  #   $('#notifications .badge').remove()
+
   $("#calendar").fullCalendar
     header:
       left: "prevYear prev"

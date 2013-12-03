@@ -193,7 +193,7 @@ CareerLoop::Application.routes.draw do
       get :recruits
     end
   end
-
+  resources :notifications, only: [:index, :destroy]
   resources :credit_packages
   resources :credit_transactions
 
