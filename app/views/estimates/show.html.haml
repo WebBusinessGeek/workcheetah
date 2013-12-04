@@ -46,9 +46,9 @@
           = link_to propose_estimate_path(@estimate), method: :post, class: "btn btn-default btn-success" do
             = @estimate.state == "reviewing" ? "Send Back" : "Send"
       -if @estimate.job.account == current_user.account
-        = link_to "Send Back", negotiate_estimate_path(@estimate), method: :post, class: "btn btn-default" if @estimate.reviewing?
-        = link_to "Reject", reject_estimate_path(@estimate), method: :post, class: "btn btn-default" if @estimate.reviewing?
-        = link_to "Accept", accept_estimate_path(@estimate), method: :post, class: "btn btn-default btn-success" unless @estimate.accepted?
+        = link_to "Send Back", negotiate_estimate_path(@estimate), method: :post, class: "send btn btn-default" if @estimate.reviewing?
+        = link_to "Reject", reject_estimate_path(@estimate), method: :post, class: "reject btn btn-default" if @estimate.reviewing?
+        = link_to "Accept", accept_estimate_path(@estimate), method: :post, class: "accept btn btn-default btn-success" unless @estimate.accepted?
   .row
     .col-md-8
       %hr/

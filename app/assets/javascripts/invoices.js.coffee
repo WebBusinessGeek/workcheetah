@@ -3,10 +3,19 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
   if $('#new_invoice').length
+    $('form#new_invoice').submit ->
+      disable_buttons()
+      true
+
+    $('form.edit_invoice').submit ->
+      disable_buttons()
+      true
+
     $('#invoice_project_id').change ->
       id = $(this).val()
       window.location.href = 'new?project_id='+id unless id is ''
     bind_line_item_totals()
+
   if $('.edit_invoice').length
     $('#invoice_project_id').change ->
       id = $('.edit_invoice').data('id')
@@ -14,6 +23,10 @@ $ ->
       window.location.href = '?project_id=' + project_id unless project_id is ''
     bind_line_item_totals()
     update_invoice_total()
+
+disable_buttons = ->
+  $('input[type=submit]').attr('disabled', true)
+  $('input[type=submit]').attr('value', 'Submitting')
 
 bind_line_item_totals = ->
     $('form').on 'change', 'input.hours', ->
