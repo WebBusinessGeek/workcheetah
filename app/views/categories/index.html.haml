@@ -43,7 +43,7 @@
           %ul
             -if user_signed_in? && ['freelancer', 'business'].include?(current_user.role)
               %li= link_to "My Jobs", my_jobs_path
-              %li= link_to "Sent Estimates", sent_estimates_path
+              %li= link_to "Sent Estimates", estimates_path
             -elsif user_signed_in? && ['employee'].include?(current_user.role)
               %li= link_to "My Job Applications", job_applications_path
           %h2= link_to "All Categories", search_categories_path(categories: 'all')

@@ -36,10 +36,8 @@ class EstimatesController < ApplicationController
 
   def create
     @estimate = current_user.resume.sent_estimates.build(estimate_params)
-
     if @estimate.save!
       if params[:commit] == "Send Estimate"
-        @estimate.accept
         @estimate.send_proposal
         msg = "Estimate has been sent successfully"
       else
@@ -65,6 +63,9 @@ class EstimatesController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, @estimate
+    @estimate.destroy
+    redirect_to estimates_path, notice: "Estimate successfully removed."
   end
 
   def buy_credits
@@ -103,6 +104,6 @@ class EstimatesController < ApplicationController
     end
 
     def estimate_params
-      params.require(:estimate).permit(:job_id, :due_date, :start_date, :terms, :notes, estimate_items_attributes: [:id, :task, :hours, :total, :_destroy])
+      params.require(:estimate).permit(:job_id, :due_date, :start_date, :terms, :notes, estimate_items_attributes: [:id, :task, :hours, :rate, :total, :_destroy])
     end
 end

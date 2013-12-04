@@ -11,6 +11,8 @@ class Estimate < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
 
+  before_save :update_total
+
   accepts_nested_attributes_for :estimate_items, allow_destroy: true
   accepts_nested_attributes_for :estimate_items
 
@@ -28,14 +30,14 @@ class Estimate < ActiveRecord::Base
       transition :reviewing => :rejected
     end
 
-    before_transition :drafting => :reviewing do |estimate|
+    after_transition :drafting => :reviewing do |estimate|
       # mail estimate to sent_by.user
       estimate.notifications.create(
         user_id: estimate.sent_by.user_id,
         body: "Estimate sent to #{estimate.job.account.name}"
       )
       estimate.notifications.create(
-        user_id: estimate.job.account.owner,
+        user_id: estimate.job.account.owner.id,
         body: "Estimate recived from #{estimate.sent_by.user.name}"
       )
     end
@@ -51,6 +53,13 @@ class Estimate < ActiveRecord::Base
       estimate.notifications.create(
         user_id: estimate.sent_by.user_id,
         body: "Estimate accepted by #{estimate.job.account.name}"
+      )
+    end
+    after_transition :reviewing => :drafting do |estimate|
+      #1 mail accepted to sent_by.user
+      estimate.notifications.create(
+        user_id: estimate.sent_by.user_id,
+        body: "Estimate sent back #{estimate.job.account.name}"
       )
     end
   end
@@ -71,8 +80,7 @@ class Estimate < ActiveRecord::Base
     ids = job.recieved_estimate_ids - [self.id]
     Estimate.update_all({state: "rejected"}, {id: ids}) unless ids.empty?
     #4 Send mass rejection mailer for performance benefit
-    @project = Project.create! title: job.title, job: job
-    @project.update_attribute(owner_id: job.account.owner.id)
+    @project = Project.create! title: job.title, job: job, owner_id: job.account.owner.id
     @project.users << @project.owner
     @project.users << sent_by.user
   end
@@ -88,4 +96,9 @@ class Estimate < ActiveRecord::Base
   def user
     sent_by.user
   end
+
+  private
+    def update_total
+      self.total = estimate_items.sum(&:total)
+    end
 end

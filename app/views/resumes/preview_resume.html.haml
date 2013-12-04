@@ -31,11 +31,12 @@
                 None
               -# - unless ['business', 'freelancer'].include?(@resume.resume_type)
               -#   %p.lead= @resume.status.present? ? @resume.status : "Unemployed"
-          .buttonholds
+          -# .buttonholds
             -# %a.btn.btn-viewall{ :href => "#"} Invite
-            .panel
-              .panel-default
-                = render 'profile_actions'
+        -# .row
+        -#   .col-md-8.col-sm-8
+        .well
+          = render 'resumes/profile_actions'
       .col-md-4.col-sm-4.companyinfo
         .well
           - if @resume.user.account.present?
@@ -147,8 +148,7 @@
           %button.close{type:"button","data-dismiss" => "modal", "aria-hidden" => "true"}x
           %h3 Select Pay option
         .modal-body
-          %p Please select whether this job is an hourly or a salaried position. This will effect how
-          you generate an invoice and whether the employee will be able to log hourly time.
+          %p Please select whether this job is an hourly or a salaried position. This will effect how you generate an invoice and whether the employee will be able to log hourly time.
         .modal-footer
           = link_to "Hourly", hire_job_job_application_path(@job, @job_application, {type: "hourly"}), {class: "btn btn-large btn-success", method: :post}
           = link_to "Salary", hire_job_job_application_path(@job, @job_application, {type: "salary"}), {class: "btn btn-large btn-success", method: :post}

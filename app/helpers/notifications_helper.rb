@@ -12,6 +12,8 @@ module NotificationsHelper
 				destination = notifiable
 			elsif notifiable.is_a? JobApplication
 				destination = notifiable
+			elsif notifiable.is_a? Estimate
+				destination = notifiable
 			end
 
 			return link_to notification.body, destination, args

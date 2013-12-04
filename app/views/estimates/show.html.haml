@@ -1,56 +1,58 @@
-%h2
-  Estimate for
-  = @estimate.job.title
-.jumbotron
-  = link_to "Preview Job", job_path(@estimate.job)
-  %strong Status
-  = @estimate.state
-  %strong Due Date
-  = @estimate.due_date ? @estimate.due_date : "None Given"
-  - if @estimate.estimate_items.any?
+.container
+  %h2
+    Estimate for
+    = @estimate.job.title
+  .jumbotron
+    = link_to "Preview Job", job_path(@estimate.job)
+    %strong Status
+    = @estimate.state
+    %strong Due Date
+    = @estimate.due_date ? @estimate.due_date : "None Given"
+    - if @estimate.estimate_items.any?
+      %hr/
+      .row
+        .col-md-8
+          %table.table
+            %tr
+              %th Task
+              %th Estimated Hours
+              %th total
+            - @estimate.estimate_items.each do |item|
+              %tr
+                %td= item.task
+                %td= item.hours
+                %td= number_to_currency item.total
+
     %hr/
     .row
-      .col-md-8
-        %table.table
-          %tr
-            %th Task
-            %th Estimated Hours
-            %th total
-          - @estimate.estimate_items.each do |item|
-            %tr
-              %td= item.task
-              %td= item.hours
-              %td= number_to_currency item.total
-
-  %hr/
-  .row
-    .col-md-6
-      %label Terms
-      %br/
-      = !@estimate.terms.blank? ? @estimate.terms : "None Given"
-    .col-md-6
-      %label Notes
-      %br/
-      = !@estimate.notes.blank? ? @estimate.notes : "None Given"
-  %hr/
-  .row
-    .col-md-2.col-md-offset-6
-      %strong Proposed Total
-      = @estimate.proposed_total
-.row
-  .col-md-8
-    -if @estimate.sent_by == current_user.resume
-      = link_to "Edit", edit_estimate_path(@estimate), class: "btn btn-default"
-      - if ['drafting', "reviewing"].include? @estimate.state
-        = link_to "Send", propose_estimate_path(@estimate), method: :post, class: "btn btn-default btn-success"
-    -if @estimate.job.account == current_user.account
-      = link_to "Send Back", negotiate_estimate_path(@estimate), method: :post, class: "btn btn-default"
-      = link_to "Reject", reject_estimate_path(@estimate), method: :post, class: "btn btn-default"
-      = link_to "Accept", accept_estimate_path(@estimate), method: :post, class: "btn btn-default btn-success"
-.row
-  .col-md-8
+      .col-md-6
+        %label Terms
+        %br/
+        = !@estimate.terms.blank? ? @estimate.terms : "None Given"
+      .col-md-6
+        %label Notes
+        %br/
+        = !@estimate.notes.blank? ? @estimate.notes : "None Given"
     %hr/
-    %h2 Comments
-    %ul.list-unstyled#comments
-      = render partial: "comments/comment", collection: @comments, as: :comment
-    = render 'comments/form'
+    .row
+      .col-md-2.col-md-offset-6
+        %strong Proposed Total
+        = @estimate.proposed_total
+  .row
+    .col-md-8
+      -if @estimate.sent_by == current_user.resume
+        = link_to "Edit", edit_estimate_path(@estimate), class: "btn btn-default"
+        - if ['drafting', "reviewing"].include? @estimate.state
+          = link_to propose_estimate_path(@estimate), method: :post, class: "btn btn-default btn-success" do
+            = @estimate.state == "reviewing" ? "Send Back" : "Send"
+      -if @estimate.job.account == current_user.account
+        = link_to "Send Back", negotiate_estimate_path(@estimate), method: :post, class: "btn btn-default" if @estimate.reviewing?
+        = link_to "Reject", reject_estimate_path(@estimate), method: :post, class: "btn btn-default" if @estimate.reviewing?
+        = link_to "Accept", accept_estimate_path(@estimate), method: :post, class: "btn btn-default btn-success" unless @estimate.accepted?
+  .row
+    .col-md-8
+      %hr/
+      %h2 Comments
+      %ul.list-unstyled#comments
+        = render partial: "comments/comment", collection: @comments, as: :comment
+      = render 'comments/form'
