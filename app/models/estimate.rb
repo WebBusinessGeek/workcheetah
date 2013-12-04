@@ -9,6 +9,7 @@ class Estimate < ActiveRecord::Base
   belongs_to :job
   belongs_to :sent_by, class_name: "Resume", foreign_key: "resume_id"
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   accepts_nested_attributes_for :estimate_items, allow_destroy: true
   accepts_nested_attributes_for :estimate_items
@@ -29,12 +30,28 @@ class Estimate < ActiveRecord::Base
 
     before_transition :drafting => :reviewing do |estimate|
       # mail estimate to sent_by.user
+      estimate.notifications.create(
+        user_id: estimate.sent_by.user_id,
+        body: "Estimate sent to #{estimate.job.account.name}"
+      )
+      estimate.notifications.create(
+        user_id: estimate.job.account.owner,
+        body: "Estimate recived from #{estimate.sent_by.user.name}"
+      )
     end
     after_transition :reviewing => :rejected do |estimate|
       # mail rejection letter to sent_by.user
+      estimate.notifications.create(
+        user_id: estimate.sent_by.user_id,
+        body: "Estimate rejected by #{estimate.job.account.name}"
+      )
     end
     after_transition :reviewing => :accepted do |estimate|
       #1 mail accepted to sent_by.user
+      estimate.notifications.create(
+        user_id: estimate.sent_by.user_id,
+        body: "Estimate accepted by #{estimate.job.account.name}"
+      )
     end
   end
 

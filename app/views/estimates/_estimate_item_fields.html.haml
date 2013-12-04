@@ -4,12 +4,15 @@
       .form-group.col-md-3
         %label Task
         = f.input :task, label: false, input_html: {class: "form-control"}
-      .form-group.col-md-3
+      .form-group.col-md-2
+        %label Rate
+        = f.input :rate, label: false, input_html: {class: "form-control"}
+      .form-group.col-md-2
         %label Hours
         = f.input :hours, label: false, input_html: {class: "form-control"}
       .form-group.col-md-3
         %label Total
         = f.input :total, label: false, input_html: {class: "form-control"}
-      .form-group.col-md-3
+      .form-group.col-md-2
         = f.hidden_field :_destroy
         = link_to "Remove Item", '#', class: "remove_fields btn-sm btn-primary"

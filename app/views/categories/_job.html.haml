@@ -2,7 +2,7 @@
   %h1
     = link_to job.title, job
     - if job.account.safe_job_seal?
-      = link_to(image_tag("safe-seal-small.png", alt: "Safe Job seal"), job)
+      = link_to(image_tag("valid-seal.png", alt: "Safe Job seal"), job)
   %ul
     %li
       %strong Salary
