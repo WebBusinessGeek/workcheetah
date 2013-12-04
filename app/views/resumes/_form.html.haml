@@ -123,24 +123,24 @@
           = f.fields_for :schools do |sf|
             = render "school_fields", f: sf
           = link_to_add_fields "Add Education", f, :schools
-      %hr
-      .row
-        .col-md-12
-          %p.lead Experience
-      .row
-        .col-md-12
-          = f.fields_for :experiences do |pf|
-            = render "experience_fields", f: pf
-          = link_to_add_fields "Add Experience", f, :experiences
-      %hr
-      .row
-        .col-md-12
-          %p.lead References
-      .row
-        .col-md-12
-          = f.fields_for :references do |rf|
-            = render "reference_fields", f: rf
-          = link_to_add_fields "Add Reference", f, :references
+    %hr
+    .row
+      .col-md-12
+        %p.lead Experience
+    .row
+      .col-md-12
+        = f.fields_for :experiences do |pf|
+          = render "experience_fields", f: pf
+        = link_to_add_fields "Add Experience", f, :experiences
+    %hr
+    .row
+      .col-md-12
+        %p.lead References
+    .row
+      .col-md-12
+        = f.fields_for :references do |rf|
+          = render "reference_fields", f: rf
+        = link_to_add_fields "Add Reference", f, :references
   = f.submit((f.object.new_record? ? "Create Profile" : "Update Profile" ), class: "btn btn-primary")
 
 :javascript

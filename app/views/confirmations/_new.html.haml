@@ -1,7 +1,11 @@
-= simple_form_for @confirmation, url: confirmations_path, method: :post do |f|
-  .pagination-centered
-    = f.input :email, label: false
-    = f.input :confirmable_id, as: :hidden
-    = f.input :confirmable_type, as: :hidden
-    = f.input :message, label: false, placeholder:"Customize the message to your reference", input_html: {size: "80x4"}
-    = f.submit "Send Request", class: "btn btn-primary"
+.row
+  .col-md-6
+    = simple_form_for @confirmation, url: confirmations_path, method: :post do |f|
+      .form-group
+        = f.input :email, label: false, input_html: {class: "form-control"}
+        = f.input :confirmable_id, as: :hidden
+        = f.input :confirmable_type, as: :hidden
+      .form-group
+        = f.input :message, label: false, placeholder:"Customize the message to your reference", input_html: {cols: 40, rows: 4, class: "form-control"}
+      .form-group
+        = f.submit "Send Request", class: "btn btn-primary"

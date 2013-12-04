@@ -71,7 +71,15 @@
             - if @resume.references.any?
               - @resume.references.each do |reference|
                 .col-md-6.col-sm-6
-                  %h3= reference.confirmed? ? "Confirmed" : "Not Confirmed"
+                  %h3
+                    -unless reference.confirmation
+                      =link_to "Send Confirmation Request", new_confirmation_path(reference: reference, email: reference.email), remote: true
+                    -else
+                      -if reference.confirmed?
+                        CONFIRMED
+                      -else
+                        Confirmation sent on:
+                        = reference.confirmation.confirmation_sent.strftime("%B %d, %Y")
                   %ul
                     %li
                       %h3 Name:
@@ -122,8 +130,17 @@
               %h3= Invite::PRICE[2].first.to_s + " Credits"
               %p
               = link_to "#{number_to_currency(Money.new Invite::PRICE[2].last)}", buy_invites_jobs_path(selection: "third"), class: "btn btn-viewall", method: :post
+  #myModal.modal.fade
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{type: "button", "data-dismiss" => "modal", "aria-hidden" => true} X
+          %p.lead.modal-title Confirmation Request
+        .modal-body
+          test
+
 -if @job && @job_application
-  #myHire.modal.hide.fade
+  #myHire.modal.fade
     .modal-dialog
       .modal-content
         .modal-header
