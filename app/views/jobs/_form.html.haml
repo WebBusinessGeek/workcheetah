@@ -57,7 +57,7 @@
           = link_to_add_fields "Add A Question", f, :questions
   %hr
   .col-md-12
-    - unless @job.account.nil? || @job.account.present?
+    - if @job.account.nil? || @job.account.present? && !user_signed_in?
       %p.lead Your Information
       = f.fields_for :account do |af|
         .row
@@ -69,10 +69,10 @@
             = af.label :role, "Which describes your role best?"
             = af.input :role, label: false, collection: Account::ROLE_OPTIONS, prompt: true, input_html: { class: 'form-control' }
         .row
-          .form-group.col-md-4
-            %label Company Address
-            = af.input :address, label: false, input_html: { style: "width: 100%; max-width: 400px; font-size: 16px;", class: "form-control" }
-            .help-block City, State (ex. Los Angeles, CA)
+          -# .form-group.col-md-4
+          -#   -# %label Company Address
+          -#   -# = af.input :address, label: false, input_html: { style: "width: 100%; max-width: 400px; font-size: 16px;", class: "form-control" }
+          -#   -# .help-block City, State (ex. Los Angeles, CA)
           .form-group.col-md-4
             %label Company Website
             = af.input :website, label: false, input_html: { class: "website" }, placeholder: "http://www.yourdomain.com", input_html: { class: 'form-control' }
@@ -82,12 +82,9 @@
         .row.form-group
           .col-md-12
             %label Jobs Portal Web Address
-            .help-block To protect yourself from spam, you can make your job post invite only.
           .col-xs-12.input-group
             %span.input-group-addon http://www.workcheetah.com/
             = af.input :slug, label: false, placeholder: "your-company-name-without-spaces", input_html: { class: 'form-control' }
-            %span.input-group-addon
-              = f.input :invite_only, as: :boolean, label: "Make Invite Only"
           .col-md-12
             = af.fields_for :users do |uf|
               = uf.input :email, label: "Email", placeholder: "john.doe@example.com", required: true, input_html: { class: 'form-control' }
@@ -104,6 +101,7 @@
           = f.input :address, label: false, required: false, input_html: {class: "form-control" }
         .input-group
           = f.input :invite_only, as: :boolean, label: "Make Invite Only"
+          .help-block To protect yourself from spam, you can make your job post invite only.
     .row.form-group
       - if user_signed_in? && ['freelancer', 'business'].include?(current_user.role?)
         = f.submit "Post job listing", class: "btn btn-large btn-primary"
