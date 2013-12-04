@@ -1,4 +1,4 @@
-%tr 
+%tr
 	%td= single_conversation.sender.name
 	%td= link_to single_conversation.conversation.subject.to_s+' - '+truncate(single_conversation.body), single_conversation.conversation
 	%td= link_to "#{time_ago_in_words(single_conversation.conversation.updated_at)} ago", single_conversation.conversation

@@ -2,7 +2,6 @@ class ConversationsController < ApplicationController
 	before_filter :user_signed_in?
 
 	def index
-		@conversations = ConversationItem.where("sender_id != ? and draft = false",current_user.id).select('DISTINCT ON (conversation_id) *').order('conversation_id desc,created_at desc')
 		@conversations = current_user.conversations.order("id DESC")
 	end
 
@@ -32,18 +31,14 @@ class ConversationsController < ApplicationController
 			redirect_to :back, notice: "Only employers can initiate conversations." and return
 		end
 
-		@users = current_user.staffed_users
-		
+		@users = current_user.contact_list
+
 		@conversation = Conversation.new
 	end
 
 	def create
 		if !current_user.account.present? and !current_user.admin? and !current_user.moderator?
 			redirect_to :back, notice: "Only employers can initiate conversations." and return
-		end
-
-		if current_user.account.present? and !current_user.account.safe_job_seal?
-			redirect_to :back, notice: "Please validate your company in order to be able to send messages to your recruits." and return
 		end
 
 		@conversation = Conversation.create(subject: params[:conversation][:subject])
@@ -69,10 +64,6 @@ class ConversationsController < ApplicationController
 	end
 
 	def update
-		if current_user.account.present? and !current_user.account.safe_job_seal?
-			redirect_to :back, notice: "Please validate your company in order to be able to send messages to your recruits." and return
-		end
-		
 		@conversation = Conversation.find(params[:id])
 
 		@conversation.participants.each do |participant|
@@ -81,12 +72,12 @@ class ConversationsController < ApplicationController
 				break
 			end
 		end
-		
+
 		@draft = @conversation.conversation_items.find_by_sender_id_and_draft(current_user.id,true)
 		if @draft.present?
 			@draft.destroy
 		end
-		
+
 		if params[:commit].present? and params[:commit].downcase == 'send'
 			conversation_item = @conversation.conversation_items.build(params[:conversation][:conversation_item].merge(sender_id: current_user.id, draft: false))
 		else
@@ -96,13 +87,14 @@ class ConversationsController < ApplicationController
 		conversation_item.sender = current_user
 		if conversation_item.save
 			redirect_to @conversation
-
-			begin
-				@conversation.participants.each do |participant|
-					NotificationMailer.new_conversation(@conversation, participant.user).deliver if participant.user.email != current_user.email
+			unless conversation_item.draft == true
+				begin
+					@conversation.participants.each do |participant|
+						NotificationMailer.new_conversation(@conversation, participant.user).deliver if participant.user.email != current_user.email
+					end
+				rescue Exception => e
+					logger.info "Mails could not be sent after update of conversation with id #{@conversation.id}"
 				end
-			rescue Exception => e
-				logger.info "Mails could not be sent after update of conversation with id #{@conversation.id}"
 			end
 		else
 			render action: :show

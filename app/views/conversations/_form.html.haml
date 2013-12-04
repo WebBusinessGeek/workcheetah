@@ -1,9 +1,15 @@
-= simple_form_for new_conversation do |f|
-  .form-fields
-    = select_tag :recipient, options_for_select(current_user.staffed_users.collect{ |u| [u.name, u.id] }, params[:recipient_id]), {autofocus: true, :include_blank => false, :prompt=>"Select Recipient", :onchange=>"javascript:document.getElementById('conversation_recipient_id').value = this.value"}
-    = f.input :subject, autofocus: true
+= simple_form_for new_conversation, html: {class: "form-horizontal", role: "form"} do |f|
+  .form-group
+    %label.control-label.col-sm-2{:for => "recipient"} Recipient
+    .col-sm-4= select_tag :recipient, options_for_select(@users.collect{ |u| [u.name, u.id] }, params[:recipient_id]), {class: "form-control", autofocus: true, :include_blank => false, :prompt=>"Select Recipient", :onchange=>"javascript:document.getElementById('conversation_recipient_id').value = this.value"}
+  .form-group
+    %label.control-label.col-sm-2{:for => "subject"} Subject
+    .col-sm-4= f.input :subject, label: false, autofocus: true, input_html: {class: "form-control"}
+  .form-group
     = f.simple_fields_for new_conversation.conversation_items.build do |ci|
-      = ci.input :body, input_html: { rows: 5, cols: 30 } 
+      %label.control-label.col-sm-2{:for => "body"} Body
+      .col-sm-10= ci.input :body, label: false, input_html: { rows: 5, cols: 30, class: "form-control" }
     = f.hidden_field :recipient_id, value: params[:recipient_id]
-  .form-actions
-    = f.button :submit, "Send", class: "btn btn-primary"
+  .form-group
+    .col-sm-offset-2
+      = f.button :submit, "Send", class: "btn btn-success"

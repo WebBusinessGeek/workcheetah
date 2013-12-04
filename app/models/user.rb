@@ -117,6 +117,10 @@ class User < ActiveRecord::Base
      default_project.tasks << task
   end
 
+  def contact_list
+    clients + staffed_users
+  end
+
   def client_of?(user)
     reverse_staffings.where(client_id: user.id).any?
   end

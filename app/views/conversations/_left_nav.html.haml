@@ -1,6 +1,6 @@
-%ul
+%ul.nav
 	%li= link_to "Inbox", conversations_path
 	%li= link_to "Sent", sent_conversations_path
-	%li= link_to "Draft", draft_conversations_path
+	-# %li= link_to "Draft", draft_conversations_path
 	- if current_user.account.present?
 		%li= link_to "Compose", new_conversation_path

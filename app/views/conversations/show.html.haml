@@ -1,16 +1,21 @@
-.conversations_show
-	.white_box
-		%h1 Conversation
-		%h3= @conversation.subject
-		- @conversation.conversation_items.order("id ASC").each do |conversation_item|
-			%p
-				= conversation_item.sender.name
-				= "-"
-				= raw conversation_item.body
-			%hr/
-		= simple_form_for @conversation do |f|
-			.form-fields
-				= f.simple_fields_for @conversation.conversation_items.build do |ci|
-					= ci.text_field :body, autofocus: true
-			.form-actions
-				= f.button :submit, "Send", class: "btn btn-primary"
+.container
+	%h2.text-center Conversation
+	%p
+		.lead
+			%b Subject
+			%span= @conversation.subject
+	- @conversation.conversation_items.order("id ASC").each do |conversation_item|
+		%p
+			= conversation_item.sender.name
+			= "-"
+			= raw conversation_item.body
+		%hr/
+	= simple_form_for @conversation, html: {class: "form-horizontal", role: "form"} do |f|
+		.form-group
+			= f.simple_fields_for @conversation.conversation_items.build do |ci|
+				%label.control-label.col-sm-2{:for => "body"} Message
+				.col-sm-8= ci.input :body, label: false, autofocus: true, input_html: {rows: 5, cols: 30, class: "form-control"}
+		.form-group
+			.col-sm-offset-2
+				= f.button :submit, "Send", class: "btn btn-success"
+				-# = f.button :submit, "Save", class: "btn btn-default"

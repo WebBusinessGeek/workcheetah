@@ -1,12 +1,23 @@
-.conversations_index
-	.white_box
-		.row
-			.span2
-				= render "conversations/left_nav"
-			#inbox.span9{style: "border-left:1px solid #DDDDDD;padding-left:5px"}
-				%h1 SentBox
-				- if @conversations.any?
-					%table.table.table-striped
-						- @conversations.each do |conversation_item|
-							= render :partial=>"conversations/single_conversation", :locals=>{:single_conversation => conversation_item}
-							
+.container
+  .row
+    .col-md-2
+      = render "conversations/left_nav"
+    .col-md-9{style: "border-left:1px solid #DDDDDD;padding-left:5px"}
+      %table.table.table-striped
+        %caption
+          %p.lead Sent
+        %tr
+          %th Sent by:
+          %th Subject-Message
+          %th Sent at:
+        - if @conversations.any?
+          - @conversations.each do |conversation_item|
+            %tr
+              %td= conversation_item.sender.name
+              %td= link_to conversation_item.conversation.subject.to_s+' - '+truncate(conversation_item.body), conversation_item.conversation
+              %td= link_to "#{time_ago_in_words(conversation_item.conversation.updated_at)} ago", conversation_item.conversation
+        - else
+          %tr
+            %td
+            %td Box empty
+            %td
