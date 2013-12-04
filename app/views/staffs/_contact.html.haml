@@ -1,5 +1,5 @@
 %h2= contact.name
 = contact.role
 .row
-  .col-md-3= link_to "Remove Contact", "#", class: "btn btn-primary"
-  .col-md-3= link_to "Send Message", "#", class: "btn btn-primary"
+  -# .col-md-3= link_to "Remove Contact", remove_, class: "btn btn-primary"
+  .col-md-3= link_to "Send Message", new_conversation_path, class: "btn btn-primary"

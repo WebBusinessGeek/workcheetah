@@ -15,6 +15,9 @@ class StaffsController < ApplicationController
     @staffed_users = current_user.staffed_users
   end
 
+  def remove
+  end
+
   def new
     @staff = Staff.new
 
