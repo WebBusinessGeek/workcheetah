@@ -71,10 +71,8 @@
 %li{:class => current_page?(conversations_path) && 'active'}
   = link_to "Messages", conversations_path
 %li
-  = link_to "javascript: return false;", title: "Notifications", id: "notifications" do
-    - if current_user.notifications_count > 0
+  - if current_user.notifications_count > 0
+    = link_to "javascript: return false;", title: "Notifications", id: "notifications" do
       %span.badge= current_user.notifications_count
-    - else
-      %span.glyphicon.glyphicon-eye-open
 :javascript
   $('#notifications').popover({content: "#{j render current_user.notifications.order('created_at DESC')}", placement: "bottom", html: true});

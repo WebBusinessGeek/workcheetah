@@ -1,10 +1,10 @@
 $('#<%= dom_id(@notification) %>').hide()
 <% @counter = current_user.notifications_count - 1 %>
 <% if @counter > 0 %>
-  alert("<%= @counter %>")
   $('#notifications span.badge').text("<%= @counter %>")
+  $('#notifications').popover("destroy")
+  $('#notifications').popover({content: "<%= j render current_user.notifications.order('created_at DESC') %>", placement: "bottom", html: true});
 <% else %>
-  $('#notifications').html('<span class="glyphicon glyphicon-eye-open"></span>')
+  $('#notifications').popover("destroy")
+  $('#notifications').remove()
 <% end %>
-$('#notifications').popover("destroy")
-$('#notifications').popover({content: "<%= j render current_user.notifications.order('created_at DESC') %>", placement: "bottom", html: true});
