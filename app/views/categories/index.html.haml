@@ -4,7 +4,7 @@
       = @display_cat
       Jobs
     %p.pull-right
-      - if ['business'].include?(current_user.role?)
+      - if ['business','freelancer'].include?(current_user.role?)
         = link_to "Market your Services", ad_info_path, class: "btn btn-default btn-lg btn-success"
       - elsif !current_user.resume.present?
         = link_to "Get Hired", new_resume_path, class: "btn btn-default btn-lg btn-success" 
