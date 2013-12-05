@@ -1,4 +1,11 @@
 jQuery ->
+  $('#resume_user_attributes_terms_of_service').on 'change', ->
+    if !$(this).is(':checked')
+      $('#contact-details').css('visibility', 'hidden').hide(200).addClass('hidden')
+      $('#rest').css('visibility', 'hidden').hide(200).addClass('hidden')
+    else
+      $('#contact-details.hidden').css('visibility','visible').hide().fadeIn().removeClass('hidden');
+
   $('form').on 'click', '.add_fields', (event) ->
     time = new Date().getTime()
     regex = new RegExp($(this).data('id'), 'g')

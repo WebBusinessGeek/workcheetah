@@ -5,7 +5,7 @@
   .jumbotron
     = link_to "Preview Job", job_path(@estimate.job)
     %strong Status
-    = @estimate.state
+    = @estimate.state.humanize
     %strong Due Date
     = @estimate.due_date ? @estimate.due_date : "None Given"
     - if @estimate.estimate_items.any?
@@ -41,14 +41,15 @@
   .row
     .col-md-8
       -if @estimate.sent_by == current_user.resume
-        = link_to "Edit", edit_estimate_path(@estimate), class: "btn btn-default"
-        - if ['drafting', "reviewing"].include? @estimate.state
+        = link_to "Edit", edit_estimate_path(@estimate), class: "btn btn-default" unless @estimate.reviewing?
+        - if ['drafting', "needs_revision"].include? @estimate.state
           = link_to propose_estimate_path(@estimate), method: :post, class: "btn btn-default btn-success" do
-            = @estimate.state == "reviewing" ? "Send Back" : "Send"
+            = @estimate.state == "needs_revision" ? "Send Back" : "Send"
       -if @estimate.job.account == current_user.account
-        = link_to "Send Back", negotiate_estimate_path(@estimate), method: :post, class: "send btn btn-default" if @estimate.reviewing?
-        = link_to "Reject", reject_estimate_path(@estimate), method: :post, class: "reject btn btn-default" if @estimate.reviewing?
-        = link_to "Accept", accept_estimate_path(@estimate), method: :post, class: "accept btn btn-default btn-success" unless @estimate.accepted?
+        -if @estimate.reviewing?
+          = link_to "Send Back", negotiate_estimate_path(@estimate), method: :post, class: "send btn btn-default"
+          = link_to "Reject", reject_estimate_path(@estimate), method: :post, class: "reject btn btn-default"
+          = link_to "Accept", accept_estimate_path(@estimate), method: :post, class: "accept btn btn-default btn-success" unless @estimate.accepted?
   .row
     .col-md-8
       %hr/

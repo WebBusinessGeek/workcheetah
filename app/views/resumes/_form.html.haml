@@ -19,7 +19,9 @@
           = uf.input :password_confirmation, required: :true, input_html: { class: 'form-control' }
       .row
         .input-group.col-md-12
-          = uf.input :terms_of_service, as: :boolean, label: raw("I agree to the #{link_to "Terms & Conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}"), required: :true
+          -# = uf.input :terms_of_service, as: :boolean, label: raw("I agree to the #{link_to "Terms & Conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}"), required: :true
+          = uf.check_box :terms_of_service
+          = uf.label :terms_of_service, raw("I agree to the #{link_to "terms & conditions", "/terms_and_conditions-2013-05-01.pdf", target: :blank}")
   #contact-details{ class: !user_signed_in? ? "hidden" : "" }
     = f.input :resume_type, label: 'Which best describes you?', collection: Resume::TYPES, prompt: false, required: :true, selected: (user_signed_in? && current_user.role) ? current_user.role : "employee", input_html: { class: 'form-control' }
     %hr
@@ -143,44 +145,44 @@
         = link_to_add_fields "Add Reference", f, :references
   = f.submit((f.object.new_record? ? "Create Profile" : "Update Profile" ), class: "btn btn-primary")
 
-:javascript
-  $('#resume_user_attributes_terms_of_service').change(function() {
-    if (!$(this).is(':checked')) {
-      $('#contact-details').hide(200).css('visibility', 'hidden');
-      $('#rest').hide(200).css('visibility', 'hidden');
-    }
-    else {
-      $('#contact-details').show(200).css('visibility', 'visible');
-    }
-  });
+-# :javascript
+-#     $('#resume_user_attributes_terms_of_service').change(function() {
+-#       if (!$(this).is(':checked')) {
+-#         $('#contact-details').hide(200).css('visibility', 'hidden');
+-#         $('#rest').hide(200).css('visibility', 'hidden');
+-#       }
+-#       else {
+-#         $('#contact-details').show(200).css('visibility', 'visible');
+-#       }
+-#     });
 
-  $('#resume_status').change(function() {
-    $('#rest').show(200).css('visibility', 'visible');
-  });
+-# $('#resume_status').change(function() {
+-#   $('#rest').show(200).css('visibility', 'visible');
+-# });
 
-  $('#resume_resume_type').change(function() {
-    if($(this).val().trim() == 'employee') {
-      $('#rest').find('.skills').find('h4').text('Skills');
-      $('#rest').find('.skills').find('p').text('Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.');
-      $('#rest').find('.references').find('h2').text('References');
-      $('#rest').find('.reference').find('fieldset').find('.hidden').hide().css('visibility', 'hidden');
-      $('#rest').show(200).css('visibility', 'visible');
-    }
-    else if($(this).val().trim() == 'freelancer') {
-      $('#rest').find('.skills').find('h2').text('Services');
-      $('#rest').find('.skills').find('p').text('What services do you offer?');
-      $('#rest').find('.references').find('h2').text('Referrals');
-      $('#rest').find('.reference').find('fieldset').find('.hidden').hide().css('visibility', 'hidden');
-      $('#rest').show(200).css('visibility', 'visible');
-    }
-    else {
-      $('#rest').find('.skills').find('h4').text('SERVICES');
-      $('#rest').find('.skills').find('p').text('What services does your company offer?');
-      $('#rest').find('.references').find('h2').text('Referrals');
-      $('#rest').find('.reference').find('fieldset').find('.hidden').show().css('visibility', 'visible');
-      $('#rest').show(200).css('visibility', 'visible');
-      $('.resume_status').hide();
-      $('.schools').hide();
-      $('.experiences').hide();
-    }
-  });
+-# $('#resume_resume_type').change(function() {
+-#   if($(this).val().trim() == 'employee') {
+-#     $('#rest').find('.skills').find('h4').text('Skills');
+-#     $('#rest').find('.skills').find('p').text('Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.');
+-#     $('#rest').find('.references').find('h2').text('References');
+-#     $('#rest').find('.reference').find('fieldset').find('.hidden').hide().css('visibility', 'hidden');
+-#     $('#rest').show(200).css('visibility', 'visible');
+-#   }
+-#   else if($(this).val().trim() == 'freelancer') {
+-#     $('#rest').find('.skills').find('h2').text('Services');
+-#     $('#rest').find('.skills').find('p').text('What services do you offer?');
+-#     $('#rest').find('.references').find('h2').text('Referrals');
+-#     $('#rest').find('.reference').find('fieldset').find('.hidden').hide().css('visibility', 'hidden');
+-#     $('#rest').show(200).css('visibility', 'visible');
+-#   }
+-#   else {
+-#     $('#rest').find('.skills').find('h4').text('SERVICES');
+-#     $('#rest').find('.skills').find('p').text('What services does your company offer?');
+-#     $('#rest').find('.references').find('h2').text('Referrals');
+-#     $('#rest').find('.reference').find('fieldset').find('.hidden').show().css('visibility', 'visible');
+-#     $('#rest').show(200).css('visibility', 'visible');
+-#     $('.resume_status').hide();
+-#     $('.schools').hide();
+-#     $('.experiences').hide();
+-#   }
+-# });

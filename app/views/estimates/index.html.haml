@@ -37,7 +37,7 @@
           %td.applicant
             = estimate.sent_by.name
           %td= estimate.job.title
-          %td= estimate.state
+          %td= estimate.state.humanize
           %td= estimate.created_at.strftime("%m/%d/%Y")
           %td= number_to_currency estimate.proposed_total
   - else

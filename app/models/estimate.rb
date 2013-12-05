@@ -18,13 +18,13 @@ class Estimate < ActiveRecord::Base
 
   state_machine initial: :drafting do
     event :send_proposal do
-      transition :drafting => :reviewing
+      transition [:drafting, :needs_revision] => :reviewing
     end
     event :accept do
       transition :reviewing => :accepted
     end
     event :negotiate do
-      transition :reviewing => :drafting
+      transition :reviewing => :needs_revision
     end
     event :reject do
       transition :reviewing => :rejected
@@ -64,9 +64,10 @@ class Estimate < ActiveRecord::Base
     end
   end
 
-  scope :sent, with_state("reviewing")
+  scope :sent, where('state = ? OR state = ?', "reviewing", "needs_revision")
   scope :drafted, with_state("drafting")
   scope :rejected, with_state("rejected")
+  scope :negotiating, with_state("needs_revision")
 
   def hire!(paytype)
     if paytype == "salary"
