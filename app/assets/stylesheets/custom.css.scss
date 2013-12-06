@@ -10,6 +10,10 @@
   min-height: 100px;
 }
 
+#projectsort {
+  overflow: auto;
+}
+
 .projectOverview {
     width:250px;
     padding:3px;
@@ -19,8 +23,8 @@
     margin:3px 3px 3px 3px
 }
 
-span {
-  .fc-text-arrow {
+.fc-header-title {
+  h2 {
     font-size: 20px;
   }
 }
