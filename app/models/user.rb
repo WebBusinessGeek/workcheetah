@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  attr_accessible :terms_of_service
+  attr_accessible :terms_of_service, :email, :password, :password_confirmation
   has_many :job_applications, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :scam_reports, dependent: :destroy

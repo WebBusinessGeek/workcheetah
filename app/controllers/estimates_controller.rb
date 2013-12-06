@@ -12,7 +12,7 @@ class EstimatesController < ApplicationController
   end
 
   def recieved
-    @recieved_estimates = Estimate.where(job_id: [current_account.job_ids]).sent.negotiating
+    @recieved_estimates = Estimate.where(job_id: [current_account.job_ids])
     render 'index'
   end
 

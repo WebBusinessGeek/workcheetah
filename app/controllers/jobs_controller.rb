@@ -138,6 +138,7 @@ class JobsController < ApplicationController
           format.json { render json: @job, status: :created, location: @job }
         end
       else
+        logger.debug @job.errors.inspect
         format.html { render action: "new" }
         format.json { render json: @job.errors, status: :unprocessable_entity }
       end
@@ -252,8 +253,8 @@ class JobsController < ApplicationController
 
   def job_params
     params.require(:job).permit(:merit_requested, :yearly_compensation, :title, :invite_only, :description, :category_id, :category2_id, :category3_id,
-                                :email_for_claim, :about_company, :address, :quick_applicable, :job_type, :business_type, skill_ids: [],
+                                :email_for_claim, :about_company, :address, :quick_applicable, :job_type, skill_ids: [],
                                 questions_attributes: [:text, :_destroy ],
-                                account_attributes: [ :name, :website, :phone, :slug, :role, users_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] ])
+                                account_attributes: [ :name, :website, :phone, :slug, :role, :business_type, users_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] ])
   end
 end

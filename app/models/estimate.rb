@@ -30,7 +30,7 @@ class Estimate < ActiveRecord::Base
       transition :reviewing => :rejected
     end
 
-    after_transition :drafting => :reviewing do |estimate|
+    after_transition [:drafting, :needs_revision] => :reviewing do |estimate|
       # mail estimate to sent_by.user
       estimate.notifications.create(
         user_id: estimate.sent_by.user_id,
@@ -55,7 +55,7 @@ class Estimate < ActiveRecord::Base
         body: "Estimate accepted by #{estimate.job.account.name}"
       )
     end
-    after_transition :reviewing => :drafting do |estimate|
+    after_transition :reviewing => :needs_revision do |estimate|
       #1 mail accepted to sent_by.user
       estimate.notifications.create(
         user_id: estimate.sent_by.user_id,
