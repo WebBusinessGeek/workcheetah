@@ -35,12 +35,12 @@ class Job < ActiveRecord::Base
   validates :title, presence: true
   validates :account_id, numericality: { only_integer: true, greather_than: 0 }, allow_blank: true
   validates :address, presence: true,
-    unless: Proc.new { |job| job.job_type == 'outsource' }
+    unless: Proc.new { |job| job.remote? }
   validates :category_id, presence: true, numericality: { only_integer: true, greather_than: 0 }
   validates :category2_id, numericality: { only_integer: true, greather_than: 0 }, allow_blank: true
   validates :category3_id, numericality: { only_integer: true, greather_than: 0 }, allow_blank: true
   COMPENSATION_OPTIONS = [ "15-25k",  "26-35k",  "36-45k",  "46-55k",  "66-75k",  "76-85k",  "86-95k",  "96k+",  "commission based",  "salary + commission",  "undisclosed" ]
-  validates :yearly_compensation, inclusion: { in: COMPENSATION_OPTIONS }
+  validates :yearly_compensation, inclusion: { in: COMPENSATION_OPTIONS }, unless: Proc.new { |job| job.remote? }
 
   attr_accessor :email_for_claim
 

@@ -26,6 +26,7 @@
     .form-group.col-md-6
       %label What are you looking for?
       = f.input :job_type, label: false, collection: job_types_collection, prompt: true, input_html: { class: 'form-control' }
+      .help-block For remote jobs, choose the outsource option.
     .form-group.col-md-3
       %label Yearly Compensation
       = f.input :yearly_compensation, label: false, collection: Job::COMPENSATION_OPTIONS, prompt: true, input_html: { class: 'form-control' }
@@ -69,10 +70,6 @@
             = af.label :role, "Which describes your role best?"
             = af.input :role, label: false, collection: Account::ROLE_OPTIONS, prompt: true, input_html: { class: 'form-control' }
         .row
-          -# .form-group.col-md-4
-          -#   -# %label Company Address
-          -#   -# = af.input :address, label: false, input_html: { style: "width: 100%; max-width: 400px; font-size: 16px;", class: "form-control" }
-          -#   -# .help-block City, State (ex. Los Angeles, CA)
           .form-group.col-md-4
             %label Company Website
             = af.input :website, label: false, input_html: { class: "website" }, placeholder: "http://www.yourdomain.com", input_html: { class: 'form-control' }
@@ -96,9 +93,9 @@
     .row.form-group
       .col-xs-12
         .input-group
-          %label Job Location
-          .help-block Leave blank if this is a remote job.
+          %lebel Location
           = f.input :address, label: false, required: false, input_html: {class: "form-control" }
+          .help-block Leave blank if this is a remote job.
         .input-group
           = f.input :invite_only, as: :boolean, label: "Make Invite Only"
           .help-block To protect yourself from spam, you can make your job post invite only.
