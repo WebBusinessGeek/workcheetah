@@ -24,7 +24,6 @@
 				%th Estimates Recieved
 				%th Applicants
 				%th Date Posted
-				%th
 			- @jobs.each do |job|
 				%tr
 					%td
@@ -35,12 +34,3 @@
 					%td
 						= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
 					%td= job.created_at.strftime("%m/%d/%Y")
-					%td
-						- if current_user.account.safe_job_seal?
-							- if !job.invited?
-								= link_to 'Invite job seekers', invite_job_seekers_to_job_path(job), method: :post, class: "btn btn-primary"
-							- else
-								= link_to 'Invite job seekers', "javascript: return false;", method: :post, class: "btn btn-primary disabled"
-						- else
-							%a#invite-popover.btn.btn-primary{"data-content" => "#{link_to "Verify your account.", add_seal_account_path} As a verified employer you can invite all relevant job seekers within a 50 mile radius to your job opening.", "data-original-title" => "Invite", :href => "javascript: void(0);", :rel => "popover"} Invite Job Seekers
-

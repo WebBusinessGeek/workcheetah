@@ -3,12 +3,12 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
   if $('#new_invoice').length
-    $('form#new_invoice').submit ->
-      disable_buttons()
+    $('form#save_invoice').on 'click', ->
+      disableButtonAndSubmit()
       true
 
-    $('form.edit_invoice').submit ->
-      disable_buttons()
+    $('form#send_invoice').on 'click', ->
+      disableButtonAndSubmit()
       true
 
     $('#invoice_project_id').change ->
@@ -17,6 +17,14 @@ $ ->
     bind_line_item_totals()
 
   if $('.edit_invoice').length
+    $('form#save_invoice').on 'click', ->
+      disableButtonAndSubmit()
+      true
+
+    $('form#send_invoice').on 'click', ->
+      disableButtonAndSubmit()
+      true
+
     $('#invoice_project_id').change ->
       id = $('.edit_invoice').data('id')
       project_id = $(this).val()
@@ -24,9 +32,11 @@ $ ->
     bind_line_item_totals()
     update_invoice_total()
 
-disable_buttons = ->
-  $('input[type=submit]').attr('disabled', true)
-  $('input[type=submit]').attr('value', 'Submitting')
+disableButtonAndSubmit = ->
+  input = $("<input type='hidden' />").attr("name", $(this)[0].name).attr("value", $(this)[0].value)
+  $(this).closest('form').append(input)
+  $(this).attr('disabled', 'disabled').html('Submitting...')
+  $(this).closest('form').submit()
 
 bind_line_item_totals = ->
     $('form').on 'change', 'input.hours', ->

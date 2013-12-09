@@ -15,7 +15,7 @@
   - elsif current_user.account != @job.account
     - if current_user.resume.present?
       - if ['business','freelancer'].include? current_user.role?
-        %h2
+        %h3
           Estimate Credits
           = current_user.account.estimate_credits
         - if current_user.account.has_estimate_credits?

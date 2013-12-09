@@ -6,7 +6,7 @@
       - else
         .col-md-2= link_to "No tasks available", "javascript:(void(0);", data: {toggle: "tooltip", title: "The project you've assigned to this invoice has no tasks. Create some to assign a task to a line item."}, rel: "tooltip"
     %li= f.input :note, label: false, input_html: {class: "col-md-2"}
-    %li= f.input :hours, label: false, input_html: {class: "col-md-1 hours", style: "margin-left:35px;"}
+    %li= f.input :hours, label: false, input_html: {class: "col-md-2 hours", style: "margin-left:35px;"}
     %li= f.input :rate, label: false, input_html: {class: "col-md-2 rate", style: "margin-left:45px;"}
     %li.total
       = f.input :total, label: false, input_html: {class: "col-md-2 total", style: 'margin-left:25px'}

@@ -3,5 +3,5 @@
     .col-md-10
       = simple_form_for @invoice, url: invoices_path, method: :post do |f|
         = render 'form', f: f
-        .col-md-3= f.submit "Save Draft", class: "btn btn-default btn-lg btn-success"
-        .col-md-3= f.submit "Send Invoice", class: "btn btn-default btn-lg btn-success"
+        .col-md-3= f.submit "Save Draft", id: "save_invoice", class: "btn btn-lg btn-success"
+        .col-md-3= f.submit "Send Invoice", id: "send_invoice", class: "btn btn-lg btn-success"

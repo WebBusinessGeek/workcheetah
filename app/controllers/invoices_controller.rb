@@ -57,9 +57,9 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.save
-        if params[:submit] == 'Send Invoice'
+        if params[:commit] == 'Send Invoice'
           @invoice.send_invoice
-          msg = 'Invoice has been send for approval'
+          msg = 'Invoice has been sent for approval'
         else
           msg = 'Invoice was successfully created.'
         end
@@ -112,11 +112,11 @@ class InvoicesController < ApplicationController
   # DELETE /invoices/1
   # DELETE /invoices/1.json
   def destroy
-    @invoice = Invoice.find(params[:id])
+    @invoice = Invoice.find_by_guid(params[:id])
     @invoice.destroy
 
     respond_to do |format|
-      format.html { redirect_to invoices_url }
+      format.html { redirect_to accounting_path }
       format.json { head :no_content }
     end
   end

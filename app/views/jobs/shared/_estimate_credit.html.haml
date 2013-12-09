@@ -2,21 +2,21 @@
   = link_to "Buy Credits", "#estimate-credit-modal", {"role" => "button", "data-toggle" => "modal", class: "btn btn-viewall"}
 - else
   = link_to "Update your billing info or enter a new one", new_payment_profile_path
-#estimate-credit-modal.modal.col-md-6.hide.fade{"role" => "dialog", "aria-hidden" => "true"}
+#estimate-credit-modal.modal.col-md-6.fade{"role" => "dialog", "aria-hidden" => "true"}
   .modal-dialog
     .modal-content
       .modal-body
         .row
-          %ul.thumbnails
-            %li.col-md-2
+          %ul.list-unstyled
+            %li.col-md-3
               %h3= Estimate::PRICE[0].first.to_s + " Credits"
               %p
-              = link_to "#{number_to_currency(Money.new Estimate::PRICE[0].last)}", buy_credits_estimate_path(selection: "first"), class: "btn btn-large thumnail", method: :post
-            %li.col-md-2
+              = link_to "#{number_to_currency(Money.new Estimate::PRICE[0].last)}", buy_credits_estimate_path(selection: "first"), class: "btn btn-primary btn-lg", method: :post
+            %li.col-md-3
               %h3= Estimate::PRICE[1].first.to_s + " Credits"
               %p
-              = link_to "#{number_to_currency(Money.new Estimate::PRICE[1].last)}", buy_credits_estimate_path(selection: "second"), class: "btn btn-large thumnail", method: :post
-            %li.col-md-2
+              = link_to "#{number_to_currency(Money.new Estimate::PRICE[1].last)}", buy_credits_estimate_path(selection: "second"), class: "btn btn-primary btn-lg", method: :post
+            %li.col-md-3
               %h3= Estimate::PRICE[2].first.to_s + " Credits"
               %p
-              = link_to "#{number_to_currency(Money.new Estimate::PRICE[2].last)}", buy_credits_estimate_path(selection: "third"), class: "btn btn-large thumnail", method: :post
+              = link_to "#{number_to_currency(Money.new Estimate::PRICE[2].last)}", buy_credits_estimate_path(selection: "third"), class: "btn btn-primary btn-lg", method: :post
