@@ -1,6 +1,6 @@
 class BlogCategoriesController < ApplicationController
   before_filter :authorize_admin!
-  
+
   # GET /blog_categories
   # GET /blog_categories.json
   def index

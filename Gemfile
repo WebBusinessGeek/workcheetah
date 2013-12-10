@@ -45,6 +45,7 @@ gem 'tinymce-rails', '~> 3.5.8.3'
 gem 'haml'
 gem 'devise'
 gem 'devise_invitable'
+gem 'devise-async'
 gem 'rspec-rails'
 
 gem "strong_parameters", '>= 0.2.0'

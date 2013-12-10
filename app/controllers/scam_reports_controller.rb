@@ -8,7 +8,7 @@ class ScamReportsController < ApplicationController
     @scam_report.reporter_ip = request.remote_ip
     @scam_report.user = current_user if user_signed_in?
     @scam_report.save!
-    ScamReportMailer.new_scam_report(@scam_report).deliver
+    ScamReportMailer.delay.new_scam_report(@scam_report).deliver
     redirect_to root_path, notice: "Thank you for submitting your scam report. We're going to look into this ASAP."
   end
 

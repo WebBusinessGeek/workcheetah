@@ -79,8 +79,9 @@
                       -if reference.confirmed?
                         CONFIRMED
                       -else
-                        Confirmation sent on:
-                        = reference.confirmation.confirmation_sent.strftime("%B %d, %Y")
+                        %span{style: "font-size: 75%;"}
+                          Confirmation sent on:
+                          = reference.confirmation.confirmation_sent.strftime("%B %d, %Y")
                   %ul
                     %li
                       %h3 Name:
@@ -94,17 +95,18 @@
             - else
               .col-md-6.col-sm-6
                 %h3 No References provided
-            .col-md-12.col-sm-12
-              %hr/
-              = link_to "Add a new reference", new_resume_reference_path(@resume), class: "btn btn-viewall", data: {toggle: "modal", target: "#newReferenceModal"}, remote: true
-              #newReferenceModal.modal.fade{tabindex: "-1", role: "dialog", "aria-labelledby" => "referenceModalLabel", "aria-hidden" => "true"}
-                .modal-dialog
-                  .modal-content
-                    .modal-header
-                      %button.close{type: "button", "data-dismiss" => "modal", "aria-hidden" => true} &times
-                      %h4.modal-title#referenceModalLabel New Reference
-                    .modal-body
-                    .modal-footer
+            .row
+              .col-md-12
+                %hr/
+                = link_to "Add a new reference", new_resume_reference_path(@resume), class: "btn btn-viewall pull-left", data: {toggle: "modal", target: "#newReferenceModal"}, remote: true
+                #newReferenceModal.modal.fade{tabindex: "-1", role: "dialog", "aria-labelledby" => "referenceModalLabel", "aria-hidden" => "true"}
+                  .modal-dialog
+                    .modal-content
+                      .modal-header
+                        %button.close{type: "button", "data-dismiss" => "modal", "aria-hidden" => true} &times
+                        %h4.modal-title#referenceModalLabel New Reference
+                      .modal-body
+                      .modal-footer
   .col-md-2.ads
     .well
       %h3 A Banking Career Can Be Yours!

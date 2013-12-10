@@ -24,7 +24,6 @@ class Confirmation < ActiveRecord::Base
     if @message.save!
       @conversation.participants.create!(user_id: confirm_by.id)
       @conversation.participants.create!(user_id: confirm_for.id)
-      Notification.create!(user_id: confirm_by.id, notifiable_id: @conversation.id, notifiable_type: "Conversation", body: "You have a confirmation request.")
     else
       "Error"
     end

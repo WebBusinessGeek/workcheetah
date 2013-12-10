@@ -39,10 +39,10 @@ class ConfirmationsController < ApplicationController
     if current_user == @confirmation.confirm_by || current_user.admin?
       @confirmation.confirmable.confirm!
       flash[:notice] = "Thank you for confirming a reference for #{@confirmation.confirm_for.name}"
+      redirect_to edit_resume_reference_path(@confirmation.confirmable.resume, @confirmation.confirmable)
     else
-      flash[:notice] = "You are not authorized for this request."
+      redirect_to :back, notice: "You are not authorized for this request."
     end
-    redirect_to edit_resume_reference_path(@confirmation.confirmable.resume, @confirmation.confirmable)
   end
 
   private
