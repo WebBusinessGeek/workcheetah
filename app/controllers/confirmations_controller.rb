@@ -1,6 +1,6 @@
 class ConfirmationsController < ApplicationController
   respond_to :html, :js
-  skip_before_filter :get_tweet, only: [:new]
+
   def show
     @confirmation = Confirmation.find_by_confirmation_token(params[:confirmation_token])
     if @confirmation
@@ -42,7 +42,7 @@ class ConfirmationsController < ApplicationController
     else
       flash[:notice] = "You are not authorized for this request."
     end
-    redirect_to root_path
+    redirect_to edit_resume_reference_path(@confirmation.confirmable.resume, @confirmation.confirmable)
   end
 
   private

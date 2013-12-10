@@ -143,6 +143,7 @@ CareerLoop::Application.routes.draw do
   resources :scam_reports, only: [:new, :create]
 
   resources :resumes, except: [:index] do
+    resources :references, only: [:new, :create, :edit, :update]
     member do
       get :add_video
       get :update_video

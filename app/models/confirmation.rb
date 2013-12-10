@@ -24,6 +24,7 @@ class Confirmation < ActiveRecord::Base
     if @message.save!
       @conversation.participants.create!(user_id: confirm_by.id)
       @conversation.participants.create!(user_id: confirm_for.id)
+      Notification.create!(user_id: confirm_by.id, notifiable_id: @conversation.id, notifiable_type: "Conversation", body: "You have a confirmation request.")
     else
       "Error"
     end
@@ -44,14 +45,17 @@ class Confirmation < ActiveRecord::Base
   end
 
   def find_confirmable_by
+    puts "confirmable"
+    puts self.confirmable.inspect
     confirm_by = User.where(email: confirmable.email).pluck(:id).first
     unless confirm_by
       user = User.new do |u|
         u.email = confirmable.email.downcase
-        puts confirmation_token
         u.password = confirmation_token
         u.password_confirmation = confirmation_token
+        u.role = 'business'
       end
+      puts user.inspect
       user.confirm!
       user.save!
       update_column(:confirm_by, user.id)

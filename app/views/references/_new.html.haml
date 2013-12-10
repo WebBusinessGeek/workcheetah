@@ -1,0 +1,30 @@
+= simple_form_for [@resume, @reference], html: {class: ""} do |f|
+  .row
+    .form-group.col-md-4
+      %label Name
+      = f.text_field :name, class: "form-control"
+    .form-group.col-md-4
+      %label Job Title
+      = f.text_field :job_title, class: "form-control"
+    .form-group.col-md-4
+      %label Company name
+      = f.text_field :company, class: "form-control"
+  .row
+    .form-group.col-md-4
+      %label Phone number
+      = f.text_field :phone, class: "phone form-control"
+    .form-group.col-md-4
+      %label Email
+      = f.text_field :email, class: "form-control"
+    .form-group.col-md-2
+      %label Reference Type
+      %br
+      = f.select :reference_type, options_for_select([ "Professional", "Personal", "Both" ], "Professional")
+  .row
+    .form-group.col-md-10
+      %label Notes
+      = f.text_area :notes, rows: "10", class: "form-control"
+  .row
+    .form-group
+      -# = f.submit "Create", class: "btn btn-primary"
+      = f.submit "Send Reference Request", class: "btn btn-primary btn-lg"

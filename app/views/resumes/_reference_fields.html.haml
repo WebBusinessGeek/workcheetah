@@ -28,6 +28,4 @@
       .form-group.col-md-10
         %label Notes
         = f.text_area :notes, rows: "10", class: "form-control"
-        = f.label :reference_type, "Which best describes your business?", class: 'hidden'
-        = f.select :business_types, Reference::BUSINESS_TYPES_COLLECTION, {}, { class: 'hidden' }
         = f.hidden_field :_destroy

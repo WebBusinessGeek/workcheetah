@@ -1,0 +1,12 @@
+.container
+  .row
+    .col-md-8
+      = simple_form_for [@resume, @reference], html: {class: "form-horizontal"} do |f|
+        %legend
+          Reference Feedback for
+          = @resume.name
+        .form-group.col-md-8
+          %label{:for => "feedback"} Feedback
+          = f.input :feedback, label: false, input_html: {rows: 5, cols: 50, class: "form-control"}
+          .helper-block Enter a short description giving this user feedback
+          = f.submit "Submit Feedback"
