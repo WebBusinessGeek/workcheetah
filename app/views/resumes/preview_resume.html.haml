@@ -18,7 +18,7 @@
       .col-md-8.col-sm-8.companyinfo
         .well
           %h1= @resume.name
-          %h2= @resume.resume_type.humanize
+          %h3= @resume.resume_type.humanize
           %ul
             %li
               %h3 Location:
@@ -29,25 +29,21 @@
                 = @resume.highest_merit_earned
               - else
                 None
-              -# - unless ['business', 'freelancer'].include?(@resume.resume_type)
-              -#   %p.lead= @resume.status.present? ? @resume.status : "Unemployed"
-          -# .buttonholds
-            -# %a.btn.btn-viewall{ :href => "#"} Invite
-        -# .row
-        -#   .col-md-8.col-sm-8
-        .well
-          = render 'resumes/profile_actions'
-      .col-md-4.col-sm-4.companyinfo
-        .well
-          - if @resume.user.account.present?
-            - account = @resume.user.account
-            - if account.logo.present?
-              = link_to(image_tag(account.logo), account.website, :class => 'adimg')
-              .simplelink
-                %a{ :href => "#"} What's This?
-            - else
-              No logo provided
-              = link_to "Update Logo", customize_account_path, class: "btn btn-viewall"
+        - unless current_user.role == 'employee'
+          .well
+            = render 'resumes/profile_actions'
+      - unless current_user.role == 'employee'
+        .col-md-4.col-sm-4.companyinfo
+          .well
+            - if @resume.user.account.present?
+              - account = @resume.user.account
+              - if account.logo.present?
+                = link_to(image_tag(account.logo), account.website, :class => 'adimg')
+                .simplelink
+                  %a{ :href => "#"} What's This?
+              - else
+                No logo provided
+                = link_to "Update Logo", customize_account_path, class: "btn btn-viewall"
     .row
       .col-md-12.companydetails
         .well
