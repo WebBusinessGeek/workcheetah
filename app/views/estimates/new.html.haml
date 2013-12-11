@@ -1,5 +1,5 @@
 .container
   = simple_form_for @estimate, url: estimates_path, method: :post do |f|
     = render 'form', f: f
-    = f.submit "Save Draft", class: "btn btn-primary"
-    = f.submit "Send Estimate", class: "btn btn-success"
+    = f.submit "Save Draft", id: "save_estimate", class: "btn btn-primary"
+    = f.submit "Send Estimate", id: "send_estimate", class: "btn btn-success"

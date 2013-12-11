@@ -62,6 +62,17 @@ class Invoice < ActiveRecord::Base
     after_transition :processing => :payout do |invoice|
       invoice.request_transfer
     end
+
+    after_transition :draft => :sent do |invoice|
+      invoice.activities.create(
+        user_id: invoice.sender.account.owner.id,
+        message: "sent to #{invoice.reciever.account.owner.name}"
+      )
+      invoice.activities.create(
+        user_id: invoice.reciever.account.owner.id,
+        message: "recieved from #{invoice.sender.account.name}"
+      )
+    end
   end
 
   def to_param
@@ -115,8 +126,16 @@ class Invoice < ActiveRecord::Base
       )
       self.update_attributes(stripe_charge_id: charge.id)
       if is_escrow
+        self.activities.create(
+          user_id: self.sender.owner.id,
+          message: "paid and put in escrow by #{self.reciever.name}"
+        )
         self.in_escrow
       else
+        self.activities.create(
+          user_id: self.sender.owner.id,
+          message: "paid by #{self.reciever.name}"
+        )
         self.pay_out
       end
     rescue Stripe::CardError => e

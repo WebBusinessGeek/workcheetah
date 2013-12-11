@@ -43,7 +43,7 @@ class Estimate < ActiveRecord::Base
         body: "Estimate recived from #{estimate.sent_by.user.name}"
       )
       estimate.activities.create(
-        user_id: estimate.send_by.user_id,
+        user_id: estimate.sent_by.user_id,
         message: "sent to #{estimate.job.account.name}"
       )
       estimate.activities.create(

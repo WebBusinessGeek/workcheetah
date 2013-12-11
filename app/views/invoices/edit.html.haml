@@ -4,4 +4,4 @@
       = simple_form_for @invoice, url: invoice_path(@invoice.id), method: :put, html:{ data: {id: @invoice.guid}} do |f|
         = render 'form', f: f
         .col-md-3= f.submit "Update Draft", class: "btn btn-large btn-success"
-        .col-md-3= f.submit "Send Invoice", class: "btn btn-large btn-success"
+        .col-md-3= f.submit "Send Invoice", id: "send_invoice", class: "btn btn-large btn-success"

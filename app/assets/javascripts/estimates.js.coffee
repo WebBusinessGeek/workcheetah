@@ -1,20 +1,30 @@
 $ ->
   if('#new_estimate').length
-    $('form#new_estimate').submit ->
-      disable_buttons()
+    $('form#send_estimate').on 'click', ->
+      disableButtonAndSubmit()
+      true
+
+    $('form#save_estimate').on 'click', ->
+      disableButtonAndSubmit()
       true
     bind_line_item_totals()
 
   if('.edit_estimate').length
-    $('form.edit_estimate').submit ->
-      disable_buttons()
+    $('form#save_estimate').on 'click', ->
+      disableButtonAndSubmit()
+      true
+
+    $('form.send_estimate').on 'click', ->
+      disableButtonAndSubmit()
       true
     bind_line_item_totals()
     update_estimate_total()
 
-disable_buttons = ->
-  $('input[type=submit]').attr('disabled', true)
-  $('input[type=submit]').attr('value', 'Submitting')
+disableButtonAndSubmit = ->
+  input = $("<input type='hidden' />").attr("name", $(this)[0].name).attr("value", $(this)[0].value)
+  $(this).closest('form').append(input)
+  $(this).attr('disabled', 'disabled').html('Submitting...')
+  $(this).closest('form').submit()
 
 bind_line_item_totals = ->
     $('form').on 'change', 'input.hours', ->
