@@ -77,7 +77,7 @@ class Job < ActiveRecord::Base
   end
 
   def create_notification
-    self.activities.create(message: "Job created", user_id: self.account.owner.id)
+    self.activities.create(message: "created", user_id: self.account.owner.id)
   end
 
   def working?

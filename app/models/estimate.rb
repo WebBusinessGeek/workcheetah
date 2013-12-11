@@ -57,6 +57,10 @@ class Estimate < ActiveRecord::Base
         user_id: estimate.sent_by.user_id,
         body: "Estimate rejected by #{estimate.job.account.name}"
       )
+      estimate.activities.create(
+        user_id: estimate.sent_by.user_id,
+        message: "rejected by #{estimate.job.account.name}"
+      )
     end
     after_transition :reviewing => :accepted do |estimate|
       #1 mail accepted to sent_by.user
@@ -64,12 +68,20 @@ class Estimate < ActiveRecord::Base
         user_id: estimate.sent_by.user_id,
         body: "Estimate accepted by #{estimate.job.account.name}"
       )
+      estimate.activities.create(
+        user_id: estimate.sent_by.user_id,
+        message: "accepted by #{estimate.job.account.name}"
+      )
     end
     after_transition :reviewing => :needs_revision do |estimate|
       #1 mail accepted to sent_by.user
       estimate.notifications.create(
         user_id: estimate.sent_by.user_id,
         body: "Estimate sent back #{estimate.job.account.name}"
+      )
+      estimate.activities.create(
+        user_id: estimate.sent_by.user_id,
+        message: "sent back for revisions by #{estimate.job.account.name}"
       )
     end
   end
@@ -97,7 +109,7 @@ class Estimate < ActiveRecord::Base
   end
 
   def send_create_notifications
-    self.activities.create(message: "You have created", user_id: sent_by.user_id)
+    self.activities.create(message: "created", user_id: sent_by.user_id)
   end
 
   def proposed_total
