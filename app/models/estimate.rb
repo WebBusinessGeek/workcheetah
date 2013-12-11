@@ -16,6 +16,8 @@ class Estimate < ActiveRecord::Base
   accepts_nested_attributes_for :estimate_items, allow_destroy: true
   accepts_nested_attributes_for :estimate_items
 
+  after_create :send_create_notifications
+
   state_machine initial: :drafting do
     event :send_proposal do
       transition [:drafting, :needs_revision] => :reviewing
@@ -39,6 +41,14 @@ class Estimate < ActiveRecord::Base
       estimate.notifications.create(
         user_id: estimate.job.account.owner.id,
         body: "Estimate recived from #{estimate.sent_by.user.name}"
+      )
+      estimate.activities.create(
+        user_id: estimate.send_by.user_id,
+        message: "sent to #{estimate.job.account.name}"
+      )
+      estimate.activities.create(
+        user_id: estimate.job.account.owner.id,
+        message: "recieved from #{estimate.sent_by.user.name}"
       )
     end
     after_transition :reviewing => :rejected do |estimate|
@@ -84,6 +94,10 @@ class Estimate < ActiveRecord::Base
     @project = Project.create! title: job.title, job: job, owner_id: job.account.owner.id
     @project.users << @project.owner
     @project.users << sent_by.user
+  end
+
+  def send_create_notifications
+    self.activities.create(message: "You have created", user_id: sent_by.user_id)
   end
 
   def proposed_total

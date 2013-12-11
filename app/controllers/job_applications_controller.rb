@@ -20,10 +20,11 @@ class JobApplicationsController < ApplicationController
   end
 
   def show
-    @job = Job.find(params[:job_id])
-
-    @job_application = @job.job_applications.find(params[:id])
+    @job_application = JobApplication.find(params[:id])
     @resume = @job_application.user.resume
+    if @resume == current_user.resume
+      redirect_to job_path(@job) and return
+    end
     if ['freelancer', 'business'].include? current_user.role?
       @available_jobs = Job.find(current_user.account.job_ids - @resume.invites.map(&:job_id))
     end
@@ -76,7 +77,7 @@ class JobApplicationsController < ApplicationController
   end
 
   def hire
-    @job = Job.find(params[:job_id])
+    # @job = Job.find(params[:job_id])
     @job_application = @job.job_applications.find(params[:id])
     if @job_application.hire!(params[:type])
       message = "User hired"
@@ -87,7 +88,7 @@ class JobApplicationsController < ApplicationController
   end
 
   def reject
-    @job = Job.find(params[:job_id])
+    # @job = Job.find(params[:job_id])
     @job_application = @job.job_applications.find(params[:id])
     @job_application.reject!
     redirect_to [@job, :job_applications]
@@ -104,7 +105,11 @@ class JobApplicationsController < ApplicationController
   end
 
   def load_job
-    @job = Job.find(params[:job_id]) if params[:job_id]
+    if params[:job_id]
+      @job = Job.find(params[:job_id])
+    else
+      @job = JobApplication.find(params[:id]).job
+    end
   end
 
   def job_application_params

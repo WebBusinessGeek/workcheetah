@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   has_many :timesheets
   has_many :tasks, through: :projects
   has_many :events, dependent: :destroy
-  has_many :activities, as: :trackable, dependent: :destroy
+  has_many :activities, dependent: :destroy
   # Associations for staffing feature
   has_many :staffings, class_name: "Staff", foreign_key: "client_id", dependent: :destroy
   has_many :staffed_users, through: :staffings, source: :staffer
