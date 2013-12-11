@@ -7,6 +7,8 @@ module ActivitiesHelper
       render 'activities/job', {activity: activity}
     when "Estimate"
       render 'activities/estimate', {activity: activity}
+    when "Project"
+      render 'activities/project', {activity: activity}
     end
   end
 end

@@ -51,6 +51,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     authorize! :destroy, @project
+    @project.delay.destroy_notifications
     @project.destroy
     redirect_to projects_path, notice: "Project successfully deleted."
   end

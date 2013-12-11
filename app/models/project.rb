@@ -10,9 +10,30 @@ class Project < ActiveRecord::Base
   has_many :invoices
   has_many :timesheets
   has_many :timesheet_entries, through: :timesheets
+  has_many :activities, as: :trackable
+
+  after_create :create_notifications
 
   scope :private_to_user, where(job_id: nil)
   scope :working, where("job_id != ?",nil)
+
+  def create_notifications
+    self.activities.create(
+      user_id: self.owner_id,
+      message: " created."
+    )
+  end
+  handle_asynchronously :create_notifications
+
+  def destroy_notifications
+    self.projects_users.each do |user|
+      self.activities.create(
+        user_id: user.user_id,
+        message: "destroyed."
+      )
+    end
+  end
+
   def private?
     !job_id
   end
