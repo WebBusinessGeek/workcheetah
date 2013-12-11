@@ -26,7 +26,6 @@ class AdvertiserSignUp
     delegates_attributes_to_user
 
     delegates_errors_to_user unless @user.valid?
-    
 
     if !errors.any?
       persist!
@@ -54,7 +53,7 @@ class AdvertiserSignUp
     end
 
     def persist!
-      @user.confirm!
+      # @user.confirm!
       @user.save!
       @user.create_advertiser_account!
     end

@@ -120,7 +120,6 @@ class JobsController < ApplicationController
     respond_to do |format|
       if @job.save
         if current_user
-          current_user.activities.create(message: "Created a job", job_id: @job.id)
           if current_user.moderator?
             NotificationMailer.new_claimable_job(@job).deliver
           end
@@ -213,7 +212,6 @@ class JobsController < ApplicationController
     job_ids.each do |job_id|
       if JobApplication.where(user_id: current_user.id, job_id: job_id).empty? and Job.find(job_id).quick_applicable?
         JobApplication.create(user_id: current_user.id, job_id: job_id, status: "Application Sent")
-        Activity.create(user_id: current_user.id, message: "Applied for a job", job_id: job_id)
       end
     end
 
@@ -231,7 +229,6 @@ class JobsController < ApplicationController
     @job.notifications.create(body: "You have been invited to a job.", user_id: @resume.user.id)
     @job.account.decrement_credit('invite')
 
-    Activity.create(user_id: current_user.id, message: "Send Invites for a job", job_id: @job.id)
     NotificationMailer.new_job_invite(@job, [@resume]).deliver
 
     redirect_to :back, notice: "Job applicant invited."

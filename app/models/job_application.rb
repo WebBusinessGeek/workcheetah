@@ -5,6 +5,7 @@ class JobApplication < ActiveRecord::Base
   belongs_to :user
   has_one :applicant_access, as: :applicable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
+  has_many :activites, as: :trackable, dependent: :destroy
 
   NOTES = ["Interview Scheduled","Had Interview", "Have not spoken to",
     "Contact made", "Not Interested", "Interested"]
@@ -14,16 +15,18 @@ class JobApplication < ActiveRecord::Base
   after_destroy :destruction_notification
 
   def creation_notification
-    self.notifications.create(body: "Someone has applied to one of your jobs.", user_id: self.job.account.owner)
+    self.notifications.create(body: "Someone has applied to one of your jobs.", user_id: self.job.account.owner.id)
+    self.activities.create(message: "You have recieved a job application", user_id: self.job.account.owner.id)
+    self.activities.create(message: "You have applied to a job.", user_id: self.user_id)
   end
 
   def change_notification
-    self.notifications.create(body: "Your job application has been changed.", user_id: self.job.account.owner)
+    self.notifications.create(body: "Your job application has been changed.", user_id: self.job.account.owner.id)
     self.notifications.create(body: "Your job application has been changed.", user_id: self.user_id)
   end
 
   def destruction_notification
-    Notification.create(body: "Your job application has been destroyed.", user_id: self.job.account.owner)
+    Notification.create(body: "Your job application has been destroyed.", user_id: self.job.account.owner.id)
     Notification.create(body: "Your job application has been destroyed.", user_id: self.user_id)
   end
 

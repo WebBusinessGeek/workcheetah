@@ -7,6 +7,10 @@ class AccountsController < ApplicationController
     end
   end
 
+  def new
+    @account = current_user.build_account
+  end
+
   def show
     load_account
     # redirect_to root_path, notice: "Access denied" unless current_user.admin? || current_user.account == @account
@@ -80,6 +84,9 @@ class AccountsController < ApplicationController
       @account = Account.where(slug: params[:slug]).first!
     elsif current_user
       @account = current_user.account
+      if @account.nil?
+        @account = current_user.build_account
+      end
     end
   end
 

@@ -13,6 +13,7 @@ class StaffsController < ApplicationController
   def contacts
     @clients = current_user.clients
     @staffed_users = current_user.staffed_users
+    @contacts = @clients + @staffed_users
   end
 
   def remove

@@ -1,5 +1,6 @@
 class ResumesController < ApplicationController
-  # before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:new]
+  # before_filter :check_for_account
 
   def new
     @resume = Resume.new
@@ -107,6 +108,11 @@ class ResumesController < ApplicationController
   end
 
   private
+    def check_for_account
+      if user_signed_in? and !current_user.account.present?
+        redirect_to new_account_path, notice: "Looks like you do not have an account set up yet, you need an account to post jobs, hire users, take advantage of the invoicing system and much more."
+      end
+    end
 
   def resume_params
     params.require(:resume).permit( :name, :phone, :email, :email_for_claim, :website,

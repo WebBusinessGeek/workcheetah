@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
-  before_filter :authenticate_user!, :check_for_resume
+  before_filter :authenticate_user!
+  before_filter :check_for_resume
 
   def index
     @category_list = Category.scoped.order(:name)
@@ -65,8 +66,8 @@ class CategoriesController < ApplicationController
 
   private
     def check_for_resume
-      if user_signed_in? and current_user.resume and !current_user.resume.enough_for_employers? || !current_user.resume.present?
-        redirect_to root_path, notice: "Looks like your resume isn't complete. Having a completed resume increases the likelihood of a company becoming interested in hiring you. You should provide your name, phone number, at least one address and at least one category that's of interest."
+      if user_signed_in? and !current_user.resume.present?
+        redirect_to new_resume_path, notice: "Looks like you work profile does not. Having a completed resume increases the likelihood of a company becoming interested in hiring you."
       end
     end
 

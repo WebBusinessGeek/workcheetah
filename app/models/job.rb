@@ -2,6 +2,7 @@ class Job < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
   after_save :update_rating
+  after_create :create_notification
 
   default_scope { searchable }
 
@@ -19,6 +20,7 @@ class Job < ActiveRecord::Base
   has_many :job_applications, dependent: :destroy
   has_one :applicant_access, class_name: "ApplicantAccess"
   has_many :notifications, as: :notifiable, dependent: :destroy
+  has_many :activities, as: :trackable, dependent: :destroy
   has_and_belongs_to_many :skills
   has_many :questions
   has_many :recieved_estimates, class_name: "Estimate", foreign_key: "job_id"
@@ -72,6 +74,10 @@ class Job < ActiveRecord::Base
       RANK
       where("title @@ :q or description @@ :q", q: query).order("#{rank} desc")
     end
+  end
+
+  def create_notification
+    self.activities.create(message: "Job created", user_id: self.account.owner.id)
   end
 
   def working?

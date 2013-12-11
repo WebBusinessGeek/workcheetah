@@ -10,7 +10,7 @@ class Estimate < ActiveRecord::Base
   belongs_to :sent_by, class_name: "Resume", foreign_key: "resume_id"
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
-
+  has_many :activities, as: :trackable, dependent: :destroy
   before_save :update_total
 
   accepts_nested_attributes_for :estimate_items, allow_destroy: true
