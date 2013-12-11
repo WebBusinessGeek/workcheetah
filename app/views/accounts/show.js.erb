@@ -1,0 +1,10 @@
+console.log('<%= @account.inspect %>')
+console.log('<%= @part.inspect %>')
+var selector = $('#account')
+<% if @part == :show %>
+    selector.html('<%= j render("accounts/show") %>')
+<% elsif @part == :company %>
+    selector.html('<%= j render("accounts/customize") %>')
+<% else @part == :login %>
+    selector.html('<%= j render("users/edit") %>')
+<% end %>

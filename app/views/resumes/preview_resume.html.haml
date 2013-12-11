@@ -70,7 +70,7 @@
                 .col-md-6.col-sm-6
                   %h3
                     -unless reference.confirmation
-                      =link_to "Send Confirmation Request", new_confirmation_path(reference: reference, email: reference.email), remote: true
+                      =link_to "Send Confirmation Request", new_confirmation_path(reference: reference, email: reference.email), remote: true if current_user.resume == @resume
                     -else
                       -if reference.confirmed?
                         CONFIRMED
@@ -90,11 +90,10 @@
                       = reference.feedback
             - else
               .col-md-6.col-sm-6
-                %h3 No References provided
+                No References provided
             .row
               .col-md-12
-                %hr/
-                = link_to "Add a new reference", new_resume_reference_path(@resume), class: "btn btn-viewall pull-left", data: {toggle: "modal", target: "#newReferenceModal"}, remote: true
+                = link_to "Add a new reference", new_resume_reference_path(@resume), class: "btn btn-viewall pull-left", data: {toggle: "modal", target: "#newReferenceModal"}, remote: true if current_user.resume == @resume
                 #newReferenceModal.modal.fade{tabindex: "-1", role: "dialog", "aria-labelledby" => "referenceModalLabel", "aria-hidden" => "true"}
                   .modal-dialog
                     .modal-content

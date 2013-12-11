@@ -1,4 +1,9 @@
 class AccountsController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :load_account, except: [:index, :new]
+
+  respond_to :html, :js
+
   def index
     if current_user.admin?
       @accounts = Account.scoped
@@ -12,47 +17,43 @@ class AccountsController < ApplicationController
   end
 
   def show
-    load_account
-    # redirect_to root_path, notice: "Access denied" unless current_user.admin? || current_user.account == @account
-    if params[:slug]
-      @jobs = @account.jobs
-      @portal = true
-      render "jobs/index", layout: "portal"
+    @user = current_user
+    if params[:part] == "bank_account"
+      @part = :bank_account
+    elsif params[:part] == "login"
+      @part = :login
+    elsif params[:part] == "company"
+      @part = :company
     else
-      render "show"
+      @part = :show
     end
+    logger.debug @part
   end
 
   def edit
-    load_account
   end
 
   def customize
-    load_account
   end
 
   def update
-    load_account
     @account.assign_attributes(account_params)
     @account.save
     redirect_to account_path
   end
 
   def add_seal
-    load_account
     if @account.safe_job_seal?
       redirect_to my_jobs_path, notice: "Your account already has the Safe Job seal."
     end
   end
 
   def remove_seal
-    load_account
     @account.update_attribute(:safe_job_seal, false)
     redirect_to [:account]
   end
 
   def buy_seal
-    load_account
     @response = @account.buy_seal
     # if @response.failure_message.nil?
     if @response
@@ -64,14 +65,12 @@ class AccountsController < ApplicationController
   end
 
   def suspend
-    load_account
     @account.update_attribute(:active, false)
     @account.jobs.update_all(active: false)
     redirect_to accounts_path
   end
 
   def recruits
-    load_account
     @accessible_job_applications = @account.job_applications.includes(:job, user: :resume)
   end
 

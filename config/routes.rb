@@ -183,19 +183,14 @@ CareerLoop::Application.routes.draw do
   resources :payment_profiles
   resources :email_subscriptions
 
-  resource :account do
-    member do
-      get :customize
-      get :add_seal
-      get :remove_seal
-      post :buy_seal
-    end
-  end
-
   resources :accounts do
     member do
       post :suspend
       get :recruits
+      get :customize
+      get :add_seal
+      get :remove_seal
+      post :buy_seal
     end
   end
   resources :notifications, only: [:index, :destroy]
