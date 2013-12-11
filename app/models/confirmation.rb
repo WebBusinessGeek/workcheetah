@@ -55,7 +55,7 @@ class Confirmation < ActiveRecord::Base
         u.role = 'business'
       end
       puts user.inspect
-      user.confirm!
+      # user.confirm!
       user.save!
       update_column(:confirm_by, user.id)
     else

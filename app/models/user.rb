@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  attr_accessible :terms_of_service, :email, :password, :password_confirmation
+  # attr_accessible :terms_of_service, :email, :password, :password_confirmation, :role
   has_many :job_applications, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :scam_reports, dependent: :destroy
@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable,
   # :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :async
+         :recoverable, :rememberable, :trackable, :validatable, :async
 
   validates :terms_of_service, acceptance: true
   serialize :target_params
