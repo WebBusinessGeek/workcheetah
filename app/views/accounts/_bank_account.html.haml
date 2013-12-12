@@ -1,0 +1,18 @@
+= form_tag update_bank_account_path(id: @user.id), class: 'form-horizontal', id: 'account-form' do
+  %legend Bank Account
+  #stripe_error
+  .form-group
+    %label.control-label.col-sm-2{for: "fullName"} Full Name
+    .col-sm-8
+      %input#fullName.form-control{type: "text", name: "fullName"}
+  .form-group
+    %label.control-label.col-sm-2{for: "routingNumber"} Routing Number
+    .col-sm-8
+      %input.routingNumber.form-control{type: "text",name: "routingNumber", size: 9, placeholder: "*********"}
+  .form-group
+    %label.control-label.col-sm-2{for: "accountNumber"} Account Number
+    .col-sm-8
+      %input.accountNumber.form-control{type: "text", name: "accountNumber"}
+  .form-group
+    .col-sm-offset-2.col-sm-8
+      %button.btn.btn-primary{type: "submit"} Save

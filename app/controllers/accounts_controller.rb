@@ -16,6 +16,16 @@ class AccountsController < ApplicationController
     @account = current_user.build_account
   end
 
+  def create
+    @account = Account.new(account_params)
+
+    if @account.save!
+      @account.users << current_user
+      redirect_to root_path, notice: "Account succesfully created."
+    else
+      render 'new'
+    end
+  end
   def show
     @user = current_user
     if params[:part] == "bank_account"
@@ -24,10 +34,12 @@ class AccountsController < ApplicationController
       @part = :login
     elsif params[:part] == "company"
       @part = :company
+    elsif params[:part] == "payment_profile"
+      @part = :payment_profile
+      @payment_profile = @account.payment_profiles.build
     else
       @part = :show
     end
-    logger.debug @part
   end
 
   def edit
@@ -37,9 +49,11 @@ class AccountsController < ApplicationController
   end
 
   def update
-    @account.assign_attributes(account_params)
-    @account.save
-    redirect_to account_path
+    if @account.update_attributes(account_params)
+      redirect_to account_path, notice: "Account succesfully updated"
+    else
+      redirect_to account_path, notice: "Account succesfully updated"
+    end
   end
 
   def add_seal
@@ -90,6 +104,6 @@ class AccountsController < ApplicationController
   end
 
   def account_params
-    params.require(:account).permit(:name, :slug, :logo, :role)
+    params.require(:account).permit(:name, :website, :slug, :logo, :role)
   end
 end

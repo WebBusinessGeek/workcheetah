@@ -1,16 +1,22 @@
-%h1 Edit Your Account
-= form_for(@user, :url => {controller: "users", action: "update" } ) do |f|
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :password, "New Password"
-    = f.password_field :password, :autocomplete => "off"
-  .field
-    = f.label :password_confirmation, "New Password Confirmation"
-    = f.password_field :password_confirmation
-  .field
+= form_for(@user, :url => {controller: "users", action: "update" }, html: {class: "form-horizontal", role: "form"} ) do |f|
+  %legend Edit Your Account
+  .form-group
+    = f.label :email, class: "col-sm-2 control-label"
+    .col-sm-10= f.text_field :email, class: "form-control"
+  .form-group
+    = f.label :role, class: "col-sm-2 control-label"
+    .col-sm-10
+      - if @user.role.present?
+        %p.form-control-static= @user.role
+      - else
+        = f.select :role, ['freelancer','business','employee'], class: "form-control"
+  .form-group
+    = f.label :password, "New Password", class: "col-sm-2 control-label"
+    .col-sm-10= f.password_field :password, :autocomplete => "off", class: "form-control"
+  .form-group
+    = f.label :password_confirmation, "New Password Confirmation", class: "col-sm-2 control-label"
+    .col-sm-10= f.password_field :password_confirmation, class: "form-control"
+  .form-group
     Unhappy?
     = link_to "Cancel my account", registration_path(@user), :confirm => "Are you sure?", :method => :delete
-  .action_container
     = f.submit "Update Password", class: "btn btn-success"

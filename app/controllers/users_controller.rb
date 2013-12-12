@@ -7,13 +7,20 @@ class UsersController < ApplicationController
   end
 
   def update
+    account_update_params = params[:user]
+    if account_update_params[:password].blank?
+      account_update_params.delete("password")
+      account_update_params.delete("password_confirmation")
+    end
+
     @user = User.find(current_user.id)
     if @user.update_attributes(user_password_params)
-      # Sign in the user by passing validation in case his password changed
+      # Sign in the user bypassing validation in case his password changed
       sign_in @user, :bypass => true
-      redirect_to root_path, notice: "Your user account has been updated"
+      redirect_to account_path(id: @user.account_id), notice: "Your user account has been updated"
     else
-      render "edit"
+      logger.debug @user.errors.inspect
+      redirect_to account_path(id: @user.account, part: :login), notice: "Error saving form, please try again."
     end
   end
 
@@ -24,9 +31,9 @@ class UsersController < ApplicationController
       bank_account: params[:stripeToken]
     )
     if current_user.update_attributes(stripe_recipient_id: recipient.id)
-      redirect_to root_path, notice: "Bank Account Succesffuly added"
+      redirect_to accounts_path(id: current_user.account_id, part: :bank_account), notice: "Bank Account Succesffuly added"
     else
-      redirect_to edit_user_path(bank_account: true)
+      redirect_to accounts_path(id: current_user.account_id, part: :bank_account)
     end
   end
 
@@ -56,12 +63,11 @@ class UsersController < ApplicationController
   end
 
   private
+    def user_password_params
+      params.require(:user).permit(:email, :role,  :password, :password_confirmation)
+    end
 
-  def user_password_params
-    params.require(:user).permit(:password, :password_confirmation)
-  end
-
-  def user_params
-    params.require(:user).permit(:email, :password)
-  end
+    def user_params
+      params.require(:user).permit(:email, :role, :password)
+    end
 end

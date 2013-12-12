@@ -1,16 +1,16 @@
 .accounts_show.container
   .row
     .col-md-3
-      %ul.nav
-        %li= link_to "Summary", account_path(id: @account.id, part: :show), remote: true
-        %li= link_to "Edit login", account_path(id: @account.id, part: :login), remote: true
-        %li= link_to "Company Info", account_path(id: @account.id, part: :company), remote: true
-        %li= link_to "Bank Account", account_path(id: @account.id, part: :bank_account), remote: true
-        %li= link_to "Payment Information", account_path(id: @account.id, part: :payment_profile), remote: true
+      %ul.nav.nav-pills.nav-stacked
+        %li{class: "#{'active' if @part == :show}"}= link_to "Summary", account_path(id: @account.id, part: :show)
+        %li{class: "#{'active' if @part == :login}"}= link_to "Edit login", account_path(id: @account.id, part: :login)
+        %li{class: "#{'active' if @part == :company}"}= link_to "Company Info", account_path(id: @account.id, part: :company)
+        %li{class: "#{'active' if @part == :bank_account}"}= link_to "Bank Account", account_path(id: @account.id, part: :bank_account)
+        %li{class: "#{'active' if @part == :payment_profile}"}= link_to "Payment Information", account_path(id: @account.id, part: :payment_profile)
     .col-md-9
       %section#account
-        = render 'users/edit' if @action == :login
-        = render 'customize' if @action == :company
-        = render 'bank_account' if @action == :bank_account
-        = render "payment_profile'" if @action == :payment_profile
-        = render 'show'
+        = render 'users/edit' if @part == :login
+        = render 'customize' if @part == :company
+        = render 'bank_account' if @part == :bank_account
+        = render "payment_profiles/form" if @part == :payment_profile
+        = render 'show' if @part == :show

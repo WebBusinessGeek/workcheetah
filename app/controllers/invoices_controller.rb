@@ -1,6 +1,7 @@
 class InvoicesController < ApplicationController
   before_filter :user_signed_in?
   before_filter :load_project, only: [:new, :edit]
+  before_filter :check_for_account
 
   def index
     if params[:filter]

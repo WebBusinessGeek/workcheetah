@@ -1,0 +1,7 @@
+.container
+  .row
+    .col-md-8
+      %legend Set up your company information
+      = form_for @account, html: {role: "form", class: "form-horizontal"} do |f|
+        = render 'form', f: f
+        = f.submit "Submit", class: 'btn btn-lg btn-primary'

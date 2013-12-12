@@ -8,7 +8,12 @@
         %li= link_to "Sent", accounting_path(filter: "sent")
     .col-md-8
       %h2.pull-left Listing invoices
-      =link_to "New Invoice", new_invoice_path, class: "btn btn-large btn-success pull-right"
+      .well.pull-right
+        - if current_user.stripe_recipient_id.nil?
+          = link_to "Setup bank account", account_path(id: current_user.account_id, part: :bank_account)
+          .helper-block You must have a registered bank account on file to invoice users.
+        - else
+          = link_to "New Invoice", new_invoice_path, class: "btn btn-large btn-success pull-right"
       %table.table.table-bordered
         %tr
           %th{style: "width:20px"} #

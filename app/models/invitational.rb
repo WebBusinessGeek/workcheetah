@@ -7,14 +7,13 @@ class Invitational
   attr_reader :user, :parent_object
 
   attribute :email, String
-  attribute :name, String
   attribute :type, String
   attribute :type_id, Integer
 
   ALLOWED_TYPES = %w(Project Invoice Staff Job)
 
   validates :type, inclusion: ALLOWED_TYPES
-  validates :name, :email, :type, :type_id, presence: true
+  validates :email, :type, :type_id, presence: true
   validates :email, format: { :with => %r{.+@.+\..+} }, allow_blank: true
 
   def save
@@ -45,7 +44,7 @@ class Invitational
       @user = User.invite! email: email, role: "employee" if ["Staff", "Job"].include? type
     end
 
-    def send_invitational_email(type)
+    def send_invitational_message(type)
     end
 
     # def delegates_errors_to_user
@@ -58,12 +57,12 @@ class Invitational
       when "Project"
         @project = Project.find(type_id)
         @project.users << @user
-        @user.create_account! business_type: "business", name: name
+        @user.create_account! business_type: "business"
         @user.save!
         # send future Project invitational mailer
       when "Invoice"
         @invoice = Invoice.find(type_id)
-        @user.create_account! business_type: "business", name: name
+        @user.create_account! business_type: "business"
         @user.save!
         @invoice.update_attributes(reciever_id: @user.account_id)
         # send future Invoice invitational mailer

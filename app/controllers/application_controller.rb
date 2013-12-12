@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
   def current_account
     @account ||= current_user.account
   end
+  helper_method :current_account
 
   def current_resume
     @resume ||= current_user.resume
@@ -45,6 +46,7 @@ class ApplicationController < ActionController::Base
       @current_target_params = "all"
     end
   end
+  helper_method :current_target_params
 
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception, with: lambda { |exception| Rails.logger.info(exception.to_s); render_error 500, exception; }
@@ -86,6 +88,10 @@ class ApplicationController < ActionController::Base
       format.html { render template: "errors/error_#{status}", layout: 'layouts/application', status: status }
       format.all { render nothing: true, status: status }
     end
+  end
+
+  def check_for_account
+    return redirect_to new_account_path, notice: "You must create an account first to access this feature" if user_signed_in? && !current_user.account.present?
   end
 
   def authorize_admin!

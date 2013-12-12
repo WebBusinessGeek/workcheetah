@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
+  # include ActiveModel::ForbiddenAttributesProtection
 
-  # attr_accessible :terms_of_service, :email, :password, :password_confirmation, :role
+  attr_accessible :terms_of_service, :email, :password, :password_confirmation, :role
   has_many :job_applications, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :scam_reports, dependent: :destroy
@@ -138,6 +138,16 @@ class User < ActiveRecord::Base
   def remove_client!(user)
     @staff = reverse_staffings.find_by_client_id(user.id)
     @staff.destroy
+  end
+
+  after_invitation_accepted :set_up_invited_accounts
+
+  def set_up_invited_accounts
+     if self.account.present?
+      self.account.update_attribute(:business_type, self.role)
+    else
+      self.create_account!(business_type: self.role)
+    end
   end
 
   private
