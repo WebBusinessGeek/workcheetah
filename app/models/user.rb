@@ -146,7 +146,9 @@ class User < ActiveRecord::Base
      if self.account.present?
       self.account.update_attribute(:business_type, self.role)
     else
-      self.create_account!(business_type: self.role)
+      unless self.role == 'employee'
+        self.create_account!(business_type: self.role)
+      end
     end
   end
 

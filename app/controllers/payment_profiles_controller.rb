@@ -7,13 +7,10 @@ class PaymentProfilesController < ApplicationController
 
   def create
     @payment_profile = current_user.account.payment_profiles.new(payment_profile_params)
-    job_application_id = @payment_profile.first_job_applicant_to_buy
     product = @payment_profile.product
 
     if @payment_profile.save
-      if job_application_id
-        buy_job_application(@payment_profile.first_job_applicant_to_buy)
-      elsif product == "seal"
+      if product == "seal"
         redirect_to [:add_seal, :account], notice: "Your billing information has been saved and you're ready to now verify your company."
       else
         if session[:return_to]
@@ -22,9 +19,6 @@ class PaymentProfilesController < ApplicationController
           redirect_to root_path
         end
       end
-
-    else
-      render "job_applications/create_payment_profile"
     end
   end
 
@@ -37,7 +31,7 @@ class PaymentProfilesController < ApplicationController
   private
 
   def payment_profile_params
-    params.require(:payment_profile).permit(:stripe_card_token, :first_job_applicant_to_buy, :product)
+    params.require(:payment_profile).permit(:stripe_card_token, :product)
   end
 
   def buy_job_application(job_application_id)

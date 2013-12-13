@@ -8,13 +8,12 @@
     = formatted_address(@invoice.sender)
   .col-md-3
     - unless @available_recipients.empty?
-      = f.association :reciever, collection: @available_recipients, value_method: :account_id, label_method: :name
+      = f.association :reciever,label: "Recipient", collection: @available_recipients, value_method: :account_id, label_method: :name
     - else
       = label_tag "Clients", nil, class: "pull-left"
       = link_to "?", "javascript:void(0);", rel: "tooltip", data: {toggle: "tooltip", title: "You currently have no clients in the system."}, class: "clearfix"
-      = label_tag "Name"
-      = email_field_tag :recipient_name
-      = label_tag "Email"
+    #project_invitational
+      = link_to "Email?", "javascript:void(0);", rel: "tooltip", data: {toggle: "tooltip", title: "Or you can invite a user sending them an invitation into the system."}
       = text_field_tag :recipient_email
   .col-md-3
     = f.association :project, collection: current_user.projects, allow_blank: true, selected: (@project if @project)

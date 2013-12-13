@@ -47,17 +47,11 @@ class Invitational
     def send_invitational_message(type)
     end
 
-    # def delegates_errors_to_user
-    #   errors.add(:email, @user.errors[:email].first) if @user.errors[:email].present?
-    #   errors.add(:name, @user.errors[:name].first) if @user.errors[:name].present?
-    # end
-
     def connect_invitational
       case type
       when "Project"
         @project = Project.find(type_id)
         @project.users << @user
-        @user.create_account! business_type: "business"
         @user.save!
         # send future Project invitational mailer
       when "Invoice"
