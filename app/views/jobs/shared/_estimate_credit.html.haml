@@ -1,7 +1,7 @@
 - if current_user.account.has_payment_profile?
   = link_to "Buy Credits", "#estimate-credit-modal", {"role" => "button", "data-toggle" => "modal", class: "btn btn-viewall"}
 - else
-  = link_to "Update your billing info or enter a new one", new_payment_profile_path
+  = link_to "Update your billing info or enter a new one", accounts_path(id: current_user.account_id, part: :payment_profile)
 #estimate-credit-modal.modal.col-md-6.fade{"role" => "dialog", "aria-hidden" => "true"}
   .modal-dialog
     .modal-content

@@ -53,9 +53,17 @@
           .col-md-3
             - if @invoice.amount >= 0
               - if current_user.account == @invoice.reciever
-                = link_to "Approve and Pay Invoice", pay_invoice_path(@invoice, data: "pay"), method: :post, class: "btn btn-large btn-success" unless @invoice.escrow?
-                = link_to "Approve and Put into escrow", "javascript:void(0));", class: "btn btn-large btn-success" unless !@invoice.escrow?
+                - if current_user.has_payment_profile?
+                  = link_to "Approve and Pay Invoice", pay_invoice_path(@invoice, data: "pay"), method: :post, class: "btn btn-large btn-success" unless @invoice.escrow?
+                  = link_to "Approve and Put into escrow", "javascript:void(0));", class: "btn btn-large btn-success" unless !@invoice.escrow?
+                - else
+                  .helper-block Looks as though we do not have a credit card on file.
+                  = link_to "Add a payment method.", account_path(id: current_user.account_id, part: :payment_profile)
               - else
                 - if @invoice.escrow?
-                  = link_to "Request Payment", invoice_path(@invoice), {commit: 'request transfer'}, method: :post, class: "btn btn-large btn-success"
+                  - if current_user.stripe_recipient_id.nil?
+                    .helper-block You need a bank account on file to request transfers.
+                    = link_to "Add a bank account", account_path(id: current_user.account_id), part: :bank_account)
+                  - else
+                    = link_to "Request Payment", invoice_path(@invoice), {commit: 'request transfer'}, method: :post, class: "btn btn-large btn-success"
 
