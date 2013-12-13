@@ -56,7 +56,7 @@ class Invitational
         )
         Project.notifications.create!(
           user_id: @project.owner_id,
-          body:, "#{@user.email} added as collaborator."
+          body: "#{@user.email} added as collaborator."
         )
       when "Invoice"
         @invoice = Invoice.find(type_id)
