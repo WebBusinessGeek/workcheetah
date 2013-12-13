@@ -44,16 +44,20 @@ class Invitational
       @user = User.invite! email: email, role: "employee" if ["Staff", "Job"].include? type
     end
 
-    def send_invitational_message(type)
-    end
-
     def connect_invitational
       case type
       when "Project"
         @project = Project.find(type_id)
         @project.users << @user
         @user.save!
-        # send future Project invitational mailer
+        Project.activities.create!(
+          user_id: @user.id,
+          message: "Added as a collaborator to"
+        )
+        Project.notifications.create!(
+          user_id: @project.owner_id,
+          body:, "#{@user.email} added as collaborator."
+        )
       when "Invoice"
         @invoice = Invoice.find(type_id)
         @user.create_account! business_type: "business"
