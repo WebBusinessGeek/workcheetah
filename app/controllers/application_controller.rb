@@ -91,10 +91,12 @@ class ApplicationController < ActionController::Base
   end
 
   def check_for_account
-    if user_signed_in? && !current_user.account.present? || current_user.role == 'employee'
-      return redirect_to new_account_path, notice: "You must create an account first to access this feature"
-    else
-      return redirect_to root_path, notice: "Sorry, you must be a freelancer or business to access this feature"
+    if user_signed_in? && !current_user.account.present?
+      if current_user.role == 'employee'
+        return redirect_to root_path, notice: "Sorry, you must be a freelancer or business to access this feature"
+      else
+        return redirect_to new_account_path, notice: "You must create an account first to access this feature"
+      end
     end
   end
 
