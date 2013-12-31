@@ -55,7 +55,7 @@ class ResumesController < ApplicationController
       .includes(:user, :addresses, :experiences, :schools, :category1, :category2, :category3, references: [:confirmation])
       .where(id: params[:id]).first
     if user_signed_in?
-      if ['freelancer', 'business'].include? current_user.role?
+      if ['freelancer', 'business'].include? current_user.role? && current_user.account.present?
         @available_jobs = Job.find(current_user.account.job_ids - @resume.invites.map(&:job_id))
       end
     end
