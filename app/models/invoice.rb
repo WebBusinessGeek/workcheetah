@@ -6,6 +6,7 @@ class Invoice < ActiveRecord::Base
   belongs_to :reciever, class_name: "Account"
   belongs_to :project
   has_many :line_items, dependent: :destroy
+  has_many :activities, as: :trackable
 
   attr_accessor :email, :name
 
@@ -65,12 +66,12 @@ class Invoice < ActiveRecord::Base
 
     after_transition :draft => :sent do |invoice|
       invoice.activities.create(
-        user_id: invoice.sender.account.owner.id,
-        message: "sent to #{invoice.reciever.account.owner.name}"
+        user_id: invoice.sender.owner.id,
+        message: "sent to #{invoice.reciever.owner.name}"
       )
       invoice.activities.create(
-        user_id: invoice.reciever.account.owner.id,
-        message: "recieved from #{invoice.sender.account.name}"
+        user_id: invoice.reciever.owner.id,
+        message: "recieved from #{invoice.sender.name}"
       )
     end
   end
@@ -151,11 +152,8 @@ class Invoice < ActiveRecord::Base
       recipient:   self.sender.owner.stripe_recipient_id,
       description: "Transfer #{self.amount} to #{self.sender.owner.email}"
     )
-    if transfer.error_message.nil?
-      self.success
-    else
-      self.update_attributes(message: transfer.error_message, state: "errored")
-    end
+    self.update_attributes(stripe_transfer_id: transfer.id, stripe_transfer_status: transfer.status)
+    self.success
   end
 
   private

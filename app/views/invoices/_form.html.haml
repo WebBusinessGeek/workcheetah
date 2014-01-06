@@ -16,7 +16,7 @@
       = link_to "Email?", "javascript:void(0);", rel: "tooltip", data: {toggle: "tooltip", title: "Or you can invite a user sending them an invitation into the system."}
       = text_field_tag :recipient_email
   .col-md-3
-    = f.association :project, collection: current_user.projects, allow_blank: true, selected: (@project if @project)
+    = f.association :project, collection: current_user.projects, allow_blank: true, selected: (@project.id if @project)
 .row
   .col-md-8
     %table.table.table-striped

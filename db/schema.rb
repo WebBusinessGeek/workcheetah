@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131211121115) do
+ActiveRecord::Schema.define(:version => 20140106160051) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -362,12 +362,14 @@ ActiveRecord::Schema.define(:version => 20131211121115) do
     t.string   "stripe_charge_id"
     t.string   "description"
     t.string   "error"
-    t.integer  "amount_cents",     :default => 0,     :null => false
-    t.string   "amount_currency",  :default => "USD", :null => false
+    t.integer  "amount_cents",           :default => 0,     :null => false
+    t.string   "amount_currency",        :default => "USD", :null => false
     t.string   "state"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-    t.boolean  "escrow",           :default => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.boolean  "escrow",                 :default => false
+    t.string   "stripe_transfer_id"
+    t.string   "stripe_transfer_status"
   end
 
   create_table "job_applications", :force => true do |t|

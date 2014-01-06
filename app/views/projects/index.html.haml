@@ -3,6 +3,10 @@
   .row
     .col-md-2
       = link_to "Add a project", new_project_path, class: "btn btn-primary btn-success"
+    .col-md-6
+      - if @revenue
+        %p.lead Revenue
+        = number_to_currency Money.new(@revenue, "USD").to_s
   .row
     .col-md-12
       %h3 My Projects

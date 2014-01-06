@@ -4,6 +4,9 @@ class ProjectsController < ApplicationController
     # @projects = current_user.projects.includes(:tasks)
     # ensure proper ordering by position on join table
     @owned_projects, @callaboration_projects, = [],[]
+    if ['freelancer','business'].include? current_user.role
+      @revenue = current_user.account.sent_invoices.with_state("payout","finished").sum(&:amount_cents)
+    end
     @projects = current_user.projects_users.includes(:project)
     @projects.each do |project|
       if project.project.owner_id == current_user.id
