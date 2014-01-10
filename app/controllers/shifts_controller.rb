@@ -1,8 +1,15 @@
 class ShiftsController < ApplicationController
+  before_filter :authenticate_user!
+
   def index
-    @shifts = Shift.all
     @invitational = Invitational.new
-    @staffers = current_user.staffed_users.includes(:resume, :account)
+    if ['freelancer', 'business'].include? current_user.role?
+      @shifts = Shift.all
+      @staffers = current_user.staffed_users.includes(:resume, :account)
+    else
+      @shifts = current_user.scheduled_shifts
+      @staffers = [current_user]
+    end
   end
 
   def show
@@ -10,6 +17,7 @@ class ShiftsController < ApplicationController
   end
 
   def new
+    @staffers = current_user.staffed_users.includes(:resume, :account)
     @shift = Shift.new
   end
 
@@ -22,7 +30,7 @@ class ShiftsController < ApplicationController
 
     respond_to do |format|
       if @shift.save
-        format.html { redirect_to @shift, notice: 'Shift was successfully created.' }
+        format.html { redirect_to staffing_path, notice: 'Shift was successfully created.' }
         format.json { render json: @shift, status: :created, location: @shift }
       else
         format.html { render action: "new" }
@@ -48,6 +56,7 @@ class ShiftsController < ApplicationController
   def destroy
     @shift = Shift.find(params[:id])
     @shift.destroy
+    redirect_to :index
   end
 
   def invite

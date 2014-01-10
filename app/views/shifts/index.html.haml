@@ -1,7 +1,7 @@
 .container
 .row
   .col-md-2
-    = link_to "New Schedule", "javascript:void(0);", class: "btn btn-large btn-success"
+    = link_to "New Schedule", "javascript:void(0);", class: "btn btn-large btn-success" unless current_user.role == 'employee'
     %ul.nav.nav-list
       %li.nav-header Staff
     -@staffers.each do |staff|
@@ -10,7 +10,7 @@
     #index
       .row
         .col-md-8
-          #invite= render 'shifts/invitational', invitational: @invitational
+          #invite= render 'shifts/invitational', invitational: @invitational unless @invitational
       .row
         .col-md-8
           #shift_calender
@@ -28,18 +28,27 @@
               %th
               %th
               %th
-              - @shifts.each do |shift|
+              - unless @shifts.empty?
+                - @shifts.each do |shift|
+                  %tr
+                    %td= shift.user.name
+                    %td= shift.schedule_date
+                    %td= shift.start_hour.strftime "%l:%M %P"
+                    %td= shift.end_hour.strftime "%l:%M %P"
+                    %td= shift.account.name
+                    %td= shift.shift_hours
+                    %td= link_to 'Show', shift
+                    %td= link_to 'Edit', edit_shift_path(shift)
+                    %td= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' }
+              - else
                 %tr
-                  %td= shift.user.name
-                  %td= shift.schedule_date
-                  %td= shift.start_hour.strftime "%l:%M %P"
-                  %td= shift.end_hour.strftime "%l:%M %P"
-                  %td= shift.account.name
-                  %td= shift.shift_hours
-                  %td= link_to 'Show', shift
-                  %td= link_to 'Edit', edit_shift_path(shift)
-                  %td= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' }
-#shift_modal.modal.hide.fade{ tabindex: '-1', role: 'dialog', 'aria-hidden' => 'true', style: 'width: 52%' }
+                %td
+                %td
+                %td No Scheduled shifts
+                %td
+                %td
+                %td
+#shift_modal.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-hidden' => 'true', style: 'width: 52%' }
   .modal-dialog
     .modal-content
       .modal-header

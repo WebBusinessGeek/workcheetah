@@ -1,0 +1,10 @@
+= simple_form_for(@shift) do |f|
+  = f.error_notification
+
+  = f.input :employee_id, collection: @staffers, allow_blank: false
+  = f.input :schedule_date, as: :date
+  = f.input :start_hour
+  = f.input :end_hour
+  = f.input :creator_id, as: :hidden, input_html: { value: current_user.account_id }
+
+  = f.button :submit
