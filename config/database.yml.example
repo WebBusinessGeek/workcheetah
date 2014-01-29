@@ -1,0 +1,23 @@
+# PostgreSQL. Versions 8.2 and up are supported.
+
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: workcheetah_development
+  host: localhost
+  pool: 5
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: workcheetah_test
+  pool: 5
+  host: localhost
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: workcheetah_production
+  pool: 5
+  username:
+  password:
