@@ -20,9 +20,10 @@
           %h1= @resume.name
           %h3= @resume.resume_type.humanize
           %ul
-            %li
-              %h3 Location:
-              = @resume.addresses.first.city_state
+            - if @resume.addresses.any?
+              %li
+                %h3 Location:
+                = @resume.addresses.first.city_state
             %li
               %h3 Brief Description:
               - if @resume.schools.any?
