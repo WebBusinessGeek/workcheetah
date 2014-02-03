@@ -52,7 +52,8 @@
       phone: "999-555-3322",
       website: "http://www.company.com",
       category1_id: 7,
-      resume_type: user_type.first
+      resume_type: user_type.first,
+      status: "not blank anymore!"
     )
   else
   end
