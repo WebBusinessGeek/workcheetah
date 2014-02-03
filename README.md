@@ -1,15 +1,36 @@
 # WorkCheetah
 WorkCheetah is a jobs website with the mission of reducing umemployment by connecting companies that need people with people looking for new opportunities.
 
+## User Types
+
+#### Employees
+
+Has a resume but no account.
+Can apply to jobs.
+
+#### Freelancers
+
+Has a resume and an account
+Can send estimates
+Can send invoices
+
+#### Businesses
+
+Has a resume and an account.
+Resumes are termed Workprofiles in the application.
+Accounts are more internal and store minimal business related data for that user.
+Can send estimates
+Can send invoices
+
 ## Activities Stream
 
-### (To be done)
+### (done)
 
 Client requests and activities stream for the each users dashboard. I've held off implementing this as we need the other stuff in first and these type of streams can be taxing on a database as they generate alot of queries. We'll definitely need some type of cache or use redis to help and keep the system performant.
 
 ## Chat System
 
-### (To be done)
+### (To be re- done)
 
 Currently Workcheetah has a in-app messaging system that is homegrown. They are nder "Conversations" and "Notifications". The client wishes to expand upon this. He wishes a central page where one recieves notifacations and messages and client wishes for an inbox setup approach with "inbox", "draft", "sent" etc, currently implementing this functionality may require more work than necassary and the interface to send a message currently is tedious and error prone. 
 
@@ -27,11 +48,17 @@ I've researched this and like the "https://github.com/ging/mailboxer" gem, it wi
 
 ## Ad System
 
+### (To be redone)
+
 Workcheetah supports two type of Ads, images and text.
 Advertisers create a Campaign that has any combination of the above ads. We target users by the campaign so all advertisements inherit
 ad_targets from their campaign.
 
+1/25/14 update: Currently watiing on new specs for this feature and the targeting system will need to be redone. Also, Im going to want to move the counters to redis backed for speed improvements.
+
 ### ON THE SERVER
+
+This stuff does not need to be done in development.
 
 Setup the daily stats aggregator as a rake task using either whenever gem or heroku's schedulur
 

@@ -67,6 +67,7 @@ gem 'pry-rails'
 gem 'pry'
 gem 'pg'
 gem 'newrelic_rpm'
+gem 'date_validator'
 
 group :production do
   gem 'rails_12factor'
