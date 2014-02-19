@@ -1,0 +1,2 @@
+-@staffers.each do |staff|
+  %li= link_to "#{staff.email}", client_calendar_shifts_path(user_id: staff.id), remote: true

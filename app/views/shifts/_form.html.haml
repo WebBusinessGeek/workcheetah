@@ -3,8 +3,12 @@
 
   = f.input :employee_id, collection: @staffers, allow_blank: false
   = f.input :schedule_date, as: :date
-  = f.input :start_hour
-  = f.input :end_hour
+  = f.input :start_hour, as: :string
+  = f.input :end_hour, as: :string
   = f.input :creator_id, as: :hidden, input_html: { value: current_user.account_id }
 
   = f.button :submit
+
+  %script
+    $('#shift_start_hour').datetimepicker({dateFormat: 'yy-mm-dd', timeFormat: 'hh:mm:ss'});
+    $('#shift_end_hour').datetimepicker({dateFormat: 'yy-mm-dd'});

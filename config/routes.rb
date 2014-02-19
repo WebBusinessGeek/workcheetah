@@ -8,6 +8,10 @@ CareerLoop::Application.routes.draw do
   get '/pagethree',      to: 'staticpages#staticpagethree'
 
   resources :shifts do
+    member do
+      post :clock_in
+      post :clock_out
+    end
     collection do
      post :invite
      get :calendar

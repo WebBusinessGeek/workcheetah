@@ -2,13 +2,14 @@ class ShiftsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @invitational = Invitational.new
-    if ['freelancer', 'business'].include? current_user.role?
+    if ['business'].include? current_user.role?
+      @invitational = Invitational.new
       @shifts = Shift.all
+      @table_shifts = @shifts
       @staffers = current_user.staffed_users.includes(:resume, :account)
     else
-      @shifts = current_user.scheduled_shifts
-      @staffers = [current_user]
+      @table_shifts = current_user.scheduled_shifts
+      @shifts = @table_shifts.collect(&:to_calender_json)
     end
   end
 
@@ -75,8 +76,8 @@ class ShiftsController < ApplicationController
     @shifts = @staffer.scheduled_shifts
     @shifts = @shifts.before(params["end"]) if params["end"]
     @shifts = @shifts.after(params["start"]) if params["start"]
+    @tableshifts = @shifts
     @shifts = @shifts.collect(&:to_calender_json)
-    logger.debug @shifts.inspect
   end
 
   def calendar
@@ -84,7 +85,6 @@ class ShiftsController < ApplicationController
     @shifts = @shifts.before(params["end"]) if params["end"]
     @shifts = @shifts.after(params["start"]) if params["start"]
     @shifts = @shifts.collect(&:to_calender_json)
-    logger.debug @shifts.inspect
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @shifts }
@@ -100,6 +100,25 @@ class ShiftsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @shifts }
+    end
+  end
+
+  def clock_in
+    @shift = Shift.find(params[:id])
+    if current_user != @shift.user || current_user != @shift.account.owner
+      redirect_to action: :index
+    end
+    @shift.clock_in(current_user.id, Time.now)
+  end
+
+  def clock_out
+    @shift = Shift.find(params[:id])
+    if (current_user != @shift.user) || (current_user != @shift.account.owner)
+      redirect_to action: :index
+    end
+    @response = @shift.clock_out(current_user.id, Time.now)
+    if @response.is_a? String
+      flash[:notice] = @response
     end
   end
   private

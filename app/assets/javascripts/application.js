@@ -19,5 +19,6 @@
 //= require skrollr.menu
 //= require private_pub
 //= require chosen-jquery
+//= require jquery.ui.timepicker
 //= require_tree .
 

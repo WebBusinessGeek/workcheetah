@@ -1,56 +1,36 @@
 .container
-.row
-  .col-md-2
-    = link_to "New Schedule", "javascript:void(0);", class: "btn btn-large btn-success" unless current_user.role == 'employee'
-    %ul.nav.nav-list
-      %li.nav-header Staff
-    -@staffers.each do |staff|
-      %li= link_to "#{staff.email}", client_calendar_shifts_path(user_id: staff.id), remote: true
-  .col-md-8
-    #index
-      .row
-        .col-md-8
-          #invite= render 'shifts/invitational', invitational: @invitational unless @invitational
-      .row
-        .col-md-8
-          #shift_calender
-
-          %h3 listing Shifts
-
-          %table.table
-            %tr
-              %th Employee
-              %th Schedule date
-              %th start hour
-              %th end hour
-              %th creator
-              %th shift hours
-              %th
-              %th
-              %th
-              - unless @shifts.empty?
-                - @shifts.each do |shift|
-                  %tr
-                    %td= shift.user.name
-                    %td= shift.schedule_date
-                    %td= shift.start_hour.strftime "%l:%M %P"
-                    %td= shift.end_hour.strftime "%l:%M %P"
-                    %td= shift.account.name
-                    %td= shift.shift_hours
-                    %td= link_to 'Show', shift
-                    %td= link_to 'Edit', edit_shift_path(shift)
-                    %td= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' }
-              - else
-                %tr
-                %td
-                %td
-                %td No Scheduled shifts
-                %td
-                %td
-                %td
-#shift_modal.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-hidden' => 'true', style: 'width: 52%' }
-  .modal-dialog
-    .modal-content
-      .modal-header
-      .modal-body
-      .modal-footer
+  .row
+    .col-md-2
+      = link_to "New Schedule", new_shift_path, class: "btn btn-large btn-success" unless current_user.role == 'employee'
+      %ul.nav.nav-list
+        %li.nav-header Staff
+      - if @staffers && current_user.role == 'business'
+        = render 'staffer_list'
+    .col-md-10
+      #index
+        .row
+          .col-md-12
+            #invite= render 'shifts/invitational', invitational: @invitational unless @invitational.nil?
+        .row
+          .col-md-12
+            - if current_user.role == 'business'
+              #shift_calender
+            - else
+              = render 'client_calendar'
+              :javascript
+                $('#client_calendar').fullCalendar({
+                  defaultView: 'agendaWeek',
+                  events: $('#client_calendar').data('shifts'),
+                  eventClick: function(calEvent, jsEvent, view){
+                    jsEvent.preventDefault()
+                  }
+                });
+        .row
+          .col-md-12
+            #shift_table= render 'shift_table'
+  #shift_modal.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-hidden' => 'true', style: 'width: 52%' }
+    .modal-dialog
+      .modal-content
+        .modal-header
+        .modal-body
+        .modal-footer

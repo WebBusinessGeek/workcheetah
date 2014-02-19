@@ -37,7 +37,7 @@ class Shift < ActiveRecord::Base
         timed_shifts.create user: user, start_time: clock_in_time
       end
       self
-    elsif user_id == account.id
+    elsif user_id == account.owner.id
       if timed_shifts.any?
         return nil if timed_shifts.started.any?
         timed_shifts.create user: user, start_time: clock_in_time
@@ -52,31 +52,39 @@ class Shift < ActiveRecord::Base
 
   def clock_out(user_id, clock_out_time)
     if user_id == user.id
-      return nil if clock_out_time.to_date != schedule_date
+      return "Cannot clock in for a shift that is not scheduled today." if clock_out_time.to_date != schedule_date
       if timed_shifts.any?
         if timed_shifts.started.any?
           timed_shifts.started.last.update_attributes(end_time: clock_out_time)
         else
-          return nil
+          return "Clock out first"
         end
       else
-        return nil
+        return "Clock out first"
       end
       self
-    elsif user_id == account.id
+    elsif user_id == account.owner.id
       if timed_shifts.any?
         if timed_shifts.started.any?
           timed_shifts.started.last.update_attributes(end_time: clock_out_time)
         else
-          return nil
+          return "Clock in first."
         end
       else
-        return nil
+        return "Clock in first"
       end
       self
     else
-      return nil
+      return "You are not authorized to clock in for this shift."
     end
+  end
+
+  def clocked_in?
+    timed_shifts.any? && timed_shifts.started.any?
+  end
+
+  def clocked_out?
+    (timed_shifts.any? && timed_shifts.ended.any?) || timed_shifts.empty?
   end
 
   def logged_time

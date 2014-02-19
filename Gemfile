@@ -27,8 +27,6 @@ gem 'paperclip', '~> 3.0'
 gem 'paperclip-meta'
 gem 'pg'
 gem 'private_pub'
-gem 'pry'
-gem 'pry-rails' # So we get pry goodness on heroku
 gem 'rake', '~> 10.1.0'
 gem 'rmagick'
 gem 'rspec-rails'
@@ -70,38 +68,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-# <<<<<<< HEAD
-# gem "figaro"
-# gem 'libv8', '~> 3.11.8.3'
-# gem 'chosen-rails'
-# gem 'jquery-rails'
-# gem 'jquery-ui-rails'
-# gem 'tinymce-rails', '~> 3.5.8.3'
-# gem 'haml'
-# gem 'devise'
-# gem 'devise_invitable'
-# gem 'devise-async'
-# gem 'rspec-rails'
-
-# gem "strong_parameters", '>= 0.2.0'
-# gem "cancan"
-# gem 'stripe'
-# gem "state_select"
-# gem 'launchy'
-# gem 'fog'
-# gem 'carrierwave'
-# gem 'carrierwave_direct'
-# gem 'aws-sdk'
-# gem 'unf'
-# # gem 'rmagick'
-# gem "geocoder"
-# gem "paperclip", "~> 3.0"
-# gem 'paperclip-meta'
-# # So we get pry goodness on heroku
-# gem 'pry-rails'
-# gem 'pry'
-# gem 'pg'
-# gem 'newrelic_rpm'
 gem 'date_validator'
 
 group :development do
@@ -111,6 +77,7 @@ group :development do
   gem 'meta_request'
   gem 'quiet_assets'
   gem 'thin'
+  gem 'jazz_hands'
 end
 
 group :production do

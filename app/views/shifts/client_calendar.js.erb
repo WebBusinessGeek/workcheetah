@@ -1,4 +1,4 @@
-$('#index').html('<%= j render("shifts/client_schedule") %>')
+$('#index').html('<%= j render("shifts/client_calendar") %>')
 $('#client_calendar').fullCalendar({
     defaultView: 'agendaWeek',
     events: $('#client_calendar').data('shifts'),
