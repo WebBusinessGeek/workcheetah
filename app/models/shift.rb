@@ -16,11 +16,6 @@ class Shift < ActiveRecord::Base
     "#{shift_hours} hour shift for #{user.email}"
   end
 
-  def rate
-    # Todo: I foresee this being called alot so much to sql or cache it
-    Staff.where(client_id: account.owner.id, staffer_id: user.id).first.rate
-  end
-
   def to_calender_json(options={})
     {
       id: self.id,
@@ -95,6 +90,15 @@ class Shift < ActiveRecord::Base
 
   def logged_time
     timed_shifts.ended.sum(&:total_time)
+  end
+
+  def rate
+    # Todo: I foresee this being called alot so much to sql or cache it
+    Staff.where(client_id: account.owner.id, staffer_id: user.id).first.rate
+  end
+
+  def value
+    rate * logged_time
   end
 
   private
