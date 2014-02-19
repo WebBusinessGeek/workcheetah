@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140106160051) do
+ActiveRecord::Schema.define(:version => 20140219132454) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -461,6 +461,41 @@ ActiveRecord::Schema.define(:version => 20140106160051) do
 
   add_index "payment_profiles", ["accountable_id", "accountable_type"], :name => "index_payment_profiles_on_accountable_id_and_accountable_type"
 
+  create_table "payments", :force => true do |t|
+    t.string   "type"
+    t.string   "stripe_charge_id"
+    t.string   "stripe_transfer_id"
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.boolean  "transfer"
+    t.integer  "amount"
+    t.string   "status"
+    t.text     "params"
+    t.integer  "reference_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "payments", ["account_id"], :name => "index_payments_on_account_id"
+  add_index "payments", ["id", "type"], :name => "index_payments_on_id_and_type"
+  add_index "payments", ["reference_id"], :name => "index_payments_on_reference_id"
+  add_index "payments", ["user_id"], :name => "index_payments_on_user_id"
+
+  create_table "profiles", :force => true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "website"
+    t.string   "status"
+    t.string   "growth_importance"
+    t.string   "distance_importance"
+    t.string   "freedom_importance"
+    t.string   "pay_importance"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "twitter"
+  end
+
   create_table "project_documents", :force => true do |t|
     t.integer  "project_id"
     t.string   "document_file_name"
@@ -533,8 +568,8 @@ ActiveRecord::Schema.define(:version => 20140106160051) do
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"
-    t.boolean  "private",             :default => false
     t.integer  "rating"
+    t.boolean  "private",             :default => false
     t.string   "resume_type"
   end
 
@@ -589,10 +624,12 @@ ActiveRecord::Schema.define(:version => 20140106160051) do
     t.integer  "shift_hours"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "payment_id"
   end
 
   add_index "shifts", ["creator_id"], :name => "index_shifts_on_creator_id"
   add_index "shifts", ["employee_id"], :name => "index_shifts_on_employee_id"
+  add_index "shifts", ["payment_id"], :name => "index_shifts_on_payment_id"
   add_index "shifts", ["schedule_date"], :name => "index_shifts_on_schedule_date"
 
   create_table "skill_groups", :force => true do |t|
@@ -613,6 +650,7 @@ ActiveRecord::Schema.define(:version => 20140106160051) do
     t.integer  "client_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "rate"
   end
 
   create_table "tasks", :force => true do |t|

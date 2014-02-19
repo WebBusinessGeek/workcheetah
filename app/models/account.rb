@@ -12,6 +12,7 @@ class Account < ActiveRecord::Base
   has_many :sent_invoices, class_name: "Invoice", foreign_key: "sender_id"
   has_many :recieved_invoices, class_name: "Invoice", foreign_key: "reciever_id"
   has_many :created_shifts, class_name: "Shift", foreign_key: "creator_id"
+  has_many :payments
   # validates :name, presence: true
   # validates :slug, presence: true, uniqueness: true
 

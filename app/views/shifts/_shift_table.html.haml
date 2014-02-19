@@ -1,0 +1,41 @@
+              %h3 listing Shifts
+
+              %table.table
+                %tr
+                  %th Employee
+                  %th Schedule date
+                  %th start hour
+                  %th end hour
+                  %th creator
+                  %th shift hours
+                  %th
+                  %th
+                  %th
+                  %th
+                  %th
+                  - unless @table_shifts.empty?
+                    - @table_shifts.each do |shift|
+                      %tr
+                        %td= shift.user.name
+                        %td= shift.schedule_date
+                        %td= shift.start_hour.strftime "%l:%M %P"
+                        %td= shift.end_hour.strftime "%l:%M %P"
+                        %td= shift.account.name
+                        %td= shift.shift_hours
+                        - if shift.user == current_user && shift.schedule_date == Date.today
+                          %td= link_to "Clock In", clock_in_shift_path(shift), method: :post  unless shift.clocked_in?
+                          %td= link_to "Clock Out", clock_out_shift_path(shift), method: :post if shift.clocked_in?
+                        - if shift.account.owner == current_user
+                          %td= link_to "Clock In", clock_in_shift_path(shift), method: :post  unless shift.clocked_in?
+                          %td= link_to "Clock Out", clock_out_shift_path(shift), method: :post if shift.clocked_in?
+                          %td= link_to 'Show', shift
+                          %td= link_to 'Edit', edit_shift_path(shift)
+                          %td= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' }
+                  - else
+                    %tr
+                    %td
+                    %td
+                    %td No Scheduled shifts
+                    %td
+                    %td
+                    %td

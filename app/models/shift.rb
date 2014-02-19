@@ -4,6 +4,7 @@ class Shift < ActiveRecord::Base
   belongs_to :user, foreign_key: "employee_id"
   belongs_to :account, foreign_key: "creator_id"
   has_many :timed_shifts, dependent: :destroy
+  belongs_to :payment
 
   before_save :update_total_hours
   validates :schedule_date, :start_hour, :end_hour, presence: true
@@ -13,6 +14,11 @@ class Shift < ActiveRecord::Base
 
   def title
     "#{shift_hours} hour shift for #{user.email}"
+  end
+
+  def rate
+    # Todo: I foresee this being called alot so much to sql or cache it
+    Staff.where(client_id: account.owner.id, staffer_id: user.id).first.rate
   end
 
   def to_calender_json(options={})
