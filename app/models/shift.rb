@@ -94,7 +94,11 @@ class Shift < ActiveRecord::Base
 
   def rate
     # Todo: I foresee this being called alot so much to sql or cache it
-    Staff.where(client_id: account.owner.id, staffer_id: user.id).first.rate
+    staff.rate
+  end
+
+  def staff
+    Staff.where(client_id: account.owner.id, staffer_id: user.id).first
   end
 
   def value

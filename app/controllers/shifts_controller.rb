@@ -9,6 +9,7 @@ class ShiftsController < ApplicationController
       @staffers = current_user.staffed_users.includes(:resume, :account)
     else
       @table_shifts = current_user.scheduled_shifts
+      @shift_available = @table_shifts.where(schedule_date: Date.today).first
       @shifts = @table_shifts.collect(&:to_calender_json)
     end
   end

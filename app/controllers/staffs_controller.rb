@@ -28,6 +28,24 @@ class StaffsController < ApplicationController
     end
   end
 
+  def edit
+    @staff = Staff.find(params[:id])
+  end
+
+  def update
+    @staff = Staff.find(params[:id])
+
+    respond_to do |format|
+      if @staff.update_attributes(staff_params)
+        format.html { redirect_to staffing_path, notice: 'Staffer was successfully updated.' }
+        format.json { render json: @staff, status: :created, location: @staff }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @staff.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   # POST /staffs
   # POST /staffs.json
@@ -57,6 +75,6 @@ class StaffsController < ApplicationController
 
   private
     def staff_params
-      params.require(:staff).permit(:client_id, :user_id)
+      params.require(:staff).permit(:client_id, :staffer_id, :rate)
     end
 end

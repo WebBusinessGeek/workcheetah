@@ -32,7 +32,7 @@ class ShiftPayment < Payment
         t.amount = payment.amount
         t.transfer = true
       end
-      # @transfer.send_monies
+      @transfer.send_monies
     end
   end
 

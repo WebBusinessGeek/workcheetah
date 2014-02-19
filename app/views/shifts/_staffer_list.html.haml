@@ -1,2 +1,11 @@
+%strong Staff
+%hr/
 -@staffers.each do |staff|
-  %li= link_to "#{staff.email}", client_calendar_shifts_path(user_id: staff.id), remote: true
+  %li
+    %ul.unstyled
+      %li= link_to "#{staff.name}", client_calendar_shifts_path(user_id: staff.id), remote: true
+      %li
+        Logged Time:
+        = staff.logged_time_total
+      %li= link_to "Settings", edit_staff_path(current_user.staff_record_id(staff.id)), class: "pull-center"
+      %li= link_to "Pay", new_payment_path(type: "Shift", user_id: staff.id)

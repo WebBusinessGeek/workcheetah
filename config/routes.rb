@@ -7,6 +7,8 @@ CareerLoop::Application.routes.draw do
   get '/pageone',        to: 'staticpages#staticpageone'
   get '/pagethree',      to: 'staticpages#staticpagethree'
 
+  resources :payments
+
   resources :shifts do
     member do
       post :clock_in
@@ -36,7 +38,7 @@ CareerLoop::Application.routes.draw do
   get "invoices/:guid" => "invoices#show"
   get "invoices/:guid/edit" => "invoices#edit", as: :edit_invoice
 
-  resources :staffs, only: [:show, :new, :create, :destroy] do
+  resources :staffs do
     member do
       post :remove
     end

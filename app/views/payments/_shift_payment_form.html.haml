@@ -1,0 +1,39 @@
+= simple_form_for @payment, url: payments_path do |f|
+  = f.input :user_id, as: :hidden, input_html: {value: @payment.user.id}
+  = f.input :biller_id, as: :hidden, input_html: {value: @payment.biller.id}
+  .row
+    .col-md-6
+      %strong Employee:
+      = @payment.user.name
+    .col-md-6
+      %strong Employer:
+      = @payment.biller.owner.name
+  %br/
+  .row
+    .col-md-12
+      %table.table
+        %tr
+          %th Schedule date
+          %th Start hour
+          %th End hour
+          %th Shift hours
+          %th Logged Hours
+          %th Amount
+        - f.object.shifts.each do |shift|
+          %tr
+            %td= shift.schedule_date
+            %td= shift.start_hour.strftime "%l:%M %P"
+            %td= shift.end_hour.strftime "%l:%M %P"
+            %td= shift.shift_hours
+            %td= shift.logged_time
+            %td= number_to_currency(shift.value / 100)
+    .row
+      .col-md-6
+        %strong Total Time
+        = f.object.display_time
+        %strong Pay Rate
+        = f.object.display_rate
+      .col-md-6
+        %strong Total Amount
+        = f.object.display_amount
+  .col-md-2.col-md-offset-4= f.submit "Submit Payment", class: 'btn btn-success'

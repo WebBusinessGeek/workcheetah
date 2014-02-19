@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
     else
       @name = resume.name if resume.present?
     end
-    @name = "Not Provided" if @name.nil?
+    @name = email if @name.nil?
     @name
   end
 
@@ -139,6 +139,14 @@ class User < ActiveRecord::Base
   def remove_client!(user)
     @staff = reverse_staffings.find_by_client_id(user.id)
     @staff.destroy
+  end
+
+  def staff_record_id(user_id)
+    staffings.where(staffer_id: user_id).first.id
+  end
+
+  def logged_time_total
+    scheduled_shifts.current_week.sum(&:logged_time)
   end
 
   after_invitation_accepted :set_up_invited_accounts

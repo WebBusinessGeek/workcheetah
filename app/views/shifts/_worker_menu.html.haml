@@ -1,0 +1,8 @@
+%h3 Actions
+- if @shift_available.present?
+  = link_to "Clock In", clock_in_shift_path(@shift_available), method: :post, class: "btn btn-primary"  unless @shift_available.clocked_in?
+  = link_to "Clock Out", clock_out_shift_path(@shift_available), method: :post, class: "btn btn-primary" if @shift_available.clocked_in?
+- else
+  No Shift available today
+%h3 Logged Hours
+= @table_shifts.sum(&:logged_time)
