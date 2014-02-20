@@ -1,0 +1,18 @@
+.container
+  .row
+    .col-md-12
+      %h2 Payments
+
+      %table.table
+        %tr
+          %th Type
+          %th Payment Made
+          %th Status
+          %th Anount
+        - unless @payments.empty?
+          - @payments.each do |payment|
+            %tr
+              %td= payment.type.slice "Payment"
+              %td= payment.created_at
+              %td= payment.status
+              %td= number_to_currency(payment.amount / 100)

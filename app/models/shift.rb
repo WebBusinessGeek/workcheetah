@@ -11,7 +11,7 @@ class Shift < ActiveRecord::Base
   scope :current_week, where(schedule_date: Date.today.at_beginning_of_week..Date.today.at_end_of_week)
   scope :before, lambda {|before| where("schedule_date < ?", Time.at(before.to_i).to_formatted_s(:db))}
   scope :after, lambda {|after| where("schedule_date > ?", Time.at(after.to_i).to_formatted_s(:db))}
-
+  scope :billed, where("payment_id IS NOT NULL")
   def title
     "#{shift_hours} hour shift for #{user.email}"
   end
@@ -24,7 +24,8 @@ class Shift < ActiveRecord::Base
       end: self.end_hour,
       url: "shifts/#{id}/edit.js",
       allDay: false,
-      recurring: false
+      recurring: false,
+      color: self.staff.color
     }
   end
 
@@ -93,7 +94,7 @@ class Shift < ActiveRecord::Base
   end
 
   def rate
-    # Todo: I foresee this being called alot so much to sql or cache it
+    # Todo: I foresee this being called alot so move to sql or cache it
     staff.rate
   end
 

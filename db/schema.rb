@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140219132454) do
+ActiveRecord::Schema.define(:version => 20140220151521) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -648,9 +648,10 @@ ActiveRecord::Schema.define(:version => 20140219132454) do
   create_table "staffs", :force => true do |t|
     t.integer  "staffer_id"
     t.integer  "client_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "rate"
+    t.string   "color",      :default => "#3a87ad"
   end
 
   create_table "tasks", :force => true do |t|
@@ -756,7 +757,6 @@ ActiveRecord::Schema.define(:version => 20140219132454) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.string   "color"
     t.integer  "notifications_count",    :default => 0
   end
 

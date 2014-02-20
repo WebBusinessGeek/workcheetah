@@ -2,6 +2,10 @@ class PaymentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :get_payment, only: [:show, :edit, :update, :destroy]
   def index
+    @payments = current_user.transfer_payments
+    if ['freelancer', 'business'].include? current_user.role
+      @payments += current_user.account.payments
+    end
   end
 
   def show

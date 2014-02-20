@@ -6,3 +6,4 @@ jQuery ->
   $(".collapse").collapse()
   $("input.date").datepicker
     dateFormat: "yy-mm-dd"
+  $('#staff_color').simpleColorPicker()

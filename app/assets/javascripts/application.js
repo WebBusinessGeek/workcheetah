@@ -20,5 +20,6 @@
 //= require private_pub
 //= require chosen-jquery
 //= require jquery.ui.timepicker
+//= require jquery.simple-color-picker
 //= require_tree .
 
