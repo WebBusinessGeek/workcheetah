@@ -4,7 +4,7 @@ class School < ActiveRecord::Base
 
   belongs_to :resume
   HIGHEST_MERIT = [
-    "None/Other", "Completed", "GED" "Certification of Completion",
+    "None/Other", "Completed", "GED", "Certification of Completion",
     "Diploma", "Associate of the Arts", "Associate of Science", "Bachelor of Arts",
     "Bachelor of Science", "Master of Arts", "Master of Science", "PhD"]
   COURSE_OF_STUDY = {

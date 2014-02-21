@@ -133,7 +133,7 @@ class JobsController < ApplicationController
         if current_user.moderator?
           format.html { redirect_to :back, notice: "Job created successfully." }
         else
-          format.html { redirect_to (@job.account.safe_job_seal? ? @job : [:add_seal, :account]), notice: 'Job was successfully created.' }
+          format.html { redirect_to root_path, notice: 'Job was successfully created.' }
           format.json { render json: @job, status: :created, location: @job }
         end
       else
@@ -154,7 +154,7 @@ class JobsController < ApplicationController
 
           sign_in @job.account.users.first unless user_signed_in?
 
-          format.html { redirect_to (@job.account.safe_job_seal? ? @job : [:add_seal, :account]), notice: 'Job was successfully updated.' }
+          format.html { redirect_to root_path, notice: 'Job was successfully updated.' }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }

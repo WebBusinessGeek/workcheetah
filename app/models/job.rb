@@ -90,7 +90,7 @@ class Job < ActiveRecord::Base
   end
 
   def remote?
-    job_type == 'outsource'
+    job_type == 'outsource' || job_type == 'best'
   end
 
   def to_param
