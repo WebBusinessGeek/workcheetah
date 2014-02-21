@@ -34,7 +34,6 @@ gem 'state_select'
 gem 'stripe'
 gem 'strong_parameters', '>= 0.2.0'
 gem 'unf'
-gem 'unicorn'
 gem 'will_paginate'
 gem 'zencoder'
 
@@ -81,6 +80,7 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'unicorn'
 end
 
 group :test do
