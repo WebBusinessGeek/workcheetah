@@ -35,7 +35,7 @@ class Resume < ActiveRecord::Base
   validates :terms_of_service, acceptance: { accept: 1 }
   validates :name, presence: true
   validates :phone, presence: true
-  validates :status, presence: true, :if => :business?
+  validates :status, presence: true, :unless => :business_or_freelancer?
   validates :category1_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :category2_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
   validates :category3_id, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
@@ -71,8 +71,8 @@ class Resume < ActiveRecord::Base
       update_column(:rating, Resumes::Rating.new(self).get_score)
   end
 
-  def business?
-    resume_type == 'business'
+  def business_or_freelancer?
+    resume_type == 'business' || resume_type == 'freelancer'
   end
 end
 

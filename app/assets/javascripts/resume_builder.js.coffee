@@ -13,6 +13,14 @@ jQuery ->
   $('#resume_status').on 'change', ->
     $('#rest.hidden').css('visibility', 'visible').hide().fadeIn().removeClass('hidden')
 
+  $('#resume_resume_type').change ->
+    if $(this).val().trim() is 'employee'
+      toggle_employee()
+    else if $(this).val().trim() is 'freelancer'
+      toggle_freelancer()
+    else
+      toggle_business()
+
   $('form').on 'click', '.add_fields', (event) ->
     time = new Date().getTime()
     regex = new RegExp($(this).data('id'), 'g')
@@ -45,3 +53,29 @@ jQuery ->
     e.preventDefault()
     $('#create_questionaire').hide()
     $('#questions').show()
+
+toggle_employee = ->
+  $('#rest').find('.skills').find('p.lead').text('Skills')
+  $('#rest').find('.skills').find('.help-block').text('Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.')
+  $('#rest').find('.references').find('p.lead').text('References')
+  $('#rest').find('.reference').find('fieldset').find('.hidden').hide().css('visibility', 'hidden')
+  $('#rest').show(200).css('visibility', 'visible')
+
+toggle_freelancer = ->
+  $('#rest.hidden').css('visibility', 'visible').hide().fadeIn().removeClass('hidden')
+  $('#rest').find('.skills').find('p.lead').text('Services')
+  $('#rest').find('.skills').find('.help-block').text('What services do you offer?')
+  $('#rest').find('.references').find('p.lead').text('Referrals')
+  $('#rest').find('.reference').find('fieldset').find('.hidden').hide().css('visibility', 'hidden')
+  $('#rest').show(200).css('visibility', 'visible')
+
+toggle_business = ->
+  $('#rest.hidden').css('visibility', 'visible').hide().fadeIn().removeClass('hidden')
+  $('#rest').find('.skills').find('p.lead').text('SERVICES')
+  $('#rest').find('.skills').find('.help-block').text('What services does your company offer?')
+  $('#rest').find('.references').find('p.lead').text('Referrals')
+  $('#rest').find('.reference').find('fieldset').find('.hidden').show().css('visibility', 'visible')
+  $('#rest').show(200).css('visibility', 'visible')
+  $('.resume_status').hide()
+  $('.experiences').hide()
+  $('.educations').hide()

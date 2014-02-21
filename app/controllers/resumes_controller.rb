@@ -1,5 +1,5 @@
 class ResumesController < ApplicationController
-  before_filter :authenticate_user!, except: [:new]
+  before_filter :authenticate_user!, except: [:new, :create]
   before_filter :check_for_account, only: [:search]
 
   def new

@@ -110,78 +110,38 @@
           = f.radio_button :pay_importance, "10"
           Very Important
     %hr
-    .row
+    .row.skills
       .col-md-12
         %p.lead Skills
         .help-block Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.
         = f.input :skill_ids, label: false, collection: SkillGroup.includes(:skills).all, as: :grouped_select, group_method: :skills, group_label_method: :name, label_method: :name, input_html: { multiple: true, class: ".chzn-select" }
     -unless user_signed_in? and ['business'].include? current_user.role?
       %hr
-      .row
+      .row.educations
         .col-md-12
           %p.lead Education
-      .row
+      .row.educations
         .col-md-12
           = f.fields_for :schools do |sf|
             = render "school_fields", f: sf
           = link_to_add_fields "Add Education", f, :schools
     %hr
-    .row
+    .row.experiences
       .col-md-12
         %p.lead Experience
-    .row
+    .row.experiences
       .col-md-12
         = f.fields_for :experiences do |pf|
           = render "experience_fields", f: pf
         = link_to_add_fields "Add Experience", f, :experiences
     %hr
-    .row
+    .row.references
       .col-md-12
         %p.lead References
-    .row
+    .row.references
       .col-md-12
         = f.fields_for :references do |rf|
           = render "reference_fields", f: rf
         = link_to_add_fields "Add Reference", f, :references
   = f.submit((f.object.new_record? ? "Create Profile" : "Update Profile" ), class: "btn btn-primary")
 
--# :javascript
--#     $('#resume_user_attributes_terms_of_service').change(function() {
--#       if (!$(this).is(':checked')) {
--#         $('#contact-details').hide(200).css('visibility', 'hidden');
--#         $('#rest').hide(200).css('visibility', 'hidden');
--#       }
--#       else {
--#         $('#contact-details').show(200).css('visibility', 'visible');
--#       }
--#     });
-
--# $('#resume_status').change(function() {
--#   $('#rest').show(200).css('visibility', 'visible');
--# });
-
--# $('#resume_resume_type').change(function() {
--#   if($(this).val().trim() == 'employee') {
--#     $('#rest').find('.skills').find('h4').text('Skills');
--#     $('#rest').find('.skills').find('p').text('Select up to 10 skills. Skills can be easily searched for, added, or removed by simply clicking on the above field.');
--#     $('#rest').find('.references').find('h2').text('References');
--#     $('#rest').find('.reference').find('fieldset').find('.hidden').hide().css('visibility', 'hidden');
--#     $('#rest').show(200).css('visibility', 'visible');
--#   }
--#   else if($(this).val().trim() == 'freelancer') {
--#     $('#rest').find('.skills').find('h2').text('Services');
--#     $('#rest').find('.skills').find('p').text('What services do you offer?');
--#     $('#rest').find('.references').find('h2').text('Referrals');
--#     $('#rest').find('.reference').find('fieldset').find('.hidden').hide().css('visibility', 'hidden');
--#     $('#rest').show(200).css('visibility', 'visible');
--#   }
--#   else {
--#     $('#rest').find('.skills').find('h4').text('SERVICES');
--#     $('#rest').find('.skills').find('p').text('What services does your company offer?');
--#     $('#rest').find('.references').find('h2').text('Referrals');
--#     $('#rest').find('.reference').find('fieldset').find('.hidden').show().css('visibility', 'visible');
--#     $('#rest').show(200).css('visibility', 'visible');
--#     $('.resume_status').hide();
--#     $('.schools').hide();
--#   }
--# });

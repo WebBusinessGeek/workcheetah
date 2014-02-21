@@ -1,13 +1,53 @@
+User.destroy_all
+Resume.destroy_all
+Account.destroy_all
+
+Skill.destroy_all
+SkillGroup.destroy_all
+ActiveRecord::Base.transaction do
+  Skill::GROUPED_SKILLS.each do |k,v|
+    x = SkillGroup.create name: k
+    v.each do |a|
+      Skill.create name: a, skill_group_id: x.id
+    end
+  end
+end
+
+Category.destroy_all
+ActiveRecord::Base.transaction do
+  ["accounting / finance", "admin / office", "arch / engineering",
+   "art / media / design", "biotech / science", "business / mgmt",
+   "customer service", "education", "food / bev", "hospitality",
+   "general labor", "government", "human resources", "internet engineers",
+   "legal / paralegal", "manufacturing", "marketing", "public relations",
+   "advertising", "medical / health", "nonprofits", "real estate",
+   "retail", "wholesale", "sales", "business development", "salon / spa",
+   "fitness", "freelance work", "security", "skilled trade / craft",
+   "software / qa / dba", "systems / network", "tech support",
+   "transport", "tv / film / media", "web design",
+   "computer programming", "writing / editing", "ETC"].each do |c|
+      Category.create! name: c
+    end
+end
+
+AdTarget.destroy_all
+ActiveRecord::Base.transaction do
+  puts "Loading User Target Words"
+  AdTarget::AUDIENCES.each {|u| AdTarget.create(name: u, audience: "A")}
+  Category.order(:name).pluck(:name).each do |u|
+    AdTarget.create( name: u, audience: "B1")
+    AdTarget.create( name: u, audience: "B2")
+  end
+  AdTarget::EMPLOYEE_TARGETS.each {|u| AdTarget.create(name: u, audience: "B3")}
+  AdTarget::EDUCATION_TARGETS.each{|u| AdTarget.create(name: u, audience: "B4")}
+  puts "Loading Advertiser Target Words"
+  AdTarget::ADVERTISER_TARGETS.each {|a| AdTarget.create(name: a, audience: "B5")}
+end
+
 # sub the email addresses for anything you want for testing
 [['employee','adam.robbie@gmail.com'],
 ['freelancer','adam.robbie@live.com'],
 ['business','adam.robbie@icloud.com']].each do |user_type|
-  @user = User.find_by_email(user_type.last)
-  if @user
-    @user.account.destroy
-    @user.destroy
-  end
-
   @user = User.create!(
     email: user_type.last,
     password: "testtest",
