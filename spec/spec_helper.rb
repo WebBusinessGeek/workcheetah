@@ -23,18 +23,6 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
   config.use_transactional_fixtures = true
 
-  # config.before(:suite) do
-  #   DatabaseCleaner.strategy = :truncation
-  # end
-
-  # config.before(:each) do
-  #   DatabaseCleaner.start
-  # end
-
-  # config.after(:each) do
-  #   DatabaseCleaner.clean
-  # end
-
   # Paperclip
   config.include Paperclip::Shoulda::Matchers
   config.include Capybara::DSL
