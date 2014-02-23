@@ -93,4 +93,5 @@ group :test do
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'shoulda-context'
   gem 'shoulda-matchers'
+  gem 'simplecov'
 end
