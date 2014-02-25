@@ -7,6 +7,7 @@ class Shift < ActiveRecord::Base
   belongs_to :payment
 
   before_save :update_total_hours
+  validates_presence_of :user, message: "Employee can't be blank"
   validates :schedule_date, :start_hour, :end_hour, presence: true
   scope :current_week, where(schedule_date: Date.today.at_beginning_of_week..Date.today.at_end_of_week)
   scope :before, lambda {|before| where("schedule_date < ?", Time.at(before.to_i).to_formatted_s(:db))}

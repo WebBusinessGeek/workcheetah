@@ -22,7 +22,7 @@ class Invitational
     unless @user = User.find_by_email(email)
       create_user
     else
-      send_invitational_email(type)
+      # send_invitational_email(type)
     end
     # delegates_errors_to_user unless @user.valid?
 

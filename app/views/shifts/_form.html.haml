@@ -1,7 +1,7 @@
 = simple_form_for(@shift) do |f|
-  = f.error_notification
+  = render 'shared/error_messages', object: f.object
 
-  = f.input :employee_id, collection: @staffers, allow_blank: false
+  = f.input :employee_id, collection: current_user.staffed_users.includes(:resume, :account), allow_blank: false
   = f.input :schedule_date, as: :date
   = f.input :start_hour, as: :string
   = f.input :end_hour, as: :string

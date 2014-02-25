@@ -48,10 +48,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_target_params
 
-  unless Rails.application.config.consider_all_requests_local
-    rescue_from Exception, with: lambda { |exception| Rails.logger.info(exception.to_s); render_error 500, exception; }
-    rescue_from ActionController::RoutingError, ActionController::UnknownController, ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound, with: lambda { |exception|  Rails.logger.info(exception.to_s); render_error 404, exception; }
-  end
+  # unless Rails.application.config.consider_all_requests_local
+  #   rescue_from Exception, with: lambda { |exception| Rails.logger.info(exception.to_s); render_error 500, exception; }
+  #   rescue_from ActionController::RoutingError, ActionController::UnknownController, ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound, with: lambda { |exception|  Rails.logger.info(exception.to_s); render_error 404, exception; }
+  # end
 
   def current_location
     @visitors_ip ||= Rails.env.development? ? "71.197.119.115" : request.remote_ip
