@@ -66,6 +66,8 @@
   -#   = link_to "Messages", "javascript:void(0);"
   %li{:class => current_page?(contacts_path) && 'active'}
     = link_to "Contacts", contacts_path
+%li{:class => current_page?(staffing_path) && 'active'}
+  = link_to "Staffing", staffing_path
 %li{:class => current_page?(video_chats_path) && 'active'}
   = link_to "Interviews", video_chats_path unless current_user.advertiser?
 %li{:class => current_page?(conversations_path) && 'active'}
