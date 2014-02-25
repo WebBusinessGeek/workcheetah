@@ -70,7 +70,7 @@ end
       website: "http://www.freelancing.com",
       phone: "553-313-4424",
       slug: "test_freelancer",
-      business_type: user_type.last,
+      business_type: user_type.first,
     )
     @user.create_resume!(
       name: "Freelancer Test",
@@ -85,7 +85,7 @@ end
       website: "http://www.company.com",
       phone: "999-555-3322",
       slug: "test_business",
-      business_type: user_type.last,
+      business_type: user_type.first,
     )
     @user.create_resume!(
       name: "Business Test Company",

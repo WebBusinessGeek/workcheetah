@@ -31,7 +31,6 @@ CareerLoop::Application.configure do
   config.force_ssl = false
 
   # See everything in the log (default is :info)
-  config.log_level = :debug
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
@@ -68,6 +67,7 @@ CareerLoop::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  config.whiny_nils = true
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
