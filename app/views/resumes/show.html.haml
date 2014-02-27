@@ -83,8 +83,8 @@
           = experience.job_title
           = " @ "
           %strong= experience.company_name
-          %span.range
-            = " - "
+          - if experience.from.present? && experience.till.present?
+            = experience.from
             = experience.till
     - if @resume.schools.any?
       .row

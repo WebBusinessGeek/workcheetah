@@ -114,7 +114,7 @@ class ResumesController < ApplicationController
       :category1_id, :category2_id, :category3_id, :resume_type, :current_employer,
       :freedom_importance, :pay_importance, :private, skill_ids: [],
       addresses_attributes: [ :id, :address_1, :address_2, :city, :state, :zip, :_destroy ],
-      experiences_attributes: [ :id, :company_name, :job_title, :from, :till, :highlights, :_destroy ],
+      experiences_attributes: [ :id, :company_name, :industry, :current_employer, :job_title, :from, :till, :highlights, :_destroy ],
       schools_attributes: [ :id, :name, :degree_type, :degree_name, :from, :till, :highlights, :_destroy, :highest_merit, :course_of_study, :completion_year],
       references_attributes: [ :id, :name, :job_title, :company, :phone, :email, :notes, :reference_type, :_destroy ],
       user_attributes: [ :email, :password, :password_confirmation, :terms_of_service ] )

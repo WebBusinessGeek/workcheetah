@@ -60,8 +60,10 @@
               = experience.job_title
               = " @ "
               %strong= experience.company_name
-              %span.range " - "
-              = experience.till
+              - if experience.from.present? && experience.till.present?
+                = experience.from
+                %span.range  -
+                = experience.till
           - else
             No experiences provided.
           %h4 Referrers
