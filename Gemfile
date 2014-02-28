@@ -4,6 +4,7 @@ gem 'rails', '3.2.15'
 
 gem 'auto_html'
 gem 'aws-sdk'
+gem 'bugsnag'
 gem 'cancan'
 gem 'carrierwave'
 gem 'carrierwave_direct'

@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
   before_filter :hide_some_jobs_from_companies, only: [ :index ]
+  before_filter :check_for_account, only: [:my]
 
   #TODO: Tidy up controller code
 

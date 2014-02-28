@@ -1,9 +1,6 @@
 .jobs_show.container
   .row
     .col-md-6
-      - if !@job.account.safe_job_seal?
-        %center{ style: "color: red;" }
-          Company Not Verified.
       - if @job.account.logo.present?
         = image_tag @job.account.logo.medium.url
       %p.lead
@@ -16,6 +13,8 @@
       %p.lead Job Rating
       = render_rating_display (@job.rating.nil? or @job.rating == 0) ? 0 : @job.rating
       %br/
+      %p.lead Description
+      = @job.description
       %p.lead Yearly Compensation
       = @job.yearly_compensation
 

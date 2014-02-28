@@ -5,32 +5,28 @@
 			.alert.alert-info.alert-block
 				%button.close{"data-dismiss" => "alert", :type => "button"} &times;
 				Your dashboard helps you manage all your job posts and applicants in the cloud. You can click on your listings to view/edit/delete the descriptions at any time. You can follow the applicant links to view who's applying to your job listings.
-		- if !current_user.account.safe_job_seal?
-			.col-md-6
-				.complete_account
-					%h2 Complete Your Account
-					%ul
-						%li.completed Create Account
-						%li.completed Create First Job Listing
-						%li.incomplete
-							= link_to "Verify Your Account", [:add_seal, :account]
-							.small_text
-								You are not yet a verified employer.
-								%br/
-								Please Verify your account now.
 		%table.table
 			%tr
 				%th Position
 				%th Estimates Recieved
 				%th Applicants
 				%th Date Posted
-			- @jobs.each do |job|
+			- unless @jobs.empty?
+				- @jobs.each do |job|
+					%tr
+						%td
+							- if job.title.present?
+								= link_to job.title, job
+						%td
+							= link_to pluralize(job.recieved_estimates.sent.count, "Estimates"), for_job_estimates_path(job_id: job.id)
+						%td
+							= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
+						%td= job.created_at.strftime("%m/%d/%Y")
+			- else
 				%tr
 					%td
-						- if job.title.present?
-							= link_to job.title, job
 					%td
-						= link_to pluralize(job.recieved_estimates.sent.count, "Estimates"), for_job_estimates_path(job_id: job.id)
+						You have no posted jobs.
+						= link_to "Post a job", new_job_path
 					%td
-						= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
-					%td= job.created_at.strftime("%m/%d/%Y")
+					%td
