@@ -9,11 +9,14 @@
       - elsif !current_user.resume.present?
         = link_to "Get Hired", new_resume_path, class: "btn btn-default btn-lg btn-success" 
     .row
-      .col-md-6.col-md-offset-4
+      .col-md-8.col-md-offset-4
         =form_tag search_categories_path, method: :get, class: "form-inline", remote: true do
           .input-group
             =text_field_tag :search, @search || nil, placeholder: "Ex. Sales Manager", autofocus: true, style: "height:25px", class: "search-query span4"
             =text_field_tag :location, @location || @current_location_clean, style: "height:25px", class: "search-query span2"
+            -['on-location', 'remote', 'all'].each do |r|
+              = radio_button_tag 'job_type', r, @job_type == r
+              = r.humanize
             %button.btn.btn-default.btn-lq{type: "submit"}
               %span.glyphicon.glyphicon-search
     .row

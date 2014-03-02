@@ -51,7 +51,8 @@ class Job < ActiveRecord::Base
   scope :has_account, -> {where("account_id IS NOT ?", nil)}
   scope :searchable, -> {active.has_account}
   scope :working, -> {where("id IN (SELECT job_id FROM projects)")}
-
+  scope :remote?, -> {where(job_type: 'outsource')}
+  scope :not_remote?, -> {where(job_type: 'part-or-full-time')}
   def self.text_search(query, location)
     if query.present?
       # where("title @@ :q or description @@ :q or about_company @@ :q", q: query)
@@ -90,7 +91,7 @@ class Job < ActiveRecord::Base
   end
 
   def remote?
-    job_type == 'outsource' || job_type == 'best'
+    job_type == 'outsource'
   end
 
   def to_param

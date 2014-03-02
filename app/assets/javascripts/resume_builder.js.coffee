@@ -60,6 +60,10 @@ toggle_employee = ->
   $('#rest').find('.references').find('p.lead').text('References')
   $('#rest').find('.reference').find('fieldset').find('.hidden').hide().css('visibility', 'hidden')
   $('#rest').show(200).css('visibility', 'visible')
+  $('.resume_status').show()
+  $('.experiences').show()
+  $('.educations').show()
+
 
 toggle_freelancer = ->
   $('#rest.hidden').css('visibility', 'visible').hide().fadeIn().removeClass('hidden')

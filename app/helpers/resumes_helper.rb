@@ -15,7 +15,7 @@ module ResumesHelper
     [
         ['Employee (I prefer to work in a building)', 'employee'],
         ['Freelancer (I will be working online)', 'freelancer'],
-        ['Company(I will be ... ???)', 'company']
+        ['Company(I will be ... ???)', 'business']
     ]
   end
 end
