@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :redirect_employee
   before_filter :load_account, except: [:index, :new]
 
   respond_to :html, :js
@@ -89,6 +90,10 @@ class AccountsController < ApplicationController
   end
 
   private
+
+  def redirect_employee
+    redirect_to edit_user_path if current_user.role == 'employee'
+  end
 
   def load_account
     if params[:id].present?

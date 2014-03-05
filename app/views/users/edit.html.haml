@@ -1,27 +1,33 @@
 .container
   .row
+    .col-md-4.col-md-offset-2
+      %h2 Edit Your Account
+  .row
     .col-md-4
-      %h1 Edit Your Account
-      = form_for(@user, :url => { :action => "update" } ) do |f|
-        .field
-          = f.label :email
-          = f.text_field :email
-        .field
-          = f.label :password, "New Password"
-          = f.password_field :password, :autocomplete => "off"
-        .field
-          = f.label :password_confirmation, "New Password Confirmation"
-          = f.password_field :password_confirmation
-        .field
-          Unhappy?
-          = link_to "Cancel my account", registration_path(@user), :confirm => "Are you sure?", :method => :delete
-        .action_container
-          = f.submit "Update Password", class: "btn btn-success"
-    .col-md-4
+      = simple_form_for(@user, :url => { :action => "update" }, role: 'form' ) do |f|
+        = f.input :email
+        = f.input :password, label: "New Password", :autocomplete => "off"
+        = f.input :password_confirmation, label: "New Password Confirmation"
+        Unhappy?
+        = link_to "Cancel my account", registration_path(@user), :confirm => "Are you sure?", :method => :delete
+        = f.submit "Update Password", class: "btn btn-success"
+    .col-md-5
       %ul.nav-list
-        %p Click the button below to securely save your bank information
-        = link_to edit_user_path(bank_account: true), class: "btn btn-large btn-success", style: "width: 75%" do
-          = current_user.stripe_recipient_id.nil? ? "Add Bank Account Information" : "Update Bank Account information"
+        %p
+          - if @bank_info
+            %dt Bank
+            %dd= @bank_info[:bank_name]
+            %dt Last 4
+            %dd
+              *****
+              = @bank_info[:last4]
+            %dt Country
+            %dd= @bank_info[:country]
+        %p.text-center
+          Click the button below to securely save your bank information
+          = link_to edit_user_path(bank_account: true), class: "btn btn-primary", style: "width: 75%" do
+            = current_user.stripe_recipient_id.nil? ? "Add Bank Account Information" : "Update Bank Account information"
         - unless current_user.role == 'employee'
-          %p Workcheetah uses a secure and reliable payment gateway that encrypts all financial information. Due to security reasons you cannot delete old card. Old cards will be deleted upon entering a new credit card.
-          = link_to "Add or Update Payment Method", [:new, :payment_profile], class: "btn btn-large btn-success", style: "width: 75%" 
+          %p.text-center
+            Workcheetah uses a secure and reliable payment gateway that encrypts all financial information. Due to security reasons you cannot delete old card. Old cards will be deleted upon entering a new credit card.
+            = link_to "Add or Update Payment Method", [:new, :payment_profile], class: "btn btn-primary", style: "width: 75%" 

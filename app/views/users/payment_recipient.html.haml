@@ -1,13 +1,20 @@
-= form_tag update_bank_account_path(id: @user.id), class: 'form-horizontal', id: 'account-form' do
-  #stripe_error
-  .form-group
-    %label.control-label{:for => "fullName"} Full Name
-    %input#fullName.form-control{type: "text", name: "fullName"}/
-  .form-group
-    %label.control-label{:for => "number"} Routing Number
-    %input.routingNumber.form-control{type: "text", size: 9, placeholder: "*********"}/
-  .form-group
-    %label.control-label Account Number
-    %input.accountNumber.form-control{:type => "text"}/
-  .form-group
-    %button.btn.btn-primary{type: "submit"} Save
+.container
+  .row
+    .col-md-6
+      = form_tag update_bank_account_path(id: @user.id), class: 'form-horizontal', id: 'account-form' do
+        %legend Bank Account Information
+        #stripe_error
+        .form-group
+          %label.control-label{:for => "fullName"} Full Name
+          %input#fullName.form-control{type: "text", name: "fullName"}/
+        .form-group
+          %label.control-label{:for => "number"} Routing Number
+          %input.routingNumber.form-control{type: "text", size: 9, placeholder: "*********"}/
+        .form-group
+          %label.control-label Account Number
+          %input.accountNumber.form-control{:type => "text"}/
+        .form-group
+          %button.btn.btn-primary{type: "submit"} Save
+    .col-md-6
+      %legend Example
+      = image_tag 'check.gif'

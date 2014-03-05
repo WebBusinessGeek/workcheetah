@@ -4,6 +4,14 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
     render 'payment_recipient' if params["bank_account"]
+    if current_user.stripe_recipient_id.present?
+      bank = Stripe::Recipient.retrieve(current_user.stripe_recipient_id)
+      @bank_info = {
+        bank_name: bank.active_account.bank_name,
+        last4: bank.active_account.last4,
+        country: bank.active_account.country
+      }
+    end
   end
 
   def update
@@ -30,10 +38,18 @@ class UsersController < ApplicationController
       type: 'individual',
       bank_account: params[:stripeToken]
     )
-    if current_user.update_attributes(stripe_recipient_id: recipient.id)
-      redirect_to accounts_path(id: current_user.account_id, part: :bank_account), notice: "Bank Account Succesffuly added"
+    if current_user.update_attribute(:stripe_recipient_id, recipient.id)
+      if current_user.role == 'employee'
+        redirect_to edit_user_path, notice: "Bank Account Succesffuly added"
+      else
+        redirect_to account_path(id: current_user.account_id, part: :bank_account), notice: "Bank Account Succesffuly added"
+      end
     else
-      redirect_to accounts_path(id: current_user.account_id, part: :bank_account)
+      if current_user.role == 'employee'
+        redirect_to edit_user_path, notice: "Bank Account Succesffuly added"
+      else
+        redirect_to account_path(id: current_user.account_id, part: :bank_account)
+      end
     end
   end
 
@@ -68,6 +84,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:email, :role, :password)
+      params.require(:user).permit(:email, :role, :password, :stripe_recipient_id)
     end
 end

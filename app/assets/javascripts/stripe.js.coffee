@@ -15,7 +15,6 @@ jQuery ->
     false
 
   stripeRecipientResponseHandler = (status, response) ->
-    alert status
     if status == 200
       $("#account-form").append "<input type='hidden' name='stripeToken' value='" + response.id + "'/>"
       $("#account-form").get(0).submit()
