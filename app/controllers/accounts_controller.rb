@@ -27,6 +27,7 @@ class AccountsController < ApplicationController
       render 'new'
     end
   end
+
   def show
     @user = current_user
     if params[:part] == "bank_account"
@@ -40,6 +41,14 @@ class AccountsController < ApplicationController
       @payment_profile = @account.payment_profiles.build
     else
       @part = :show
+    end
+    if current_user.stripe_recipient_id.present?
+      bank = Stripe::Recipient.retrieve(current_user.stripe_recipient_id)
+      @bank_info = {
+        bank_name: bank.active_account.bank_name,
+        last4: bank.active_account.last4,
+        country: bank.active_account.country
+      }
     end
   end
 

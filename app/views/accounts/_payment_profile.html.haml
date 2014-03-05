@@ -1,20 +1,15 @@
 - if @account.payment_profiles.any?
   - @account.payment_profiles.each do |pp|
-    - if pp.nickname
-      Nickname:
-      = pp.nickname
     - if pp.expiration
-      Expires:
+      %strong Expires:
       = pp.expiration
     - if pp.cc_number_preview
-      Last 4 Numbers:
+      %strong Last 4 Numbers:
       = pp.cc_number_preview
     - if pp.created_at
-      Created on:
+      %strong Created on:
       = pp.created_at.strftime("%m/%d/%Y")
-    - if pp.status
-      = pp.status
-    = link_to "Delete this form of payment", payment_profile_path(pp), method: :delete, confirm: "Are you sure you want to remove this payment profile?", class: "btn btn-mini btn-danger"
+    = link_to "Delete this form of payment", payment_profile_path(pp), method: :delete, confirm: "Are you sure you want to remove this payment profile?"
     %br/
 - else
   %p

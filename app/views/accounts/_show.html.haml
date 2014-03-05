@@ -18,14 +18,18 @@
   Phone:
   = @account.phone.present? ? @account.phone : "None provided"
   %br/
-  Role:
-  - if @account.role.present?
-    = @account.role
-  - else
-    = link_to "Please specify your role", account_path(id: @account.id, part: :company)
-  %h2 Payment Profile
+  %h3 Payment Profile
   = render 'payment_profile'
-  %h2 Bank Account
+  %h3 Bank Account
+  - if @bank_info
+    %dt Bank
+    %dd= @bank_info[:bank_name]
+    %dt Last 4
+    %dd
+      *****
+      = @bank_info[:last4]
+    %dt Country
+    %dd= @bank_info[:country]
   %p Click the button below to securely save your bank information
-  = link_to account_path(id: @account.id, part: :bank_account) do
+  = link_to account_path(id: @account.id, part: :bank_account), class: "btn btn-primary" do
     = current_user.stripe_recipient_id.nil? ? "Add Bank Account Information" : "Update Bank Account information"

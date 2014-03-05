@@ -11,6 +11,13 @@
         - if user_signed_in?
           = render 'shared/sub_nav_header'
           %li{:class =>"divider-vertical"}
+          -# %li.dropdown
+          -#   = link_to "#", data: {toggle: "dropdown"}, class: "dropdown-toggle" do
+          -#     = current_user.name
+          -#     %b.caret
+          -#   %ul.dropdown-menu
+          -#     %li= link_to "User Settings", edit_user_path
+          -#     %li= link_to "Sign Out", destroy_user_session_path, method: :delete
           %li= link_to "Sign Out", destroy_user_session_path, method: :delete
         - else
           - if current_page?(pageone_path) || current_page?(pagetwo_path) || current_page?(pagethree_path)
