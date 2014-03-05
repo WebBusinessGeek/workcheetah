@@ -14,7 +14,7 @@
           %h3
             Invite Credits
             = current_user.account.invite_credits
-          - if @available_jobs.empty?
+          - if @available_jobs && @available_jobs.empty?
             You have already invited this user to this job.
           - else
             - if current_user.account.has_invite_credits?
