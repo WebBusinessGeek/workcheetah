@@ -21,7 +21,7 @@ class CategoriesController < ApplicationController
       @jobs = Job.scoped
       @jobs = @jobs.cat_search(@category) if @category
       @jobs = @jobs.search(@query) if @query
-      @jobs = @jobs.remote? @job_type == 'remote'
+      @jobs = @jobs.remote? if @job_type == 'remote'
       @jobs = @jobs.not_remote? if @job_type == 'on-location'
       # @jobs = @jobs.near(human_readable_current_location, 50).includes(:account, :category).order("created_at DESC").page(params[:page]).per_page(8)
       @display_cat = Category.where(id: @category).pluck(:name).collect(&:humanize)*", "
