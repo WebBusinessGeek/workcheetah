@@ -50,7 +50,7 @@
             = @resume.skills.map(&:name)*", "
           - else
             No skills provided.
-          %h4 Project History
+          %h4= @resume.user.role == 'employee' ? 'Work History' : 'Project History'
           - if @resume.experiences.any?
             - @resume.experiences.each do |experience|
               = experience.job_title

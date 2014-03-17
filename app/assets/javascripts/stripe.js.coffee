@@ -28,10 +28,6 @@ do_when_ready = ->
     Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
     new_payment_profile_form.setupForm()
 
-  $("input.phone").mask("(999) 999-9999? x9999", {placeholder:" "})
-  $("input.website").mask("http://%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%", {placeholder:" "})
-  $("input.twitter").mask("@?***************", {placeholder:" "})
-
 new_payment_profile_form =
   setupForm: ->
     # console.log("form setup")
