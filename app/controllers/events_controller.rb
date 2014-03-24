@@ -24,23 +24,17 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @event = current_user.events.find(params[:id])
-    render layout: false
-    return
   end
 
   # GET /events/new
   # GET /events/new.json
   def new
     @event = current_user.events.build
-    render layout: false
-    return
   end
 
   # GET /events/1/edit
   def edit
     @event = current_user.events.find(params[:id])
-    render layout: false
-    return
   end
 
   # POST /events
