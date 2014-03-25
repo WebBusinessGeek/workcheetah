@@ -1,4 +1,3 @@
-- activity do
-  = "#{raw(activity.message)}"
-  = link_to activity.trackable_type, activity.trackable
-  = time_ago_in_words activity.created_at
+= "#{raw(activity.message)}"
+= link_to activity.trackable_type, activity.trackable
+= time_ago_in_words activity.created_at
