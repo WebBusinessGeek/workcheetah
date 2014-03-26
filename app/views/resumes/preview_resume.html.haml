@@ -39,7 +39,6 @@
               - account = @resume.user.account
               = link_to(image_tag(account.logo_url), account.website, :class => 'adimg')
               .simplelink
-                %a{ :href => "#"} What's This?
                 = link_to "Update Logo", account_path(account, part: "company")
     .row
       .col-md-12.companydetails

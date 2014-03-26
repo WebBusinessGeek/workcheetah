@@ -8,7 +8,7 @@ if Rails.env.production?
       :aws_access_key_id      => ENV['AWS_CARRIERWAVE_ACCESS_KEY_ID'],
       :aws_secret_access_key  => ENV['AWS_CARRIERWAVE_SECRET_ACCESS_KEY']
     }
-    config.fog_directory  = 'ladderpro'
+    config.fog_directory  = ENV['AWS_BUCKET']
     config.fog_public     = false
     # config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}
     config.cache_dir = "#{Rails.root}/tmp/uploads"
@@ -25,7 +25,7 @@ elsif Rails.env.development? || Rails.env.staging?
       :aws_access_key_id      => ENV['AWS_CARRIERWAVE_ACCESS_KEY_ID'],
       :aws_secret_access_key  => ENV['AWS_CARRIERWAVE_SECRET_ACCESS_KEY']
     }
-    config.fog_directory  = 'ladderdev'
+    config.fog_directory  = ENV['AWS_BUCKET']
     config.fog_public     = false
     # config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}
     config.cache_dir = "#{Rails.root}/tmp/uploads"
