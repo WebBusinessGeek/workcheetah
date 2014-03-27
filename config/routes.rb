@@ -45,7 +45,7 @@ CareerLoop::Application.routes.draw do
   end
   get 'contacts' => 'staffs#contacts', as: :contacts
 
-  resources :activities, only: [:index]
+  resources :activities, only: [:index, :destroy]
   resources :projects do
     resources :timesheets
     resources :invoices, only: [:new]

@@ -2,7 +2,9 @@
 %ul
 - if @activities
   - @activities.each do |activity|
-    %li
+    %li{"id" => dom_id(activity)}
+      = link_to [activity], method: :delete, remote: true do
+        %span.glyphicon.glyphicon-trash
       = render_activity activity
 .buttonholds
   %a.btn.btn-viewall{ :href => activities_path} View All
