@@ -1,6 +1,6 @@
 class JobApplicationsController < ApplicationController
-  before_filter :load_job, except: [:index]
-  before_filter :authorize_user, except: [:index, :show, :create, :new, :update, :apply_with_questionaire]
+  before_filter :load_job, except: [:index, :recieved]
+  before_filter :authorize_user, except: [:index, :recieved, :show, :create, :new, :update, :apply_with_questionaire]
 
   def index
     if !user_signed_in? || (!current_user.resume and current_user.account != @job.account)
@@ -9,13 +9,16 @@ class JobApplicationsController < ApplicationController
 
     if @job
       @job_applications = @job.job_applications
-      # if can? :manage, @job
-
-      # else
-      #   redirect_to @job, alert: "Access denied."
-      # end
     else
       @job_applications = current_user.job_applications
+    end
+  end
+
+  def recieved
+    if current_user.account && (['freelancer', 'business'].include? current_user.role?)
+      @job_applications = JobApplication.where(job_id: [current_user.account.job_ids]).order(:job_id)
+    else
+      redirect_to search_categories_path, notice: "You cannot access that page"
     end
   end
 

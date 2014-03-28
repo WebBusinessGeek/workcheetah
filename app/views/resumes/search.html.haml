@@ -22,8 +22,9 @@
         %li{style:"margin-left:10px"}
         %li= link_to "Post a New Job", new_job_path
         %li= link_to "My Jobs", my_jobs_path
-        %li= link_to "Recieved Estimates", recieved_estimates_path
-        %li= link_to "Recieved Job Applicants", "#"
+        -unless current_user.role? == 'employee'
+          %li= link_to "Recieved Estimates", recieved_estimates_path
+          %li= link_to "Recieved Job Applicants", recieved_job_applications_path
         %li.nav-header Categories
 
     .col-md-8

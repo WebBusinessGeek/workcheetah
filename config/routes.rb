@@ -185,7 +185,11 @@ CareerLoop::Application.routes.draw do
     end
   end
 
-  resources :job_applications
+  resources :job_applications do
+    collection do
+      get :recieved
+    end
+  end
   resources :payment_profiles
   resources :email_subscriptions
 
