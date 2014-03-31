@@ -33,7 +33,16 @@ $ ->
       cache: false
 
     eventClick: (calEvent, jsEvent, view) ->
-      $("#event_modal").modal remote: "/events/" + calEvent.id
+      # $("#event_modal").modal remote: "/events/" + calEvent.id
+      $.ajax({
+        type: "GET",
+        url: "/events/" + calEvent.id + ".js",
+        success:(data) ->
+          console.log "success"
+          return false
+        error:(data) ->
+          return false
+      })
 
 updateToDo = (date) ->
   $('.todoDate').data('date', date)

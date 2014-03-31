@@ -49,10 +49,12 @@ class Job < ActiveRecord::Base
   scope :cat_search, ->(query) {where('category_id IN (?) OR category2_id IN (?) OR category3_id IN (?)', query, query, query)}
   scope :active, -> { where(active: true) }
   scope :has_account, -> {where("account_id IS NOT ?", nil)}
-  scope :searchable, -> {active.has_account}
+  scope :searchable, -> {active.has_account.not_invite_only?}
+  scope :not_invite_only?, -> {where(invite_only: false)}
   scope :working, -> {where("id IN (SELECT job_id FROM projects)")}
   scope :remote?, -> {where(job_type: 'outsource')}
   scope :not_remote?, -> {where(job_type: 'part-or-full-time')}
+  
   def self.text_search(query, location)
     if query.present?
       # where("title @@ :q or description @@ :q or about_company @@ :q", q: query)

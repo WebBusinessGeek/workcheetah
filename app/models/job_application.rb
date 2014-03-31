@@ -37,6 +37,7 @@ class JobApplication < ActiveRecord::Base
       create_applicant_access account: job.account, job: job, hourly: true
     end
     self.update_attribute(:status, "accepted")
+    job.update_attribute(:active, false)
     #3 Send Accepted Job Application mailer
     # Add :user to job owners staff list
     job.account.owner.add_staffer!(user)

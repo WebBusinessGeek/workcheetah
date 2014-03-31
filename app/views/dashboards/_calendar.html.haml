@@ -3,8 +3,9 @@
 
   / %button{ type: 'button', 'data-toggle' => 'modal', 'data-target' => '#event_modal', 'data-remote' => new_event_path } Create Event
   =link_to "Create Event", new_event_path, data: {toggle: 'modal', target: '#event_modal'}, class: "btn", remote: true
-
-  #event_modal.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-hidden' => 'true', style: 'width: 52%' }
-    .modal-dialog
-      .modal-content
-        .modal-body
+#event_modal.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-hidden' => 'true' }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"type" => "button", "data-dismiss" => "modal", "aria-hidden" => "true"} x
+      .modal-body

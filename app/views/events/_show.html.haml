@@ -1,0 +1,9 @@
+%p#notice= notice
+%p
+  %b Name
+  = @event.title
+%p
+  %b Date
+  = @event.start 
+
+= link_to 'Delete Event', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
