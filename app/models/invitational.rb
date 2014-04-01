@@ -50,13 +50,13 @@ class Invitational
         @project = Project.find(type_id)
         @project.users << @user
         @user.save!
-        Project.activities.create!(
+        @project.activities.create!(
           user_id: @user.id,
           message: "Added as a collaborator to"
         )
-        Project.notifications.create!(
+        @project.activities.create!(
           user_id: @project.owner_id,
-          body: "#{@user.email} added as collaborator."
+          message: "#{@user.email} added as collaborator."
         )
       when "Invoice"
         @invoice = Invoice.find(type_id)

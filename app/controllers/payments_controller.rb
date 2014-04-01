@@ -23,6 +23,7 @@ class PaymentsController < ApplicationController
     @response = @payment.save
     if @response
       @response.charge
+      redirect_to payments_path, notice: "Payment made successfully."
     else
       render :new
     end
