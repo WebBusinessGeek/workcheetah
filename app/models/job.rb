@@ -4,8 +4,6 @@ class Job < ActiveRecord::Base
   after_save :update_rating
   after_create :create_notification
 
-  default_scope { searchable }
-
   # Later more categories where added; category1_id == category_id so that we don't have to change this name everywhere in the code
   # both names are used in the code for backwards compatibility reasons
   alias_attribute :category1_id, :category_id
@@ -23,7 +21,7 @@ class Job < ActiveRecord::Base
   has_many :activities, as: :trackable, dependent: :destroy
   has_and_belongs_to_many :skills
   has_many :questions
-  has_many :recieved_estimates, class_name: "Estimate", foreign_key: "job_id"
+  has_many :recieved_estimates, class_name: "Estimate", foreign_key: "job_id", dependent: :destroy
   has_one :project, dependent: :destroy
 
   accepts_nested_attributes_for :account
@@ -48,6 +46,7 @@ class Job < ActiveRecord::Base
 
   scope :cat_search, ->(query) {where('category_id IN (?) OR category2_id IN (?) OR category3_id IN (?)', query, query, query)}
   scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
   scope :has_account, -> {where("account_id IS NOT ?", nil)}
   scope :searchable, -> {active.has_account.not_invite_only?}
   scope :not_invite_only?, -> {where(invite_only: false)}
@@ -77,6 +76,10 @@ class Job < ActiveRecord::Base
       RANK
       where("title @@ :q or description @@ :q", q: query).order("#{rank} desc")
     end
+  end
+
+  def editable?
+    !(job_applications.any? || recieved_estimates.any?)
   end
 
   def create_notification

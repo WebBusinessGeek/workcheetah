@@ -1,5 +1,5 @@
 - if can? :manage, @job
-  = link_to 'Edit Job', edit_job_path(@job), class: "btn"
+  = link_to 'Edit Job', edit_job_path(@job), class: "btn" if @job.editable?
   = link_to 'Deactivate Job', job_path(@job), method: :delete, class: "btn btn-danger"
 - if current_user and current_user.account and current_user.account == @job.account and @job.invite_only?
   %p

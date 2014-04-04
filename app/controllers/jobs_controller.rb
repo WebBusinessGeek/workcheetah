@@ -50,7 +50,7 @@ class JobsController < ApplicationController
 
   def my
     authenticate_user!
-    @jobs = current_user.account.jobs
+    @jobs = Job.unscoped.where(account_id: current_user.account_id)
 
     respond_to do |format|
       format.html

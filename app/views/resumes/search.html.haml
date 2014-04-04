@@ -10,11 +10,11 @@
   .row{style: "margin-bottom:10px"}
     .col-md-offset-2
       .col-md-2
-        .lead
+        .lead= sort_link @search, :rating, "Rating"
       .col-md-2
-        .lead Name
+        .lead= "Name"
       .col-md-2
-        .lead Overview
+        .lead= "Overview"
   .row
     .col-md-2
       %ul.nav.nav-list

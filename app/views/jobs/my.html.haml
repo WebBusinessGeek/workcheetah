@@ -1,32 +1,37 @@
 .jobs_index.accounts_show
-	.container
-		.col-md-6
-			%h2 My Jobs
-			.alert.alert-info.alert-block
-				%button.close{"data-dismiss" => "alert", :type => "button"} &times;
-				Your dashboard helps you manage all your job posts and applicants in the cloud. You can click on your listings to view/edit/delete the descriptions at any time. You can follow the applicant links to view who's applying to your job listings.
-		%table.table
-			%tr
-				%th Position
-				%th Estimates Recieved
-				%th Applicants
-				%th Date Posted
-			- unless @jobs.empty?
-				- @jobs.each do |job|
-					%tr
-						%td
-							- if job.title.present?
-								= link_to job.title, job
-						%td
-							= link_to pluralize(job.recieved_estimates.sent.count, "Estimates"), for_job_estimates_path(job_id: job.id)
-						%td
-							= link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
-						%td= job.created_at.strftime("%m/%d/%Y")
-			- else
-				%tr
-					%td
-					%td
-						You have no posted jobs.
-						= link_to "Post a job", new_job_path
-					%td
-					%td
+  .container
+    .col-md-6
+      %h2 My Jobs
+      .alert.alert-info.alert-block
+        %button.close{"data-dismiss" => "alert", :type => "button"} &times;
+        Your dashboard helps you manage all your job posts and applicants in the cloud. You can click on your listings to view/edit/delete the descriptions at any time. You can follow the applicant links to view who's applying to your job listings.
+    %table.table
+      %tr
+        %th Position
+        %th Estimates Recieved
+        %th Applicants
+        %th Status
+        %th Date Posted
+      - unless @jobs.empty?
+        - @jobs.each do |job|
+          %tr
+            %td
+              - if job.title.present?
+                = link_to job.title, job
+            %td
+              = link_to pluralize(job.recieved_estimates.sent.count, "Estimates"), for_job_estimates_path(job_id: job.id)
+            %td
+              = link_to pluralize(job.job_applications_count, "Applicant"), [job, :job_applications]
+            %td
+              = job.active? ? "Active" : "Inactive"
+              = "and"
+              = job.invite_only? ? "Invite Only" : "Open to Public"
+            %td= job.created_at.strftime("%m/%d/%Y")
+      - else
+        %tr
+          %td
+          %td
+            You have no posted jobs.
+            = link_to "Post a job", new_job_path
+          %td
+          %td

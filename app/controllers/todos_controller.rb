@@ -31,6 +31,7 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
     @todo.update_attributes done: true if params["checked"] == "true"
     @todo.update_attributes done: false if params["checked"] == "false"
+    render nothing: true
   end
 
   private

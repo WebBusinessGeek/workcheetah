@@ -3,11 +3,14 @@ class JobApplicationsController < ApplicationController
   before_filter :authorize_user, except: [:index, :recieved, :show, :create, :new, :update, :apply_with_questionaire]
 
   def index
-    if !user_signed_in? || (!current_user.resume and current_user.account != @job.account)
-      return redirect_to new_resume_path, notice: "You have to have a resume to view that."
+    if params[:job_id]
+      @job = Job.unscoped.active.has_account.where(id: params[:job_id]).first
     end
 
     if @job
+      if !user_signed_in? || (!current_user.resume and current_user.account != @job.account)
+        return redirect_to new_resume_path, notice: "You have to have a resume to view that."
+      end
       @job_applications = @job.job_applications
     else
       @job_applications = current_user.job_applications
@@ -26,7 +29,7 @@ class JobApplicationsController < ApplicationController
     @job_application = JobApplication.find(params[:id])
     @resume = @job_application.user.resume
     if @resume == current_user.resume
-      redirect_to job_path(@job) and return
+      redirect_to job_path(@job_application.job_id) and return
     end
     if ['freelancer', 'business'].include? current_user.role?
       @available_jobs = Job.find(current_user.account.job_ids - @resume.invites.map(&:job_id))
@@ -109,7 +112,7 @@ class JobApplicationsController < ApplicationController
 
   def load_job
     if params[:job_id]
-      @job = Job.find(params[:job_id])
+      @job = Job.unscoped.active.has_account.where(id: params[:job_id]).first
     else
       @job = JobApplication.find(params[:id]).job
     end

@@ -86,6 +86,11 @@
                     %li
                       %h3 Feedback:
                       = reference.feedback
+                    %li
+                      - if reference.phone || reference.email
+                        %h3 Contact Info
+                        = "Phone: #{number_to_phone reference.phone}" if reference.phone.present?
+                        = " Email: #{reference.email}" if reference.email.present?
             - else
               .col-md-6.col-sm-6
                 No References provided

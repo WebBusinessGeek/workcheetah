@@ -10,13 +10,14 @@ class Estimate < ActiveRecord::Base
   belongs_to :sent_by, class_name: "Resume", foreign_key: "resume_id"
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
-  has_many :activities, as: :trackable, dependent: :destroy
+  has_many :activities, as: :trackable
   before_save :update_total
 
   accepts_nested_attributes_for :estimate_items, allow_destroy: true
   accepts_nested_attributes_for :estimate_items
 
   after_create :send_create_notifications
+  before_destroy :destroy_activities
 
   state_machine initial: :drafting do
     event :send_proposal do
@@ -126,6 +127,10 @@ class Estimate < ActiveRecord::Base
   end
 
   private
+    def destroy_activities
+      self.activities.destroy
+    end
+
     def update_total
       self.total = estimate_items.sum(&:total)
     end

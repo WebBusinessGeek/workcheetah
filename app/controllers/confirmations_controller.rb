@@ -13,10 +13,8 @@ class ConfirmationsController < ApplicationController
   end
 
   def new
-    @confirmation = Reference
-                      .find(params[:reference])
-                      .build_confirmation(
-                        email: params[:email])
+    @reference = Reference.find(params[:reference])
+    @confirmation = @reference.build_confirmation(email: @reference.email)
     respond_with @confirmation
   end
 

@@ -32,7 +32,7 @@
       - @recieved_estimates.each do |estimate|
         %tr
           %td.actions
-            = link_to "Review Job", job_path(estimate.job)
+            = link_to "Review Job", jobs_path(estimate.job)
             = link_to "Preview", estimate_path(estimate)
           %td.applicant
             = estimate.sent_by.name
@@ -52,7 +52,7 @@
       - @estimates.each do |estimate|
         %tr
           %td.actions
-            = link_to "Review Job", job_path(estimate.job)
+            = link_to "Review Job", jobs_path(estimate.job)
             = link_to "Preview", estimate_path(estimate)
             = link_to "Edit", edit_estimate_path(estimate)
             = link_to "Delete", estimate_path(estimate), method: :delete

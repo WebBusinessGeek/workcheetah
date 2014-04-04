@@ -4,7 +4,7 @@ class Reference < ActiveRecord::Base
   has_one :confirmation, as: :confirmable, dependent: :destroy
 
   attr_accessible :name, :job_title, :company, :phone, :email, :notes, :reference_type, :resume_id, :feedback
-
+  validates :email, presence: true
   def confirm!
     unless confirmed?
       update_column(:confirmed, true)

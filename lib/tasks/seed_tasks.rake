@@ -45,7 +45,7 @@ namespace :db do
        "fitness", "freelance work", "security", "skilled trade / craft",
        "software / qa / dba", "systems / network", "tech support",
        "transport", "tv / film / media", "web design",
-       "computer programming", "writing / editing", "ETC"].each do |c|
+       "computer programming", "writing / editing", "ETC", "military", "law enforcement"].each do |c|
           Category.create! name: c
         end
     end

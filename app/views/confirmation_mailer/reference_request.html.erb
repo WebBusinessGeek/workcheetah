@@ -2,9 +2,30 @@ Dear <%= @confirmation.confirmable.name %>
 
 <br />
 
-<p><%= @confirmation.message %></p>
+<p><%= @confirmation.confirmation_message %></p>
 
 <br />
+ <h1><%= @resume.name %></h1>
+ <h3><%= @resume.resume_type.humanize %>
+ <ul>
+   <% if @resume.addresses.any? %>
+     <li>
+       <h3> Location:</h3>
+       <%= @resume.addresses.first.city_state %>
+     </li>
+   <% end %>
+   <li>
+     <h3> Brief Description:</h3>
+  	 <% if @resume.schools.any? %>
+       <%= @resume.highest_merit_earned %>
+     <% end %>
+     <% if @resume.skills.any? %>
+       <h3>Services:</h3>
+       <%= @resume.skills.map(&:name)*", " %>
+     <% end %>
+   </li>
+ </ul>
+<p>
 The provided link will log you in automatically into the site to verfiy the requested reference.
 <% if Rails.env == "development" %>
   <%= link_to "Workcheetah.com", reference_confirmation_url(confirmation_token: @confirmation.confirmation_token) %>

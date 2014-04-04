@@ -56,7 +56,7 @@ class ResumesController < ApplicationController
       .where(id: params[:id]).first
     if user_signed_in?
       if ['freelancer', 'business'].include? current_user.role? and current_user.account.present?
-        @available_jobs = Job.find(current_user.account.job_ids - @resume.invites.map(&:job_id))
+        @available_jobs = Job.unscoped.where(account_id: current_user.account_id).active - Job.where(id: @resume.invites.map(&:job_id))
       end
     end
     render 'resumes/preview_resume'

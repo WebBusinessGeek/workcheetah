@@ -30,8 +30,7 @@ class Confirmation < ActiveRecord::Base
   end
 
   def confirmation_message
-    "#{confirm_for.name} has requested a reference confirmation. Please click the following link " +
-    "to complete the request. <a href='/confirmations/#{id}/reference'>Confirm</a>"
+    "#{confirm_for.name} has requested a reference confirmation. Below is a summary of their work profile."
   end
 
   handle_asynchronously :send_email

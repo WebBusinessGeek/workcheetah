@@ -13,12 +13,12 @@ class CategoriesController < ApplicationController
 
     if @category == 'all'
       @display_cat = 'All'
-      @jobs = Job.order('created_at').limit(8)
+      @jobs = Job.searchable.order('created_at').limit(8)
       @jobs = @jobs.search(@query) if @query
       @jobs = @jobs.remote? if @job_type == 'remote'
       @jobs = @jobs.not_remote? if @job_type == 'on-location'
     else
-      @jobs = Job.scoped
+      @jobs = Job.searchable
       @jobs = @jobs.cat_search(@category) if @category
       @jobs = @jobs.search(@query) if @query
       @jobs = @jobs.remote? if @job_type == 'remote'
