@@ -3,6 +3,7 @@
     -if @job && @job_application
       - if can? :manage, @job
         .col-md-4.col-sm-4.text-center
+          %a.btn.btn-viewall{:href => "#answerModal", :role => "button", "data-toggle" => "modal"} View Questionaire Responses
           %a.btn.btn-viewall{:href => "#myHire", :role => "button", "data-toggle" => "modal"} Hire
           %br/
           or

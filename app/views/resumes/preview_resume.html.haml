@@ -152,6 +152,20 @@
           test
 
 -if @job && @job_application
+  #answerModal.modal.fade
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{type:"button","data-dismiss" => "modal", "aria-hidden" => "true"}x
+          %h3 Questionaire
+        .modal-body
+          %p Below are the answers provided by the applicant
+          - @job.questions.each_with_index do |question, index|
+            %b= "Question #{index+1}" 
+            = question.text
+            %br/
+            = " - " + question.answers.where(user_id: @job_application.user_id).first.text
+            %br/
   #myHire.modal.fade
     .modal-dialog
       .modal-content
