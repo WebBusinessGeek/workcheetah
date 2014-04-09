@@ -2,13 +2,17 @@
   - if @resume.present?
     -if @job && @job_application
       - if can? :manage, @job
-        .col-md-4.col-sm-4.text-center
-          %a.btn.btn-viewall{:href => "#answerModal", :role => "button", "data-toggle" => "modal"} View Questionaire Responses
-          %a.btn.btn-viewall{:href => "#myHire", :role => "button", "data-toggle" => "modal"} Hire
-          %br/
-          or
-          = link_to "Not Interested", [:reject, @job, @job_application], class: "btn btn-viewall", method: :post
-          .helper-block Please pick one
+        - if @job.working?
+          .col-md-4.col-sm-4.text-center
+            %h3= @job.applicant_access.applicable.status.titleize
+        - else
+          .col-md-4.col-sm-4.text-center
+            %a.btn.btn-viewall{:href => "#answerModal", :role => "button", "data-toggle" => "modal"} View Questionaire Responses
+            %a.btn.btn-viewall{:href => "#myHire", :role => "button", "data-toggle" => "modal"} Hire
+            %br/
+            or
+            = link_to "Not Interested", [:reject, @job, @job_application], class: "btn btn-viewall", method: :post
+            .helper-block Please pick one
     - if ['freelancer','business'].include?(current_user.role?)
       - if current_user.account.present? and !current_user.account.jobs.empty?
         .col-md-4.col-sm-4.pull-right

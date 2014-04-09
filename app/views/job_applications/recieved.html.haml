@@ -1,5 +1,5 @@
 .container
-  %h2= "RecievedJob Applications"
+  %h2= "Recieved Job Applications"
   %br/
   %table.table
     %tr
@@ -9,7 +9,7 @@
       %th Status
     - @job_applications.each do |job_application|
       %tr
+        %td= link_to job_application.user.name, job_application 
         %td= job_application.job.account.name
-        %td= link_to job_application.user.name, job_application
         %td= job_application.created_at.strftime("%m/%d/%Y")
         %td= job_application.status

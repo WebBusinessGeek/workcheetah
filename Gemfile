@@ -75,6 +75,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
   gem 'quiet_assets'
+  gem "switch_user"
   gem 'thin'
   gem 'jazz_hands'
 end

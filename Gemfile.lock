@@ -405,6 +405,7 @@ GEM
       actionpack (~> 3.0)
       activemodel (~> 3.0)
       railties (~> 3.0)
+    switch_user (0.9.5)
     thin (1.6.1)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -513,6 +514,7 @@ DEPENDENCIES
   state_select
   stripe
   strong_parameters (>= 0.2.0)
+  switch_user
   thin
   uglifier (>= 1.0.3)
   unf

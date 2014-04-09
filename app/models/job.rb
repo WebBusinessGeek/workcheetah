@@ -87,7 +87,7 @@ class Job < ActiveRecord::Base
   end
 
   def working?
-    applicant_access?
+    applicant_access.present?
   end
 
   #stubbed for ratings for now

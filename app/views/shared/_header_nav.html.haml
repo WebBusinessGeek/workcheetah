@@ -9,6 +9,7 @@
     .navbar-collapse.collapse
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
+          = switch_user_select
           = render 'shared/sub_nav_header'
           %li{:class =>"divider-vertical"}
           -# %li.dropdown

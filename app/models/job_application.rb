@@ -44,9 +44,11 @@ class JobApplication < ActiveRecord::Base
     ids = job.job_application_ids - [id]
     JobApplication.update_all({status: "Declined"}, {id: ids}) unless ids.empty?
     #4 Send mass rejection mailer for performance benefit using ids
-    @project = Project.create! title: job.title, job: job, owner_id: job.account.owner.id
-    @project.users << @project.owner
-    @project.users << user
+    unless Project.where(title: job.title, job_id: job.id, owner_id: job.account.owner_id).first.present?
+      @project = Project.create! title: job.title, job: job, owner_id: job.account.owner.id
+      @project.users << @project.owner
+      @project.users << user
+    end
   end
 
   def reject!
