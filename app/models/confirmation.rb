@@ -51,7 +51,6 @@ class Confirmation < ActiveRecord::Base
         u.email = confirmable.email.downcase
         u.password = confirmation_token
         u.password_confirmation = confirmation_token
-        u.role = 'business'
       end
       puts user.inspect
       # user.confirm!

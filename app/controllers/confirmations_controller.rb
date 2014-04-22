@@ -5,11 +5,15 @@ class ConfirmationsController < ApplicationController
     @confirmation = Confirmation.find_by_confirmation_token(params[:confirmation_token])
     if @confirmation
       sign_in @confirmation.confirm_by, bypass: true
-      flash[:notice] = "Successfully signed up, please consider confirming requested references"
+      flash[:notice] = "Successfully signed up, please choose your role and update passwords"
     else
       flash[:notice] = "Confirmation link invalid"
     end
-    redirect_to root_path
+    if @confirmation.confirm_by.role.nil?
+      redirect_to edit_user_path
+    else
+      redirect_to root_path
+    end
   end
 
   def new

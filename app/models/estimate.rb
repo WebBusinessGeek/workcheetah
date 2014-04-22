@@ -128,6 +128,10 @@ class Estimate < ActiveRecord::Base
     sent_by.user
   end
 
+  def status
+    state
+  end
+
   private
     def destroy_activities
       self.activities.destroy

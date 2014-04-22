@@ -40,6 +40,6 @@ class ReferencesController < ApplicationController
 
   private
     def reference_params
-      params.require(:reference).permit(:email, :feedback, :note, :job_title, :company, :name, :reference_type )
+      params.require(:reference).permit(:email, :feedback, :notes, :phone, :job_title, :company, :name, :reference_type )
     end
 end

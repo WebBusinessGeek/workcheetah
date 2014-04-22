@@ -6,6 +6,10 @@
     .col-md-4
       = simple_form_for(@user, :url => { :action => "update" }, role: 'form' ) do |f|
         = f.input :email
+        - if @user.role.present?
+          %p.form-control-static= @user.role
+        - else
+          = f.select :role, ['freelancer','business','employee'], class: "form-control"
         = f.input :password, label: "New Password", :autocomplete => "off"
         = f.input :password_confirmation, label: "New Password Confirmation"
         Unhappy?
