@@ -3,6 +3,7 @@ class CategoriesController < ApplicationController
   before_filter :check_for_resume
 
   def index
+    #TODO: Refactor the shit out of this!
     @category_list = Category.scoped.order(:name)
     check_session
     if params[:job_type]
@@ -11,18 +12,26 @@ class CategoriesController < ApplicationController
       @job_type = 'all'
     end
 
+    if params[:yearly_compensation]
+      @yearly = params[:yearly_compensation]
+    else
+      @yearly = nil
+    end
+
     if @category == 'all'
       @display_cat = 'All'
       @jobs = Job.searchable.order('created_at').limit(8)
       @jobs = @jobs.search(@query) if @query
       @jobs = @jobs.remote? if @job_type == 'remote'
       @jobs = @jobs.not_remote? if @job_type == 'on-location'
+      @jobs = @jobs.by_compensation(@yearly) if @yearly
     else
       @jobs = Job.searchable
       @jobs = @jobs.cat_search(@category) if @category
       @jobs = @jobs.search(@query) if @query
       @jobs = @jobs.remote? if @job_type == 'remote'
       @jobs = @jobs.not_remote? if @job_type == 'on-location'
+      @jobs = @jobs.by_compensation(@yearly) if @yearly
       # @jobs = @jobs.near(human_readable_current_location, 50).includes(:account, :category).order("created_at DESC").page(params[:page]).per_page(8)
       @display_cat = Category.where(id: @category).pluck(:name).collect(&:humanize)*", "
     end

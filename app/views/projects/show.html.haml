@@ -10,10 +10,9 @@
       %p
         %h3 Project Participants
         %lead
-          - if @project.participants(current_user).empty?
-            #invite= render 'projects/invitational'
-          - else
-            = @project.participants(current_user).first.name
+          - @project.participants(current_user).each do |p|
+            = p.name
+          #invite= render 'projects/invitational'
     .col-md-4.pull-right
       = render 'time_manager'
   %hr/

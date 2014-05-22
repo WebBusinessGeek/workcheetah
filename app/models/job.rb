@@ -53,6 +53,7 @@ class Job < ActiveRecord::Base
   scope :working, -> {where("id IN (SELECT job_id FROM projects)")}
   scope :remote?, -> {where(job_type: 'outsource')}
   scope :not_remote?, -> {where(job_type: 'part-or-full-time')}
+  scope :by_compensation, ->(q) {where(yearly_compensation: q)}
   
   def self.text_search(query, location)
     if query.present?

@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     # Override accepted parameters
     devise_parameter_sanitizer.for(:accept_invitation) do |u|
-      u.permit(:password, :password_confirmation,
+      u.permit(:password, :password_confirmation, :role,
                :invitation_token)
     end
   end
